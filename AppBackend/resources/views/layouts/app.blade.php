@@ -1,6 +1,6 @@
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
-<html lang="en" data-layout="vertical" data-topbar="dark" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
+<html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -1712,6 +1712,6 @@
 
 
 
-</body>
+</bodyx-data=>
 
 </html>

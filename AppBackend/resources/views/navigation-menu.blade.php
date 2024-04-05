@@ -10,7 +10,6 @@
             </span>
             <span class="logo-lg">
                 {{-- <img src="{{ asset('assets/images/logofinal.png') }}" alt="" height="50" /> --}}
-
                 <h3 class=" fs-2 pt-3 pb-3 fw-bold">DOSSO</h3>
             </span>
         </a>
@@ -18,7 +17,7 @@
         <a href="{{route('dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
                 {{-- <img src="{{ asset('assets/images/faviconbtech.png') }}" alt="" height="30" /> --}}
-                <h3 class=" fs-3 pt-3 pb-3">D</h3>
+                <h3 class="fs-3 pt-3 pb-3">D</h3>
             </span>
             <span class="logo-lg">
                 {{-- <img src="{{ asset('assets/images/logofinal.png') }}" alt="" height="50" /> --}}
@@ -59,13 +58,13 @@
                     </div>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{route('dashboard')}}">
                         <i class="bx bxs-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{route('adminprofile')}}">
                         <i class="bx bxs-user-account"></i>
                         <span>My Profile</span>
                     </a>
@@ -933,7 +932,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{route('addcontestview')}}">
                         <i class="bx bxs-user-detail"></i>
                         <span>Add Contest</span>
                     </a>
@@ -945,7 +944,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{route('studentslist')}}">
                         <i class="bx bx-cog"></i>
                         <span>Students List</span>
                     </a>
@@ -971,7 +970,7 @@
                             <div class="col-lg-4">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="ui-alerts.html" class="nav-link" data-key="t-alerts">Create Vendor</a>
+                                        <a href="{{route('addvendorview')}}" class="nav-link" data-key="t-alerts">Create Vendor</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="ui-badges.html" class="nav-link" data-key="t-badges">Vendor Details</a>
