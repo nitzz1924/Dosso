@@ -1,7 +1,6 @@
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar-size="lg" data-sidebar="light"
-    data-sidebar-image="none" data-preloader="enable">
+<html lang="en" data-layout="vertical" data-topbar="dark" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -393,12 +392,12 @@
                             </button>
                         </div>
 
-                        {{-- <div class="ms-1 header-item d-none d-sm-flex">
+                        <div class="ms-1 header-item d-none d-sm-flex">
                             <button type="button"
                                 class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
                                 <i class="bx bx-moon fs-22"></i>
                             </button>
-                        </div> --}}
+                        </div>
 
                         <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
                             <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
