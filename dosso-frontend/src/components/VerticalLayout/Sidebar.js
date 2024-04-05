@@ -23,18 +23,23 @@ const Sidebar = props => {
           <Link to="/" className="logo logo-dark">
             <span className="logo-sm">
               <img src={logo} alt="" height="22" />
+              <div>Dosso</div>
             </span>
             <span className="logo-lg">
               <img src={logoDark} alt="" height="17" />
+              <div>Dosso</div>
+
             </span>
           </Link>
 
           <Link to="/" className="logo logo-light">
             <span className="logo-sm">
-              <img src={logoLightSvg} alt="" height="22" />
+              {/* <img src={logoLightSvg} alt="" height="22" /> */}
+            <h3 className="py-3">D</h3>
             </span>
             <span className="logo-lg">
-              <img src={logoLightPng} alt="" height="19" />
+              {/* <img src={logoLightPng} alt="" height="19" /> */}
+            <h3 className="py-3">Dosso21</h3>
             </span>
           </Link>
         </div>

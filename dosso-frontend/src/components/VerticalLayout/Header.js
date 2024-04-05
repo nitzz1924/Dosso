@@ -87,13 +87,14 @@ const Header = props => {
             <div className="navbar-brand-box d-lg-none d-md-block">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={logo} alt="" height="22" />
+                  {/* <img src={logo} alt="" height="22" /> */}
                 </span>
               </Link>
 
               <Link to="/" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src={logoLightSvg} alt="" height="22" />
+                  {/* <img src={logoLightSvg} alt="" height="22" /> */}
+                  <h3>D</h3>
                 </span>
               </Link>
             </div>
@@ -120,7 +121,7 @@ const Header = props => {
               </div>
             </form>
 
-            <Dropdown
+            {/* <Dropdown
               className="dropdown-mega d-none d-lg-block ms-2"
               isOpen={megaMenu}
               toggle={() => {
@@ -268,7 +269,7 @@ const Header = props => {
                   </Col>
                 </Row>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -310,9 +311,9 @@ const Header = props => {
               </div>
             </div>
 
-            <LanguageDropdown />
+            {/* <LanguageDropdown /> */}
 
-            <Dropdown
+            {/* <Dropdown
               className="d-none d-lg-inline-block ms-1"
               isOpen={socialDrp}
               toggle={() => {
@@ -370,9 +371,9 @@ const Header = props => {
                   </Row>
                 </div>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
 
-            <div className="dropdown d-none d-lg-inline-block ms-1">
+            {/* <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
                 type="button"
                 onClick={() => {
@@ -383,13 +384,13 @@ const Header = props => {
               >
                 <i className="bx bx-fullscreen" />
               </button>
-            </div>
+            </div> */}
 
-            <NotificationDropdown />
+            {/* <NotificationDropdown /> */}
             <ProfileMenu />
 
-            <div
-               onClick={() => {
+            {/* <div
+              onClick={() => {
                 props.showRightSidebarAction(!props.showRightSidebar);
               }}
               className="dropdown d-inline-block"
@@ -398,9 +399,9 @@ const Header = props => {
                 type="button"
                 className="btn header-item noti-icon right-bar-toggle "
               >
-                <i className="bx bx-cog bx-spin" />
+                <i className="bx bx-cog" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
