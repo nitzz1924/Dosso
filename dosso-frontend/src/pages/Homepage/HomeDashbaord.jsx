@@ -25,6 +25,7 @@ import Slidewithindicator from "./slidewithindicator";
 import CardWelcome from "./card-welcome";
 import OfferSlider from "./offerslider";
 import RewardGrid from "./RewardGrid";
+import Cardslider from "./cardslider";
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -81,6 +82,11 @@ const Home = props => {
                     <Row className="justify-content-center my-3">
                         <Col lg="6" className="p-0">
                             <RewardGrid />
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center my-3">
+                        <Col lg="6" className="p-0">
+                            <Cardslider title="Explore more"/>
                         </Col>
                     </Row>
                 </Container>

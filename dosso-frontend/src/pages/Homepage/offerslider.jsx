@@ -8,7 +8,9 @@ const OfferSlider = ({title}) => {
         <div className="offer-slider-container">
 
             <Row className="my-2">
-                <Col className="d-grid align-content-center"><div className="fs-5 fw-bold ">{title}</div></Col>
+                <Col className="d-grid align-content-center">
+                    <div className="fs-5 fw-bold ">{title}</div>
+                </Col>
                 {/* <Col><div className="fs-6 float-end border rounded-pill bg bg-danger-subtle py-2 px-3  border-danger-subtle text-white">Spin Remaining: 105</div></Col> */}
             </Row>
             <Flicking

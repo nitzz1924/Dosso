@@ -1,14 +1,7 @@
 import React from 'react';
 import { Card, CardBody, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-// import { jobVacancy } from "../../common/data";
 
-import airbnb from "../../assets/images/companies/airbnb.svg";
-import mailchimp from "../../assets/images/companies/mailchimp.svg";
-import reddit from "../../assets/images/companies/reddit.svg";
-import amzon from "../../assets/images/companies/amazon.svg";
-import adobPhotoshop from "../../assets/images/companies/adobe-photoshop.svg";
-import line from "../../assets/images/companies/line.svg";
 
 let rewardImg = "https://cdn-icons-png.flaticon.com/128/2282/2282531.png"
 let magicImg = "https://cdn-icons-png.flaticon.com/512/4338/4338712.png"
