@@ -330,7 +330,7 @@ const authProtectedRoutes = [
   {
     path: "/",
     exact: true,
-    component: < Navigate to="/dashboard" />,
+    component: < Navigate to="/home" />,
   },
 ];
 

@@ -1,10 +1,12 @@
 {
-  "name": "skote-react-hook",
-  "version": "2.0.0",
+  "name": "Dosso-21",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.4.0",
     "@ckeditor/ckeditor5-react": "^5.0.5",
+    "@egjs/flicking-plugins": "^4.7.1",
+    "@egjs/react-flicking": "^4.11.2",
     "@fullcalendar/bootstrap": "^5.11.2",
     "@fullcalendar/core": "^5.11.2",
     "@fullcalendar/daygrid": "^5.11.2",

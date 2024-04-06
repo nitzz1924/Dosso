@@ -1,0 +1,26 @@
+.carousel-inner {
+  height: 175px;
+  border-radius: 5px;
+}
+
+.card-img-overlay {
+  background-color: black;
+  opacity: 0.5;
+}
+
+.offer-slider-container {
+  width: 100%; /* Make the container full width */
+}
+
+.flicking-wrapper {
+  width: 100%; /* Make the Flicking component full width */
+}
+
+.slider-card {
+  width: 100%; /* Make each card full width */
+}
+
+.slider-card img {
+  width: 100%; /* Make each image inside the card full width */
+  height: auto; /* Automatically adjust the height based on the width */
+}
