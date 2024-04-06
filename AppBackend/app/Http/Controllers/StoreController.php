@@ -2,6 +2,7 @@
 #{{---------------------------------------------------🔱JAI SHREE MAHAKAAL🔱-----------------------------------------------------------------}}
 namespace App\Http\Controllers;
 
+use App\Models\AddShow;
 use App\Models\AdminVendors;
 use Illuminate\Http\Request;
 use App\Models\AddContest;
@@ -79,6 +80,38 @@ class StoreController extends Controller
         }catch(\Exception $c){
             //  return redirect()->route('addvendorview')->with('error', $c->getMessage());
             return redirect()->route('addvendorview')->with('error', 'Not Created Try Again...');
+        }
+    }
+
+    public function createadshow(Request $req)
+    {
+        // dd($req->all());
+        try{
+            $req->validate([
+                'adstitle' => 'required',
+                'displayshow' => 'required',
+                'mediatype' => 'required',
+            ]);
+            //Image Upload
+            $imagePath = null;
+            if ($req->hasFile('addimage')) {
+                $image = $req->file('addimage');
+                $imagePath = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads'), $imagePath);
+            }
+            AddShow::create([
+                'adstitle' => $req->adstitle,
+                'addimage' => $imagePath,
+                'displayshow' => $req->displayshow,
+                // 'url' => $req->url,
+                'redirectlink' => $req->redirectlink,
+                'mediatype' => $req->mediatype,
+                'videourl' => $req->videourl,
+            ]);
+            return redirect()->route('adshowview')->with('success', 'Add Show Created..!!');
+        }catch(\Exception $c){
+            // return redirect()->route('adshowview')->with('error', $c->getMessage());
+            return redirect()->route('adshowview')->with('error', 'Not Created Try Again...');
         }
     }
 }

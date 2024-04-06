@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AddContest;
+use App\Models\AddShow;
 use App\Models\AdminVendors;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,21 @@ class ViewController extends Controller
     {
         $vendordata = AdminVendors::get();
         return view('VendorsAdmin.createvendor',compact('vendordata'));
+    }
+    public function adshowview()
+    {
+        $addshowdata = AddShow::get();
+        return view('Others.adshow',compact('addshowdata'));
+    }
+
+    //Vendor Panel
+    public function vendordashboardview()
+    {
+        return view('layouts.VendorPanel.vendordashboard');
+    }
+
+    public function vendorloginview()
+    {
+        return view('auth.VendorAuth.vendorlogin');
     }
 }

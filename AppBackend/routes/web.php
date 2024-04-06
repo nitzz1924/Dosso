@@ -3,6 +3,7 @@
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
+use App\Http\Controllers\AuthenticationController;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 //Admin Panel Routes
@@ -28,9 +29,23 @@ Route::get('/adminprofile',[ViewController::class,'adminprofile'])->name('adminp
 Route::get('/addcontestview',[ViewController::class,'addcontestview'])->name('addcontestview');
 Route::get('/studentslist',[ViewController::class,'studentslist'])->name('studentslist');
 Route::get('/addvendorview',[ViewController::class,'addvendorview'])->name('addvendorview');
+Route::get('/adshowview',[ViewController::class,'adshowview'])->name('adshowview');
+Route::get('/vendorloginview',[ViewController::class,'vendorloginview'])->name('vendorloginview');
+Route::get('/vendordashboardview',[ViewController::class,'vendordashboardview'])->name('vendordashboardview');
 
 
 //Store Routes
 Route::post('/createcontest',[StoreController::class,'createcontest'])->name('createcontest');
 Route::post('/createvendor',[StoreController::class,'createvendor'])->name('createvendor');
+Route::post('/createadshow',[StoreController::class,'createadshow'])->name('createadshow');
+
+
+//Authentication Routes
+Route::post('/loginvendor', [AuthenticationController::class, 'loginvendor'])->name('loginvendor');
+Route::get('/logoutvendor', [AuthenticationController::class, 'logoutvendor'])->name('logoutvendor');
+
+
+
+
+
 

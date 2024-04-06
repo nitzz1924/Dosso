@@ -772,14 +772,14 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <h6 class="dropdown-header">Welcome Admin!</h6>
-                                <a class="dropdown-item" href="{{ route('adminprofile') }}"><i
+                                <a class="dropdown-item" href="#"><i
                                         class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">Profile</span></a>
                                 <a class="dropdown-item" href="#"><i
                                         class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">Help</span></a>
                                 <div class="dropdown-divider"></div>
-                                <form method="POST" action="{{ url('/logout') }}">
+                                <form method="GET" action="{{route('logoutvendor')}}">
                                     @csrf
                                     <button type="submit" class="dropdown-item" href=""><i
                                             class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
@@ -826,11 +826,11 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-        @include('navigation-menu')
+        @include('layouts.vendorpanel.vendor-panel-navigation')
         <div class="main-content">
             <div class="page-content">
 
-                {{ $slot }}
+                @yield('content')
 
             </div>
 
