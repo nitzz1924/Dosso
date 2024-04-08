@@ -37,7 +37,7 @@
                         <p class="mb-0 text-muted">&copy;
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> DOSSO. developed by Nitesh
+                            </script> DOSSO21. developed by Nitesh
                         </p>
                     </div>
                 </div>

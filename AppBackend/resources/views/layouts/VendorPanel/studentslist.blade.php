@@ -1,5 +1,6 @@
-{{-- -------------------------------------------------🔱HAR HAR MAHADEV🔱--------------------------------------------------------------- --}}
-<x-app-layout>
+{{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
+@extends('layouts.VendorPanel.vendor')
+@section('content')
     <div class="container-fluid">
         <!-- start page title -->
         <div class="row">
@@ -44,7 +45,8 @@
                                     <td>Dummy</td>
                                     <td>dummy_123</td>
                                     <td>
-                                        <img class="rounded-pill" src="{{ asset('assets/images/user-dummy-img.jpg') }}" alt="" width="50px" height="50px">
+                                        <img class="rounded-pill" src="{{ asset('assets/images/user-dummy-img.jpg') }}"
+                                            alt="" width="50px" height="50px">
                                     </td>
                                     <td>1234567890</td>
                                     <td>john.doe@example.com</td>
@@ -56,7 +58,7 @@
                                         <span class="badge rounded-pill bg-success-subtle text-success">Success</span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-soft-dark waves-effect waves-light btn-sm" id="">Dectivate</button>
+                                        <button class="btn btn-success btn-border btn-sm" id="">Dectivate</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -66,22 +68,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("sa-warningid").addEventListener("click", function() {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You want to delete this Vehicle..?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                    cancelButtonClass: "btn btn-danger w-xs mt-2",
-                    confirmButtonText: '<a href="#" class="text-white">Yes, delete it!</a>',
-                    buttonsStyling: false,
-                    showCloseButton: true,
-                });
-            });
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-</x-app-layout>
+@endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AddShow;
 use App\Models\AdminVendors;
+use App\Models\CreateRound;
 use Illuminate\Http\Request;
 use App\Models\AddContest;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ class StoreController extends Controller
 {
     public function createcontest(Request $req)
     {
-        // dd($req->all());
+        //dd($req->all());
         try{
             $req->validate([
                 'title' => 'required',
@@ -112,6 +113,24 @@ class StoreController extends Controller
         }catch(\Exception $c){
             // return redirect()->route('adshowview')->with('error', $c->getMessage());
             return redirect()->route('adshowview')->with('error', 'Not Created Try Again...');
+        }
+    }
+
+    public function createround(Request $req)
+    {
+         //dd($req->all());
+         try{
+            CreateRound::create([
+                'contestid' => $req->contestid,
+                'roundstage' => $req->roundstage,
+                'totalspins' => $req->totalspins,
+                'winners' => $req->winners,
+                // 'wonby' => $req->wonby,
+            ]);
+            return back();
+        }catch(\Exception $r){
+            //return redirect()->route('addcontestview')->with('error', $r->getMessage());
+            return back();
         }
     }
 }

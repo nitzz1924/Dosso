@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'DOSSO') }}</title>
+    <title>{{ config('app.name', 'DOSSO21') }}</title>
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}" />
@@ -762,17 +762,24 @@
                                 <span class="d-flex align-items-center">
                                     <img class="rounded-circle header-profile-user"
                                         src="{{ asset('assets/images/defaultuser.png') }}" alt="Header Avatar" />
-                                    <span class="text-start ms-xl-2">
-                                        <span
-                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Admin</span>
-                                        <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
-                                    </span>
+                                        <span class="text-start ms-xl-2">
+                                            @if (Auth::guard('vendors')->check())
+                                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                                    {{ Auth::guard('vendors')->user()->vendorname }}
+                                                </span>
+                                            @else
+                                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                                    Guest User
+                                                </span>
+                                            @endif
+                                        </span>
+
                                 </span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <h6 class="dropdown-header">Welcome Admin!</h6>
-                                <a class="dropdown-item" href="#"><i
+                                <h6 class="dropdown-header">Welcome  {{ Auth::guard('vendors')->user()->vendorname }}</h6>
+                                <a class="dropdown-item" href="{{route('vendorprofile')}}"><i
                                         class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">Profile</span></a>
                                 <a class="dropdown-item" href="#"><i

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">DOSSO</h4>
+                    <h4 class="mb-sm-0">DOSSO21</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Add Contest</a></li>
@@ -17,7 +17,6 @@
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -48,7 +47,7 @@
                                         <div>
                                             <label for="placeholderInput" class="form-label">Title</label>
                                             <input type="text" class="form-control" id=""
-                                                placeholder="enter label" name="title">
+                                                placeholder="enter title" name="title">
                                             {{-- @error('title')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror --}}
@@ -71,29 +70,37 @@
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Round</label>
-                                            <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter value" name="totalround">
+                                            <select class="form-select" id="type" name="totalround" required>
+                                                <option value="default" selected>Choose...</option>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Completed Round</label>
                                             <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter value" name="completedround">
+                                                placeholder="enter completed rounds" name="completedround">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Price</label>
                                             <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter value" name="totalprice">
+                                                placeholder="enter total price" name="totalprice">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Spin</label>
-                                            <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter value" name="totalspin">
+                                            <select class="form-select" id="type" name="totalspin" required>
+                                                <option value="default" selected>Choose...</option>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -107,7 +114,7 @@
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Member Joined</label>
                                             <input type="text" class="form-control" id="image"
-                                                placeholder="enter color" name="joinmembers">
+                                                placeholder="enter total member joined" name="joinmembers">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -130,7 +137,7 @@
                     <div class="card-body table-responsive">
                         <table class="table table-nowrap table-bordered">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="col">ID</th>
                                     <th scope="col">Thumbnail</th>
                                     <th scope="col">Title</th>
@@ -174,61 +181,38 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-success btn-border btn-sm" id="btnid{{ $row->id }}"
-                                                onclick="state('{{ $row->id }}')">Dectivate</button>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <button
+                                                    class="btn btn-soft-dark waves-effect waves-light btn-sm"id="btnid{{ $row->id }}"
+                                                    onclick="state('{{ $row->id }}')">Dectivate</button>
+                                                <button type="button" data-bs-toggle="modal"
+                                                    data-record-id="{{ json_encode($row) }}"
+                                                    data-bs-target="#showmasteredit"
+                                                    class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
+                                                        class="bx bx-plus"></i>Create Round</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- /deletemastercat/{{ $row->id }}/masterpage --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="showmasteredit" class="modal fadeInRight" tabindex="-1" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-lg">
+    <div id="showmasteredit" class="modal zoomIn" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 overflow-hidden">
                 <div class="modal-header p-3 text-center">
-                    <h4 class="card-title mb-0 ">BTech Mart</h4>
+                    <h4 class="card-title mb-0 ">Create Round</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="alert alert-success  rounded-0 mb-0">
-                    <p class="mb-0 text-center">Edit Category</p>
+                <div class="modal-body" id="modalbody">
+
                 </div>
-                <div class="modal-body">
-                    <form action="javascript:void(0);">
-                        <div class="row  g-3 align-items-center">
-                            <div class="col-sm-4">
-                                <div>
-                                    <label for="placeholderInput" class="form-label">Label</label>
-                                    <input type="text" class="form-control" id=""
-                                        placeholder="enter label" name="label">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div>
-                                    <label for="placeholderInput" class="form-label">Value</label>
-                                    <input type="text" class="form-control" id="valueval"
-                                        placeholder="enter value" name="value" value="">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div>
-                                    <label for="placeholderInput" class="form-label">Upload Image</label>
-                                    <input type="file" class="form-control" id="image"
-                                        placeholder="enter color" name="image">
-                                </div>
-                            </div>
-                            <div class="col-auto text-center w-100">
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+            </div>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -263,5 +247,165 @@
             $('#dangerAlert').fadeOut('slow');
         }, 2000);
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.recordidbtn').on('click', function() {
+                var recordId = $(this).data('record-id');
+                console.log(recordId.id);
+                $('#modalbody').empty();
+                var modal = `
+        <form id="createRoundForm" action="" method="POST">
+            @csrf
+                <div class="row g-3 align-items-center">
+                    <div class="col-sm-12">
+                        <div>
+                            <label for="placeholderInput" class="form-label">Round Stage</label>
+                            <select class="form-select" id="type" name="roundstage" required>
+                                <option value="" disabled selected>Choose...</option>
+                                @for ($i = 1; $i <= 3; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <input type="hidden" name="contestid" value="` + recordId.id + `">
+                    </div>
+                    <div class="col-sm-12">
+                        <div>
+                            <label for="placeholderInput" class="form-label">Spins</label>
+                            <select class="form-select" id="type" name="totalspins" required>
+                                <option value="" disabled selected>Choose...</option>
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div>
+                            <label for="placeholderInput" class="form-label">Winners</label>
+                            <input type="text" class="form-control" id="image"
+                                placeholder="enter winners" name="winners" required>
+                        </div>
+                    </div>
+                    <div class="col-auto text-center w-100">
+                        <button id="sa-warning" class="btn btn-soft-success waves-effect waves-light sa-warning-btn">Create</button>
+                    </div>
+                </div>
+            </form>
+        `
+                $('#modalbody').append(modal);
+            });
+        });
+        $(document).on('submit', '#createRoundForm', function(event) {
+            event.preventDefault();
+
+
+            var isValid = true;
+            $(this).find('[required]').each(function() {
+                if ($(this).val() === '') {
+                    isValid = false;
+                    return false;
+                }
+            });
+
+
+            if (!isValid) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Please fill out all required fields.",
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                    buttonsStyling: false,
+                    showCloseButton: true,
+                });
+                return;
+            }
+            var formData = $(this).serialize();
+            $.ajax({
+                url: "{{ route('createround') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Your data has been successfully submitted.",
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                        buttonsStyling: false,
+                        showCloseButton: true,
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There was an error submitting your data. Please try again.",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                        buttonsStyling: false,
+                        showCloseButton: true,
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('submit', '#createRoundForm', function(event) {
+                    event.preventDefault();
+
+                    // Check for empty required fields
+                    var isValid = true;
+                    $(this).find('[required]').each(function() {
+                            if ($(this).val().trim() === '') {
+                                isValid = false;
+                                return false;
+                            });
+
+                        if (!isValid) {
+                            // Show error message if any required field is empty
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Please fill out all required fields.",
+                                icon: "error",
+                                showCancelButton: false,
+                                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                                buttonsStyling: false,
+                                showCloseButton: true,
+                            });
+                            return;
+                        }
+
+                        var formData = $(this).serialize(); $.ajax({
+                            url: "{{ route('createround') }}",
+                            type: "POST",
+                            data: formData,
+                            success: function(response) {
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: "Your data has been successfully submitted.",
+                                    icon: "success",
+                                    showCancelButton: false,
+                                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                                    buttonsStyling: false,
+                                    showCloseButton: true,
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "There was an error submitting your data. Please try again.",
+                                    icon: "error",
+                                    showCancelButton: false,
+                                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
+                                    buttonsStyling: false,
+                                    showCloseButton: true,
+                                });
+                            }
+                        });
+                    });
+    </script>
 </x-app-layout>

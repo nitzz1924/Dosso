@@ -47,4 +47,12 @@ class ViewController extends Controller
     {
         return view('auth.VendorAuth.vendorlogin');
     }
+    public function vendorprofile()
+    {
+        return view('layouts.VendorPanel.vendorprofile');
+    }
+    public function studentslistvendor()
+    {
+        return view('layouts.VendorPanel.studentslist');
+    }
 }
