@@ -1,17 +1,22 @@
-import React from "react"
+import React from "react";
 import { Row, Col, Card, Button } from "reactstrap"
 
 //Import Images
 let wheelImg = "/assets/images/fortune-wheel.png"
 
-function CardWelcome({title}) {
+function CardWelcome({ title }) {
   return (
     <React.Fragment>
       <Col xl="12">
         <Row className="my-2">
           <Col className="d-grid align-content-center">
-          <div className="fs-5 fw-bold ">{title}</div></Col>
-          <Col><div className="fs-6 float-end border rounded-pill bg bg-danger-subtle py-2 px-3  border-danger-subtle text-white">Spin Remaining: 105</div></Col>
+            <div className="fs-5 fw-bold text-white">{title}</div>
+          </Col>
+          <Col>
+            <div className="fs-6 float-end rounded-pill border text-danger py-2 px-3 text-white">
+              Spin Remaining: 7
+            </div>
+          </Col>
         </Row>
         <Card className="bg-gradient">
           <div>

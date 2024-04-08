@@ -174,16 +174,30 @@ import Pages500 from "../pages/Utility/pages-500";
 import ContactsGrid from "../pages/Contacts/contacts-grid";
 import ContactsList from "../pages/Contacts/ContactList/contacts-list";
 import ContactsProfile from "../pages/Contacts/ContactsProfile/contacts-profile";
-import Home from "pages/Homepage/HomeDashbaord";
+
+// App Routes
+import Home from "pages/HomePage/HomeDashbaord";
+import Contests from "pages/ContestPage/Contests";
+import Rounds from "pages/ContestPage/Rounds";
+import Spingame from "pages/ContestPage/GamePage/Spingame";
+import History from "pages/ContestPage/History";
+
 
 const authProtectedRoutes = [
+  { path: "/home", component: <Home /> },
+  { path: "/contests", component: <Contests /> },
+  { path: "/rounds", component: <Rounds /> },
+  { path: "/spingame", component: <Spingame /> },
+  { path: "/history", component: <History /> },
+
+
+  
   { path: "/dashboard", component: <Dashboard /> },
   { path: "/dashboard-saas", component: <DashboardSaas /> },
   { path: "/dashboard-crypto", component: <DashboardCrypto /> },
   { path: "/blog", component: <Blog /> },
   { path: "/dashboard-job", component: <DashboardJob /> },
 
-  { path: "/home", component: <Home /> },
 
   //Crypto
   { path: "/crypto-wallet", component: <CryptoWallet /> },

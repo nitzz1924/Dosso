@@ -147,11 +147,47 @@ const SidebarContent = props => {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">{props.t("Menu")} </li>
             <li>
-                <Link to="/home">
-                  <i className="bx bx-home-circle"></i>
-                  <span>{props.t("Home")}</span>
-                </Link>
+              <Link to="/home">
+                <i className="bx bx-home-circle"></i>
+                <span>{props.t("Home")}</span>
+              </Link>
             </li>
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-joystick"></i>
+                <span>{props.t("Contests")}</span>
+              </Link>
+
+              <ul className="sub-menu">
+                <li>
+
+                  <Link to="/contests">
+                    <i className="bx bxs-school"></i>
+                    <span>{props.t("Contests List")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/rounds">
+                    <i className="bx bx-list-ul"></i>
+                    <span>{props.t("Rounds")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/spingame">
+                    <i className="bx bx-send"></i>
+                    <span>{props.t("Spin")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/history">
+                    <i className="bx bx-history"></i>
+                    <span>{props.t("History")}</span>
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-home-circle"></i>
