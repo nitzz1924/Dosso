@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Card, Button } from "reactstrap"
 
 //Import Images
@@ -26,7 +27,9 @@ function CardWelcome({ title }) {
                   <h1 className="text-warning">Spin To Win</h1>
                   <h6>Earn Many Scholarships</h6>
                   <div>
-                    <Button className="btn btn-soft-warning waves-effect waves-light btn-secondary fw-bold"> Play Now</Button>
+                    <Link to="/contests" >
+                      <Button className="btn btn-soft-warning waves-effect waves-light btn-secondary fw-bold"> Play Now</Button>
+                    </Link>
                   </div>
                 </div>
 

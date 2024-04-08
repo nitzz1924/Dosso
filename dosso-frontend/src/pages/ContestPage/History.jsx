@@ -131,7 +131,7 @@ const History = () => {
                                                         Winner: {item.winner}
                                                     </div>
                                                 </div>
-                                                <Link to="/rounds" className="">
+                                                <Link to="/" className="">
                                                     <div className="btn btn-outline-info">
                                                         Leaderboard
                                                     </div>
