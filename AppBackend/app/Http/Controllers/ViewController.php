@@ -6,6 +6,7 @@ use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
 use Illuminate\Http\Request;
+use Auth;
 
 class ViewController extends Controller
 {
@@ -20,7 +21,7 @@ class ViewController extends Controller
     public function addcontestview()
     {
         $contestdata = AddContest::get();
-        return view('Others.addcontest',compact('contestdata'));
+        return view('Others.addcontest', compact('contestdata'));
     }
     public function studentslist()
     {
@@ -29,18 +30,22 @@ class ViewController extends Controller
     public function addvendorview()
     {
         $vendordata = AdminVendors::get();
-        return view('VendorsAdmin.createvendor',compact('vendordata'));
+        return view('VendorsAdmin.createvendor', compact('vendordata'));
     }
     public function adshowview()
     {
         $addshowdata = AddShow::get();
-        return view('Others.adshow',compact('addshowdata'));
+        return view('Others.adshow', compact('addshowdata'));
     }
 
     //Vendor Panel
     public function vendordashboardview()
     {
-        return view('layouts.VendorPanel.vendordashboard');
+        if (Auth::guard('vendors')->check()) {   //
+            return view('layouts.VendorPanel.vendordashboard');
+        } else {
+            return redirect()->route('vendorloginview');
+        }
     }
 
     public function vendorloginview()
@@ -49,10 +54,18 @@ class ViewController extends Controller
     }
     public function vendorprofile()
     {
-        return view('layouts.VendorPanel.vendorprofile');
+        if (Auth::guard('vendors')->check()) {
+            return view('layouts.VendorPanel.vendorprofile');
+        } else {
+            return redirect()->route('vendorloginview');
+        }
     }
     public function studentslistvendor()
     {
-        return view('layouts.VendorPanel.studentslist');
+        if (Auth::guard('vendors')->check()) {
+            return view('layouts.VendorPanel.studentslist');
+        } else {
+            return redirect()->route('vendorloginview');
+        }
     }
 }

@@ -25,7 +25,7 @@
                         <div>
                             <h3 class=" fs-2 pt-3 pb-3 fw-bold text-white">DOSSO21</h3>
                         </div>
-                        <p class="mt-3 fs-15 fw-medium">Vendor Login</p>
+                        <p class="mt-3 fs-15 fw-medium text-white">Vendor Login</p>
                     </div>
                 </div>
             </div>

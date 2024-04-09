@@ -9,12 +9,13 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Admin Panel Routes
 Route::get('/', function () {
-    return view('welcome'); });
+    return view('welcome');
+});
 
 Route::post('/logoutuser', function () {
-        Auth::logout();
-        return redirect()->route('login');
-    })->name('logoutuser');
+    Auth::logout();
+    return redirect()->route('login');
+})->name('logoutuser');
 
 Route::middleware([
     'auth:sanctum',
@@ -43,16 +44,13 @@ Route::post('/createround', [StoreController::class, 'createround'])->name('crea
 
 
 
-
 //Authentication Routes
 Route::post('/loginvendor', [AuthenticationController::class, 'loginvendor'])->name('loginvendor');
 Route::get('/logoutvendor', [AuthenticationController::class, 'logoutvendor'])->name('logoutvendor');
 
 
 
-// Vendor Panel View Routes
 Route::get('/vendorloginview', [ViewController::class, 'vendorloginview'])->name('vendorloginview');
 Route::get('/vendordashboardview', [ViewController::class, 'vendordashboardview'])->name('vendordashboardview');
 Route::get('/vendorprofile', [ViewController::class, 'vendorprofile'])->name('vendorprofile');
 Route::get('/studentslistvendor', [ViewController::class, 'studentslistvendor'])->name('studentslistvendor');
-

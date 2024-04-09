@@ -779,20 +779,21 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <h6 class="dropdown-header">Welcome Admin<h6>
-                                <a class="dropdown-item" href="{{ route('adminprofile') }}"><i
-                                        class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
-                                    <span class="align-middle">Profile</span></a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
-                                    <span class="align-middle">Help</span></a>
-                                <div class="dropdown-divider"></div>
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logoutuser') }}" x-data>
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">
-                                        <span class="mdi mdi-logout text-muted fs-16 align-middle me-1">{{ __('Log Out') }}</span>
-                                    </button>
-                                </form>
+                                        <a class="dropdown-item" href="{{ route('adminprofile') }}"><i
+                                                class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
+                                            <span class="align-middle">Profile</span></a>
+                                        <a class="dropdown-item" href="#"><i
+                                                class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
+                                            <span class="align-middle">Help</span></a>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- Authentication -->
+                                        <form method="POST" action="{{ route('logoutuser') }}" x-data>
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                <span
+                                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1">{{ __('Log Out') }}</span>
+                                            </button>
+                                        </form>
 
                             </div>
                         </div>
