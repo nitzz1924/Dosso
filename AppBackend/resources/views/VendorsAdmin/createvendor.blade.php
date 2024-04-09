@@ -138,7 +138,8 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-success btn-border btn-sm" id="btnid{{ $row->id }}"
+                                            <button class="btn btn-success btn-border btn-sm"
+                                                id="btnid{{ $row->id }}"
                                                 onclick="state('{{ $row->id }}')">Dectivate</button>
                                         </td>
                                     </tr>

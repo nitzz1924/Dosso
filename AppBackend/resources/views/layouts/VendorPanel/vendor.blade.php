@@ -1,6 +1,7 @@
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
-<html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark" data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
+<html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark"
+    data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -574,7 +575,7 @@
                                                         </div>
                                                         <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
                                                             <span><i class="mdi mdi-clock-outline"></i> 4 hrs
-                                                                ago</span>
+                                                                 ago</span>
                                                         </p>
                                                     </div>
                                                     <div class="px-2 fs-15">
@@ -762,31 +763,32 @@
                                 <span class="d-flex align-items-center">
                                     <img class="rounded-circle header-profile-user"
                                         src="{{ asset('assets/images/defaultuser.png') }}" alt="Header Avatar" />
-                                        <span class="text-start ms-xl-2">
-                                            @if (Auth::guard('vendors')->check())
-                                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                                                    {{ Auth::guard('vendors')->user()->vendorname }}
-                                                </span>
-                                            @else
-                                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                                                    Guest User
-                                                </span>
-                                            @endif
-                                        </span>
+                                    <span class="text-start ms-xl-2">
+                                        @if (Auth::guard('vendors')->check())
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                                {{ Auth::guard('vendors')->user()->vendorname }}
+                                            </span>
+                                        @else
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                                Guest User
+                                            </span>
+                                        @endif
+                                    </span>
 
                                 </span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <h6 class="dropdown-header">Welcome  {{ Auth::guard('vendors')->user()->vendorname }}</h6>
-                                <a class="dropdown-item" href="{{route('vendorprofile')}}"><i
+                                <h6 class="dropdown-header">Welcome {{ Auth::guard('vendors')->user()->vendorname }}
+                                </h6>
+                                <a class="dropdown-item" href="{{ route('vendorprofile') }}"><i
                                         class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">Profile</span></a>
                                 <a class="dropdown-item" href="#"><i
                                         class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">Help</span></a>
                                 <div class="dropdown-divider"></div>
-                                <form method="GET" action="{{route('logoutvendor')}}">
+                                <form method="GET" action="{{ route('logoutvendor') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item" href=""><i
                                             class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
@@ -1702,7 +1704,7 @@
 
     <!-- Vector map-->
     <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
-    <script src="{{asset('assets/libs/jsvectormap/maps/world-merc.js')}}"></script>
+    <script src="{{ asset('assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
 
     <!--Swiper slider js-->
     <script src="{{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
