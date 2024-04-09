@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2024 at 03:14 PM
+-- Generation Time: Apr 09, 2024 at 07:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,39 @@ CREATE TABLE `add_contests` (
 
 INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `totalround`, `completedround`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'dummy', '2024-04-15', '2024-04-24', '00', '00', '00', '00', '1712301170.jpg', '00', '0', '2024-04-05 01:42:50', '2024-04-05 07:28:09'),
-(2, 'dummy2', '2024-05-02', '2024-04-26', '00', '12', '21', '21', '1712303273.jpg', '33', '0', '2024-04-05 02:17:53', '2024-04-05 02:17:53');
+(2, 'dummy2', '2024-05-02', '2024-04-26', '00', '12', '21', '21', '1712303273.jpg', '33', '0', '2024-04-05 02:17:53', '2024-04-05 02:17:53'),
+(3, 'dummy 23', '2024-04-17', '2024-04-20', '3', '14', '215', '2', '1712561465.jpg', '36', '0', '2024-04-08 02:01:05', '2024-04-08 02:01:05'),
+(4, 'dgdfghfd', '2024-04-24', '2024-04-16', '5', '56', '400', '7', '1712580510.jpg', '62', '0', '2024-04-08 07:18:30', '2024-04-08 07:18:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `add_shows`
+--
+
+CREATE TABLE `add_shows` (
+  `id` int(11) NOT NULL,
+  `adstitle` varchar(255) NOT NULL,
+  `displayshow` varchar(255) NOT NULL,
+  `url` text NOT NULL DEFAULT '0',
+  `redirectlink` text NOT NULL,
+  `mediatype` varchar(255) NOT NULL,
+  `addimage` text DEFAULT NULL,
+  `videourl` text NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `add_shows`
+--
+
+INSERT INTO `add_shows` (`id`, `adstitle`, `displayshow`, `url`, `redirectlink`, `mediatype`, `addimage`, `videourl`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'dummy title', 'home', '0', 'https://optireachdigital.in/', 'image', '1712389148.jpg', '0', '0', '2024-04-06 02:09:08', '2024-04-06 02:09:08'),
+(2, 'dummy title 2', 'about', '0', 'www.google.com', 'video', NULL, 'https://www.youtube.com/watch?v=XtFI7SNtVpY', '1', '2024-04-06 02:26:47', '2024-04-06 07:57:06'),
+(3, 'dummy title 3', 'about', '0', 'https://optireachdigital.in/', 'image', '1712390341.jpg', '0', '0', '2024-04-06 02:29:01', '2024-04-06 02:29:01'),
+(4, 'dummy title 4', 'listings', '0', 'www.google.com', 'video', NULL, 'https://www.youtube.com/watch?v=XtFI7SNtVpY', '0', '2024-04-06 02:46:08', '2024-04-06 02:46:08');
 
 -- --------------------------------------------------------
 
@@ -97,10 +129,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('b88be67d57e9aca0343f67fc52eda0ec', 'i:1;', 1712292920),
-('b88be67d57e9aca0343f67fc52eda0ec:timer', 'i:1712292920;', 1712292920),
-('c525a5357e97fef8d3db25841c86da1a', 'i:1;', 1712321063),
-('c525a5357e97fef8d3db25841c86da1a:timer', 'i:1712321063;', 1712321063);
+('b88be67d57e9aca0343f67fc52eda0ec', 'i:1;', 1712637994),
+('b88be67d57e9aca0343f67fc52eda0ec:timer', 'i:1712637994;', 1712637994);
 
 -- --------------------------------------------------------
 
@@ -113,6 +143,31 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `create_rounds`
+--
+
+CREATE TABLE `create_rounds` (
+  `id` int(11) NOT NULL,
+  `contestid` varchar(255) NOT NULL,
+  `roundstage` varchar(255) NOT NULL,
+  `totalspins` varchar(255) NOT NULL,
+  `winners` varchar(255) NOT NULL,
+  `wonby` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `create_rounds`
+--
+
+INSERT INTO `create_rounds` (`id`, `contestid`, `roundstage`, `totalspins`, `winners`, `wonby`, `created_at`, `updated_at`) VALUES
+(20, '1', '2', '5', '300', NULL, '2024-04-08 07:38:03', '2024-04-08 07:38:03'),
+(21, '3', '2', '7', '4000', NULL, '2024-04-08 23:16:17', '2024-04-08 23:16:17');
 
 -- --------------------------------------------------------
 
@@ -239,7 +294,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('TZRHreocemPGKsZuEtuValOA71tGNJDd75qv0MW3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidDJ4Mkg5U3lOb2VPM0c0ZHgwdUNYeG9JTG5Ybk5CSWFGczJNODhsTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1712322855);
+('8YB64uICnjmR0CG5XnOmoecpBXMjzulBw4VGnC6X', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoicVpjak56aXdONDlLV2dkVjRmbHROTEo1eENudEg3REdmQjIydlowUSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZGRjb250ZXN0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO3M6NTQ6ImxvZ2luX3ZlbmRvcnNfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDAwMDM7fQ==', 1712640577);
 
 -- --------------------------------------------------------
 
@@ -296,7 +351,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'anshii', 'ans@gmail.com', NULL, '$2y$12$wl9lF.oqgLBex.vQZi8Ibu2tpaD/4FCtkpLaUQaKE1M5f4zeJv106', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-04 05:31:05', '2024-04-04 05:31:05');
+(1, 'admin', 'ans@gmail.com', NULL, '$2y$12$wl9lF.oqgLBex.vQZi8Ibu2tpaD/4FCtkpLaUQaKE1M5f4zeJv106', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-04 05:31:05', '2024-04-04 05:31:05');
 
 --
 -- Indexes for dumped tables
@@ -306,6 +361,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `tw
 -- Indexes for table `add_contests`
 --
 ALTER TABLE `add_contests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `add_shows`
+--
+ALTER TABLE `add_shows`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -325,6 +386,12 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `create_rounds`
+--
+ALTER TABLE `create_rounds`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -395,13 +462,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `add_contests`
 --
 ALTER TABLE `add_contests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `add_shows`
+--
+ALTER TABLE `add_shows`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `admin_vendors`
 --
 ALTER TABLE `admin_vendors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100004;
+
+--
+-- AUTO_INCREMENT for table `create_rounds`
+--
+ALTER TABLE `create_rounds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

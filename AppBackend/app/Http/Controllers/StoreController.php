@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\AddContest;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\Catch_;
+use Illuminate\Support\Facades\Validator;
 class StoreController extends Controller
 {
     public function createcontest(Request $req)
@@ -45,7 +46,8 @@ class StoreController extends Controller
                 'joinmembers' => $req->joinmembers,
             ]);
             return redirect()->route('addcontestview')->with('success', 'Contest Created..!!');
-        }catch(\Exception $c){
+        }
+        catch(\Exception $c){
             //  return redirect()->route('addcontestview')->with('error', $c->getMessage());
             return redirect()->route('addcontestview')->with('error', 'Not Created Try Again...');
         }

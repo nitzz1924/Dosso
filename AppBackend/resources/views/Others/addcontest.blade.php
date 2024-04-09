@@ -48,9 +48,6 @@
                                             <label for="placeholderInput" class="form-label">Title</label>
                                             <input type="text" class="form-control" id=""
                                                 placeholder="enter title" name="title">
-                                            {{-- @error('title')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror --}}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -70,7 +67,7 @@
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Round</label>
-                                            <select class="form-select" id="type" name="totalround" required>
+                                            <select class="form-select" id="type" name="totalround">
                                                 <option value="default" selected>Choose...</option>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
@@ -95,7 +92,7 @@
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Spin</label>
-                                            <select class="form-select" id="type" name="totalspin" required>
+                                            <select class="form-select" id="type" name="totalspin">
                                                 <option value="default" selected>Choose...</option>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
