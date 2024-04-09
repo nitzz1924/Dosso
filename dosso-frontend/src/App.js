@@ -79,7 +79,7 @@ const App = () => {
             key={idx}
             exact={true}
           />
-        ))}
+        ))} 
 
         {authProtectedRoutes.map((route, idx) => (
           <Route
