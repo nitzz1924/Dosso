@@ -1,5 +1,9 @@
 import React from 'react'
 import { Container, Row, Col } from "reactstrap";
+import DatatableTables from './DatatableTables';
+import Leaderboard from './LeaderBoard';
+import Wheel from './spin-wheel/Wheel';
+import DraggeableForm from "./spin-wheel/DraggeableForm";
 
 const Spingame = () => {
 
@@ -11,10 +15,18 @@ const Spingame = () => {
                 <Container fluid >
                     <Row className="justify-content-center">
                         <Col lg="3" className="p-0">
-                            <div className="fw-bold col-12 pb-2 fs-5 text-warning">
-                                Spingame page
+                            <div className="fw-bold col-12 pb-2 fs-1 text-warning text-center">
+                                Spin To Win
                             </div>
-
+                            
+                            <DraggeableForm />
+                        </Col>
+                    </Row>
+                </Container>
+                <Container fluid >
+                    <Row className="justify-content-center">
+                        <Col lg="12" className="p-0">
+                            <Leaderboard />
                         </Col>
                     </Row>
                 </Container>
