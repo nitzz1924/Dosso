@@ -43,6 +43,10 @@ return [
             'driver' => 'session',
             'provider' => 'admin_vendors',
         ],
+        'students' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -70,6 +74,10 @@ return [
         'admin_vendors' => [
             'driver' => 'eloquent',
             'model' => App\Models\AdminVendors::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Students::class,
         ],
     ],
 
