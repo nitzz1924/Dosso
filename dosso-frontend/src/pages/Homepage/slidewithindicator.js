@@ -107,11 +107,11 @@ class Slidewithindicator extends Component {
           next={this.next}
           previous={this.previous}
         >
-          <CarouselIndicators
+          {/* <CarouselIndicators
             items={items}
             activeIndex={activeIndex}
             onClickHandler={this.goToIndex}
-          />
+          /> */}
           {slides}
           {/* <CarouselControl
             direction="prev"

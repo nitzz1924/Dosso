@@ -13,6 +13,7 @@ import CardWelcome from "./card-welcome";
 import OfferSlider from "./offerslider";
 import RewardGrid from "./RewardGrid";
 import Cardslider from "./cardslider";
+import BannerSlider from "./BannerSlider";
 
 //i18n
 import { withTranslation } from "react-i18next";
@@ -35,7 +36,8 @@ const Home = props => {
                             <div className="fw-bold col-12 pb-2 fs-5 text-warning">
                                 Hello, User
                             </div>
-                            <Slidewithindicator />
+                            <BannerSlider />
+                            
                         </Col>
                     </Row>
 

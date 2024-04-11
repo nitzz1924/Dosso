@@ -19,7 +19,7 @@ function CardWelcome({ title }) {
             </div>
           </Col>
         </Row>
-        <Card className="bg-gradient">
+        <Card className="bg-gradient button-85">
           <div>
             <Row>
               <Col xs="7" className="d-grid align-content-center">
@@ -28,7 +28,9 @@ function CardWelcome({ title }) {
                   <h6>Earn Many Scholarships</h6>
                   <div>
                     <Link to="/contests" >
-                      <Button className="btn btn-soft-warning waves-effect waves-light btn-secondary fw-bold"> Play Now</Button>
+                      {/* <Button className="btn btn-soft-warning waves-effect waves-light btn-secondary fw-bold"> Play Now</Button> */}
+                      <button className="button-29 w-100 fw-bold" role="button">Play Now</button>
+
                     </Link>
                   </div>
                 </div>
