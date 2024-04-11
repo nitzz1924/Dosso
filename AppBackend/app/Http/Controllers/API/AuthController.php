@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddContest;
 use App\Models\AdminVendors;
 use Illuminate\Http\Request;
 use Validator;
@@ -52,9 +53,7 @@ class AuthController extends Controller
 
         if (Auth::guard('students')->attempt($credentials)) {
             $student = Auth::guard('students')->user();
-            // Generating API Token in PlainText Format
             $success['token'] = $student->createToken('MyApp')->plainTextToken;
-            // Getting Student Name from students table
             $success['name'] = $student->username;
 
             $response = [
@@ -120,5 +119,11 @@ class AuthController extends Controller
             'message' => 'Student Edited.!!!!!!!'
         ];
         return response()->json($response, 200);
+    }
+
+    public function showcontests(Request $request)
+    {
+        $contestdata = AddContest::get();
+        return response()->json($contestdata);
     }
 }

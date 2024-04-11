@@ -14,4 +14,8 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('studentregister','studentregister');
     Route::get('studentedit/{id}','studentedit');
     Route::put('updatestudent/{id}','updatestudent');
+    Route::get('showcontests','showcontests');
+
 });
+
+Route::get('/api/showcontests', 'ViewController@addcontestview');

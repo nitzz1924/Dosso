@@ -12,7 +12,6 @@
                             <li class="breadcrumb-item active">Students List</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>

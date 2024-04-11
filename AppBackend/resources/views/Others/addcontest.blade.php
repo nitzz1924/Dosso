@@ -66,6 +66,13 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div>
+                                            <label for="placeholderInput" class="form-label">Registration Fees</label>
+                                            <input type="text" class="form-control" id=""
+                                                placeholder="enter registration fee" name="registrationfees">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div>
                                             <label for="placeholderInput" class="form-label">Total Round</label>
                                             <select class="form-select" id="type" name="totalround">
                                                 <option value="default" selected>Choose...</option>
@@ -109,7 +116,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div>
-                                            <label for="placeholderInput" class="form-label">Total Member Joined</label>
+                                            <label for="placeholderInput" class="form-label">Total Member
+                                                Joined</label>
                                             <input type="text" class="form-control" id="image"
                                                 placeholder="enter total member joined" name="joinmembers">
                                         </div>
@@ -140,6 +148,7 @@
                                     <th scope="col">Title</th>
                                     <th scope="col">Start Date</th>
                                     <th scope="col">End Date</th>
+                                    <th scope="col">Registration Fees</th>
                                     <th scope="col">Total Round</th>
                                     <th scope="col">Completed Round</th>
                                     <th scope="col">Total Price</th>
@@ -166,6 +175,7 @@
                                         <td>{{ $row->title }}</td>
                                         <td>{{ $row->startdate }}</td>
                                         <td>{{ $row->enddate }}</td>
+                                        <td>{{ $row->registrationfees }}</td>
                                         <td>{{ $row->totalround }}</td>
                                         <td>{{ $row->completedround }}</td>
                                         <td>{{ $row->totalprice }}</td>
