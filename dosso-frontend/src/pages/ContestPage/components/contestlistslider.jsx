@@ -18,7 +18,8 @@ const contestData = [
         "title": "Contest 1",
         "remainingTime": "15 min",
         "seats": 80,
-        "round": 2
+        "totalRound": 2,
+        "activeRound": 1
     },
     {
         "id": 2,
@@ -26,7 +27,8 @@ const contestData = [
         "title": "Contest 2",
         "remainingTime": "45 min",
         "seats": 56,
-        "round": 1
+        "totalRound": 1,
+        "activeRound": 1
     },
     {
         "id": 3,
@@ -34,7 +36,8 @@ const contestData = [
         "title": "Contest 3",
         "remainingTime": "2 hrs",
         "seats": 21,
-        "round": 3
+        "totalRound": 3,
+        "activeRound": 1
     },
     {
         "id": 4,
@@ -42,7 +45,8 @@ const contestData = [
         "title": "Contest 4",
         "remainingTime": "5 hrs",
         "seats": 34,
-        "round": 1
+        "totalRound": 1,
+        "activeRound": 1
     },
     {
         "id": 5,
@@ -50,7 +54,8 @@ const contestData = [
         "title": "Contest 5",
         "remainingTime": "8 hrs",
         "seats": 54,
-        "round": 2
+        "totalRound": 2,
+        "activeRound": 1
     },
     {
         "id": 6,
@@ -58,7 +63,8 @@ const contestData = [
         "title": "Contest 6",
         "remainingTime": "13 hrs",
         "seats": 65,
-        "round": 1
+        "totalRound": 1,
+        "activeRound": 1
     }
 ];
 
@@ -75,7 +81,7 @@ const Contestlistslider = ({ title }) => {
             <Row className="my-2">
                 <Col className="d-grid align-content-center">
                     <div className='d-flex justify-content-between align-content-center'>
-                        <div className="fs-3 fw-bold text-info text-uppercase">{title}</div>
+                        <div className="fs-3 fw-bold text-white text-uppercase">{title}</div>
                         <Link to="/history" className="">
                             <Button className="btn btn-soft-info waves-effect waves-light btn-info fw-bold ">
                                 History
@@ -92,7 +98,7 @@ const Contestlistslider = ({ title }) => {
                 className="flicking-wrapper"
                 resizeOnContentsReady={true}
                 renderOnlyVisible={true}
-            // panelsPerView={3}
+                // panelsPerView={3}
             >
                 {(contestData || []).map((item, key) => (
                     <div className="flicking-viewport vertical" key={item.id}>
@@ -107,7 +113,7 @@ const Contestlistslider = ({ title }) => {
                                         </div>
                                         <div className="mb-0 text-muted">
                                             <span>
-                                                Round: {item.round}
+                                                Round: {item.activeRound}/{item.totalRound}
                                             </span>
                                             {/* <b>{item.round}</b> */}
                                         </div>
@@ -118,8 +124,8 @@ const Contestlistslider = ({ title }) => {
                                             </span>
                                         </div>
                                     </div>
-                                    <div className="text-star mt-4">
-                                        <img src={item.img} alt="" className="avatar-sm" />
+                                    <div className="text-start mt-4">
+                                        {/* <img src={item.img} alt="" className="avatar-sm" /> */}
                                         <div className='mt-3 d-flex justify-content-between'>
                                             <div>
                                                 <div className=" fw-bold fs-3 text-warning">
@@ -127,12 +133,15 @@ const Contestlistslider = ({ title }) => {
                                                 </div>
                                                 <div className="text-muted">Winning reward</div>
                                             </div>
-
-                                            <div className="">
-                                                <Button onClick={()=>handleClick(item)} className="btn btn-soft-success waves-effect waves-light btn-success fw-bold text-uppercase">
-                                                    Enter
-                                                </Button>
+                                            <div className="border border-success rounded round-box py-2 px-3 bg-light d-grid justify-content-center">
+                                                <div>Active</div>
+                                                <span className='text-center round-text text-success'>{item.activeRound}</span>
                                             </div>
+                                        </div>
+                                        <div className="mt-2">
+                                            <button onClick={() => handleClick(item)} className="button-29 w-100 fw-bold">
+                                                Enter
+                                            </button>
                                         </div>
                                     </div>
                                 </CardBody>

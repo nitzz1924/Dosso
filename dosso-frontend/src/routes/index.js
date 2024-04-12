@@ -184,14 +184,15 @@ import History from "pages/ContestPage/History";
 
 
 const authProtectedRoutes = [
-  { path: "/home", component: <Home /> },
+  { path: "/", component: <Home /> },
   { path: "/contests", component: <Contests /> },
   { path: "/rounds", component: <Rounds /> },
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
 
+  //profile
+  { path: "/profile", component: <UserProfile /> },
 
-  
   { path: "/dashboard", component: <Dashboard /> },
   { path: "/dashboard-saas", component: <DashboardSaas /> },
   { path: "/dashboard-crypto", component: <DashboardCrypto /> },
@@ -213,11 +214,10 @@ const authProtectedRoutes = [
   //File Manager
   { path: "/apps-filemanager", component: <FileManager /> },
 
-  // //calendar
+  //calendar
   { path: "/calendar", component: <Calendar /> },
 
-  // //profile
-  { path: "/profile", component: <UserProfile /> },
+
 
   //Ecommerce
   { path: "/ecommerce-product-detail/:id", component: <EcommerceProductDetail /> },

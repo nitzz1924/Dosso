@@ -184,6 +184,12 @@ const SidebarContent = props => {
                     <span>{props.t("History")}</span>
                   </Link>
                 </li>
+                <li>
+                  <Link to="/profile">
+                    <i className="bx bx-user"></i>
+                    <span>{props.t("Account")}</span>
+                  </Link>
+                </li>
               </ul>
             </li>
 

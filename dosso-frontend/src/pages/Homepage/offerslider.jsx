@@ -22,14 +22,12 @@ const OfferSlider = ({title}) => {
                 renderOnlyVisible={true}
             >
                 <div className='card slider-card'>
-                    <img src="https://speaklive.id/wp-content/uploads/2022/03/8.-Beasiswa-Kuliah-Luar-Negeri-Tanpa-Toefl.jpg" className="img-fluid rounded" alt="Responsive image" />
+                    <img src="https://www.csregypt.com/wp-content/uploads/2019/09/download-11.jpg" className="img-fluid rounded" alt="Responsive image" />
                 </div>
                 <div className='card slider-card'>
-                    <img src="https://scholarship-positions.com/wp-content/uploads/2021/06/PhD-International-Scholarships-17-768x448.png" className="img-fluid rounded" alt="Responsive image" />
+                    <img src="https://avatars.mds.yandex.net/i?id=03b5f5cbda60b73b7be6f1b18b75d8c6b81b2bb3-9068727-images-thumbs&n=13" className="img-fluid rounded" alt="Responsive image" />
                 </div>
-                <div className='card slider-card'>
-                    <img src="https://www.top10about.com/wp-content/uploads/2017/04/Scholarships-to-Study-in-Canada-for-Students.jpg" className="img-fluid rounded" alt="Responsive image" />
-                </div>
+                
             </Flicking>
         </div>
     )

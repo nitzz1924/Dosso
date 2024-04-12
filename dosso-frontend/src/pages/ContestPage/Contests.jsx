@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from "reactstrap";
 import Contestlistslider from './components/contestlistslider';
 import Slidewithindicator from 'pages/HomePage/slidewithindicator';
+import BannerSlider from 'pages/HomePage/BannerSlider';
 
 const Contests = () => {
 
@@ -16,7 +17,8 @@ const Contests = () => {
                             {/* <div className="fw-bold col-12 pb-2 fs-5 text-warning">
                                 Contests
                             </div> */}
-                            <Slidewithindicator />
+                            <BannerSlider />
+
                         </Col>
                     </Row>
                     <Row className="justify-content-center my-3 p-0">

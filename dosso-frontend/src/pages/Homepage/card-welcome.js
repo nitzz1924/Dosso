@@ -23,7 +23,7 @@ function CardWelcome({ title }) {
           <div>
             <Row>
               <Col xs="7" className="d-grid align-content-center">
-                <div className="text-warning p-3">
+                <div className="text-warning">
                   <h1 className="text-warning">Spin To Win</h1>
                   <h6>Earn Many Scholarships</h6>
                   <div>

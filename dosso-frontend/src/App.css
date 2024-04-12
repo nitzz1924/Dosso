@@ -15,9 +15,7 @@
 .flicking-wrapper {
   width: 100%; /* Make the Flicking component full width */
 }
-.flicking-viewport {
-  transition: height 500ms;
-}
+
 
 .slider-card {
   width: 100%; /* Make each card full width */
@@ -244,4 +242,10 @@
 .button-29:active {
   box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+
+.round-text{
+  font-size: 45px;
+  line-height: 1;
 }
