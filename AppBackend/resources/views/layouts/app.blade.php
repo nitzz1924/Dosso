@@ -787,7 +787,7 @@
                                             <span class="align-middle">Help</span></a>
                                         <div class="dropdown-divider"></div>
                                         <!-- Authentication -->
-                                        <form method="POST" action="{{ route('logoutuser') }}" x-data>
+                                        <form method="POST" action="{{route('logoutuser')}}" x-data>
                                             @csrf
                                             <button type="submit" class="dropdown-item">
                                                 <span
@@ -852,7 +852,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            © BTech Mart.
+                            © DOSSO21.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">

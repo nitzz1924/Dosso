@@ -5,11 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\AddContest;
 use App\Models\AdminVendors;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
 use App\Models\Students;
 use Auth;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -125,5 +127,16 @@ class AuthController extends Controller
     {
         $contestdata = AddContest::get();
         return response()->json($contestdata);
+    }
+
+    public function insertwallet(Request $request)
+    {
+        $walletdata = new Wallet();
+        $walletdata->userid = $request->input('userid');
+        $walletdata->transactionid = $request->input('transactionid');
+        $walletdata->credit = $request->input('credit');
+        $walletdata->debit = $request->input('debit');
+        $walletdata->save();
+        return response()->json($walletdata);
     }
 }
