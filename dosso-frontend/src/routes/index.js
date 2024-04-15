@@ -181,7 +181,7 @@ import Contests from "pages/ContestPage/Contests";
 import Rounds from "pages/ContestPage/Rounds";
 import Spingame from "pages/ContestPage/GamePage/Spingame";
 import History from "pages/ContestPage/History";
-
+import StudentRegistration from "pages/Registration/StudentRegistration";
 
 const authProtectedRoutes = [
   { path: "/", component: <Home /> },
@@ -189,7 +189,8 @@ const authProtectedRoutes = [
   { path: "/rounds", component: <Rounds /> },
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
-
+  { path: "/studentRegistration", component: <StudentRegistration /> },
+  
   //profile
   { path: "/profile", component: <UserProfile /> },
 
@@ -353,6 +354,7 @@ const publicRoutes = [
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
   { path: "/register", component: <Register /> },
+  
 
   { path: "/pages-maintenance", component: <PagesMaintenance /> },
   { path: "/pages-comingsoon", component: <PagesComingsoon /> },

@@ -29,7 +29,7 @@ const Rounds = (props) => {
                                 <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
                                     <h3>
                                         <span className='badge rounded badge-soft-success fs-4'>
-                                            {data.title}
+                                            Active Round 1
                                         </span>
                                     </h3>
                                 </CardHeader>
