@@ -16,6 +16,8 @@ Route::controller(AuthController::class)->group(function(){
     Route::put('updatestudent/{id}','updatestudent');
     Route::get('showcontests','showcontests');
     Route::post('insertwallet','insertwallet');
+    Route::get('transactionlist/{id}','transactionlist');
+    Route::get('walletamount/{id}','walletamount');
 
 });
 

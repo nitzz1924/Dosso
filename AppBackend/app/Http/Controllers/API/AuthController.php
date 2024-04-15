@@ -20,8 +20,10 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'username' => 'required',
-            'emailaddress' => 'required|email',
+            'emailaddress' => 'required|email|unique:students',
             'password' => 'required',
+            'contactnumber' => 'required|unique:students',
+            'aadharcardnumber' => 'required|unique:students',
         ]);
 
         if ($validator->fails()) {
@@ -136,7 +138,43 @@ class AuthController extends Controller
         $walletdata->transactionid = $request->input('transactionid');
         $walletdata->credit = $request->input('credit');
         $walletdata->debit = $request->input('debit');
+        $walletdata->transactiontype = $request->input('transactiontype');
         $walletdata->save();
         return response()->json($walletdata);
     }
+
+    public function transactionlist($id)
+    {
+        $walletdata = Wallet::where('userid', $id)->get();
+        $response = [
+            'message' => 'Here is your Transaction List...',
+            'success' => true,
+            'data' => $walletdata,
+        ];
+        return response()->json($response, 200);
+    }
+    public function walletamount($id)
+    {
+        $creditTotal = Wallet::where('userid', $id)->sum('credit');
+        $debitTotal = Wallet::where('userid', $id)->sum('debit');
+
+        $walletamount = $creditTotal - $debitTotal;
+
+        if ($creditTotal == 0 && $debitTotal == 0) {
+            $response = [
+                'message' => 'transaction not Found',
+                'success' => true,
+                'data' => 0,
+            ];
+        } else {
+            $response = [
+                'message' => 'Your Wallet Amount.',
+                'success' => true,
+                'data' => $walletamount,
+            ];
+        }
+
+        return response()->json($response, 200);
+    }
+
 }
