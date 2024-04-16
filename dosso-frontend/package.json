@@ -1,5 +1,5 @@
 {
-  "name": "Dosso-21",
+  "name": "dosso21",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -68,6 +68,7 @@
     "react-jvectormap": "^0.0.16",
     "react-leaflet": "^2.7.0",
     "react-native-inline-datepicker": "^1.2.0",
+    "react-otp-input": "^3.1.1",
     "react-perfect-scrollbar": "^1.5.8",
     "react-rangeslider": "^2.2.0",
     "react-rating": "^2.0.5",

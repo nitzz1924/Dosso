@@ -1,58 +1,79 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback } from "reactstrap";
-
-// Formik Validation
+import OTPInput from 'react-otp-input';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
-// action
 import { registerUser, apiError } from "../../store/actions";
-
-//redux
 import { useSelector, useDispatch } from "react-redux";
-
 import { Link } from "react-router-dom";
-
-// import images
-import profileImg from "../../assets/images/profile-img.png";
 let logoImg = "../../../Assets/images/Dosso_21_logo.webp";
 
-
 const Register = props => {
-
-  //meta title
   document.title = "Registration";
 
+  const [generatedOTP, setGeneratedOTP] = useState('');
+  const [enteredOTP, setEnteredOTP] = useState('');
+  const [isGetOTPDisabled, setIsGetOTPDisabled] = useState(true);
   const dispatch = useDispatch();
 
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-
     initialValues: {
       email: '',
       username: '',
       password: '',
+      referral: '',
+      mobilenumber: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
       username: Yup.string().required("Please Enter Your Username"),
       password: Yup.string().required("Please Enter Your Password"),
+      mobilenumber: Yup.string().required("Please Enter Your Mobile Number"),
     }),
     onSubmit: (values) => {
       dispatch(registerUser(values));
     }
   });
 
-  const { user, registrationError, loading } = useSelector(state => ({
+  const generateOTP = () => {
+    const digits = '0123456789';
+    let randonOTP = '';
+    for (let i = 0; i < 6; i++) {
+      randonOTP += digits[Math.floor(Math.random() * 10)];
+    }
+    setGeneratedOTP(randonOTP);
+    console.log('Generated OTP:', randonOTP);
+  }
+
+  const handleChange = otp => {
+    setEnteredOTP(otp);
+    console.log('enteredOTP:', otp);
+  };
+
+  const verifyOTP = () => {
+    if (enteredOTP === generatedOTP) {
+      console.log('OTP Verified Successfully');
+    } else {
+      console.log('Incorrect OTP');
+    }
+  };
+
+  const isFormValid = () => {
+    // Check if all required fields are filled correctly
+    const { email, username, password, mobilenumber } = validation.values;
+    return email && username && password && mobilenumber && !validation.errors.email && !validation.errors.username && !validation.errors.password && !validation.errors.mobilenumber;
+  };
+
+  const { user, registrationError } = useSelector(state => ({
     user: state.Account.user,
     registrationError: state.Account.registrationError,
-    loading: state.Account.loading,
   }));
 
   useEffect(() => {
     dispatch(apiError(""));
-  }, []);
+  }, [dispatch]);
+
 
   return (
     <React.Fragment>
@@ -61,12 +82,12 @@ const Register = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
+      <div className="account-pages d-grid align-items-center py-5" style={{ backgroundColor: "#222736" }}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="" style={{backgroundColor: "#2A3042"}}>
+                <div className="" style={{ backgroundColor: "#2A3042" }}>
                   <Row>
                     <Col className="col-7">
                       <div className="text-warning p-4">
@@ -74,26 +95,12 @@ const Register = props => {
                         <p>Get your free Dosso21 account now.</p>
                       </div>
                     </Col>
-                    <Col className="col-5 align-self-end">
-                      <img src={logoImg} alt="" className="img-fluid" />
+                    <Col className="col-5 text-center align-self-end">
+                      <img src={logoImg} alt="" className="" height="110" />
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="text-white" style={{backgroundColor: "#2A3042"}}>
-                  {/* <div>
-                    <Link to="/#">
-                      <div className="avatar-md profile-user-wid mb-4">
-                        <span className="avatar-title rounded-circle bg-light">
-                          <img
-                            src={logoImg}
-                            alt=""
-                            className="rounded-circle"
-                            height="90"
-                          />
-                        </span>
-                      </div>
-                    </Link>
-                  </div> */}
+                <CardBody className="text-white" style={{ backgroundColor: "#2A3042" }}>
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -103,13 +110,13 @@ const Register = props => {
                         return false;
                       }}
                     >
-                      {user && user ? (
+                      {user ? (
                         <Alert color="success">
                           Register User Successfully
                         </Alert>
                       ) : null}
 
-                      {registrationError && registrationError ? (
+                      {registrationError ? (
                         <Alert color="danger">{registrationError}</Alert>
                       ) : null}
 
@@ -124,13 +131,9 @@ const Register = props => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           value={validation.values.email || ""}
-                          invalid={
-                            validation.touched.email && validation.errors.email ? true : false
-                          }
+                          invalid={validation.touched.email && validation.errors.email}
                         />
-                        {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
-                        ) : null}
+                        <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
                       </div>
 
                       <div className="mb-3">
@@ -142,14 +145,11 @@ const Register = props => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           value={validation.values.username || ""}
-                          invalid={
-                            validation.touched.username && validation.errors.username ? true : false
-                          }
+                          invalid={validation.touched.username && validation.errors.username}
                         />
-                        {validation.touched.username && validation.errors.username ? (
-                          <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
-                        ) : null}
+                        <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
                       </div>
+
                       <div className="mb-3">
                         <Label className="form-label">Password</Label>
                         <Input
@@ -159,13 +159,76 @@ const Register = props => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           value={validation.values.password || ""}
-                          invalid={
-                            validation.touched.password && validation.errors.password ? true : false
-                          }
+                          invalid={validation.touched.password && validation.errors.password}
                         />
-                        {validation.touched.password && validation.errors.password ? (
-                          <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
-                        ) : null}
+                        <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                      </div>
+
+                      <div className="mb-3">
+                        <Label className="form-label">Referral Code</Label>
+                        <Input
+                          name="referralcode"
+                          type="text"
+                          placeholder="Enter referral code"
+                        />
+                      </div>
+
+                      <div className="mb-3">
+                        <Label className="form-label">Mobile Number</Label>
+                        <Input
+                          name="mobilenumber"
+                          type="tel"
+                          maxLength={10}
+                          placeholder="Enter Mobile Number"
+                          onChange={validation.handleChange}
+                          onBlur={validation.handleBlur}
+                          value={validation.values.mobilenumber || ""}
+                          invalid={validation.touched.mobilenumber && validation.errors.mobilenumber}
+                        />
+                        <FormFeedback type="invalid">{validation.errors.mobilenumber}</FormFeedback>
+                      </div>
+
+                      <div className="mt-4 ">
+                        <button
+                          className="btn btn-warning text-black btn-block"
+                          onClick={generateOTP}
+                          disabled={!isFormValid()}
+                        >
+                          Get OTP
+                        </button>
+                      </div>
+
+                      <div className="mt-4 ">
+                        <OTPInput
+                          value={enteredOTP}
+                          onChange={handleChange}
+                          numInputs={6}
+                          separator={<span style={{ width: "8px" }}>-</span>}
+                          isInputNum={true}
+                          shouldAutoFocus={true}
+                          renderInput={(props) => <input {...props} />}
+                          inputStyle={{
+                            border: "1px solid transparent",
+                            borderRadius: "2px",
+                            width: "40px",
+                            height: "40px",
+                            fontSize: "16px",
+                            color: "#000",
+                            fontWeight: "500",
+                            caretColor: "golden",
+                            margin: "2px",
+                          }}
+                          focusStyle={{
+                            border: "1px solid golden",
+                            outline: "none"
+                          }}
+                        />
+                        <button
+                          className="btn btn-warning text-black btn-block mt-2"
+                          onClick={verifyOTP}
+                        >
+                          Verify OTP
+                        </button>
                       </div>
 
                       <div className="mt-4 d-grid">
