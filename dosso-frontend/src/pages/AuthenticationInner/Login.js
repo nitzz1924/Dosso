@@ -209,8 +209,8 @@ const Login = () => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} Dosso21. Developed with{" "}
+                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
             </Col>

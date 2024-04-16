@@ -15,12 +15,13 @@ import { Link } from "react-router-dom";
 
 // import images
 import profileImg from "../../assets/images/profile-img.png";
-import logoImg from "../../assets/images/logo.svg";
+let logoImg = "../../../Assets/images/Dosso_21_logo.webp";
+
 
 const Register = props => {
 
   //meta title
-  document.title = "Register | Skote - React Admin & Dashboard Template";
+  document.title = "Registration";
 
   const dispatch = useDispatch();
 
@@ -60,39 +61,39 @@ const Register = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages my-5 pt-sm-5">
+      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="bg-primary bg-soft">
+                <div className="" style={{backgroundColor: "#2A3042"}}>
                   <Row>
                     <Col className="col-7">
-                      <div className="text-primary p-4">
-                        <h5 className="text-primary">Free Register</h5>
-                        <p>Get your free Skote account now.</p>
+                      <div className="text-warning p-4">
+                        <h5 className="text-warning">Free Register</h5>
+                        <p>Get your free Dosso21 account now.</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
-                      <img src={profileImg} alt="" className="img-fluid" />
+                      <img src={logoImg} alt="" className="img-fluid" />
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="pt-0">
-                  <div>
-                    <Link to="/">
+                <CardBody className="text-white" style={{backgroundColor: "#2A3042"}}>
+                  {/* <div>
+                    <Link to="/#">
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
                           <img
                             src={logoImg}
                             alt=""
                             className="rounded-circle"
-                            height="34"
+                            height="90"
                           />
                         </span>
                       </div>
                     </Link>
-                  </div>
+                  </div> */}
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -167,19 +168,19 @@ const Register = props => {
                         ) : null}
                       </div>
 
-                      <div className="mt-4">
+                      <div className="mt-4 d-grid">
                         <button
-                          className="btn btn-primary btn-block "
+                          className="btn btn-warning text-black btn-block "
                           type="submit"
                         >
                           Register
                         </button>
                       </div>
 
-                      <div className="mt-4 text-center">
+                      <div className="mt-4 text-center text-white">
                         <p className="mb-0">
-                          By registering you agree to the Skote{" "}
-                          <Link to="#" className="text-primary">
+                          By registering you agree to the Dosso21{" "}
+                          <Link to="#" className="text-warning">
                             Terms of Use
                           </Link>
                         </p>
@@ -188,17 +189,17 @@ const Register = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center">
+              <div className="mt-5 text-center text-white">
                 <p>
                   Already have an account ?{" "}
-                  <Link to="/login" className="font-weight-medium text-primary">
+                  <Link to="/login" className="font-weight-medium text-warning">
                     {" "}
                     Login
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} Dosso21. Crafted with{" "}
+                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
             </Col>

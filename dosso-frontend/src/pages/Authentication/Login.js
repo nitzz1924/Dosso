@@ -21,8 +21,8 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import { loginUser, socialLogin } from "../../store/actions";
 
 // import images
-import profile from "assets/images/profile-img.png";
-import logo from "assets/images/logo.svg";
+let profile = "../../Assets/images/Dosso_21_logo.webp"; 
+// import logo from "assets/images/logo.svg";
 
 //Import config
 import { facebook, google } from "../../config";
@@ -30,7 +30,7 @@ import { facebook, google } from "../../config";
 const Login = props => {
 
   //meta title
-  document.title = "Login | Skote - React Admin & Dashboard Template";
+  document.title = "Login";
 
   const dispatch = useDispatch();
 
@@ -95,26 +95,26 @@ const Login = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages my-5 pt-sm-5">
+      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="bg-primary bg-soft">
+                <div className="" style={{backgroundColor: "#2A3042"}}>
                   <Row>
                     <Col xs={7}>
-                      <div className="text-primary p-4">
-                        <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Dosso.</p>
+                      <div className="text-warning p-4">
+                        <h5 className="text-warning">Welcome Back !</h5>
+                        <p>Sign in to continue to Dosso 21.</p>
                       </div>
                     </Col>
-                    <Col className="col-5 align-self-end">
-                      {/* <img src={profile} alt="" className="img-fluid" /> */}
+                    <Col className="col-5 text-center align-self-end">
+                      <img src={profile} alt="" className="" height="110"/>
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="pt-0">
-                  <div>
+                <CardBody className="text-white" style={{backgroundColor: "#2A3042"}}>
+                  {/* <div>
                     <Link to="/" className="logo-light-element">
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
@@ -127,7 +127,7 @@ const Login = props => {
                         </span>
                       </div>
                     </Link>
-                  </div>
+                  </div> */}
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -192,7 +192,7 @@ const Login = props => {
 
                       <div className="mt-3 d-grid">
                         <button
-                          className="btn btn-primary btn-block"
+                          className="btn btn-warning btn-block text-black fw-3"
                           type="submit"
                         >
                           Log In
@@ -202,61 +202,61 @@ const Login = props => {
                       {/* <div className="mt-4 text-center">
                         <h5 className="font-size-14 mb-3">Sign in with</h5> 
 
-                      <ul className="list-inline">
-                          <li className="list-inline-item">
-                            <FacebookLogin
-                              appId={facebook.APP_ID}
-                              autoLoad={false}
-                              callback={facebookResponse}
-                              render={renderProps => (
-                                <Link
-                                  to="#"
-                                  className="social-list-item bg-primary text-white border-primary"
-                                  onClick={renderProps.onClick}
-                                >
-                                  <i className="mdi mdi-facebook" />
-                                </Link>
-                              )}
-                            />
-                          </li> 
-                      <li className="list-inline-item">
-                        <TwitterLogin
-                          loginUrl={
-                            "http://localhost:4000/api/v1/auth/twitter"
-                          }
-                          onSuccess={this.twitterResponse}
-                          onFailure={this.onFailure}
-                          requestTokenUrl={
-                            "http://localhost:4000/api/v1/auth/twitter/revers"
-                          }
-                          showIcon={false}
-                          tag={"div"}
-                        >
-                          <a
-                            href=""
-                            className="social-list-item bg-info text-white border-info"
+                        <ul className="list-inline">
+                            <li className="list-inline-item">
+                              <FacebookLogin
+                                appId={facebook.APP_ID}
+                                autoLoad={false}
+                                callback={facebookResponse}
+                                render={renderProps => (
+                                  <Link
+                                    to="#"
+                                    className="social-list-item bg-primary text-white border-primary"
+                                    onClick={renderProps.onClick}
+                                  >
+                                    <i className="mdi mdi-facebook" />
+                                  </Link>
+                                )}
+                              />
+                            </li> 
+                        <li className="list-inline-item">
+                          <TwitterLogin
+                            loginUrl={
+                              "http://localhost:4000/api/v1/auth/twitter"
+                            }
+                            onSuccess={this.twitterResponse}
+                            onFailure={this.onFailure}
+                            requestTokenUrl={
+                              "http://localhost:4000/api/v1/auth/twitter/revers"
+                            }
+                            showIcon={false}
+                            tag={"div"}
                           >
-                            <i className="mdi mdi-twitter" />
-                          </a>
-                        </TwitterLogin>
-                      </li>
-                      <li className="list-inline-item">
-                            <GoogleLogin
-                              clientId={google.CLIENT_ID}
-                              render={renderProps => (
-                                <Link
-                                  to="#"
-                                  className="social-list-item bg-danger text-white border-danger"
-                                  onClick={renderProps.onClick}
-                                >
-                                  <i className="mdi mdi-google" />
-                                </Link>
-                              )}
-                              onSuccess={googleResponse}
-                              onFailure={() => { }}
-                            />
-                          </li> 
-                      </ul>
+                            <a
+                              href=""
+                              className="social-list-item bg-info text-white border-info"
+                            >
+                              <i className="mdi mdi-twitter" />
+                            </a>
+                          </TwitterLogin>
+                        </li>
+                        <li className="list-inline-item">
+                              <GoogleLogin
+                                clientId={google.CLIENT_ID}
+                                render={renderProps => (
+                                  <Link
+                                    to="#"
+                                    className="social-list-item bg-danger text-white border-danger"
+                                    onClick={renderProps.onClick}
+                                  >
+                                    <i className="mdi mdi-google" />
+                                  </Link>
+                                )}
+                                onSuccess={googleResponse}
+                                onFailure={() => { }}
+                              />
+                            </li> 
+                        </ul>
                       </div> */}
 
                       <div className="mt-4 text-center">
@@ -269,17 +269,17 @@ const Login = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center">
+              <div className="mt-5 text-center text-white">
                 <p>
                   Don&#39;t have an account ?{" "}
-                  <Link to="/register" className="fw-medium text-primary">
+                  <Link to="/register" className="fw-medium text-warning">
                     {" "}
                     Signup now{" "}
                   </Link>{" "}
                 </p>
                 <p>
                   © {new Date().getFullYear()} Dosso21. Developed with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia
+                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
             </Col>

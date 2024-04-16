@@ -16,7 +16,7 @@ import { userForgetPassword } from "../../store/actions";
 
 // import images
 import profile from "../../assets/images/profile-img.png";
-import logo from "../../assets/images/logo.svg";
+let logo = "../../Assets/images/Dosso_21_logo.webp";
 
 const ForgetPasswordPage = props => {
 
@@ -52,39 +52,39 @@ const ForgetPasswordPage = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages my-5 pt-sm-5">
+      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
         <Container>
-          <Row className="justify-content-center">
+          <Row className="justify-content-center align-items-center ">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="bg-primary bg-softbg-soft-primary">
+                <div className="" style={{backgroundColor: "#2A3042"}}>
                   <Row>
-                    <Col xs={7}>
-                      <div className="text-primary p-4">
-                        <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Skote.</p>
+                    <Col xs={7} >
+                      <div className="text-warning p-4">
+                        <h5 className="text-warning">Forgot Password?</h5>
+                        <p>Enter email to recover.</p>
                       </div>
                     </Col>
-                    <Col className="col-5 align-self-end">
-                      <img src={profile} alt="" className="img-fluid" />
+                    <Col className="col-5 text-center align-self-end">
+                      <img src={logo} alt="" className="" height="110" />
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="pt-0">
-                  <div>
-                    <Link to="/">
+                <CardBody className="" style={{backgroundColor: "#2A3042"}}>
+                  {/* <div>
+                    <Link to="/#">
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
                           <img
                             src={logo}
                             alt=""
                             className="rounded-circle"
-                            height="34"
+                            height="110"
                           />
                         </span>
                       </div>
                     </Link>
-                  </div>
+                  </div> */}
                   <div className="p-2">
                     {forgetError && forgetError ? (
                       <Alert color="danger" style={{ marginTop: "13px" }}>
@@ -106,7 +106,7 @@ const ForgetPasswordPage = props => {
                       }}
                     >
                       <div className="mb-3">
-                        <Label className="form-label">Email</Label>
+                        <Label className="form-label text-white">Enter Registred Email</Label>
                         <Input
                           name="email"
                           className="form-control"
@@ -124,9 +124,9 @@ const ForgetPasswordPage = props => {
                         ) : null}
                       </div>
                       <Row className="mb-3">
-                        <Col className="text-end">
+                        <Col className="text-center">
                           <button
-                            className="btn btn-primary w-md "
+                            className="btn btn-warning w-md text-black"
                             type="submit"
                           >
                             Reset
@@ -137,16 +137,16 @@ const ForgetPasswordPage = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center">
+              <div className="mt-5 text-center text-white">
                 <p>
                   Go back to{" "}
-                  <Link to="login" className="font-weight-medium text-primary">
+                  <Link to="/login" className="font-weight-medium text-warning">
                     Login
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} Dosso21. Developed with{" "}
+                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
             </Col>

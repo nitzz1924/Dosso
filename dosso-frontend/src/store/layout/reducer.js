@@ -45,63 +45,63 @@ const Layout = (state = INIT_STATE, action) => {
       return {
         ...state,
         layoutType: action.payload,
-      }
+      };
     case CHANGE_PRELOADER:
       return {
         ...state,
         isPreloader: action.payload,
-      }
+      };
 
-      case CHANGE_LAYOUT_MODE:
-        return {
-          ...state,
-          layoutModeType: action.payload,
-        }                                                               
+    case CHANGE_LAYOUT_MODE:
+      return {
+        ...state,
+        layoutModeType: action.payload,
+      };                                                               
 
     case CHANGE_LAYOUT_WIDTH:
       return {
         ...state,
         layoutWidth: action.payload,
-      }
+      };
     case CHANGE_SIDEBAR_THEME:
       return {
         ...state,
         leftSideBarTheme: action.payload,
-      }
+      };
     case CHANGE_SIDEBAR_THEME_IMAGE:
       return {
         ...state,
         leftSideBarThemeImage: action.payload,
-      }
+      };
     case CHANGE_SIDEBAR_TYPE:
       return {
         ...state,
         leftSideBarType: action.payload.sidebarType,
-      }
+      };
     case CHANGE_TOPBAR_THEME:
       return {
         ...state,
         topbarTheme: action.payload,
-      }
+      };
     case SHOW_RIGHT_SIDEBAR:
       return {
         ...state,
         showRightSidebar: action.payload,
-      }
+      };
     case SHOW_SIDEBAR:
       return {
         ...state,
         showSidebar: action.payload,
-      }
+      };
     case TOGGLE_LEFTMENU:
       return {
         ...state,
         leftMenu: action.payload,
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default Layout

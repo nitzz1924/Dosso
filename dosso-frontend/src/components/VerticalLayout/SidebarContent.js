@@ -190,6 +190,24 @@ const SidebarContent = props => {
                     <span>{props.t("StudentRegistration")}</span>
                   </Link>
                 </li>
+                <li>
+                  <Link to="/profile">
+                    <i className="bx bx-user"></i>
+                    <span>{props.t("My Profile")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/crypto-wallet">
+                    <i className="bx bx-user"></i>
+                    <span>{props.t("My Wallet")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/#">
+                    <i className="bx bx-user"></i>
+                    <span>{props.t("Player Verification form")}</span>
+                  </Link>
+                </li>
               </ul>
             </li>
 
