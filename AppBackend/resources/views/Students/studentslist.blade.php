@@ -8,8 +8,8 @@
                     <h4 class="mb-sm-0">DOSSO21</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Students List</a></li>
-                            <li class="breadcrumb-item active">Students List</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Users List</a></li>
+                            <li class="breadcrumb-item active">Users List</li>
                         </ol>
                     </div>
                 </div>
@@ -24,9 +24,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Picture</th>
                                     <th scope="col">Student Name</th>
                                     <th scope="col">User Name</th>
-                                    <th scope="col">Picture</th>
                                     <th scope="col">Contact Number</th>
                                     <th scope="col">Email Address</th>
                                     <th scope="col">City</th>
@@ -40,11 +40,12 @@
                             <tbody>
                                 <tr>
                                     <td>1001</td>
+                                    <td>
+                                        <img class="square--100" src="{{ asset('assets/images/user-dummy-img.jpg') }}"
+                                            alt="" width="50px" height="50px">
+                                    </td>
                                     <td>Dummy</td>
                                     <td>dummy_123</td>
-                                    <td>
-                                        <img class="rounded-pill" src="{{ asset('assets/images/user-dummy-img.jpg') }}" alt="" width="50px" height="50px">
-                                    </td>
                                     <td>1234567890</td>
                                     <td>john.doe@example.com</td>
                                     <td>New York</td>
@@ -55,7 +56,8 @@
                                         <span class="badge rounded-pill bg-success-subtle text-success">Success</span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-soft-dark waves-effect waves-light btn-sm" id="">Dectivate</button>
+                                        <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
+                                            id="">Dectivate</button>
                                     </td>
                                 </tr>
                             </tbody>

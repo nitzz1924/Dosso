@@ -1,3 +1,4 @@
+
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark"
@@ -11,7 +12,7 @@
     <title>{{ config('app.name', 'DOSSO21') }}</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.jpg') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/dossologo.jpg') }}" />
 
     <!-- jsvectormap css -->
     <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -45,7 +46,7 @@
                         <div class="navbar-brand-box horizontal-logo">
                             <a href="index.html" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22" />
+                                    <img src="assets/images/dossologo.jpg" alt="" height="22" />
                                 </span>
                                 <span class="logo-lg">
                                     <img src="assets/images/logo-dark.png" alt="" height="17" />
@@ -54,7 +55,7 @@
 
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22" />
+                                    <img src="assets/images/dossologo.jpg" alt="" height="22" />
                                 </span>
                                 <span class="logo-lg">
                                     <img src="assets/images/logo-light.png" alt="" height="17" />
