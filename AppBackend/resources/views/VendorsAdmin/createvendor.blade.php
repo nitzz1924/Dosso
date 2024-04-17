@@ -1,7 +1,7 @@
-{{-- -------------------------------------------------🔱HAR HAR MAHADEV🔱--------------------------------------------------------------- --}}
+{{-- -------------------------------------------------🔱HAR HAR
+MAHADEV🔱--------------------------------------------------------------- --}}
 <x-app-layout>
     <div class="container-fluid">
-        <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -12,32 +12,30 @@
                             <li class="breadcrumb-item active">Add Vendor</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
-        <!-- end page title -->
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     @if ($mymess = Session::get('success'))
-                        <div class="alert border-0 alert-success text-center" role="alert" id="successAlert">
-                            <strong>{{ $mymess }}</strong>
-                        </div>
+                    <div class="alert border-0 alert-success text-center" role="alert" id="successAlert">
+                        <strong>{{ $mymess }}</strong>
+                    </div>
                     @endif
                     @if ($mymess = Session::get('error'))
-                        <div class="alert border-0 alert-danger text-center" role="alert" id="dangerAlert">
-                            <strong>{{ $mymess }}</strong>
-                        </div>
+                    <div class="alert border-0 alert-danger text-center" role="alert" id="dangerAlert">
+                        <strong>{{ $mymess }}</strong>
+                    </div>
                     @endif
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Add Vendor</h4>
                         {{-- <div class="flex-shrink-0">
-                                <div class="form-check form-switch form-switch-right form-switch-md">
+                            <div class="form-check form-switch form-switch-right form-switch-md">
 
-                                </div>
-                            </div> --}}
+                            </div>
+                        </div> --}}
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
@@ -50,7 +48,7 @@
                                             <input type="text" class="form-control" id=""
                                                 placeholder="enter vendor name" name="vendorname">
                                             {{-- @error('title')
-                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror --}}
                                         </div>
                                     </div>
@@ -122,27 +120,26 @@
                             </thead>
                             <tbody>
                                 @foreach ($vendordata as $row)
-                                    <tr>
-                                        <td>{{ $row->id }}</td>
-                                        <td>{{ $row->vendorname }}</td>
-                                        <td><img src="{{ asset('uploads/' . $row->vendorprofile) }}" alt="Thumbnail"
-                                                width="100px" class="rounded-pill"></td>
-                                        <td>{{ $row->schoolname }}</td>
-                                        <td>{{ $row->contactno }}</td>
-                                        <td>{{ $row->emailaddress }}</td>
-                                        {{-- <td>{{ $row->referidvendor }}</td> --}}
-                                        <td>
-                                            <span
-                                                class="badge rounded-pill bg-{{ $row->status == 0 ? 'danger' : 'success' }}-subtle text-{{ $row->status == 0 ? 'danger' : 'success' }}">
-                                                {{ $row->status == 0 ? 'Inactive' : 'Active' }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-success btn-border btn-sm"
-                                                id="btnid{{ $row->id }}"
-                                                onclick="state('{{ $row->id }}')">Dectivate</button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ $row->id }}</td>
+                                    <td>{{ $row->vendorname }}</td>
+                                    <td><img src="{{ asset('uploads/' . $row->vendorprofile) }}" alt="Thumbnail"
+                                            width="100px" class="rounded-pill"></td>
+                                    <td>{{ $row->schoolname }}</td>
+                                    <td>{{ $row->contactno }}</td>
+                                    <td>{{ $row->emailaddress }}</td>
+                                    {{-- <td>{{ $row->referidvendor }}</td> --}}
+                                    <td>
+                                        <span
+                                            class="badge rounded-pill bg-{{ $row->status == 0 ? 'danger' : 'success' }}-subtle text-{{ $row->status == 0 ? 'danger' : 'success' }}">
+                                            {{ $row->status == 0 ? 'Inactive' : 'Active' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success btn-border btn-sm" id="btnid{{ $row->id }}"
+                                            onclick="state('{{ $row->id }}')">Dectivate</button>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -167,22 +164,22 @@
                             <div class="col-sm-4">
                                 <div>
                                     <label for="placeholderInput" class="form-label">Label</label>
-                                    <input type="text" class="form-control" id=""
-                                        placeholder="enter label" name="label">
+                                    <input type="text" class="form-control" id="" placeholder="enter label"
+                                        name="label">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div>
                                     <label for="placeholderInput" class="form-label">Value</label>
-                                    <input type="text" class="form-control" id="valueval"
-                                        placeholder="enter value" name="value" value="">
+                                    <input type="text" class="form-control" id="valueval" placeholder="enter value"
+                                        name="value" value="">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div>
                                     <label for="placeholderInput" class="form-label">Upload Image</label>
-                                    <input type="file" class="form-control" id="image"
-                                        placeholder="enter color" name="image">
+                                    <input type="file" class="form-control" id="image" placeholder="enter color"
+                                        name="image">
                                 </div>
                             </div>
                             <div class="col-auto text-center w-100">

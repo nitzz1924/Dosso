@@ -9,7 +9,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 //Admin Panel Routes
 Route::get('/', function () {
-    return view('welcome');
+    return view('Auth.login');
 });
 
 Route::post('/logoutuser', function () {

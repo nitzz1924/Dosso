@@ -1,4 +1,5 @@
-{{-- -------------------------------------------------🔱HAR HAR MAHADEV🔱--------------------------------------------------------------- --}}
+{{-- -------------------------------------------------🔱HAR HAR
+MAHADEV🔱--------------------------------------------------------------- --}}
 <x-app-layout>
     <div class="container-fluid">
         <!-- start page title -->
@@ -16,27 +17,26 @@
                 </div>
             </div>
         </div>
-        <!-- end page title -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     @if ($mymess = Session::get('success'))
-                        <div class="alert border-0 alert-success text-center" role="alert" id="successAlert">
-                            <strong>{{ $mymess }}</strong>
-                        </div>
+                    <div class="alert border-0 alert-success text-center" role="alert" id="successAlert">
+                        <strong>{{ $mymess }}</strong>
+                    </div>
                     @endif
                     @if ($mymess = Session::get('error'))
-                        <div class="alert border-0 alert-danger text-center" role="alert" id="dangerAlert">
-                            <strong>{{ $mymess }}</strong>
-                        </div>
+                    <div class="alert border-0 alert-danger text-center" role="alert" id="dangerAlert">
+                        <strong>{{ $mymess }}</strong>
+                    </div>
                     @endif
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Add Contest</h4>
                         {{-- <div class="flex-shrink-0">
-                                <div class="form-check form-switch form-switch-right form-switch-md">
+                            <div class="form-check form-switch form-switch-right form-switch-md">
 
-                                </div>
-                            </div> --}}
+                            </div>
+                        </div> --}}
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
@@ -46,8 +46,8 @@
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Title</label>
-                                            <input type="text" class="form-control" id=""
-                                                placeholder="enter title" name="title">
+                                            <input type="text" class="form-control" id="" placeholder="enter title"
+                                                name="title">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -74,12 +74,9 @@
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Total Round</label>
-                                            <select class="form-select" id="type" name="totalround">
-                                                <option value="default" selected>Choose...</option>
-                                                @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{ $i }}">{{ $i }}</option>
-                                                @endfor
-                                            </select>
+                                            <input type="text" class="form-control" id=""
+                                                placeholder="enter registration fee" name="totalround" value="1"
+                                                readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -101,17 +98,16 @@
                                             <label for="placeholderInput" class="form-label">Total Spin</label>
                                             <select class="form-select" id="type" name="totalspin">
                                                 <option value="default" selected>Choose...</option>
-                                                @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{ $i }}">{{ $i }}</option>
-                                                @endfor
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{ $i }}">{{ $i }}</option>
+                                                    @endfor
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Thumbnail</label>
-                                            <input type="file" class="form-control" id="image"
-                                                placeholder="enter color" name="thumbnail">
+                                            <input type="file" class="form-control" id="image" placeholder="enter color"
+                                                name="thumbnail">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -160,46 +156,46 @@
                             </thead>
                             <tbody>
                                 @foreach ($contestdata as $index => $row)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>
-                                            @if ($row->thumbnail)
-                                                {{-- @php
-                                                        $imagePaths = explode(',', $row->image);
-                                                        $firstImagePath = $imagePaths[0];
-                                                    @endphp --}}
-                                                <img src="{{ asset('uploads/' . $row->thumbnail) }}" alt="Thumbnail"
-                                                    width="100px" class="rounded-pill">
-                                            @endif
-                                        </td>
-                                        <td>{{ $row->title }}</td>
-                                        <td>{{ $row->startdate }}</td>
-                                        <td>{{ $row->enddate }}</td>
-                                        <td>{{ $row->registrationfees }}</td>
-                                        <td>{{ $row->totalround }}</td>
-                                        <td>{{ $row->completedround }}</td>
-                                        <td>{{ $row->totalprice }}</td>
-                                        <td>{{ $row->totalspin }}</td>
-                                        <td>{{ $row->joinmembers }}</td>
-                                        <td>
-                                            <span
-                                                class="badge rounded-pill bg-{{ $row->status == 0 ? 'danger' : 'success' }}-subtle text-{{ $row->status == 0 ? 'danger' : 'success' }}">
-                                                {{ $row->status == 0 ? 'Inactive' : 'Active' }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-center gap-2">
-                                                <button
-                                                    class="btn btn-soft-dark waves-effect waves-light btn-sm"id="btnid{{ $row->id }}"
-                                                    onclick="state('{{ $row->id }}')">Dectivate</button>
-                                                <button type="button" data-bs-toggle="modal"
-                                                    data-record-id="{{ json_encode($row) }}"
-                                                    data-bs-target="#showmasteredit"
-                                                    class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
-                                                        class="bx bx-plus"></i>Create Round</button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>
+                                        @if ($row->thumbnail)
+                                        {{-- @php
+                                        $imagePaths = explode(',', $row->image);
+                                        $firstImagePath = $imagePaths[0];
+                                        @endphp --}}
+                                        <img src="{{ asset('uploads/' . $row->thumbnail) }}" alt="Thumbnail"
+                                            width="100px" class="rounded-pill">
+                                        @endif
+                                    </td>
+                                    <td>{{ $row->title }}</td>
+                                    <td>{{ $row->startdate }}</td>
+                                    <td>{{ $row->enddate }}</td>
+                                    <td>{{ $row->registrationfees }}</td>
+                                    <td>{{ $row->totalround }}</td>
+                                    <td>{{ $row->completedround }}</td>
+                                    <td>{{ $row->totalprice }}</td>
+                                    <td>{{ $row->totalspin }}</td>
+                                    <td>{{ $row->joinmembers }}</td>
+                                    <td>
+                                        <span
+                                            class="badge rounded-pill bg-{{ $row->status == 0 ? 'danger' : 'success' }}-subtle text-{{ $row->status == 0 ? 'danger' : 'success' }}">
+                                            {{ $row->status == 0 ? 'Inactive' : 'Active' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
+                                                id="btnid{{ $row->id }}"
+                                                onclick="state('{{ $row->id }}')">Dectivate</button>
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-record-id="{{ json_encode($row) }}"
+                                                data-bs-target="#showmasteredit"
+                                                class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
+                                                    class="bx bx-plus"></i>Create Round</button>
+                                        </div>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -268,13 +264,9 @@
                 <div class="row g-3 align-items-center">
                     <div class="col-sm-12">
                         <div>
-                            <label for="placeholderInput" class="form-label">Round Stage</label>
-                            <select class="form-select" id="type" name="roundstage" required>
-                                <option value="" disabled selected>Choose...</option>
-                                @for ($i = 1; $i <= 3; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
+                            <label for="placeholderInput" class="form-label">Round</label>
+                            <input type="text" class="form-control" id=""
+                                                placeholder="enter registration fee" name="roundstage" value="1" readonly>
                         </div>
                         <input type="hidden" name="contestid" value="` + recordId.id + `">
                     </div>
