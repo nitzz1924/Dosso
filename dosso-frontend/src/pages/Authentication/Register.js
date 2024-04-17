@@ -13,7 +13,8 @@ const Register = props => {
 
   const [generatedOTP, setGeneratedOTP] = useState('');
   const [enteredOTP, setEnteredOTP] = useState('');
-  const [isGetOTPDisabled, setIsGetOTPDisabled] = useState(true);
+  const [showOTPInput, setShowOTPInput] = useState(false);
+
   const dispatch = useDispatch();
 
   const validation = useFormik({
@@ -36,15 +37,22 @@ const Register = props => {
     }
   });
 
+  const { isValid } = validation;
+
   const generateOTP = () => {
-    const digits = '0123456789';
-    let randonOTP = '';
-    for (let i = 0; i < 6; i++) {
-      randonOTP += digits[Math.floor(Math.random() * 10)];
+    if (validation.isValid) { // Check if form is valid and mobile number is valid
+      const digits = '0123456789';
+      let randonOTP = '';
+      for (let i = 0; i < 6; i++) {
+        randonOTP += digits[Math.floor(Math.random() * 10)];
+      }
+      setGeneratedOTP(randonOTP);
+      console.log('Generated OTP:', randonOTP);
+      setShowOTPInput(true); // Show OTP input section when OTP is generated
+    } else {
+      console.log('Please correct the form errors before generating OTP');
     }
-    setGeneratedOTP(randonOTP);
-    console.log('Generated OTP:', randonOTP);
-  }
+  };
 
   const handleChange = otp => {
     setEnteredOTP(otp);
@@ -54,16 +62,12 @@ const Register = props => {
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
       console.log('OTP Verified Successfully');
+      validation.handleSubmit();
     } else {
       console.log('Incorrect OTP');
     }
   };
 
-  const isFormValid = () => {
-    // Check if all required fields are filled correctly
-    const { email, username, password, mobilenumber } = validation.values;
-    return email && username && password && mobilenumber && !validation.errors.email && !validation.errors.username && !validation.errors.password && !validation.errors.mobilenumber;
-  };
 
   const { user, registrationError } = useSelector(state => ({
     user: state.Account.user,
@@ -188,17 +192,31 @@ const Register = props => {
                         <FormFeedback type="invalid">{validation.errors.mobilenumber}</FormFeedback>
                       </div>
 
-                      <div className="mt-4 ">
+                      <div className="mt-4 d-grid">
                         <button
-                          className="btn btn-warning text-black btn-block"
-                          onClick={generateOTP}
-                          disabled={!isFormValid()}
-                        >
-                          Get OTP
+                          className="btn btn-warning text-black btn-block "
+                          type="submit"
+                          >
+                          Register
                         </button>
                       </div>
 
-                      <div className="mt-4 ">
+
+                    </Form>
+
+                    <div className="mt-4 ">
+                      <button
+                        type="info"
+                        className="btn btn-warning text-black btn-block"
+                        onClick={generateOTP}
+                        disabled={false}
+                      >
+                        Get OTP
+                      </button>
+                    </div>
+
+                    {isValid && showOTPInput && ( // Conditionally render OTP input section
+                      <div id="otpinput" className="mt-4">
                         <OTPInput
                           value={enteredOTP}
                           onChange={handleChange}
@@ -226,29 +244,20 @@ const Register = props => {
                         <button
                           className="btn btn-warning text-black btn-block mt-2"
                           onClick={verifyOTP}
-                        >
+                          >
                           Verify OTP
                         </button>
                       </div>
+                    )}
 
-                      <div className="mt-4 d-grid">
-                        <button
-                          className="btn btn-warning text-black btn-block "
-                          type="submit"
-                        >
-                          Register
-                        </button>
-                      </div>
-
-                      <div className="mt-4 text-center text-white">
-                        <p className="mb-0">
-                          By registering you agree to the Dosso21{" "}
-                          <Link to="#" className="text-warning">
-                            Terms of Use
-                          </Link>
-                        </p>
-                      </div>
-                    </Form>
+                    <div className="mt-4 text-center text-white">
+                      <p className="mb-0">
+                        By registering you agree to the Dosso21{" "}
+                        <Link to="#" className="text-warning">
+                          Terms of Use
+                        </Link>
+                      </p>
+                    </div>
                   </div>
                 </CardBody>
               </Card>
