@@ -24,7 +24,7 @@ import withRouter from "components/Common/withRouter";
 //Import Breadcrumb
 import Breadcrumb from "../../components/Common/Breadcrumb";
 
-import avatar from "../../assets/images/users/avatar-1.jpg";
+let avatar = "../../Assets/images/Dosso_21_logo.webp";
 // actions
 import { editProfile, resetProfileFlag } from "../../store/actions";
 import MyWallet from "./Wallet/MyFund";
@@ -88,7 +88,7 @@ const UserProfile = () => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumb title="Skote" breadcrumbItem="Profile" />
+          {/* <Breadcrumb title="Skote" breadcrumbItem="Profile" /> */}
 
           <Row>
             <Col lg="12">
@@ -160,7 +160,7 @@ const UserProfile = () => {
           </Card>
         </Container>
 
-        <MyWallet />
+        {/* <MyWallet /> */}
       </div>
     </React.Fragment>
   );

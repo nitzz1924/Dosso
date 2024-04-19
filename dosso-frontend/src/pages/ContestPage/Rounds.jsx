@@ -29,7 +29,7 @@ const Rounds = (props) => {
                                 <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
                                     <h3>
                                         <span className='badge rounded badge-soft-success fs-4'>
-                                            Active Round 1
+                                            Active 
                                         </span>
                                     </h3>
                                 </CardHeader>
@@ -42,9 +42,9 @@ const Rounds = (props) => {
                                             </div>
                                         </div>
                                     </CardTitle>
-                                    <CardText className=" text-center">
+                                    {/* <CardText className=" text-center">
                                         Top 25 will qualify for next round
-                                    </CardText>
+                                    </CardText> */}
                                     <Link
                                         to="/spingame"
                                         className="btn btn-success w-100 fs-4 rounded-3"
@@ -59,7 +59,7 @@ const Rounds = (props) => {
                                 </CardFooter>
                             </Card>
                         </Col>
-                        <Col lg={3} className="">
+                        {/* <Col lg={3} className="">
                             <Card className="border border-secondary rounded-2 border-3 bg-black">
                                 <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
                                     <h3>
@@ -122,7 +122,7 @@ const Rounds = (props) => {
                                     End Time: -/-
                                 </CardFooter>
                             </Card>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
 

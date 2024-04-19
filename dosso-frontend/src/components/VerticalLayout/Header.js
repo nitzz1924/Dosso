@@ -91,10 +91,10 @@ const Header = props => {
                 </span>
               </Link>
 
-              <Link to="/" className="logo logo-light">
+              <Link to="/" className="logo logo-light text-warning">
                 <span className="logo-sm">
                   {/* <img src={logoLightSvg} alt="" height="22" /> */}
-                  <h3>D</h3>
+                  <i className="bx bx-home-circle fs-3"></i>
                 </span>
               </Link>
             </div>
@@ -109,7 +109,7 @@ const Header = props => {
             >
               <i className="fa fa-fw fa-bars" />
             </button> */}
-
+            
             {/* <form className="app-search d-none d-lg-block">
               <div className="position-relative">
                 <input

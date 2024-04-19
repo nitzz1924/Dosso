@@ -19,7 +19,7 @@ function CardWelcome({ title }) {
             </div>
           </Col>
         </Row>
-        <Card className="bg-gradient button-85">
+        <Card className="bg-gradient button-85 mt-3">
           <div>
             <Row>
               <Col xs="7" className="d-grid align-content-center">

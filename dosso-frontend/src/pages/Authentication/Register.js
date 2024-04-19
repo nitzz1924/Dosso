@@ -15,6 +15,7 @@ const Register = props => {
   const [enteredOTP, setEnteredOTP] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
   const dispatch = useDispatch();
+  
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -73,7 +74,8 @@ const Register = props => {
   const { isValid } = validation;
 
   const generateOTP = () => {
-    const errors = {};
+    console.log('Generated isValid:', validation.error);
+
     if (validation.isValid
     ) {
       const digits = '0123456789';
@@ -85,11 +87,9 @@ const Register = props => {
       console.log('Generated OTP:', randomOTP);
       setShowOTPInput(true);
     } else {
-      console.log('Please correct the form errors before generating OTP or ensure mobile number is 10 digits and contains only digits');     
-    
-      
+      console.log('Please correct the form errors before generating OTP or ensure mobile number is 10 digits and contains only digits');
     }
-    
+
   };
 
 
@@ -101,8 +101,10 @@ const Register = props => {
 
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
-      console.log('OTP Verified Successfully');
+      console.log('OTP Verified Successfully', validation.values);
 
+      // Store form data in local storage
+      localStorage.setItem('userData', JSON.stringify(validation.values));
       dispatch(registerUser(validation.values));
 
     } else {
@@ -118,6 +120,7 @@ const Register = props => {
   }));
 
   useEffect(() => {
+    
     dispatch(apiError(""));
   }, [dispatch]);
 
@@ -133,7 +136,7 @@ const Register = props => {
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
-              <Card className="overflow-hidden">
+              <Card className="overflow-hidden mt-3">
                 <div className="" style={{ backgroundColor: "#2A3042" }}>
                   <Row>
                     <Col className="col-7">
@@ -245,10 +248,10 @@ const Register = props => {
 
                       <div className="mt-4 text-center ">
                         <button
-                          type="info"
+                          type="button"
                           className="btn btn-warning px-5 text-black fw-bold btn-block"
                           onClick={generateOTP}
-                          disabled={!validation.touched.mobilenumber} 
+                          disabled={!validation.touched.mobilenumber}
                         >
                           Get OTP
                         </button>

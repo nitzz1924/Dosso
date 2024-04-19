@@ -15,7 +15,7 @@ const contestData = [
     {
         "id": 1,
         "img": rewardImg,
-        "title": "Contest 1",
+        "title": "Dosso21 contest",
         "remainingTime": "15 min",
         "seats": 80,
         "totalRound": 2,
@@ -111,32 +111,32 @@ const Contestlistslider = ({ title }) => {
                                             <i className="bx bx-time-five text-body me-1"></i>
                                             {item.remainingTime}
                                         </div>
-                                        <div className="mb-0 text-muted">
+                                        {/* <div className="mb-0 text-muted">
                                             <span>
                                                 Round: {item.activeRound}/{item.totalRound}
                                             </span>
-                                            {/* <b>{item.round}</b> */}
-                                        </div>
+                                            <b>{item.round}</b>
+                                        </div> */}
                                         <div className="mb-0 text-muted">
                                             <b>{item.seats}</b>
                                             <span>
-                                                /100 Seats
+                                                participants
                                             </span>
                                         </div>
                                     </div>
                                     <div className="text-start mt-4">
-                                        {/* <img src={item.img} alt="" className="avatar-sm" /> */}
                                         <div className='mt-3 d-flex justify-content-between'>
+                                        <img src={item.img} alt="" className="avatar-sm" />
                                             <div>
                                                 <div className=" fw-bold fs-3 text-warning">
                                                     {item.title}
                                                 </div>
                                                 <div className="text-muted">Winning reward</div>
                                             </div>
-                                            <div className="border border-success rounded round-box py-2 px-3 bg-light d-grid justify-content-center">
+                                            {/* <div className="border border-success rounded round-box py-2 px-3 bg-light d-grid justify-content-center">
                                                 <div>Active</div>
                                                 <span className='text-center round-text text-success'>{item.activeRound}</span>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="mt-2">
                                             <button onClick={() => handleClick(item)} className="button-29 w-100 fw-bold">

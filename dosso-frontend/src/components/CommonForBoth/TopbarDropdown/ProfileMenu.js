@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 
 // users
-import user1 from "../../../assets/images/users/avatar-1.jpg";
+let user1 = "../../Assets/images/Dosso_21_logo.webp";
 
 const ProfileMenu = props => {
   // Declare a new state variable, which we'll call "menu"
