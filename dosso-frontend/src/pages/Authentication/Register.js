@@ -14,7 +14,6 @@ const Register = props => {
   const [generatedOTP, setGeneratedOTP] = useState('');
   const [enteredOTP, setEnteredOTP] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
-
   const dispatch = useDispatch();
 
   const validation = useFormik({
@@ -23,36 +22,77 @@ const Register = props => {
       email: '',
       username: '',
       password: '',
-      referral: '',
+      referral: 'adminCode',
       mobilenumber: '',
     },
-    validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      username: Yup.string().required("Please Enter Your Username"),
-      password: Yup.string().required("Please Enter Your Password"),
-      mobilenumber: Yup.string().required("Please Enter Your Mobile Number"),
-    }),
-    onSubmit: (values) => {
-      dispatch(registerUser(values));
-    }
+    validate: (values) => {
+      const errors = {};
+
+      // Email validation
+      if (!values.email) {
+        errors.email = 'Please Enter Valid Email';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
+      }
+
+      // Username validation
+      if (!values.username) {
+        errors.username = 'Required';
+      } else if (values.username.length < 3) {
+        errors.username = 'Username must be at least 3 characters long';
+      }
+
+      // Password validation
+      if (!values.password) {
+        errors.password = 'Required';
+      } else if (values.password.length < 5) {
+        errors.password = 'Password must be at least 5 characters long';
+      }
+
+      // Mobile number validation (assuming it should be exactly 10 digits)
+      if (!values.mobilenumber) {
+        errors.mobilenumber = 'Please Enter 10 Digit Number';
+      } else if (!/^\d{10}$/i.test(values.mobilenumber)) {
+        errors.mobilenumber = 'Mobile number must be 10 digits';
+      }
+
+      return errors;
+    },
+
+    // validationSchema: Yup.object({
+    //   email: Yup.string().email('Invalid email').required('Required'),
+    //   username: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required("Please Enter Your Username"),
+    //   password: Yup.string().min(5, 'Too Short!').max(50, 'Too Long!').required("Please Enter Your Password"),
+    //   mobilenumber: Yup.string().min(10, 'Too Short!').max(10, 'Too Long!').required("Please Enter Your Mobile Number"),
+    // }),
+    // onSubmit: (values) => {
+    //   dispatch(registerUser(values));
+    // }
   });
 
   const { isValid } = validation;
 
   const generateOTP = () => {
-    if (validation.isValid) { // Check if form is valid and mobile number is valid
+    const errors = {};
+    if (validation.isValid
+    ) {
       const digits = '0123456789';
-      let randonOTP = '';
+      let randomOTP = '';
       for (let i = 0; i < 6; i++) {
-        randonOTP += digits[Math.floor(Math.random() * 10)];
+        randomOTP += digits[Math.floor(Math.random() * 10)];
       }
-      setGeneratedOTP(randonOTP);
-      console.log('Generated OTP:', randonOTP);
-      setShowOTPInput(true); // Show OTP input section when OTP is generated
+      setGeneratedOTP(randomOTP);
+      console.log('Generated OTP:', randomOTP);
+      setShowOTPInput(true);
     } else {
-      console.log('Please correct the form errors before generating OTP');
+      console.log('Please correct the form errors before generating OTP or ensure mobile number is 10 digits and contains only digits');     
+    
+      
     }
+    
   };
+
+
 
   const handleChange = otp => {
     setEnteredOTP(otp);
@@ -62,9 +102,12 @@ const Register = props => {
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
       console.log('OTP Verified Successfully');
-      validation.handleSubmit();
+
+      dispatch(registerUser(validation.values));
+
     } else {
       console.log('Incorrect OTP');
+      setErrorMessage('Incorrect OTP. Please try again.');
     }
   };
 
@@ -81,7 +124,7 @@ const Register = props => {
 
   return (
     <React.Fragment>
-      <div className="home-btn d-none d-sm-block">
+      <div className="home-btn   d-sm-block">
         <Link to="/" className="text-dark">
           <i className="bx bx-home h2" />
         </Link>
@@ -106,12 +149,14 @@ const Register = props => {
                 </div>
                 <CardBody className="text-white" style={{ backgroundColor: "#2A3042" }}>
                   <div className="p-2">
+
                     <Form
                       className="form-horizontal"
                       onSubmit={(e) => {
                         e.preventDefault();
-                        validation.handleSubmit();
-                        return false;
+                        // validation.handleSubmit();
+                        // verifyOTP();
+                        // return false;
                       }}
                     >
                       {user ? (
@@ -124,8 +169,11 @@ const Register = props => {
                         <Alert color="danger">{registrationError}</Alert>
                       ) : null}
 
+
+                      {/* {!showOTPInput && (
+                        <> */}
                       <div className="mb-3">
-                        <Label className="form-label">Email</Label>
+                        <Label className="form-label  ">Email <sup className="text-danger fw-light fs-6">*</sup></Label>
                         <Input
                           id="email"
                           name="email"
@@ -134,121 +182,132 @@ const Register = props => {
                           type="email"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.email || ""}
+                          value={validation.values.email}
                           invalid={validation.touched.email && validation.errors.email}
                         />
                         <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Username</Label>
+                        <Label className="form-label  ">Username <sup className="text-danger fw-light fs-6">*</sup></Label>
                         <Input
                           name="username"
                           type="text"
                           placeholder="Enter username"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.username || ""}
+                          value={validation.values.username}
                           invalid={validation.touched.username && validation.errors.username}
                         />
                         <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Password</Label>
+                        <Label className="form-label  ">Password <sup className="text-danger fw-light fs-6">*</sup></Label>
                         <Input
                           name="password"
                           type="password"
                           placeholder="Enter Password"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.password || ""}
+                          value={validation.values.password}
                           invalid={validation.touched.password && validation.errors.password}
                         />
                         <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Referral Code</Label>
+                        <Label className="form-label  ">Referral Code <sup className="text-muted">(optional)</sup></Label>
                         <Input
                           name="referralcode"
                           type="text"
                           placeholder="Enter referral code"
+
                         />
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Mobile Number</Label>
+                        <Label className="form-label  ">Mobile Number <sup className="text-danger fw-light fs-6">*</sup></Label>
                         <Input
                           name="mobilenumber"
                           type="tel"
                           maxLength={10}
+                          pattern="[0-9]*"
+                          inputMode="numeric"
                           placeholder="Enter Mobile Number"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.mobilenumber || ""}
+                          value={validation.values.mobilenumber}
                           invalid={validation.touched.mobilenumber && validation.errors.mobilenumber}
                         />
                         <FormFeedback type="invalid">{validation.errors.mobilenumber}</FormFeedback>
                       </div>
 
-                      <div className="mt-4 d-grid">
+                      <div className="mt-4 text-center ">
                         <button
-                          className="btn btn-warning text-black btn-block "
-                          type="submit"
-                          >
-                          Register
+                          type="info"
+                          className="btn btn-warning px-5 text-black fw-bold btn-block"
+                          onClick={generateOTP}
+                          disabled={!validation.touched.mobilenumber} 
+                        >
+                          Get OTP
                         </button>
                       </div>
+                      {/* </>
+                      )} */}
 
+                      {isValid && showOTPInput && ( // Conditionally render OTP input section
+                        <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
+                          <OTPInput
+                            value={enteredOTP}
+                            onChange={handleChange}
+                            numInputs={6}
+                            separator={<span style={{ width: "8px" }}>-</span>}
+                            isInputNum={true}
+                            shouldAutoFocus={true}
+                            renderInput={(props) => <input {...props} />}
+                            inputStyle={{
+                              border: "1px solid transparent",
+                              borderRadius: "2px",
+                              width: "40px",
+                              height: "40px",
+                              fontSize: "16px",
+                              color: "#D5A24A",
+                              fontWeight: "500",
+                              caretColor: "golden",
+                              margin: "2px",
+                              backgroundColor: "#222736",
+                            }}
+                            focusStyle={{
+                              border: "1px solid golden",
+                              outline: "none",
+                              color: "#D5A24A",
+                              backgroundColor: "#222",
+
+                            }}
+                          />
+                          <div className="mt-2 d-grid">
+                            <button
+                              className="btn btn-warning text-black btn-block "
+                              type="button"
+                              // onClick={verifyOTP}
+                              onClick={() => {
+                                if (isValid && showOTPInput) { // Check if form is valid and OTP input is shown
+                                  verifyOTP(); // Call verifyOTP function on button click
+                                } else {
+                                  console.log('Please generate OTP and enter it to proceed');
+                                }
+                              }}
+                            >
+                              Register
+                            </button>
+                          </div>
+                        </div>
+                      )}
 
                     </Form>
 
-                    <div className="mt-4 ">
-                      <button
-                        type="info"
-                        className="btn btn-warning text-black btn-block"
-                        onClick={generateOTP}
-                        disabled={false}
-                      >
-                        Get OTP
-                      </button>
-                    </div>
 
-                    {isValid && showOTPInput && ( // Conditionally render OTP input section
-                      <div id="otpinput" className="mt-4">
-                        <OTPInput
-                          value={enteredOTP}
-                          onChange={handleChange}
-                          numInputs={6}
-                          separator={<span style={{ width: "8px" }}>-</span>}
-                          isInputNum={true}
-                          shouldAutoFocus={true}
-                          renderInput={(props) => <input {...props} />}
-                          inputStyle={{
-                            border: "1px solid transparent",
-                            borderRadius: "2px",
-                            width: "40px",
-                            height: "40px",
-                            fontSize: "16px",
-                            color: "#000",
-                            fontWeight: "500",
-                            caretColor: "golden",
-                            margin: "2px",
-                          }}
-                          focusStyle={{
-                            border: "1px solid golden",
-                            outline: "none"
-                          }}
-                        />
-                        <button
-                          className="btn btn-warning text-black btn-block mt-2"
-                          onClick={verifyOTP}
-                          >
-                          Verify OTP
-                        </button>
-                      </div>
-                    )}
 
                     <div className="mt-4 text-center text-white">
                       <p className="mb-0">

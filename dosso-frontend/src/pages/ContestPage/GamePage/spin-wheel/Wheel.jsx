@@ -54,17 +54,17 @@ const Wheels = ({ data }) => {
                     spinDuration={[0.2]}
                     prizeNumber={prizeNumber}
                     data={rouletteData}
-                    outerBorderColor={["#f48e06"]}
+                    outerBorderColor={["#914900"]}
                     outerBorderWidth={[9]}
                     innerBorderColor={["white"]}
-                    radiusLineColor={["#a80f00"]}
+                    radiusLineColor={["#914900"]}
                     radiusLineWidth={[2]}
                     textColors={["black"]}
                     textDistance={55}
                     fontSize={[24]}
                     backgroundColors={[
-                        "#f48e06",
-                        "#a80f00",
+                        "white",
+                        "#914900",
 
                     ]}
                     onStopSpinning={() => {
@@ -82,7 +82,7 @@ const Wheels = ({ data }) => {
             <div className="text-center">
                 <button className="button-14" role="button" onClick={handleSpinClick}
                     disabled={mustSpin}>
-                    <div className="button-14-top text">SPIN</div>
+                    <div className="button-14-top text">SPINs</div>
                     <div className="button-14-bottom"></div>
                     <div className="button-14-base"></div>
                 </button>

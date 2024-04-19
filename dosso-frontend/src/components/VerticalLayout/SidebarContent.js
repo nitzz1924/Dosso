@@ -152,6 +152,7 @@ const SidebarContent = props => {
                 <span>{props.t("Home")}</span>
               </Link>
             </li>
+            {/*
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-joystick"></i>
@@ -166,7 +167,7 @@ const SidebarContent = props => {
                     <span>{props.t("Contests List")}</span>
                   </Link>
                 </li>
-                <li>
+                 <li>
                   <Link to="/spingame">
                     <i className="bx bx-send"></i>
                     <span>{props.t("Spin")}</span>
@@ -209,8 +210,8 @@ const SidebarContent = props => {
                   </Link>
                 </li>
               </ul>
-            </li>
-
+            </li> */}
+                {/* 
 
             <li>
               <Link to="/#" className="has-arrow">
@@ -635,11 +636,11 @@ const SidebarContent = props => {
                 <li>
                   <Link to="/ui-placeholders">{props.t("Placeholders")}</Link>
                 </li>
-                {/* <li>
+                 <li>
                   <Link to="/ui-sweet-alert">
                     {props.t("Sweet-Alert")}
                   </Link>
-                </li> */}
+                </li> 
                 <li>
                   <Link to="/ui-tabs-accordions">
                     {props.t("Tabs & Accordions")}
@@ -670,11 +671,11 @@ const SidebarContent = props => {
                     {props.t("Notifications")}
                   </Link>
                 </li>
-                {/* <li>
+                 <li>
                   <Link to="/ui-breadcrumb">
                     {props.t("Breadcrumb")}
                   </Link>
-                </li> */}
+                </li> 
                 <li>
                   <Link to="/ui-utilities">
                     {props.t("Utilities")}
@@ -722,9 +723,9 @@ const SidebarContent = props => {
                 <li>
                   <Link to="/form-mask">{props.t("Form Mask")}</Link>
                 </li>
-                {/* <li>
+                 <li>
                   <Link to="/dual-listbox">{props.t("Transfer List")}</Link>
-                </li> */}
+                </li> 
               </ul>
             </li>
 
@@ -848,17 +849,17 @@ const SidebarContent = props => {
                   </ul>
                 </li>
               </ul>
-            </li>
-          </ul>
-        </div>
-      </SimpleBar>
-    </React.Fragment>
-  );
+            </li> */}
+              </ul>
+            </div>
+          </SimpleBar>
+        </React.Fragment>
+        );
 };
 
-SidebarContent.propTypes = {
-  location: PropTypes.object,
-  t: PropTypes.any,
+        SidebarContent.propTypes = {
+          location: PropTypes.object,
+        t: PropTypes.any,
 };
 
-export default withRouter(withTranslation()(SidebarContent));
+        export default withRouter(withTranslation()(SidebarContent));

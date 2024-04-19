@@ -33,7 +33,7 @@ import MonthlyEarning from "./MonthlyEarning";
 import SocialSource from "./SocialSource";
 import ActivityComp from "./ActivityComp";
 import TopCities from "./TopCities";
-import LatestTranaction from "./LatestTranaction";
+
 
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
@@ -209,7 +209,7 @@ const Dashboard = props => {
 
           <Row>
             <Col lg="12">
-              <LatestTranaction />
+             
             </Col>
           </Row>
         </Container>
