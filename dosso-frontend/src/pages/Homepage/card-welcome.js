@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Button } from "reactstrap"
 
 //Import Images
-let wheelImg = "/assets/images/fortune-wheel.png"
+let wheelImg = "Assets/images/fortune-wheel.png"
 
 function CardWelcome({ title }) {
   return (
@@ -15,7 +15,7 @@ function CardWelcome({ title }) {
           </Col>
           <Col>
             <div className="fs-6 float-end rounded-pill border text-danger py-2 px-3 text-white">
-              Spin Remaining: 7
+              Spins Remaining: 7
             </div>
           </Col>
         </Row>

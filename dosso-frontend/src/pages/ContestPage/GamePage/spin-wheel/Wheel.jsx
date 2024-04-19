@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
 import "./wheel.css";
-let pointerImg = "/assets/images/Asset-6.png"
+let pointerImg = "/Assets/images/Asset-6.png"
 
 const Wheels = ({ data }) => {
     const [mustSpin, setMustSpin] = useState(false);
@@ -82,14 +82,14 @@ const Wheels = ({ data }) => {
             <div className="text-center">
                 <button className="button-14" role="button" onClick={handleSpinClick}
                     disabled={mustSpin}>
-                    <div className="button-14-top text">SPINs</div>
+                    <div className="button-14-top fw-bold fs-1 ">SPIN NOW</div>
                     <div className="button-14-bottom"></div>
                     <div className="button-14-base"></div>
                 </button>
             </div>
             <div className="text-center">
                 <div className="button-85 text-center fw-bold fs-2 my-3">
-                    {!mustSpin ? "You won " + rouletteData[prizeNumber].completeOption + " points" : "I'm spinning..."}
+                    {!mustSpin ? "You won " + rouletteData[prizeNumber].completeOption + " points" : "Best of luck..."}
                 </div>
             </div>
 

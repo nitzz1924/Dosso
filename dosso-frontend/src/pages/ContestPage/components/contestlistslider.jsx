@@ -119,8 +119,8 @@ const Contestlistslider = ({ title }) => {
                                         </div> */}
                                         <div className="mb-0 text-muted">
                                             <b>{item.seats}</b>
-                                            <span>
-                                                participants
+                                            <span className='ms-1'>
+                                                 participants
                                             </span>
                                         </div>
                                     </div>

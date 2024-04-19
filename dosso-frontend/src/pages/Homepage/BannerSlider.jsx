@@ -30,21 +30,21 @@ const BannerSlider = ({ title }) => {
                 renderOnlyVisible={true}
                 adaptive={false}
             >
-            <div className='h-50 slider-card'>
-                <img src={img4} className="img-fluid rounded" alt="Responsive image" />
-            </div>
-            <div className='h-50 slider-card'>
-                <img src={img3} className="img-fluid rounded" alt="Responsive image" />
-            </div>
-            <div className='h-50 slider-card'>
-                <img src={img5} className="img-fluid rounded" alt="Responsive image" />
-            </div>
-            <div className='h-50 slider-card'>
-                <img src={img6} className="img-fluid rounded" alt="Responsive image" />
-            </div>
-            
-            
-        </Flicking>
+                <div className='h-50 slider-card' >
+                    <img src={img4} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+                <div className='h-50 slider-card'>
+                    <img src={img3} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+                <div className='h-50 slider-card'>
+                    <img src={img5} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+                <div className='h-50 slider-card'>
+                    <img src={img6} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+
+
+            </Flicking>
         </div>
     )
 }
