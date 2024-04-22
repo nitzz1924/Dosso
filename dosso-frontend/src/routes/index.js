@@ -46,12 +46,12 @@ import Pages500 from "../pages/Utility/pages-500";
 
 
 // App Routes
-import Home from "pages/HomePage/HomeDashbaord";
 import Contests from "pages/ContestPage/Contests";
 import Rounds from "pages/ContestPage/Rounds";
 import Spingame from "pages/ContestPage/GamePage/Spingame";
 import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
+import Home from "pages/Homepage/HomeDashbaord";
 
 const authProtectedRoutes = [
   { path: "/", component: <Home /> },
