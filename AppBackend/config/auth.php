@@ -34,11 +34,18 @@ return [
     | Supported: "session"
     |
     */
-
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'vendors' => [
+            'driver' => 'session',
+            'provider' => 'admin_vendors',
+        ],
+        'students' => [
+            'driver' => 'session',
+            'provider' => 'students',
         ],
     ],
 
@@ -64,12 +71,16 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admin_vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminVendors::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Students::class,
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
