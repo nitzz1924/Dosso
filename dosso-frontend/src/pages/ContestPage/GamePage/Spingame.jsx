@@ -15,8 +15,8 @@ const Spingame = () => {
                 <Container fluid >
                     <Row className="justify-content-center">
                         <Col lg="3" className="p-0">
-                            <div className="fw-bold col-12 pb-2 fs-1 text-warning text-center">
-                                Spin To Win
+                            <div className="fw-bold col-12 pb-2 fs-1 text-black text-uppercase text-center">
+                                Spin To Play
                             </div>
                             
                             <DraggeableForm />

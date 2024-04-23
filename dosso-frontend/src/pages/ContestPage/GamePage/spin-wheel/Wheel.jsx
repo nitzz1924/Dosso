@@ -54,17 +54,17 @@ const Wheels = ({ data }) => {
                     spinDuration={[0.2]}
                     prizeNumber={prizeNumber}
                     data={rouletteData}
-                    outerBorderColor={["#914900"]}
+                    outerBorderColor={["#910000"]}
                     outerBorderWidth={[9]}
                     innerBorderColor={["white"]}
-                    radiusLineColor={["#914900"]}
+                    radiusLineColor={["#910000"]}
                     radiusLineWidth={[2]}
                     textColors={["black"]}
                     textDistance={55}
                     fontSize={[24]}
                     backgroundColors={[
                         "white",
-                        "#914900",
+                        "#910000",
 
                     ]}
                     onStopSpinning={() => {
@@ -88,7 +88,7 @@ const Wheels = ({ data }) => {
                 </button>
             </div>
             <div className="text-center">
-                <div className="button-85 text-center fw-bold fs-2 my-3">
+                <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
                     {!mustSpin ? "You won " + rouletteData[prizeNumber].completeOption + " points" : "Best of luck..."}
                 </div>
             </div>

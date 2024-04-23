@@ -54,7 +54,7 @@ const RewardGrid = () => {
         <React.Fragment>
             <Col lg={12}>
                 <div className="d-flex">
-                    <h4 className="card-title mb-4 flex-grow-1">Reward And More</h4>
+                    <h4 className="card-title mb-4 flex-grow-1 text-secondary">Reward And More</h4>
                     {/* <div>
                         <Link to="/job-list" className="btn btn-primary btn-sm">View All <i className="bx bx-right-arrow-alt"></i></Link>
                     </div> */}
@@ -63,12 +63,12 @@ const RewardGrid = () => {
             <Row className='px-2'>
                 {(jobVacancy || []).map((item, key) => (
                     <Col className='col-4 px-1' key={key}>
-                        <Card>
+                        <Card className='shadow-sm'>
                             <CardBody className="py-3 px-1">
                                 <div className="text-center">
                                     <img src={item.img} alt="" className="avatar-sm" />
                                     <Link to="/job-details" className="text-body">
-                                        <div className="mt-4 mb-2 text-warning">{item.title}</div>
+                                        <div className="mt-4 mb-2 text-black">{item.title}</div>
                                     </Link>
                                     {/* <p className="mb-0 text-muted">Themesbrand</p> */}
                                 </div>
