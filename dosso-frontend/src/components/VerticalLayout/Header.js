@@ -85,9 +85,11 @@ const Header = props => {
           <div className="d-flex">
 
             <div className="navbar-brand-box d-lg-none d-md-block">
-              <Link to="/" className="logo logo-dark">
+              <Link to="/" className="logo logo-dark text-black">
                 <span className="logo-sm">
                   {/* <img src={logo} alt="" height="22" /> */}
+                  <i className="bx bx-home-circle fs-3"></i>
+
                 </span>
               </Link>
 
