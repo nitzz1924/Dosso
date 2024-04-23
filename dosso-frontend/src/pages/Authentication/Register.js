@@ -15,7 +15,7 @@ const Register = props => {
   const [enteredOTP, setEnteredOTP] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
   const dispatch = useDispatch();
-  
+
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -120,7 +120,7 @@ const Register = props => {
   }));
 
   useEffect(() => {
-    
+
     dispatch(apiError(""));
   }, [dispatch]);
 
@@ -132,16 +132,16 @@ const Register = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center py-5" style={{ backgroundColor: "#222736" }}>
+      <div className="account-pages d-grid align-items-center py-5" style={{ backgroundColor: "rgb(236, 236, 236)" }}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden mt-3">
-                <div className="" style={{ backgroundColor: "#2A3042" }}>
+                <div className="border-bottom" >
                   <Row>
                     <Col className="col-7">
-                      <div className="text-warning p-4">
-                        <h5 className="text-warning">Free Register</h5>
+                      <div className="text-secondary p-4">
+                        <h5 className="text-black">Free Registration</h5>
                         <p>Get your free Dosso21 account now.</p>
                       </div>
                     </Col>
@@ -150,7 +150,7 @@ const Register = props => {
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="text-white" style={{ backgroundColor: "#2A3042" }}>
+                <CardBody className="text-black" >
                   <div className="p-2">
 
                     <Form
@@ -312,7 +312,7 @@ const Register = props => {
 
 
 
-                    <div className="mt-4 text-center text-white">
+                    <div className="mt-4 text-center text-secondary ">
                       <p className="mb-0">
                         By registering you agree to the Dosso21{" "}
                         <Link to="#" className="text-warning">
@@ -323,7 +323,7 @@ const Register = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center text-white">
+              <div className="mt-5 text-center text-secondary">
                 <p>
                   Already have an account ?{" "}
                   <Link to="/login" className="font-weight-medium text-warning">

@@ -95,16 +95,16 @@ const Login = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
+      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "rgb(236, 236, 236)"}}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="" style={{backgroundColor: "#2A3042"}}>
+                <div className="border-bottom">
                   <Row>
                     <Col xs={7}>
-                      <div className="text-warning p-4">
-                        <h5 className="text-warning">Welcome Back !</h5>
+                      <div className="text-secondary p-4">
+                        <h4 className="text-black">Welcome Back !</h4>
                         <p>Sign in to continue to Dosso 21.</p>
                       </div>
                     </Col>
@@ -113,7 +113,7 @@ const Login = props => {
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="text-white" style={{backgroundColor: "#2A3042"}}>
+                <CardBody className="text-black" >
                   {/* <div>
                     <Link to="/" className="logo-light-element">
                       <div className="avatar-md profile-user-wid mb-4">
@@ -269,7 +269,7 @@ const Login = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center text-white">
+              <div className="mt-5 text-center">
                 <p>
                   Don&#39;t have an account ?{" "}
                   <Link to="/register" className="fw-medium text-warning">

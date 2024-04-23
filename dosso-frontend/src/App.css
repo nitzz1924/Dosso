@@ -255,14 +255,14 @@
 }
 
 .form-control {
-  background-color: #222736;
+  /* background-color: #222736; */
   border-color: #D5A24A;
   border-width: 0 0 1px 0;
   color: #D5A24A;
 }
 
 .form-control:focus {
-  background-color:#222;
+  /* background-color:#222; */
   color: #D5A24A;
 
 }

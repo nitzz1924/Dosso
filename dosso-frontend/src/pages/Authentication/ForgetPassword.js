@@ -52,16 +52,16 @@ const ForgetPasswordPage = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "#222736"}}>
+      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "rgb(236, 236, 236)"}}>
         <Container>
           <Row className="justify-content-center align-items-center ">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="" style={{backgroundColor: "#2A3042"}}>
+                <div className="border-bottom" >
                   <Row>
                     <Col xs={7} >
-                      <div className="text-warning p-4">
-                        <h5 className="text-warning">Forgot Password?</h5>
+                      <div className="text-secondary p-4">
+                        <h5 className="text-black">Forgot Password?</h5>
                         <p>Enter email to recover.</p>
                       </div>
                     </Col>
@@ -70,7 +70,7 @@ const ForgetPasswordPage = props => {
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="" style={{backgroundColor: "#2A3042"}}>
+                <CardBody className="" >
                   {/* <div>
                     <Link to="/#">
                       <div className="avatar-md profile-user-wid mb-4">
@@ -106,7 +106,7 @@ const ForgetPasswordPage = props => {
                       }}
                     >
                       <div className="mb-3">
-                        <Label className="form-label text-white">Enter Registred Email</Label>
+                        <Label className="form-label text-black">Enter Registred Email</Label>
                         <Input
                           name="email"
                           className="form-control"
@@ -137,7 +137,7 @@ const ForgetPasswordPage = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center text-white">
+              <div className="mt-5 text-center text-secondary">
                 <p>
                   Go back to{" "}
                   <Link to="/login" className="font-weight-medium text-warning">
