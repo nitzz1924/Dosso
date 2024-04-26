@@ -1,6 +1,6 @@
-html {
+/* html {
   background-color: #222736;
-}
+} */
 
 .carousel-inner {
   height: 100px;
@@ -42,7 +42,7 @@ html {
 
 /* CSS */
 .button-85 {
-  padding: 0.6em 2em;
+  /* padding: 0.6em 2em; */
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
@@ -102,7 +102,7 @@ html {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #222;
+  background: #ffffff;
   left: 0;
   top: 0;
   border-radius: 10px;
@@ -206,12 +206,12 @@ html {
 .button-29 {
   align-items: center;
   appearance: none;
-  background-image: radial-gradient(100% 100% at 100% 0, #f1b44c 0, #F8D500 100%);
+  background-image: radial-gradient(100% 100% at 100% 0, #f77 0, #c60000 100%);
   border: 0;
   border-radius: 6px;
   box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
   box-sizing: border-box;
-  color: #000000;
+  color: #ffffff;
   cursor: pointer;
   display: inline-flex;
   /* font-family: "JetBrains Mono",monospace; */
@@ -235,34 +235,41 @@ html {
 }
 
 .button-29:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  box-shadow: #a0a0a0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #353535 0 -3px 0 inset;
 }
 
 .button-29:hover {
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #D5A24A 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bababa  0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
 .button-29:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
+  box-shadow: #c8c8c8 0 3px 7px inset;
   transform: translateY(2px);
 }
 
 
 .round-text{
-  font-size: 45px;
-  line-height: 1;
+  font-size: 25px;
+  /* line-height: 1; */
 }
 
 .form-control {
-  background-color: #222736;
+  /* background-color: #222736; */
   border-color: #D5A24A;
   border-width: 0 0 1px 0;
   color: #D5A24A;
 }
 
 .form-control:focus {
-  background-color:#222;
+  /* background-color:#222; */
   color: #D5A24A;
 
+}
+
+.progress-text {
+  font-size: 12px;
+}
+.winningtable td{
+  text-align: right;
 }

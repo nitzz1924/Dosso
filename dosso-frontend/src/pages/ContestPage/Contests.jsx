@@ -1,13 +1,12 @@
 import React from 'react'
 import { Container, Row, Col } from "reactstrap";
 import Contestlistslider from './components/contestlistslider';
-import Slidewithindicator from 'pages/HomePage/slidewithindicator';
-import BannerSlider from 'pages/HomePage/BannerSlider';
+import BannerSlider from 'pages/Homepage/BannerSlider';
+
+
 
 const Contests = () => {
-
     document.title = "Contests";
-
     return (
         <div>
             <div className="page-content">
