@@ -4,7 +4,7 @@ import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 import { Row, Col, Card, CardBody, CardHeader, CardFooter, Progress } from "reactstrap";
 import { Link, useNavigate } from 'react-router-dom';
 
-let rewardImg = "https://cdn-icons-png.flaticon.com/128/2282/2282531.png";
+let rewardImg = "https://trendsarthi.com/Appdata/Mega-contest.png";
 let magicImg = "https://cdn-icons-png.flaticon.com/512/4338/4338712.png";
 let spinsImg = "https://cdn-icons-png.flaticon.com/512/8146/8146784.png";
 let offerImg = "https://cdn-icons-png.flaticon.com/512/776/776627.png";
@@ -15,37 +15,13 @@ const contestData = [
     {
         "id": 1,
         "img": rewardImg,
-        "title": "MEGA CONTEST",
+        "title": "SHAGUN51-2425001",
         "remainingTime": "15 min",
-        "seats": 1000,
-        "totalRound": 2,
-        "entryFees": "₹1",
-        "firstPrize": "2 Crore",
-        "status": "New"
-    },
-    {
-        "id": 2,
-        "img": magicImg,
-        "title": "Contest 2",
-        "remainingTime": "45 min",
-        "seats": 1000,
+        "seats": 150000,
         "totalRound": 1,
-        "entryFees": "₹1",
-        "firstPrize": "1 Crore",
-        "status": ""
-
-    },
-    {
-        "id": 3,
-        "img": spinsImg,
-        "title": "Contest 3",
-        "remainingTime": "2 hrs",
-        "seats": 1000,
-        "totalRound": 3,
-        "entryFees": "₹1",
-        "firstPrize": "90 Lakhs",
-        "status": ""
-
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "New"
     },
 
 ];
@@ -83,8 +59,8 @@ const Contestlistslider = ({ title }) => {
             // panelsPerView={3}
             >
                 {(contestData || []).map((item, key) => (
-                    <div className="flicking-viewport vertical" key={item.id}>
-                        <div className="flicking-camera">
+                    <div className="flicking-viewport vertical " key={item.id}>
+                        <div className="flicking-camera shadow-sm">
                             <Card className='mb-3  flicking-panel shadow border border-secondary rounded-3'>
                                 <CardHeader className='bg-white rounded-3 border-bottom d-flex justify-content-between'>
 
@@ -99,7 +75,7 @@ const Contestlistslider = ({ title }) => {
                                         <b>{item.round}</b>
                                     </div> */}
                                     <div className="mb-0">
-                                        <span className='badge text-bg-success fs-6'>{item.status}</span>
+                                        <span className='badge text-bg-light fs-6'>{item.status}</span>
                                     </div>
 
                                 </CardHeader>
@@ -114,8 +90,8 @@ const Contestlistslider = ({ title }) => {
                                                 </div>
                                                 <div className="text-muted">Winning reward</div>
                                             </div>
-                                            <div>Entry <s>₹50</s>
-                                                <div className="badge text-bg-success   d-grid justify-content-center">
+                                            <div>Entry <s>₹100</s>
+                                                <div className="badge text-bg-secondary   d-grid justify-content-center">
                                                     <span className='text-center round-text  text-white'>{item.entryFees}</span>
                                                 </div>
                                             </div>
@@ -124,9 +100,9 @@ const Contestlistslider = ({ title }) => {
                                             <Progress
                                                 animated
                                                 className="mb-1"
-                                                color="danger"
-                                                max="1000"
-                                                value={750}
+                                                color="secondary"
+                                                max="150000"
+                                                value={100000}
 
                                                 style={{
                                                     height: '5px'
@@ -134,14 +110,14 @@ const Contestlistslider = ({ title }) => {
                                             >
                                             </Progress>
                                             <div className="float-start text-danger progress-text fw-bold">
-                                                250 Spots left
+                                                100000 Spots left
                                             </div>
                                             <div className="float-end text-muted progress-text">
-                                                1000 Spots
+                                                150000 Spots
                                             </div>
                                         </div>
                                         <div className="mt-2">
-                                            <button onClick={() => handleClick(item)} className="btn btn-danger shadow w-100 fw-bold fs-5 text-uppercase  rounded-5 ">
+                                            <button onClick={() => handleClick(item)} className="btn btn-light shadow w-100 fw-bold fs-5 text-uppercase  rounded-5 ">
                                                 Join Contest
                                             </button>
                                         </div>
