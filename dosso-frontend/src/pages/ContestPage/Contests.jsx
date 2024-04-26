@@ -22,7 +22,7 @@ const Contests = () => {
                     </Row>
                     <Row className="justify-content-center my-3 p-0">
                         <Col lg="3" className="p-0">
-                            <Contestlistslider title="Active Contests" />
+                            <Contestlistslider title="Live Contests" />
                         </Col>
                     </Row>
                 </Container>

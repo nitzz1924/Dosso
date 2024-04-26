@@ -468,6 +468,7 @@ body[data-sidebar="dark"] {
                     li{
                         &.mm-active .active{
                             color: $sidebar-dark-menu-item-active-color !important;
+                            font-weight: 600;
                             i{
                                 color: $sidebar-dark-menu-item-active-color !important;
                             }

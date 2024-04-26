@@ -23,6 +23,39 @@ const contestData = [
         "firstPrize": "5LAC",
         "status": "New"
     },
+    {
+        "id": 2,
+        "img": rewardImg,
+        "title": "SHAGUN51-2425002",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
+    {
+        "id": 3,
+        "img": rewardImg,
+        "title": "SHAGUN51-2425003",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
+    {
+        "id": 4,
+        "img": rewardImg,
+        "title": "SHAGUN51-2425004",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
 
 ];
 
@@ -118,7 +151,7 @@ const Contestlistslider = ({ title }) => {
                                         </div>
                                         <div className="mt-2">
                                             <button onClick={() => handleClick(item)} className="btn btn-light shadow w-100 fw-bold fs-5 text-uppercase  rounded-5 ">
-                                                Join Contest
+                                            {item.status==='New'?'Join Contest':'Coming Soon!'}
                                             </button>
                                         </div>
                                     </div>

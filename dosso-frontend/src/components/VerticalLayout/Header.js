@@ -84,10 +84,10 @@ const Header = props => {
         <div className="navbar-header">
           <div className="d-flex">
 
-            <div className="navbar-brand-box d-lg-none d-md-block">
+            {/* <div className="navbar-brand-box d-lg-none d-md-block">
               <Link to="/" className="logo logo-dark text-black">
                 <span className="logo-sm">
-                  {/* <img src={logo} alt="" height="22" /> */}
+                  <img src={logo} alt="" height="22" />
                   <i className="bx bx-home-circle fs-3"></i>
 
                 </span>
@@ -95,13 +95,13 @@ const Header = props => {
 
               <Link to="/" className="logo logo-light text-warning">
                 <span className="logo-sm">
-                  {/* <img src={logoLightSvg} alt="" height="22" /> */}
+                  <img src={logoLightSvg} alt="" height="22" />
                   <i className="bx bx-home-circle fs-3"></i>
                 </span>
               </Link>
-            </div>
+            </div> */}
 
-            {/* <button
+            <button
               type="button"
               onClick={() => {
                 tToggle();
@@ -110,8 +110,9 @@ const Header = props => {
               id="vertical-menu-btn"
             >
               <i className="fa fa-fw fa-bars" />
-            </button> */}
-            
+            </button>
+
+
             {/* <form className="app-search d-none d-lg-block">
               <div className="position-relative">
                 <input
@@ -275,16 +276,57 @@ const Header = props => {
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">
-              {/* <button
-                onClick={() => {
-                  setsearch(!search);
-                }}
+              <button
+                // onClick={() => {
+                //   setsearch(!search);
+                // }}
                 type="button"
                 className="btn header-item noti-icon "
                 id="page-header-search-dropdown"
               >
-                <i className="mdi mdi-magnify" /> 
-              </button> */}
+                <i className="mdi mdi-bell-outline"></i>
+              </button>
+
+
+              <div
+                className={
+                  search
+                    ? "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 show"
+                    : "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                }
+                aria-labelledby="page-header-search-dropdown"
+              >
+                <form className="p-3">
+                  <div className="form-group m-0">
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search ..."
+                        aria-label="Recipient's username"
+                      />
+                      <div className="input-group-append">
+                        <button className="btn btn-primary" type="submit">
+                          <i className="mdi mdi-magnify" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div className="dropdown d-inline-block d-lg-none ms-2">
+              <button
+                // onClick={() => {
+                //   setsearch(!search);
+                // }}
+                type="button"
+                className="btn header-item noti-icon "
+                id="page-header-search-dropdown"
+              >
+                <i className='bx bx-wallet-alt' ></i>
+              </button>
+
               <div
                 className={
                   search
@@ -389,7 +431,7 @@ const Header = props => {
             </div> */}
 
             {/* <NotificationDropdown /> */}
-            <ProfileMenu />
+            {/* <ProfileMenu /> */}
 
             {/* <div
               onClick={() => {

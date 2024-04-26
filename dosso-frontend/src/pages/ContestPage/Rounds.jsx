@@ -41,7 +41,7 @@ const Rounds = (props) => {
                                                 <Progress
                                                     animated
                                                     className="mb-1"
-                                                    color="danger"
+                                                    color="secondary"
                                                     max="1000"
                                                     value={750}
 
@@ -65,7 +65,7 @@ const Rounds = (props) => {
                                     </CardText> */}
                                     <Link
                                         to="/spingame"
-                                        className="btn btn-success w-100 fs-4 rounded-3 mt-3"
+                                        className="btn btn-light w-100 fs-4 rounded-3 mt-3"
                                     >
                                         Join <s>₹50</s> ₹1
                                     </Link>

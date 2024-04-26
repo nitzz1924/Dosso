@@ -6,61 +6,43 @@ const FormularioTexto = () => {
   const inputList = [
     {
       id: uuidv4(),
+      text: "1"
+    },
+    {
+      id: uuidv4(),
+      text: "2"
+    },
+    {
+      id: uuidv4(),
+      text: "3"
+    },
+    {
+      id: uuidv4(),
+      text: "4"
+    },
+    {
+      id: uuidv4(),
+      text: "5"
+    },
+    {
+      id: uuidv4(),
+      text: "6"
+    },
+    {
+      id: uuidv4(),
+      text: "7"
+    },
+    {
+      id: uuidv4(),
+      text: "8"
+    },
+    {
+      id: uuidv4(),
+      text: "9"
+    },
+    {
+      id: uuidv4(),
       text: "10"
-    },
-    {
-      id: uuidv4(),
-      text: "20"
-    },
-    {
-      id: uuidv4(),
-      text: "30"
-    },
-    {
-      id: uuidv4(),
-      text: "40"
-    },
-    {
-      id: uuidv4(),
-      text: "50"
-    },
-    {
-      id: uuidv4(),
-      text: "60"
-    },
-    {
-      id: uuidv4(),
-      text: "70"
-    },
-    {
-      id: uuidv4(),
-      text: "80"
-    },
-    {
-      id: uuidv4(),
-      text: "90"
-    },
-    {
-      id: uuidv4(),
-      text: "100"
-    },
-    { 
-      
-      id: uuidv4(), 
-      text: '150', 
-      style: { 
-        backgroundColor: 'green', 
-        textColor: 'white' 
-      }
-    },
-    { 
-      
-      id: uuidv4(), 
-      text: '200', 
-      style: { 
-        backgroundColor: 'green', 
-        textColor: 'white' 
-      }
     },
 
   ];

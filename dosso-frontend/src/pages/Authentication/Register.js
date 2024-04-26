@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-let logoImg = "../../../Assets/images/Dosso_21_logo.webp";
+let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
 
 const Register = props => {
   document.title = "Registration";
@@ -249,7 +249,7 @@ const Register = props => {
                       <div className="mt-4 text-center ">
                         <button
                           type="button"
-                          className="btn btn-warning px-5 text-black fw-bold btn-block"
+                          className="btn btn-secondary px-5 text-white fw-bold btn-block"
                           onClick={generateOTP}
                           disabled={!validation.touched.mobilenumber}
                         >
@@ -291,7 +291,7 @@ const Register = props => {
                           />
                           <div className="mt-2 d-grid">
                             <button
-                              className="btn btn-warning text-black btn-block "
+                              className="btn btn-light text-black btn-block "
                               type="button"
                               // onClick={verifyOTP}
                               onClick={() => {
@@ -315,7 +315,7 @@ const Register = props => {
                     <div className="mt-4 text-center text-secondary ">
                       <p className="mb-0">
                         By registering you agree to the Dosso21{" "}
-                        <Link to="#" className="text-warning">
+                        <Link to="#" className="text-secondary">
                           Terms of Use
                         </Link>
                       </p>
@@ -323,10 +323,10 @@ const Register = props => {
                   </div>
                 </CardBody>
               </Card>
-              <div className="mt-5 text-center text-secondary">
+              <div className="mt-5 text-center text-black">
                 <p>
                   Already have an account ?{" "}
-                  <Link to="/login" className="font-weight-medium text-warning">
+                  <Link to="/login" className="font-weight-medium text-secondary">
                     {" "}
                     Login
                   </Link>{" "}

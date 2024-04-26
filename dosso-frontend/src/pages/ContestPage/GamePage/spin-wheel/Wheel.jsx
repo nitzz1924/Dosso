@@ -54,17 +54,17 @@ const Wheels = ({ data }) => {
                     spinDuration={[0.2]}
                     prizeNumber={prizeNumber}
                     data={rouletteData}
-                    outerBorderColor={["#910000"]}
+                    outerBorderColor={["gray"]}
                     outerBorderWidth={[9]}
                     innerBorderColor={["white"]}
-                    radiusLineColor={["#910000"]}
+                    radiusLineColor={["gray"]}
                     radiusLineWidth={[2]}
                     textColors={["black"]}
                     textDistance={55}
                     fontSize={[24]}
                     backgroundColors={[
                         "white",
-                        "#910000",
+                        "gray",
 
                     ]}
                     onStopSpinning={() => {

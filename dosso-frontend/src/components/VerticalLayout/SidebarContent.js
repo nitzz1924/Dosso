@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 // //Import Scrollbar
 import SimpleBar from "simplebar-react";
@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 
 //i18n
 import { withTranslation } from "react-i18next";
+// users
+let user1 = "../../Assets/images/Dosso21-logo-new.webp";
 
 const SidebarContent = props => {
   const ref = useRef();
@@ -145,14 +147,66 @@ const SidebarContent = props => {
       <SimpleBar className="h-100" ref={ref}>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">{props.t("Menu")} </li>
-            <li>
-              <Link to="/">
-                <i className="bx bx-home-circle"></i>
-                <span>{props.t("Home")}</span>
-              </Link>
-            </li>
-            {/*
+            {/* <li className="menu-title">{props.t("Menu")} </li> */}
+            <div className="mx-3 text-center">
+              <img
+                className="img-fluid"
+                src={user1}
+                alt="Header Avatar"
+                width={100}
+              />
+              </div>
+              <li>
+                <Link to="/">
+                  <i className="bx bx-home-circle"></i>
+                  <span>{props.t("Home")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile">
+                  <i className="bx bx-user"></i>
+                  <span>{props.t("Account Details")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">
+                  <i className='bx bx-wallet-alt' ></i>
+                  <span>{props.t("Withdrawal")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">
+                  <i className="bx bx-home-circle"></i>
+                  <span>{props.t("Winning History")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">
+                  <i className='bx bx-help-circle' ></i>
+                  <span>{props.t("Help & Support")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">
+                  <i className='bx bx-calendar-exclamation' ></i>
+                  <span>{props.t("Terms & Conditions")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">
+                  <i className='bx bx-target-lock'></i>
+                  <span>{props.t("Our Mission")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/logout">
+                  <i className="bx bx-power-off"></i>
+                  <span>{props.t("Log Out")}</span>
+                </Link>
+              </li>
+
+
+              {/*
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-joystick"></i>
@@ -211,7 +265,7 @@ const SidebarContent = props => {
                 </li>
               </ul>
             </li> */}
-                {/* 
+              {/* 
 
             <li>
               <Link to="/#" className="has-arrow">
@@ -850,16 +904,16 @@ const SidebarContent = props => {
                 </li>
               </ul>
             </li> */}
-              </ul>
-            </div>
-          </SimpleBar>
-        </React.Fragment>
-        );
+          </ul>
+        </div>
+      </SimpleBar>
+    </React.Fragment>
+  );
 };
 
-        SidebarContent.propTypes = {
-          location: PropTypes.object,
-        t: PropTypes.any,
+SidebarContent.propTypes = {
+  location: PropTypes.object,
+  t: PropTypes.any,
 };
 
-        export default withRouter(withTranslation()(SidebarContent));
+export default withRouter(withTranslation()(SidebarContent));
