@@ -53,7 +53,6 @@ import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
 
-
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
   { path: "/contests", component: <Contests /> },
