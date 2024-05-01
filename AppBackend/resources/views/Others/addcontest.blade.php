@@ -188,11 +188,11 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                             <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
                                                 id="btnid{{ $row->id }}"
                                                 onclick="state('{{ $row->id }}')">Dectivate</button>
-                                            <button type="button" data-bs-toggle="modal"
+                                            {{-- <button type="button" data-bs-toggle="modal"
                                                 data-record-id="{{ json_encode($row) }}"
                                                 data-bs-target="#showmasteredit"
                                                 class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
-                                                    class="bx bx-plus"></i>Create Round</button>
+                                                    class="bx bx-plus"></i>Create Round</button> --}}
                                         </div>
                                     </td>
                                 </tr>

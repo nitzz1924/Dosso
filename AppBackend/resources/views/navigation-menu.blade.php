@@ -5,22 +5,22 @@
         <!-- Dark Logo-->
         <a href="{{ route('dashboard') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="30" />
+                <img src="{{ asset('assets/images/dossologogray.png') }}" alt="" height="30" />
                 {{-- <h3 class=" fs-3 pt-3 pb-3">D</h3> --}}
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="90" />
+                <img src="{{ asset('assets/images/dossologogray.png') }}" alt="" height="90" />
                 {{-- <h3 class=" fs-2 pt-3 pb-3 fw-bold">DOSSO21</h3> --}}
             </span>
         </a>
         <!-- Light Logo-->
         <a href="{{ route('dashboard') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="30" />
+                <img src="{{ asset('assets/images/dossologogray.png') }}" alt="" height="30" />
                 {{-- <h3 class="fs-3 pt-3 pb-3">D</h3> --}}
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="90" />
+                <img src="{{ asset('assets/images/dossologogray.png') }}" alt="" height="90" />
 
                 {{-- <h3 class=" fs-2 pt-3 pb-3 fw-bold">DOSSO21</h3> --}}
             </span>
