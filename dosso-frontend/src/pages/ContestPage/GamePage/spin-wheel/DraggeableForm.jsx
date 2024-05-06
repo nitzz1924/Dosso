@@ -6,53 +6,43 @@ const FormularioTexto = () => {
   const inputList = [
     {
       id: uuidv4(),
-      text: "?",
-      value: "1456"
+      text: "1"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "2345"
+      text: "2"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "3456"
+      text: "3"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "4567"
+      text: "4"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "5678"
+      text: "5"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "6789"
+      text: "6"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "7894"
+      text: "7"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "8974"
+      text: "8"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "9874"
+      text: "9"
     },
     {
       id: uuidv4(),
-      text: "?",
-      value: "1111"
+      text: "10"
     },
 
   ];

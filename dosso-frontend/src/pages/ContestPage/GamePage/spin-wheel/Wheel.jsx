@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
 import "./wheel.css";
-import CountUp from 'react-countup';
 let pointerImg = "/Assets/images/Asset-6.png"
+
 const Wheels = ({ data }) => {
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
@@ -21,10 +21,8 @@ const Wheels = ({ data }) => {
 
     useEffect(() => {
         const addShortString = data.map((item) => {
-            const randomNumber = Math.floor(Math.random() * (9999 - 999 + 1) + 1000); 
             return {
-                // completeOption: item.value,
-                completeOption: randomNumber,
+                completeOption: item.text,
                 option:
                     item.text.length >= 30
                         ? item.text.substring(0, 30).trimEnd() + "..."
@@ -90,15 +88,8 @@ const Wheels = ({ data }) => {
                 </button>
             </div>
             <div className="text-center">
-            <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
-                    {!mustSpin && (
-                        <span>
-                            You won{" "}
-                            <CountUp start={1000} end={rouletteData[prizeNumber].completeOption} separator=""
-                            /> points
-                        </span>
-                    )}
-                    {mustSpin && "Best of luck..."}
+                <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
+                    {!mustSpin ? "You won " + rouletteData[prizeNumber].completeOption + " points" : "Best of luck..."}
                 </div>
             </div>
 
