@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
+use App\Models\Students;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Auth;
 
 class ViewController extends Controller
 {
@@ -21,22 +22,13 @@ class ViewController extends Controller
     }
     public function addcontestview()
     {
-        $contestdata = AddContest::get();
+        $contestdata = AddContest::where('status','!=',2)->get();
         return view('Others.addcontest',compact('contestdata'));
-
-        // // Fetch data from API endpoint
-        // $response = Http::get('https://dummyjson.com/products/1');
-        // dd($response->body(), $response->status());
-        // if ($response->successful()) {
-        //     $contestdata = $response->json();
-        //     return view('Others.addcontest')->with('contestdata', $contestdata);
-        // } else {
-        //     return back()->withError('Failed to fetch data from API');
-        // }
     }
     public function studentslist()
     {
-        return view('Students.studentslist');
+        $studentdata = Students::get();
+        return view('Students.studentslist',compact('studentdata'));
     }
     public function addvendorview()
     {
@@ -78,5 +70,16 @@ class ViewController extends Controller
         } else {
             return redirect()->route('vendorloginview');
         }
+    }
+
+    public function winningreportview()
+    {
+        $contestdata = AddContest::where('status','=',2)->get();
+        return view('Others.winningreport',compact('contestdata'));
+    }
+
+    public function reportpage(Request $request)
+    {
+        return view('Others.report');
     }
 }

@@ -65,35 +65,24 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
-                                            id="" data-bs-toggle="modal" data-bs-target="#showmasteredit">View Report</button>
+                                        <a href="/reportpage/{{$row->id}}">
+                                            <button class="btn btn-soft-dark waves-effect waves-light btn-sm" id=""
+                                            data-bs-toggle="modal" data-bs-target="#showmasteredit">View Report</button>
+                                        </a>
                                     </td>
-                                    <!-- <td>
-                                            <select class="form-select" name="status" id="conteststatus">
-                                                <option value="0" {{$row->status==0 ? 'selected' : ''}}>Activate</option>
-                                                <option value="1"  {{$row->status==1 ? 'selected' : ''}}>deactivate</option>
-                                                <option value="2"  {{$row->status==2 ? 'selected' : ''}}>Completed</option>
-                                            </select>
-                                            <input type="hidden" name="contestid" value="{{$row->id}}" class="contestid">
-                                    </td> -->
+                                    {{-- <td>
+                                        <select class="form-select" name="status" id="conteststatus">
+                                            <option value="0" {{$row->status==0 ? 'selected' : ''}}>Activate</option>
+                                            <option value="1" {{$row->status==1 ? 'selected' : ''}}>deactivate</option>
+                                            <option value="2" {{$row->status==2 ? 'selected' : ''}}>Completed</option>
+                                        </select>
+                                        <input type="hidden" name="contestid" value="{{$row->id}}" class="contestid">
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="showmasteredit" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content border-0 overflow-hidden">
-                <div class="modal-header p-3 text-center">
-                    <h4 class="card-title mb-0 ">Create Round</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalbody">
-                        hello
                 </div>
             </div>
         </div>

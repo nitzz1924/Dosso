@@ -73,21 +73,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     </div>
                                     <div class="col-md-3">
                                         <div>
-                                            <label for="placeholderInput" class="form-label">Total Round</label>
-                                            <input type="text" class="form-control" id=""
-                                                placeholder="enter registration fee" name="totalround" value="1"
-                                                readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div>
-                                            <label for="placeholderInput" class="form-label">Completed Round</label>
-                                            <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter completed rounds" name="completedround">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div>
                                             <label for="placeholderInput" class="form-label">Total Price</label>
                                             <input type="text" class="form-control" id="valueval"
                                                 placeholder="enter total price" name="totalprice">
@@ -145,8 +130,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <th scope="col">Start Date</th>
                                     <th scope="col">End Date</th>
                                     <th scope="col">Registration Fees</th>
-                                    <th scope="col">Total Round</th>
-                                    <th scope="col">Completed Round</th>
                                     <th scope="col">Total Price</th>
                                     <th scope="col">Total Spin</th>
                                     <th scope="col">Total Member Joined</th>
@@ -172,8 +155,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <td>{{ $row->startdate }}</td>
                                     <td>{{ $row->enddate }}</td>
                                     <td>{{ $row->registrationfees }}</td>
-                                    <td>{{ $row->totalround }}</td>
-                                    <td>{{ $row->completedround }}</td>
                                     <td>{{ $row->totalprice }}</td>
                                     <td>{{ $row->totalspin }}</td>
                                     <td>{{ $row->joinmembers }}</td>
@@ -184,16 +165,12 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                         </span>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
-                                                id="btnid{{ $row->id }}"
-                                                onclick="state('{{ $row->id }}')">Dectivate</button>
-                                            {{-- <button type="button" data-bs-toggle="modal"
-                                                data-record-id="{{ json_encode($row) }}"
-                                                data-bs-target="#showmasteredit"
-                                                class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
-                                                    class="bx bx-plus"></i>Create Round</button> --}}
-                                        </div>
+                                        <select class="form-select" id="conteststatus" name="totalspin">
+                                            <option value="0" selected>Activate</option>
+                                            <option value="1">Deactivate</option>
+                                            <option value="2">Completed</option>
+                                        </select>
+                                        <input type="hidden" name="contestid" value="{{$row->id}}" class="contestid">
                                     </td>
                                 </tr>
                                 @endforeach
@@ -204,36 +181,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
             </div>
         </div>
     </div>
-    <div id="showmasteredit" class="modal zoomIn" tabindex="-1" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 overflow-hidden">
-                <div class="modal-header p-3 text-center">
-                    <h4 class="card-title mb-0 ">Create Round</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalbody">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("sa-warningid").addEventListener("click", function() {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You want to delete this Vehicle..?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                    cancelButtonClass: "btn btn-danger w-xs mt-2",
-                    confirmButtonText: '<a href="#" class="text-white">Yes, delete it!</a>',
-                    buttonsStyling: false,
-                    showCloseButton: true,
-                });
-            });
-        });
-    </script>
     <script>
         function state(rowId) {
             var btn = document.getElementById('btnid' + rowId);
@@ -254,157 +201,33 @@ MAHADEV🔱--------------------------------------------------------------- --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.recordidbtn').on('click', function() {
-                var recordId = $(this).data('record-id');
-                console.log(recordId.id);
-                $('#modalbody').empty();
-                var modal = `
-        <form id="createRoundForm" action="" method="POST">
-            @csrf
-                <div class="row g-3 align-items-center">
-                    <div class="col-sm-12">
-                        <div>
-                            <label for="placeholderInput" class="form-label">Round</label>
-                            <input type="text" class="form-control" id=""
-                                                placeholder="enter registration fee" name="roundstage" value="1" readonly>
-                        </div>
-                        <input type="hidden" name="contestid" value="` + recordId.id + `">
-                    </div>
-                    <div class="col-sm-12">
-                        <div>
-                            <label for="placeholderInput" class="form-label">Spins</label>
-                            <select class="form-select" id="type" name="totalspins" required>
-                                <option value="" disabled selected>Choose...</option>
-                                @for ($i = 1; $i <= 10; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div>
-                            <label for="placeholderInput" class="form-label">Winners</label>
-                            <input type="text" class="form-control" id="image"
-                                placeholder="enter winners" name="winners" required>
-                        </div>
-                    </div>
-                    <div class="col-auto text-center w-100">
-                        <button id="sa-warning" class="btn btn-soft-success waves-effect waves-light sa-warning-btn">Create</button>
-                    </div>
-                </div>
-            </form>
-        `
-                $('#modalbody').append(modal);
-            });
-        });
-        $(document).on('submit', '#createRoundForm', function(event) {
-            event.preventDefault();
+            var contestid;
+            $('#conteststatus').on('change', function()  {
+                var selectedvalue = $(this).val();
+                contestid = $(this).closest('td').find('.contestid').val();
+                console.log(selectedvalue);
+                console.log(contestid);
 
-
-            var isValid = true;
-            $(this).find('[required]').each(function() {
-                if ($(this).val() === '') {
-                    isValid = false;
-                    return false;
-                }
-            });
-
-
-            if (!isValid) {
-                Swal.fire({
-                    title: "Error!",
-                    text: "Please fill out all required fields.",
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                    buttonsStyling: false,
-                    showCloseButton: true,
+                //Updating Contest Status
+                $.ajax({
+                    url: '/updateactivationstatus',
+                    method: 'POST',
+                    data: {
+                        status: selectedvalue,
+                        contestid : contestid
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
                 });
-                return;
-            }
-            var formData = $(this).serialize();
-            $.ajax({
-                url: "{{ route('createround') }}",
-                type: "POST",
-                data: formData,
-                success: function(response) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "Your data has been successfully submitted.",
-                        icon: "success",
-                        showCancelButton: false,
-                        confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                        buttonsStyling: false,
-                        showCloseButton: true,
-                    });
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        title: "Error!",
-                        text: "There was an error submitting your data. Please try again.",
-                        icon: "error",
-                        showCancelButton: false,
-                        confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                        buttonsStyling: false,
-                        showCloseButton: true,
-                    });
-                }
             });
         });
-    </script>
-    <script>
-        $(document).on('submit', '#createRoundForm', function(event) {
-                    event.preventDefault();
-
-                    // Check for empty required fields
-                    var isValid = true;
-                    $(this).find('[required]').each(function() {
-                            if ($(this).val().trim() === '') {
-                                isValid = false;
-                                return false;
-                            });
-
-                        if (!isValid) {
-                            // Show error message if any required field is empty
-                            Swal.fire({
-                                title: "Error!",
-                                text: "Please fill out all required fields.",
-                                icon: "error",
-                                showCancelButton: false,
-                                confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                                buttonsStyling: false,
-                                showCloseButton: true,
-                            });
-                            return;
-                        }
-
-                        var formData = $(this).serialize(); $.ajax({
-                            url: "{{ route('createround') }}",
-                            type: "POST",
-                            data: formData,
-                            success: function(response) {
-                                Swal.fire({
-                                    title: "Success!",
-                                    text: "Your data has been successfully submitted.",
-                                    icon: "success",
-                                    showCancelButton: false,
-                                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                                    buttonsStyling: false,
-                                    showCloseButton: true,
-                                });
-                            },
-                            error: function(xhr, status, error) {
-                                Swal.fire({
-                                    title: "Error!",
-                                    text: "There was an error submitting your data. Please try again.",
-                                    icon: "error",
-                                    showCancelButton: false,
-                                    confirmButtonClass: "btn btn-primary w-xs me-2 mt-2",
-                                    buttonsStyling: false,
-                                    showCloseButton: true,
-                                });
-                            }
-                        });
-                    });
     </script>
 </x-app-layout>

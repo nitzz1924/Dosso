@@ -18,7 +18,8 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('insertwallet','insertwallet');
     Route::get('transactionlist/{id}','transactionlist');
     Route::get('walletamount/{id}','walletamount');
-
+    Route::get('getPoint/{studentId}/{contestId}','getPoint');
+    Route::post('addPoint','addPoint');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');

@@ -1,8 +1,8 @@
 
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
-<html lang="en" data-layout="vertical" data-topbar="white" data-sidebar-size="lg" data-sidebar="light"
-    data-sidebar-image="none" data-preloader="enable" data-bs-theme="light">
+<html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark"
+    data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -12,8 +12,7 @@
     <title>{{ config('app.name', 'DOSSO21') }}</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/dossologogray.png') }}" />
-
+     <link rel="shortcut icon" href="{{ asset('assets/images/dossologofinal.png') }}" />
     <!-- jsvectormap css -->
     <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
 
