@@ -94,7 +94,7 @@ const WalletActivities = () => {
   return (
     <Card>
       <CardBody>
-        <h4 className="card-title mb-4">Activities</h4>
+        <h4 className="card-title mb-4">Transactions</h4>
         <ul className="nav nav-tabs nav-tabs-custom">
           <NavItem>
             <NavLink

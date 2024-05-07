@@ -169,7 +169,7 @@ const SidebarContent = props => {
                 </Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/myWallet">
                   <i className='bx bx-wallet-alt' ></i>
                   <span>{props.t("Withdrawal")}</span>
                 </Link>

@@ -161,7 +161,7 @@ const UserProfile = () => {
           </Card>
         </Container>
 
-        {/* <MyWallet /> */}
+        <MyWallet />
       </div>
     </React.Fragment>
   );

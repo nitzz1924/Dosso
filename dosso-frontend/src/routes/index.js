@@ -52,6 +52,7 @@ import Spingame from "pages/ContestPage/GamePage/Spingame";
 import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
+import MyFund from "pages/Authentication/Wallet/MyFund";
 
 
 const authProtectedRoutes = [
@@ -61,6 +62,7 @@ const authProtectedRoutes = [
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
   { path: "/studentRegistration", component: <StudentRegistration /> },
+  { path: "/myWallet", component: <MyFund /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },
