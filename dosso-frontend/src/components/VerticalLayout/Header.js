@@ -27,13 +27,8 @@ import logoLightSvg from "../../assets/images/logo-light.svg";
 
 //i18n
 import { withTranslation } from "react-i18next";
-
 // Redux Store
-import {
-  showRightSidebarAction,
-  toggleLeftmenu,
-  changeSidebarType,
-} from "../../store/actions";
+import { changeSidebarType,  showRightSidebarAction,  toggleLeftmenu,  } from 'store/layout/actions';
 
 const Header = props => {
   const [search, setsearch] = useState(false);
