@@ -7,7 +7,8 @@ import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 let logoImg = "../../../Assets/images/Dosso_21_logo.webp";
-
+import axios from 'axios';
+import FormData from 'form-data';
 const Register = props => {
   document.title = "Registration";
 
@@ -21,9 +22,8 @@ const Register = props => {
     enableReinitialize: true,
     initialValues: {
       email: '',
-      username: '',
       password: '',
-      referral: 'adminCode',
+      referral: '0001ADMIN',
       mobilenumber: '',
     },
     validate: (values) => {
@@ -34,13 +34,6 @@ const Register = props => {
         errors.email = 'Please Enter Valid Email';
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Invalid email address';
-      }
-
-      // Username validation
-      if (!values.username) {
-        errors.username = 'Required';
-      } else if (values.username.length < 3) {
-        errors.username = 'Username must be at least 3 characters long';
       }
 
       // Password validation
@@ -59,21 +52,16 @@ const Register = props => {
 
       return errors;
     },
-
-    // validationSchema: Yup.object({
-    //   email: Yup.string().email('Invalid email').required('Required'),
-    //   username: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required("Please Enter Your Username"),
-    //   password: Yup.string().min(5, 'Too Short!').max(50, 'Too Long!').required("Please Enter Your Password"),
-    //   mobilenumber: Yup.string().min(10, 'Too Short!').max(10, 'Too Long!').required("Please Enter Your Mobile Number"),
-    // }),
-    // onSubmit: (values) => {
-    //   dispatch(registerUser(values));
-    // }
   });
 
   const { isValid } = validation;
 
-  const generateOTP = () => {
+  const generateOTP = (event) => {
+    event.preventDefault(); // Prevent form submission
+    const form = event.target; // Get the form element
+    // Create a new FormData object from the form
+    const formData = new FormData(form);
+    console.log(form.value);
     console.log('Generated isValid:', validation.error);
 
     if (validation.isValid
@@ -102,11 +90,38 @@ const Register = props => {
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
       console.log('OTP Verified Successfully', validation.values);
-
       // Store form data in local storage
       localStorage.setItem('userData', JSON.stringify(validation.values));
+      try {
+        const dataList=[]
+        dataList.push({
+          username:validation.values.mobilenumber,
+          emailaddress:validation.values.email,
+          password:validation.values.password,
+          contactnumber:validation.values.mobilenumber,
+          referbyId:validation.values.referral,
+          status:0,
+        })
+        console.log(dataList);
+        axios.post('https://admin.dosso21.com/api/studentregister', dataList[0], {
+            maxBodyLength: Infinity,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
+        .then((response) => {
+            // Handle the successful response here
+            console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+            // Handle errors here
+            console.log("error->",error);
+        });
+        
+    } catch (error) {
+        console.error(error);
+    }
       dispatch(registerUser(validation.values));
-
     } else {
       console.log('Incorrect OTP');
       setErrorMessage('Incorrect OTP. Please try again.');
@@ -120,7 +135,6 @@ const Register = props => {
   }));
 
   useEffect(() => {
-
     dispatch(apiError(""));
   }, [dispatch]);
 
@@ -152,15 +166,9 @@ const Register = props => {
                 </div>
                 <CardBody className="text-black" >
                   <div className="p-2">
-
                     <Form
                       className="form-horizontal"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        // validation.handleSubmit();
-                        // verifyOTP();
-                        // return false;
-                      }}
+                      onSubmit={generateOTP} // Submit the form to the generateOTP function
                     >
                       {user ? (
                         <Alert color="success">
@@ -171,63 +179,6 @@ const Register = props => {
                       {registrationError ? (
                         <Alert color="danger">{registrationError}</Alert>
                       ) : null}
-
-
-                      {/* {!showOTPInput && (
-                        <> */}
-                      <div className="mb-3">
-                        <Label className="form-label  ">Email <sup className="text-danger fw-light fs-6">*</sup></Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          className="form-control"
-                          placeholder="Enter email"
-                          type="email"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.email}
-                          invalid={validation.touched.email && validation.errors.email}
-                        />
-                        <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
-                      </div>
-
-                      <div className="mb-3">
-                        <Label className="form-label  ">Username <sup className="text-danger fw-light fs-6">*</sup></Label>
-                        <Input
-                          name="username"
-                          type="text"
-                          placeholder="Enter username"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.username}
-                          invalid={validation.touched.username && validation.errors.username}
-                        />
-                        <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
-                      </div>
-
-                      <div className="mb-3">
-                        <Label className="form-label  ">Password <sup className="text-danger fw-light fs-6">*</sup></Label>
-                        <Input
-                          name="password"
-                          type="password"
-                          placeholder="Enter Password"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.password}
-                          invalid={validation.touched.password && validation.errors.password}
-                        />
-                        <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
-                      </div>
-
-                      <div className="mb-3">
-                        <Label className="form-label  ">Referral Code <sup className="text-muted">(optional)</sup></Label>
-                        <Input
-                          name="referralcode"
-                          type="text"
-                          placeholder="Enter referral code"
-
-                        />
-                      </div>
 
                       <div className="mb-3">
                         <Label className="form-label  ">Mobile Number <sup className="text-danger fw-light fs-6">*</sup></Label>
@@ -245,20 +196,54 @@ const Register = props => {
                         />
                         <FormFeedback type="invalid">{validation.errors.mobilenumber}</FormFeedback>
                       </div>
-
+                      <div className="mb-3">
+                        <Label className="form-label  ">Email <sup className="text-danger fw-light fs-6">*</sup></Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          className="form-control"
+                          placeholder="Enter email"
+                          type="email"
+                          onChange={validation.handleChange}
+                          onBlur={validation.handleBlur}
+                          value={validation.values.email}
+                          invalid={validation.touched.email && validation.errors.email}
+                        />
+                        <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                      </div>
+                      <div className="mb-3">
+                        <Label className="form-label  ">Password <sup className="text-danger fw-light fs-6">*</sup></Label>
+                        <Input
+                          name="password"
+                          type="password"
+                          placeholder="Enter Password"
+                          onChange={validation.handleChange}
+                          onBlur={validation.handleBlur}
+                          value={validation.values.password}
+                          invalid={validation.touched.password && validation.errors.password}
+                        />
+                        <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                      </div>
+                      <div className="mb-3">
+                        <Label className="form-label  ">Referral Code <sup className="text-muted">(optional)</sup></Label>
+                        <Input
+                          name="referralcode"
+                          type="text"
+                          placeholder="Enter referral code"
+                        />
+                      </div>
                       <div className="mt-4 text-center ">
                         <button
-                          type="button"
+                          type="submit" // Change button type to "submit"
                           className="btn btn-warning px-5 text-black fw-bold btn-block"
-                          onClick={generateOTP}
                           disabled={!validation.touched.mobilenumber}
                         >
                           Get OTP
                         </button>
                       </div>
-                      {/* </>
-                      )} */}
+                    </Form>
 
+                    <Form>
                       {isValid && showOTPInput && ( // Conditionally render OTP input section
                         <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
                           <OTPInput
@@ -307,11 +292,7 @@ const Register = props => {
                           </div>
                         </div>
                       )}
-
                     </Form>
-
-
-
                     <div className="mt-4 text-center text-secondary ">
                       <p className="mb-0">
                         By registering you agree to the Dosso21{" "}
