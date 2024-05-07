@@ -1,10 +1,10 @@
 import React from 'react';
 import Flicking from "@egjs/react-flicking";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { Row, Col, Card, CardBody, CardHeader, CardFooter, Progress } from "reactstrap";
 import { Link, useNavigate } from 'react-router-dom';
 
-let rewardImg = "https://cdn-icons-png.flaticon.com/128/2282/2282531.png";
+let rewardImg = "https://trendsarthi.com/Appdata/Mega-contest.png";
 let magicImg = "https://cdn-icons-png.flaticon.com/512/4338/4338712.png";
 let spinsImg = "https://cdn-icons-png.flaticon.com/512/8146/8146784.png";
 let offerImg = "https://cdn-icons-png.flaticon.com/512/776/776627.png";
@@ -15,57 +15,15 @@ const contestData = [
     {
         "id": 1,
         "img": rewardImg,
-        "title": "Dosso21 contest",
+        "title": "SHAGUN51-2425001",
         "remainingTime": "15 min",
-        "seats": 80,
-        "totalRound": 2,
-        "activeRound": 1
-    },
-    {
-        "id": 2,
-        "img": magicImg,
-        "title": "Contest 2",
-        "remainingTime": "45 min",
-        "seats": 56,
+        "seats": 150000,
         "totalRound": 1,
-        "activeRound": 1
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "New"
     },
-    {
-        "id": 3,
-        "img": spinsImg,
-        "title": "Contest 3",
-        "remainingTime": "2 hrs",
-        "seats": 21,
-        "totalRound": 3,
-        "activeRound": 1
-    },
-    {
-        "id": 4,
-        "img": offerImg,
-        "title": "Contest 4",
-        "remainingTime": "5 hrs",
-        "seats": 34,
-        "totalRound": 1,
-        "activeRound": 1
-    },
-    {
-        "id": 5,
-        "img": tackerImg,
-        "title": "Contest 5",
-        "remainingTime": "8 hrs",
-        "seats": 54,
-        "totalRound": 2,
-        "activeRound": 1
-    },
-    {
-        "id": 6,
-        "img": scholarshipImg,
-        "title": "Contest 6",
-        "remainingTime": "13 hrs",
-        "seats": 65,
-        "totalRound": 1,
-        "activeRound": 1
-    }
+
 ];
 
 const Contestlistslider = ({ title }) => {
@@ -81,11 +39,11 @@ const Contestlistslider = ({ title }) => {
             <Row className="my-2">
                 <Col className="d-grid align-content-center">
                     <div className='d-flex justify-content-between align-content-center'>
-                        <div className="fs-3 fw-bold text-white text-uppercase">{title}</div>
+                        <div className="fs-3 fw-bold text-black text-uppercase">{title}</div>
                         <Link to="/history" className="">
-                            <Button className="btn btn-soft-info waves-effect waves-light btn-info fw-bold ">
+                            <button className="btn btn-soft-secondary waves-effect waves-light  fw-bold ">
                                 History
-                            </Button>
+                            </button>
                         </Link>
                     </div>
                 </Col>
@@ -98,53 +56,86 @@ const Contestlistslider = ({ title }) => {
                 className="flicking-wrapper"
                 resizeOnContentsReady={true}
                 renderOnlyVisible={true}
-                // panelsPerView={3}
+            // panelsPerView={3}
             >
                 {(contestData || []).map((item, key) => (
-                    <div className="flicking-viewport vertical" key={item.id}>
-                        <div className="flicking-camera">
-                            <Card className='mb-2 border flicking-panel'>
+                    <div className="flicking-viewport vertical " key={item.id}>
+                        <div className="flicking-camera shadow-sm">
+                            <Card className='mb-3  flicking-panel shadow border border-secondary rounded-3'>
+                                <CardHeader className='bg-white rounded-3 border-bottom d-flex justify-content-between'>
 
-                                <CardBody className="">
-                                    <div className="d-flex justify-content-between">
-                                        <div className="mb-0 text-muted">
-                                            <i className="bx bx-time-five text-body me-1"></i>
-                                            {item.remainingTime}
-                                        </div>
-                                        {/* <div className="mb-0 text-muted">
-                                            <span>
-                                                Round: {item.activeRound}/{item.totalRound}
-                                            </span>
-                                            <b>{item.round}</b>
-                                        </div> */}
-                                        <div className="mb-0 text-muted">
-                                            <b>{item.seats}</b>
-                                            <span className='ms-1'>
-                                                 participants
-                                            </span>
-                                        </div>
+                                    <div className="mb-0 text-muted">
+                                        <i className="bx bx-time-five text-body me-1"></i>
+                                        {item.remainingTime}
                                     </div>
-                                    <div className="text-start mt-4">
-                                        <div className='mt-3 d-flex justify-content-between'>
-                                        <img src={item.img} alt="" className="avatar-sm" />
+                                    {/* <div className="mb-0 text-muted">
+                                        <span>
+                                            Round: {item.seats}/{item.totalRound}
+                                        </span>
+                                        <b>{item.round}</b>
+                                    </div> */}
+                                    <div className="mb-0">
+                                        <span className='badge text-bg-light fs-6'>{item.status}</span>
+                                    </div>
+
+                                </CardHeader>
+                                <CardBody className="p-3">
+
+                                    <div className="text-start">
+                                        <div className=' d-flex justify-content-between'>
+                                            {/* <img src={item.img} alt="" className="avatar-sm" /> */}
                                             <div>
-                                                <div className=" fw-bold fs-3 text-warning">
+                                                <div className=" fw-bolder fs-3 text-black">
                                                     {item.title}
                                                 </div>
                                                 <div className="text-muted">Winning reward</div>
                                             </div>
-                                            {/* <div className="border border-success rounded round-box py-2 px-3 bg-light d-grid justify-content-center">
-                                                <div>Active</div>
-                                                <span className='text-center round-text text-success'>{item.activeRound}</span>
-                                            </div> */}
+                                            <div>Entry <s>₹100</s>
+                                                <div className="badge text-bg-secondary   d-grid justify-content-center">
+                                                    <span className='text-center round-text  text-white'>{item.entryFees}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="pb-3 pt-2">
+                                            <Progress
+                                                animated
+                                                className="mb-1"
+                                                color="secondary"
+                                                max="150000"
+                                                value={100000}
+
+                                                style={{
+                                                    height: '5px'
+                                                }}
+                                            >
+                                            </Progress>
+                                            <div className="float-start text-danger progress-text fw-bold">
+                                                100000 Spots left
+                                            </div>
+                                            <div className="float-end text-muted progress-text">
+                                                150000 Spots
+                                            </div>
                                         </div>
                                         <div className="mt-2">
-                                            <button onClick={() => handleClick(item)} className="button-29 w-100 fw-bold">
-                                                Enter
+                                            <button onClick={() => handleClick(item)} className="btn btn-light shadow w-100 fw-bold fs-5 text-uppercase  rounded-5 ">
+                                                Join Contest
                                             </button>
                                         </div>
                                     </div>
                                 </CardBody>
+                                <CardFooter className=' d-flex justify-content-between'>
+                                    <div className="mb-0 text-muted">
+                                        <i className='bx bx-trophy text-body me-1'></i>
+                                        {item.firstPrize}
+                                    </div>
+
+                                    <div className="mb-0 text-muted">
+                                        <b>{item.seats}</b>
+                                        <span className='ms-1'>
+                                            participants
+                                        </span>
+                                    </div>
+                                </CardFooter>
                             </Card>
                         </div>
                     </div>

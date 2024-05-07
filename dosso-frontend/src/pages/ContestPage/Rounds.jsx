@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, CardFooter } from "reactstrap";
+import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, CardFooter, Progress, Nav, NavItem, NavLink, Button, TabContent, TabPane, Table } from "reactstrap";
 
 let players = "https://cdn-icons-png.flaticon.com/512/5619/5619093.png";
 
@@ -9,36 +9,54 @@ const Rounds = (props) => {
     const data = location.state;
 
     document.title = "Rounds";
+
+
+    const [activeTab, setActiveTab] = useState('1');
+
+    const toggleTab = (tab) => {
+        if (activeTab !== tab) {
+            setActiveTab(tab);
+        }
+    };
     return (
         <div>
             <div className="page-content">
-                <Container fluid >
-                    <Row className="justify-content-center">
-                        <Col lg="3" className="p-0">
-                            <div className="fw-bold col-12 pb-2 fs-2 text-warning text-center">
-                                {data.title}
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+
 
                 <Container fluid className=''>
-                    <Row className="flex-column align-items-center px-0 justify-content-center">
-                        <Col lg={3} className="">
-                            <Card className="border border-success rounded-2 border-3 bg-black">
-                                <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
-                                    <h3>
-                                        <span className='badge rounded badge-soft-success fs-4'>
-                                            Active 
-                                        </span>
-                                    </h3>
+                    <Row className="flex-column align-items-center justify-content-center">
+                        <Col lg={3} className="px-0">
+                            <Card className="border shadow-lg rounded-2 border-3 ">
+                                <CardHeader className=' border-bottom text-center fs-5 fw-bold '>
+                                    {data.title}
                                 </CardHeader>
                                 <CardBody>
-                                    <CardTitle className="mt-0 text-center">
+                                    <CardTitle className="mt-0 ">
                                         <div>
-                                            <img src={players} alt="" className="avatar-sm" />
-                                            <div className="text-warning" >
-                                                85 Playing
+                                            <div>Prize Pool</div>
+                                            <div className="text-black fs-3" >
+                                                ₹ 8 Crores
+                                            </div>
+                                            <div className="">
+                                                <Progress
+                                                    animated
+                                                    className="mb-1"
+                                                    color="danger"
+                                                    max="1000"
+                                                    value={750}
+
+                                                    style={{
+                                                        height: '15px'
+                                                    }}
+                                                >
+                                                    750
+                                                </Progress>
+                                                <div className="float-start text-danger progress-text">
+                                                    250 Spots left
+                                                </div>
+                                                <div className="float-end text-muted progress-text">
+                                                    1000 Spots
+                                                </div>
                                             </div>
                                         </div>
                                     </CardTitle>
@@ -47,9 +65,9 @@ const Rounds = (props) => {
                                     </CardText> */}
                                     <Link
                                         to="/spingame"
-                                        className="btn btn-success w-100 fs-4 rounded-3"
+                                        className="btn btn-success w-100 fs-4 rounded-3 mt-3"
                                     >
-                                        Play Now!
+                                        Join <s>₹50</s> ₹1
                                     </Link>
                                 </CardBody>
                                 <CardFooter className=" border-top text-center">
@@ -59,70 +77,151 @@ const Rounds = (props) => {
                                 </CardFooter>
                             </Card>
                         </Col>
-                        {/* <Col lg={3} className="">
-                            <Card className="border border-secondary rounded-2 border-3 bg-black">
-                                <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
-                                    <h3>
-                                        <span className='badge rounded badge-soft-secondary fs-4'>
-                                            Round 2
-                                        </span>
-                                    </h3>
-                                </CardHeader>
-                                <CardBody>
-                                    <CardTitle className="mt-0 text-center">
-                                        <div>
-                                            <img src={players} alt="" className="avatar-sm" />
-                                            <div className="text-warning" >
-                                                0 Playing
+
+                    </Row>
+                </Container>
+
+                <Container>
+                    <Row>
+                        <div>
+                            <Nav tabs>
+                                <NavItem>
+                                    <NavLink
+                                        className={activeTab === '1' ? 'active' : ''}
+                                        onClick={() => toggleTab('1')}
+                                    >
+                                        Winner
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={activeTab === '2' ? 'active' : ''}
+                                        onClick={() => toggleTab('2')}
+                                    >
+                                        Leader Board
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                            <TabContent activeTab={activeTab}>
+                                <TabPane tabId="1">
+                                    <Row>
+                                        <Col sm="12">
+                                            <div className='winningtable'>
+                                                <Table
+                                                    hover
+                                                    responsive
+                                                    size=""
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Rank
+                                                            </th>
+                                                            <th className='text-end'>
+                                                                WINNINGS
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥇
+                                                            </th>
+                                                            <td>
+                                                                ₹1 Crore
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥈
+                                                            </th>
+                                                            <td>
+                                                                ₹7 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥉
+                                                            </th>
+                                                            <td>
+                                                                ₹3 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                # 4
+                                                            </th>
+                                                            <td>
+                                                                ₹2 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </Table>
                                             </div>
-                                        </div>
-                                    </CardTitle>
-                                    <CardText className=" text-center">
-                                        Top 20 will qualify for next round
-                                    </CardText>
-                                    <Link
-                                        to="#"
-                                        className="btn btn-secondary text-bg-secondary w-100 fs-4 rounded-3">
-                                        <i className="bx bx-lock-alt me-1"></i>Locked!
-                                    </Link>
-                                </CardBody>
-                                <CardFooter className="border-top text-center">
-                                    End Time: -/-
-                                </CardFooter>
-                            </Card>
-                        </Col>
-                        <Col lg={3} className="">
-                            <Card className="border border-secondary rounded-2 border-3 bg-black">
-                                <CardHeader className="bg-transparent border-bottom text-capitalize text-center">
-                                    <h3>
-                                        <span className='badge rounded badge-soft-secondary fs-4'>
-                                            Round 3
-                                        </span>
-                                    </h3>
-                                </CardHeader>
-                                <CardBody>
-                                    <CardTitle className="mt-0 text-center">
-                                        <div>
-                                            <img src={players} alt="" className="avatar-sm" />
-                                            <div className="text-warning" >
-                                                0 Playing
+                                        </Col>
+                                    </Row>
+                                </TabPane>
+                                <TabPane tabId="2">
+                                    <Row>
+                                        <Col sm="6">
+                                            <div className='winningtable'>
+                                                <Table
+                                                    hover
+                                                    responsive
+                                                    size=""
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Rank
+                                                            </th>
+                                                            <th className='text-end'>
+                                                                WINNINGS
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥇
+                                                            </th>
+                                                            <td>
+                                                                ₹1 Crore
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥈
+                                                            </th>
+                                                            <td>
+                                                                ₹7 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row" className='fs-1'>
+                                                                🥉
+                                                            </th>
+                                                            <td>
+                                                                ₹3 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                # 4
+                                                            </th>
+                                                            <td>
+                                                                ₹2 Lakhs
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </Table>
                                             </div>
-                                        </div>
-                                    </CardTitle>
-                                    <CardText className=" text-center">
-                                        Top 10 will qualify for next round
-                                    </CardText>
-                                    <Link
-                                        to="#"
-                                        className="btn btn-secondary text-bg-secondary w-100 fs-4 rounded-3">
-                                        <i className="bx bx-lock-alt me-1"></i>Locked!
-                                    </Link>
-                                </CardBody>
-                                <CardFooter className="border-top text-center">
-                                    End Time: -/-
-                                </CardFooter>
-                            </Card>
-                        </Col> */}
+                                        </Col>
+
+                                    </Row>
+                                </TabPane>
+                            </TabContent>
+                        </div>
                     </Row>
                 </Container>
 

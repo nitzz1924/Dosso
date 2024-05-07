@@ -20,12 +20,10 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'username' => 'required',
-            'emailaddress' => 'required|email|unique:students',
+            'emailaddress' => 'required|email|unique:emailaddress',
             'password' => 'required',
-            'contactnumber' => 'required|unique:students',
-            'aadharcardnumber' => 'required|unique:students',
+            'contactnumber' => 'required|unique:contactnumber',
         ]);
-
         if ($validator->fails()) {
             $response = [
                 'success' => false,
@@ -33,16 +31,13 @@ class AuthController extends Controller
             ];
             return response()->json($response, 400);
         }
-
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $student = Students::create($input);
-
         //Generating API Token in PlainText Format
         $success['token'] = $student->createToken('MyApp')->plainTextToken;
         //Getting User Name from user table
         $success['tabledata'] = $student;
-
         $response = [
             'success' => true,
             'data' => $success,

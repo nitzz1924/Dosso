@@ -54,7 +54,7 @@ import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
 
 const authProtectedRoutes = [
-  { path: "/", component: <Home /> },
+  { path: "/", component: <Contests /> },
   { path: "/contests", component: <Contests /> },
   { path: "/rounds", component: <Rounds /> },
   { path: "/spingame", component: <Spingame /> },

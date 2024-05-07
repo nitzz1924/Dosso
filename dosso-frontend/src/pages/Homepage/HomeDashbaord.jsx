@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 
 // Pages Components
-import Slidewithindicator from "./slidewithindicator";
 import CardWelcome from "./card-welcome";
 import OfferSlider from "./offerslider";
 import RewardGrid from "./RewardGrid";
@@ -33,7 +32,7 @@ const Home = props => {
                 <Container fluid >
                     <Row className="justify-content-center">
                         <Col lg="3" className="p-0">
-                            <div className="fw-bold col-12 pb-2 fs-5 text-warning">
+                            <div className="fw-bold col-12 pb-2 fs-5 text-secondary">
                                 Hello, User
                             </div>
                             <BannerSlider />
