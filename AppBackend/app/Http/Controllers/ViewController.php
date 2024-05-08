@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
+use App\Models\PlayContest;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +23,13 @@ class ViewController extends Controller
     }
     public function addcontestview()
     {
-        $contestdata = AddContest::where('status','!=',2)->get();
-        return view('Others.addcontest',compact('contestdata'));
+        $contestdata = AddContest::where('status', '!=', 2)->get();
+        return view('Others.addcontest', compact('contestdata'));
     }
     public function studentslist()
     {
         $studentdata = Students::get();
-        return view('Students.studentslist',compact('studentdata'));
+        return view('Students.studentslist', compact('studentdata'));
     }
     public function addvendorview()
     {
@@ -74,12 +75,15 @@ class ViewController extends Controller
 
     public function winningreportview()
     {
-        $contestdata = AddContest::where('status','=',2)->get();
-        return view('Others.winningreport',compact('contestdata'));
+        $contestdata = AddContest::where('status', '=', 2)->get();
+        return view('Others.winningreport', compact('contestdata'));
     }
 
     public function reportpage(Request $request)
     {
-        return view('Others.report');
+        $contestdata = AddContest::find($request->id);
+        $playdata = PlayContest::join('students','play_contests.studentid','students.id')
+            ->select('students.studentname', 'play_contests.*')->where('contestid',$request->id)->orderBy('rank','desc')->get();
+        return view('Others.report', compact('playdata','contestdata'));
     }
 }

@@ -32,7 +32,6 @@
                                     <th scope="col">Registration Fees</th>
                                     <th scope="col">Total Price</th>
                                     <th scope="col">Total Spin</th>
-                                    <th scope="col">Total Member Joined</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
