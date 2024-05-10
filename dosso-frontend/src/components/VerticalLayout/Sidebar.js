@@ -15,7 +15,7 @@ import logoLightSvg from "../../assets/images/logo-light.svg";
 import logoDark from "../../assets/images/logo-dark.png";
 
 const Sidebar = props => {
-
+ 
   return (
     <React.Fragment>
       <div className="vertical-menu">
@@ -35,11 +35,11 @@ const Sidebar = props => {
           <Link to="/" className="logo logo-light">
             <span className="logo-sm">
               {/* <img src={logoDark} alt="" height="22" /> */}
-            {/* <h3 className="py-3">D</h3> */}
+              {/* <h3 className="py-3">D</h3> */}
             </span>
             <span className="logo-lg">
               {/* <img src={logoDark} alt="" height="19" /> */}
-            {/* <h3 className="py-3">Dosso21</h3> */}
+              {/* <h3 className="py-3">Dosso21</h3> */}
             </span>
           </Link>
         </div>

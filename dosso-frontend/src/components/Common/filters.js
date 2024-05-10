@@ -3,8 +3,8 @@ import { Input, CustomInput } from 'reactstrap';
 
 export const Filter = ({ column }) => {
   return (
-    <div style={{ marginTop: 5 }}>
-      {column.canFilter && column.render('Filter')}
+    <div style={{ marginTop: 0 }}>
+      {/* {column.canFilter && column.render('Filter')} */}
     </div>
   );
 };

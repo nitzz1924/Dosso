@@ -18,10 +18,10 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
 
       <CardBody className="border-top">
         <Row>
-          <Col sm="6" className="d-grid   align-items-center ">
+          <Col className="d-grid   align-items-center ">
             <div>
               <p className="text-muted mb-2 text-center">Available Balance</p>
-              <h3 className="text-center fw-bold ">{wallet.availableBalance}</h3>
+              <h3 className="text-center fw-bold text-success ">{wallet.availableBalance}</h3>
             </div>
           </Col>
         </Row>

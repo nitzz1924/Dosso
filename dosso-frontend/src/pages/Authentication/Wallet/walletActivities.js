@@ -117,7 +117,7 @@ const WalletActivities = () => {
                 toggleTab("Buy");
               }}
             >
-              Buy
+              Credit
             </NavLink>
           </NavItem>
           <NavItem>
@@ -129,7 +129,7 @@ const WalletActivities = () => {
                 toggleTab("Sell");
               }}
             >
-              Sell
+              Debit
             </NavLink>
           </NavItem>
         </ul>
