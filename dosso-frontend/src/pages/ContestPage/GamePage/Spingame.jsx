@@ -1,9 +1,10 @@
 import React from 'react'
 import { Container, Row, Col } from "reactstrap";
-import DatatableTables from './DatatableTables';
+
 import Leaderboard from './LeaderBoard';
 import Wheel from './spin-wheel/Wheel';
-import DraggeableForm from "./spin-wheel/DraggeableForm";
+import Playslots from './slot-machine/Playslots';
+
 
 const Spingame = () => {
 
@@ -19,7 +20,8 @@ const Spingame = () => {
                                 Spin To Play
                             </div>
                             
-                            <DraggeableForm />
+                            {/* <DraggeableForm /> */}
+                            <Playslots />
                         </Col>
                     </Row>
                 </Container>
