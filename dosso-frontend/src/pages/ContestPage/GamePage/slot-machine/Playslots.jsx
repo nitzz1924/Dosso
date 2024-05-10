@@ -7,9 +7,13 @@ const Playslots = () => {
     //     Array.from({ length: 12 }, () => Math.floor(Math.random() * 9) + 1),
     // ];
     const slotSymbols = [
-        ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         
       ];
 
@@ -35,9 +39,9 @@ const Playslots = () => {
 
             symbols.innerHTML = '';
 
-            symbols.appendChild(createSymbolElement('❓'));
+            symbols.appendChild(createSymbolElement('0'));
 
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 6; i++) {
                 slotSymbols[index].forEach(symbol => {
                     symbols.appendChild(createSymbolElement(symbol));
                 });
@@ -77,10 +81,11 @@ const Playslots = () => {
         slots.forEach((slot, index) => {
             const symbols = slot.querySelector('.symbols');
             const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight) % slotSymbols[index].length;
-            const displayedSymbol = slotSymbols[index][symbolIndex];
+            const displayedSymbolIndex = (slotSymbols[index].length + symbolIndex - 1) % slotSymbols[index].length;
+            const displayedSymbol = slotSymbols[index][displayedSymbolIndex];
             displayedSymbols.push(displayedSymbol);
         });
-
+        
         console.log(displayedSymbols);
     }
 

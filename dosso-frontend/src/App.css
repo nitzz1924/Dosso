@@ -328,8 +328,8 @@
 }
 
 .slot {
-  width: 100px;
-  height:150px;
+  width: 40px;
+  height: 60px;
   /* border: 1px solid black; */
   border-radius: 7.5px;
   display: inline-block;
@@ -347,11 +347,11 @@
 }
 
 .slot .symbol {
-  width: 100px;
-  height: 150px;
-  font-size: 60px;
-  line-height: 100px;
+  width: 40px;
+  height: 60px;
+  font-size: 25px;
+  line-height: 60px;
   display: block;
   text-align: center;
-  padding-top: 25px;
+  padding-top: 0px;
 }
