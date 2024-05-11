@@ -325,33 +325,47 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  z-index: 10;
 }
 
 .slot {
   width: 40px;
-  height: 60px;
-  /* border: 1px solid black; */
-  border-radius: 7.5px;
+  height: 40px;
+  border: px solid black;
+  /* border: 5px solid transparent; */
+  /* border-image: url(../public/Assets/images/border.png) 30 round; */
+  border-radius: 5px;
   display: inline-block;
   overflow: hidden;
   position: relative;
   background: #fafafa;
-  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4) inset;
+  /* box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4) inset; */
 }
 
 .slot .symbols {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -1;
   transition: top 5s;
 }
 
 .slot .symbol {
   width: 40px;
-  height: 60px;
+  height: 40px;
   font-size: 25px;
-  line-height: 60px;
+  line-height: 40px;
   display: block;
   text-align: center;
   padding-top: 0px;
+}
+
+#borderimg { 
+  border: 10px solid transparent;
+  padding: 15px;
+  border-image: url(../public/Assets/images/border.png) 30 stretch;
+}
+
+.gamearea {
+  background-image: url(../public/Assets/images/game-bg.jpg);
+  border-radius: 10px;
 }
