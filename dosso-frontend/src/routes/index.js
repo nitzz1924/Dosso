@@ -53,6 +53,7 @@ import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
 import MyFund from "pages/Authentication/Wallet/MyFund";
+import Refer from "pages/Referrals/refer";
 
 
 const authProtectedRoutes = [
@@ -66,6 +67,7 @@ const authProtectedRoutes = [
   
   //profile
   { path: "/profile", component: <UserProfile /> },
+  { path: "/refer", component: <Refer /> },
 
   { path: "/dashboard", component: <Dashboard /> },
 

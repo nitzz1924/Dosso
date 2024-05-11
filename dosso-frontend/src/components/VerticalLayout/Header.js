@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import React, { useState } from "react";
 
 import { connect } from "react-redux";
@@ -22,8 +22,8 @@ const Header = props => {
       body.classList.toggle("vertical-collpsed");
       body.classList.toggle("sidebar-enable");
     }
-
   }
+  
 
   return (
     <React.Fragment>
@@ -80,7 +80,7 @@ const Header = props => {
                 </form>
               </div>
             </div>
-            <div className="dropdown d-inline-block d-lg-none ms-2">
+            <div className="dropdown d-inline-block d-lg-none">
               <Link to="/myWallet">
                 <button
                   type="button"

@@ -107,9 +107,6 @@ const Playslots = () => {
 
         console.log(displayedSymbols, "spinResult", spinResult, "totalSum", totalSum, "newTotalSum", newTotalSum);
 
-        // Update the total sum by adding the spin result sum for this spin
-        // setTotalSum(prevTotalSum => prevTotalSum + spinResultSum);
-
         if (newSpincount <= 0) {
             setGameComplete(true);
             setSpinDisabled(true);
@@ -125,9 +122,7 @@ const Playslots = () => {
             setSpinDisabled(false);
         }
     }, [slots]);
-    // useEffect(() => {
-    //     spin(); // Call spin when component mounts
-    // }, []);
+
 
     return (
         <div className="container mb-3">

@@ -30,7 +30,7 @@ const Footer = () => {
             My Contests
           </Link>
 
-          <Link to="/" className="nav-item">
+          <Link to="/refer" className="nav-item">
             <i data-feather="users" className=""></i>
             <div>Refer & Earn</div>
           </Link>

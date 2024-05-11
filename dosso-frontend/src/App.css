@@ -20,7 +20,6 @@
   width: 100%; /* Make the Flicking component full width */
 }
 
-
 .slider-card {
   width: 100%; /* Make each card full width */
 }
@@ -38,7 +37,6 @@
   top: 20px !important;
   transform: rotate(45deg) !important;
 }
-
 
 /* CSS */
 .button-85 {
@@ -108,9 +106,6 @@
   border-radius: 10px;
 }
 
-
-
-
 /* CSS */
 .button-14 {
   touch-action: manipulation;
@@ -136,9 +131,9 @@
   transform: translateY(0);
   text-align: center;
   color: #fff;
-  text-shadow: 0 -1px rgba(0, 0, 0, .25);
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
   transition-property: transform;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -148,7 +143,7 @@
 }
 
 .button-14-top::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   border-radius: 4px;
@@ -158,9 +153,10 @@
   background-image: radial-gradient(#7d7d7d, rgb(160, 160, 160));
   text-align: center;
   color: #fff;
-  box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, .2), 0 1px 2px 1px rgba(255, 255, 255, .2);
+  box-shadow: inset 0 0 0px 1px rgba(255, 255, 255, 0.2),
+    0 1px 2px 1px rgba(255, 255, 255, 0.2);
   transition-property: border-radius, padding, width, transform;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
 }
 
 .button-14:active .button-14-top::after {
@@ -179,10 +175,22 @@
   height: calc(100% - 10px);
   box-sizing: content-box;
   background-color: #353535;
-  background-image: radial-gradient(4px 8px at 4px calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(4px 8px at calc(100% - 4px) calc(100% - 8px), rgba(255, 255, 255, .25), transparent), radial-gradient(16px at -4px 0, white, transparent), radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
-  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5), inset 0 -1px 3px 3px rgba(0, 0, 0, .4);
+  background-image: radial-gradient(
+      4px 8px at 4px calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      4px 8px at calc(100% - 4px) calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(16px at -4px 0, white, transparent),
+    radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 3px 3px rgba(0, 0, 0, 0.4);
   transition-property: border-radius, padding-top;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
 }
 
 .button-14:active .button-14-bottom {
@@ -198,8 +206,9 @@
   border-radius: 12px;
   width: 100%;
   height: calc(100% - 4px);
-  background-color: rgba(0, 0, 0, .15);
-  box-shadow: 0 1px 1px 0 rgba(255, 255, 255, .75), inset 0 2px 2px rgba(0, 0, 0, .25);
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 /* CSS */
@@ -209,7 +218,8 @@
   background-image: radial-gradient(100% 100% at 100% 0, #f77 0, #c60000 100%);
   border: 0;
   border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
@@ -225,21 +235,23 @@
   position: relative;
   text-align: left;
   text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
+  transition: box-shadow 0.15s, transform 0.15s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  will-change: box-shadow,transform;
+  will-change: box-shadow, transform;
   font-size: 18px;
 }
 
 .button-29:focus {
-  box-shadow: #a0a0a0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #353535 0 -3px 0 inset;
+  box-shadow: #a0a0a0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #353535 0 -3px 0 inset;
 }
 
 .button-29:hover {
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #bababa  0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #bababa 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
@@ -248,8 +260,7 @@
   transform: translateY(2px);
 }
 
-
-.round-text{
+.round-text {
   font-size: 25px;
   /* line-height: 1; */
 }
@@ -271,13 +282,13 @@
 .progress-text {
   font-size: 12px;
 }
-.winningtable td{
+.winningtable td {
   text-align: right;
 }
 
 /* mobile navigation */
 
-.mobile-nav nav{
+.mobile-nav nav {
   display: flex;
   justify-content: space-around;
   background-color: #333;
@@ -288,7 +299,7 @@
   z-index: 99;
 }
 
-.mobile-nav .nav-item{
+.mobile-nav .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,26 +310,23 @@
   background-color: rgba(255, 255, 255, 0);
 }
 
-.mobile-nav .nav-item span{
+.mobile-nav .nav-item span {
   width: 0;
   overflow: hidden;
-  
 }
 
-.mobile-nav .nav-item:focus{
+.mobile-nav .nav-item:focus {
   text-decoration: none;
   color: white;
   background-color: rgba(255, 255, 255, 0.2);
-  transition: .2s;
+  transition: 0.2s;
 }
 
-.mobile-nav .nav-item:focus span{
+.mobile-nav .nav-item:focus span {
   width: 100%;
   margin-left: 8px;
-  transition: .2s;
+  transition: 0.2s;
 }
-
-
 
 .slotcontainer {
   display: flex;
@@ -331,7 +339,7 @@
 .slot {
   width: 40px;
   height: 40px;
-  border: px solid black;
+  border: 0px solid black;
   /* border: 5px solid transparent; */
   /* border-image: url(../public/Assets/images/border.png) 30 round; */
   border-radius: 5px;
@@ -359,7 +367,7 @@
   padding-top: 0px;
 }
 
-#borderimg { 
+#borderimg {
   border: 10px solid transparent;
   padding: 15px;
   border-image: url(../public/Assets/images/border.png) 30 stretch;
@@ -368,4 +376,12 @@
 .gamearea {
   background-image: url(../public/Assets/images/game-bg.jpg);
   border-radius: 10px;
+}
+
+.referCode {
+  font-size: 20px;
+  border: 2px dashed black;
+  border-radius: 10px;
+  padding: 20px;
+  font-weight: 900;
 }
