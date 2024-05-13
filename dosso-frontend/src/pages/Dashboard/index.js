@@ -22,8 +22,7 @@ import classNames from "classnames";
 import StackedColumnChart from "./StackedColumnChart";
 
 //import action
-import { getChartsData as onGetChartsData } from "../../store/actions";
-
+import { getChartsData as onGetChartsData } from "store/dashboard/actions";
 import modalimage1 from "../../assets/images/product/img-7.png";
 import modalimage2 from "../../assets/images/product/img-4.png";
 
@@ -43,6 +42,7 @@ import { withTranslation } from "react-i18next";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
+
 
 const Dashboard = props => {
   const [modal, setmodal] = useState(false);

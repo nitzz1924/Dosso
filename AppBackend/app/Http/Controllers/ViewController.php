@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
+use App\Models\Students;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Auth;
 
 class ViewController extends Controller
 {
@@ -36,7 +37,8 @@ class ViewController extends Controller
     }
     public function studentslist()
     {
-        return view('Students.studentslist');
+        $studentdata = Students::get();
+        return view('Students.studentslist',compact('studentdata'));
     }
     public function addvendorview()
     {

@@ -139,7 +139,7 @@
                                         <td>
                                             @if ($value->mediatype == 'image')
                                                 <img src="{{ asset('uploads/' . $value->addimage) }}" alt="Thumbnail"
-                                                    width="100px" class="rounded-pill">
+                                                    width="100px" class="square-100">
                                             @endif
                                             @if ($value->mediatype == 'video')
                                                 <a href="{{ $value->videourl }}" target="_blank" class="btn btn-secondary btn-sm"><i class="bi bi-youtube"></i>&nbsp;&nbsp;View Video</a>

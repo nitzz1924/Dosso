@@ -26,13 +26,14 @@ import Breadcrumb from "../../components/Common/Breadcrumb";
 
 let avatar = "../../Assets/images/Dosso_21_logo.webp";
 // actions
-import { editProfile, resetProfileFlag } from "../../store/actions";
+
 import MyWallet from "./Wallet/MyFund";
+import { editProfile, resetProfileFlag,  } from "store/actions";
 
 const UserProfile = () => {
 
   //meta title
-  document.title = "Profile | Skote - React Admin & Dashboard Template";
+  document.title = "Profile";
 
   const dispatch = useDispatch();
 
@@ -160,7 +161,7 @@ const UserProfile = () => {
           </Card>
         </Container>
 
-        {/* <MyWallet /> */}
+        <MyWallet />
       </div>
     </React.Fragment>
   );

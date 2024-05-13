@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col, FormGroup } from "reactstrap";
 
 import { connect } from "react-redux";
+
 import {
   changeLayout,
   changeLayoutMode,
@@ -13,7 +14,7 @@ import {
   changePreloader,
   changeTopbarTheme,
   showRightSidebarAction,
-} from "../../store/actions";
+} from "store/layout/actions";
 
 //SimpleBar
 import SimpleBar from "simplebar-react";
@@ -41,6 +42,7 @@ import {
   leftSidebarTypes,
   leftSideBarThemeTypes,
 } from "../../constants/layout";
+
 
 const RightSidebar = props => {
   return (

@@ -52,6 +52,12 @@ import Spingame from "pages/ContestPage/GamePage/Spingame";
 import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
+<<<<<<< HEAD
+=======
+import MyFund from "pages/Authentication/Wallet/MyFund";
+import Refer from "pages/Referrals/refer";
+
+>>>>>>> anshul/main
 
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
@@ -60,9 +66,11 @@ const authProtectedRoutes = [
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
   { path: "/studentRegistration", component: <StudentRegistration /> },
+  { path: "/myWallet", component: <MyFund /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },
+  { path: "/refer", component: <Refer /> },
 
   { path: "/dashboard", component: <Dashboard /> },
 

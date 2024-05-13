@@ -12,8 +12,7 @@
     <title>{{ config('app.name', 'DOSSO21') }}</title>
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/dossologo.jpg') }}" />
-
+     <link rel="shortcut icon" href="{{ asset('assets/images/dossologofinal.png') }}" />
     <!-- jsvectormap css -->
     <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
 

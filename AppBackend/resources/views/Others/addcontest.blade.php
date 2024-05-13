@@ -73,21 +73,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     </div>
                                     <div class="col-md-3">
                                         <div>
-                                            <label for="placeholderInput" class="form-label">Total Round</label>
-                                            <input type="text" class="form-control" id=""
-                                                placeholder="enter registration fee" name="totalround" value="1"
-                                                readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div>
-                                            <label for="placeholderInput" class="form-label">Completed Round</label>
-                                            <input type="text" class="form-control" id="valueval"
-                                                placeholder="enter completed rounds" name="completedround">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div>
                                             <label for="placeholderInput" class="form-label">Total Price</label>
                                             <input type="text" class="form-control" id="valueval"
                                                 placeholder="enter total price" name="totalprice">
@@ -145,8 +130,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <th scope="col">Start Date</th>
                                     <th scope="col">End Date</th>
                                     <th scope="col">Registration Fees</th>
-                                    <th scope="col">Total Round</th>
-                                    <th scope="col">Completed Round</th>
                                     <th scope="col">Total Price</th>
                                     <th scope="col">Total Spin</th>
                                     <th scope="col">Total Member Joined</th>
@@ -172,8 +155,6 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <td>{{ $row->startdate }}</td>
                                     <td>{{ $row->enddate }}</td>
                                     <td>{{ $row->registrationfees }}</td>
-                                    <td>{{ $row->totalround }}</td>
-                                    <td>{{ $row->completedround }}</td>
                                     <td>{{ $row->totalprice }}</td>
                                     <td>{{ $row->totalspin }}</td>
                                     <td>{{ $row->joinmembers }}</td>
@@ -188,11 +169,7 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                             <button class="btn btn-soft-dark waves-effect waves-light btn-sm"
                                                 id="btnid{{ $row->id }}"
                                                 onclick="state('{{ $row->id }}')">Dectivate</button>
-                                            <button type="button" data-bs-toggle="modal"
-                                                data-record-id="{{ json_encode($row) }}"
-                                                data-bs-target="#showmasteredit"
-                                                class="btn btn-soft-success waves-effect waves-light recordidbtn"><i
-                                                    class="bx bx-plus"></i>Create Round</button>
+                                            
                                         </div>
                                     </td>
                                 </tr>
