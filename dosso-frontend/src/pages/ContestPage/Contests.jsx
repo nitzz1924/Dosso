@@ -3,10 +3,6 @@ import { Container, Row, Col } from "reactstrap";
 import Contestlistslider from './components/contestlistslider';
 import BannerSlider from 'pages/Homepage/BannerSlider';
 
-<<<<<<< HEAD
-=======
-
->>>>>>> anshul/main
 
 const Contests = () => {
     document.title = "Contests";
