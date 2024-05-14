@@ -1,5 +1,5 @@
 <?php
-#{{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
+#{{-- -------------------------------------------------ðŸ”±JAI SHREE MAHAKAALðŸ”±--------------------------------------------------------------- --}}
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -13,54 +13,47 @@ use App\Models\User;
 use App\Models\Students;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-
+use Illuminate\Support\Str;
 class AuthController extends Controller
 {
-    public function studentregister(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
+   public function studentregister(Request $request)
+{
+    $validatedData = $request->validate([
+            'username' => 'required|string|unique:students',
             'emailaddress' => 'required|email|unique:students',
-            'password' => 'required',
-            'contactnumber' => 'required|unique:students',
+            'password' => 'required|string|min:6',
+            'contactnumber' => 'required|string|unique:students',
+            'referbyId' => 'required|string',
+            'status' => 'required|numeric',
         ]);
 
-        if ($validator->fails()) {
-            $response = [
-                'success' => false,
-                'message' => $validator->errors(),
-                'requestdata' => $request->all()
-            ];
-            return response()->json($response, 400);
-        }
-
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $student = Students::create($input);
-        // Generating API Token using Sanctum
-        $token = $student->createToken('MyApp')->plainTextToken;
+    $input['password'] = bcrypt($input['password']);
+    $student = Students::create($input);
 
-        $response = [
-            'success' => true,
-            'data' => $student,
-            'token' => $token, // Include token in the response
-            'message' => 'Student Registered Successfully..!!!!!'
-        ];
-        return response()->json($response, 200);
-    }
 
+        return response()->json(['message' => 'Student registered successfully', 'data' => $student], 201);
+}
+
+
+protected function generateToken($student)
+{
+    // Generate a random token
+    $token = Str::random(60);
+
+    // Store the token in the session for the authenticated student
+    Session::put('student_token_' . $student->id, $token);
+
+    return $token;
+}
     public function studentlogin(Request $request)
     {
         $credentials = $request->only('username', 'password');
         if (Auth::guard('students')->attempt($credentials)) {
             $student = Auth::guard('students')->user();
-            $success['token'] = $student->createToken('MyApp')->plainTextToken;
-            $success['name'] = $student->username;
-
             $response = [
                 'success' => true,
-                'data' => $success,
+                'data' => $student,
                 'message' => 'Student Login Successfully..!!!!!'
             ];
             return response()->json($response, 200);
@@ -192,7 +185,7 @@ class AuthController extends Controller
         $pointdata->studentId = $request->input('studentId');
         $pointdata->contestId = $request->input('contestId');
         $pointdata->save();
-        return response()->json($pointdata, 200);
+        return response()->json($pointdata,200);
     }
 
 
