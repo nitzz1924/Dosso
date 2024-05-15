@@ -173,7 +173,14 @@ const Rounds = (props) => {
 
                                                     <Container fluid className=''>
                                                         <Row>
-                                                            <div className='fs-5 fw-bold my-1 text-center'>Top 5 Ranking</div>
+                                                            <div className='d-flex justify-content-between align-content-center my-2'>
+                                                                <div className='fs-5 fw-bold my-1 text-center'>Top 5 Ranking</div>
+                                                                <Link to="/leaderbaord" className="">
+                                                                    <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
+                                                                        View All
+                                                                    </Button>
+                                                                </Link>
+                                                            </div>
                                                             <Card className=' bg-white shadow-sm mb-2 rounded-3'>
                                                                 <CardBody className='d-flex p-2 justify-content-between align-items-center'>
                                                                     <div className='d-flex align-items-center '>

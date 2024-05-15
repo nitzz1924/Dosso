@@ -373,10 +373,37 @@
   border-image: url(../public/Assets/images/border.png) 30 stretch;
 }
 
-.gamearea {
+/* .gamearea {
   background-image: url(../public/Assets/images/game-bg.jpg);
   border-radius: 10px;
+} */
+
+.gamearea {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: black;
 }
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  
+}
+
 
 .referCode {
   font-size: 20px;

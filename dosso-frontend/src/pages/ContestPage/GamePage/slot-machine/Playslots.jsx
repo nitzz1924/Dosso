@@ -139,37 +139,43 @@ const Playslots = () => {
                 <Container fluid >
                     <Row className="justify-content-center">
                         <div className="gamearea py-5 mb-3">
-                            <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
-                                Spin To Play
-                            </div>
-                            <div className="slotcontainer">
-                                {slotSymbols.map((symbols, index) => (
-                                    <div key={index} className="slot me-1">
-                                        <div className="symbols">
-                                            {spun &&
-                                                symbols.map((symbol, i) => (
-                                                    <div key={i} className="symbol ">
-                                                        {symbol}
-                                                    </div>
-                                                ))}
+                            <video className="video-background" autoPlay loop muted>
+                                <source src="/Assets/images/gamebg.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                            <div className="content-overlay">
+                                <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
+                                    Spin To Play
+                                </div>
+                                <div className="slotcontainer">
+                                    {slotSymbols.map((symbols, index) => (
+                                        <div key={index} className="slot me-1">
+                                            <div className="symbols">
+                                                {spun &&
+                                                    symbols.map((symbol, i) => (
+                                                        <div key={i} className="symbol ">
+                                                            {symbol}
+                                                        </div>
+                                                    ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
 
-                            <div className='d-flex justify-content-around '>
-                                {gameComplete ? (
-                                    <div className='d-flex flex-column '>
-                                        <div className='fw-bold fs-1 text-white text-uppercase text-center'>Game Over</div>
-                                        <Link to="/leaderbaord">
-                                            <button className='btn btn-light btn-lg w-75'>Leaderboard</button>
-                                        </Link>
-                                    </div>
-                                ) : (
-                                    <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}>Play Round <span>({spincount}/7)</span></button>
-                                )}
+                                <div className='d-flex justify-content-around '>
+                                    {gameComplete ? (
+                                        <div className='d-flex flex-column '>
+                                            <div className='fw-bold fs-1 text-white text-uppercase text-center'>Game Over</div>
+                                            <Link to="/leaderbaord">
+                                                <button className='btn btn-light btn-lg'>View Leaderboard</button>
+                                            </Link>
+                                        </div>
+                                    ) : (
+                                        <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}>Play Round <span>({spincount}/7)</span></button>
+                                    )}
 
-                                {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
+                                    {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
+                                </div>
                             </div>
                         </div>
                     </Row>

@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Row, Card, CardBody } from 'reactstrap'
+import { Container, Row, Card, CardBody, Button } from 'reactstrap'
 let wheelImg = "Assets/images/fortune-wheel.png"
+import { Link } from 'react-router-dom';
 
 
 const LeaderBoard = () => {
@@ -12,7 +13,14 @@ const LeaderBoard = () => {
 
                 <Container fluid className=''>
                     <Row>
-                        <div className='fs-1 fw-bold mt-3 text-center'>All Ranking</div>
+                        <div className='d-flex justify-content-between align-content-center my-2'>
+                            <div className='fs-3 fw-bold  text-center'>All Ranking</div>
+                            <Link to="/" className="">
+                                <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
+                                    Back
+                                </Button>
+                            </Link>
+                        </div>
                         <Card className=' bg-white shadow-sm mb-2 rounded-3'>
                             <CardBody className='d-flex p-2 justify-content-between align-items-center'>
                                 <div className='d-flex align-items-center '>
