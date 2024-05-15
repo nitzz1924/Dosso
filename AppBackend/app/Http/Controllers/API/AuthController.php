@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\AddContest;
 use App\Models\AdminVendors;
+use App\Models\BalanceSheet;
+use App\Models\ContestSpin;
 use App\Models\Wallet;
 use App\Models\Point;
 use Illuminate\Http\Request;
@@ -190,6 +192,39 @@ class AuthController extends Controller
         $pointdata->contestId = $request->input('contestId');
         $pointdata->save();
         return response()->json($pointdata,200);
+    }
+    public function createbalancesheet(Request $request)
+    {
+        $balancesheetdata = new BalanceSheet();
+        $balancesheetdata->contestid = $request->input('contestid');
+        $balancesheetdata->userid = $request->input('userid');
+        $balancesheetdata->username = $request->input('username');
+        $balancesheetdata->date = $request->input('date');
+        $balancesheetdata->amount = $request->input('amount');
+        $balancesheetdata->paymode = $request->input('paymode');
+        $balancesheetdata->paymentid = $request->input('paymentid');
+        $balancesheetdata->save();
+        $response = [
+            'success' => true,
+            'data' => $balancesheetdata,
+            'message' => "Contest Balance Sheet Added...!!!!!!!!!",
+        ];
+        return response()->json($response,200);
+    }
+    public function createuserspin(Request $request)
+    {
+        $contestuserspindata = new ContestSpin();
+        $contestuserspindata->contestid = $request->input('contestid');
+        $contestuserspindata->userid = $request->input('userid');
+        $contestuserspindata->spin = $request->input('spin');
+        $contestuserspindata->spindur = $request->input('spindur');
+        $contestuserspindata->save();
+        $response = [
+            'success' => true,
+            'data' => $contestuserspindata,
+            'message' => "Contest User Spins Added...!!!!!!!!!",
+        ];
+        return response()->json($response,200);
     }
 
 

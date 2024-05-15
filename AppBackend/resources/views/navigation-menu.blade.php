@@ -92,7 +92,12 @@
                         </div>
                     </div>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('balanchesheet')}}">
+                        <i class=' bx bx-spreadsheet'></i>
+                        <span>Balance Sheet</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

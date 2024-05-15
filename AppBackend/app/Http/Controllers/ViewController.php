@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
+use App\Models\BalanceSheet;
 use App\Models\PlayContest;
 use App\Models\Students;
 use Illuminate\Http\Request;
@@ -40,6 +41,24 @@ class ViewController extends Controller
     {
         $addshowdata = AddShow::get();
         return view('Others.adshow', compact('addshowdata'));
+    }
+
+    public function balanchesheet()
+    {
+        $contestdata = AddContest::get();
+        return view('Others.balanchesheet',compact('contestdata'));
+    }
+
+    public function getcontestajax($id)
+    {
+        $contestdata = BalanceSheet::where('contestid',$id)->get();
+        $totalAmount = $contestdata->sum('amount');
+        $response = [
+            'success' => true,
+            'totalamount' => $totalAmount,
+            'data' => $contestdata,
+        ];
+        return response()->json($response);
     }
 
     //Vendor Panel
