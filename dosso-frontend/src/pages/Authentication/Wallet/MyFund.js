@@ -38,10 +38,10 @@ const MyWallet = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          
+
           {!isEmpty(wallet) && (
-            <Row>
-              <Col xl="12" className="p-0">
+            <Row className="justify-content-center ">
+              <Col xl="3" className="p-0">
                 <WalletStats
                   wallet={wallet}
                   isMenu={isMenu}
@@ -50,8 +50,8 @@ const MyWallet = () => {
               </Col>
             </Row>
           )}
-          <Row>
-            <Col lg="12" className="p-0">
+          <Row className="justify-content-center ">
+            <Col lg="3" className="p-0">
               {!isEmpty(wallet["walletHistory"]) && (
                 <WalletActivities />
               )}

@@ -385,3 +385,7 @@
   padding: 20px;
   font-weight: 900;
 }
+
+.table-bordered > :not(caption) > * > * {
+  text-wrap: nowrap;
+}

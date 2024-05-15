@@ -6,7 +6,7 @@ import BannerSlider from 'pages/Homepage/BannerSlider';
 
 
 const Contests = () => {
-    document.title = "Contests";
+    document.title = "Home";
     return (
         <div>
             <div className="page-content">

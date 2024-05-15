@@ -112,7 +112,7 @@
 
         &:hover {
           color: $sidebar-menu-item-hover-color;
-
+          background-color: #efefef;
           i {
             color: $sidebar-menu-item-hover-color;
           }
@@ -173,7 +173,7 @@
   }
   .active {
     color: $sidebar-menu-item-active-color !important;
-
+    background-color: #efefef;
     i {
       color: $sidebar-menu-item-active-color !important;
     }

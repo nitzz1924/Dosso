@@ -28,10 +28,10 @@ function GlobalFilter({
 
   return (
     <React.Fragment>
-      <Col md={4}>
-        <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+      <Col md={12}>
+        <div className="search-box me-xxl-2 w-100 my-3 my-xxl-2 d-inline-block">
           <div className="position-relative">
-            <label htmlFor="search-bar-0" className="search-label">
+            <label htmlFor="search-bar-0" className="search-label w-100">
               <span id="search-bar-0-label" className="sr-only">
                 Search this table
               </span>
@@ -42,7 +42,7 @@ function GlobalFilter({
                 }}
                 id="search-bar-0"
                 type="text"
-                className="form-control"
+                className="form-control "
                 placeholder={`${count} records...`}
                 value={value || ""}
               />
@@ -131,7 +131,7 @@ const TableContainer = ({
   return (
     <Fragment>
       <Row className="mb-2">
-        <Col md={customPageSizeOptions ? 2 : 1}>
+        <Col md={12}>
           <select
             className="form-select"
             value={pageSize}

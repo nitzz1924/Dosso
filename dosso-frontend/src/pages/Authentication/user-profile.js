@@ -21,19 +21,15 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import withRouter from "components/Common/withRouter";
 
-//Import Breadcrumb
-import Breadcrumb from "../../components/Common/Breadcrumb";
-
 let avatar = "../../Assets/images/Dosso_21_logo.webp";
 // actions
 
-import MyWallet from "./Wallet/MyFund";
-import { editProfile, resetProfileFlag,  } from "store/actions";
+import { editProfile, resetProfileFlag, } from "store/actions";
 
 const UserProfile = () => {
 
   //meta title
-  document.title = "Profile";
+  document.title = "My Profile";
 
   const dispatch = useDispatch();
 
@@ -88,11 +84,8 @@ const UserProfile = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          {/* Render Breadcrumb */}
-          {/* <Breadcrumb title="Skote" breadcrumbItem="Profile" /> */}
-
-          <Row>
-            <Col lg="12">
+          <Row className="my-2 justify-content-center">
+            <Col lg="3" className="d-grid align-content-center">
               {error && error ? <Alert color="danger">{error}</Alert> : null}
               {success ? <Alert color="success">{success}</Alert> : null}
 
@@ -119,49 +112,52 @@ const UserProfile = () => {
             </Col>
           </Row>
 
-          <h4 className="card-title mb-4">Change User Name</h4>
 
-          <Card>
-            <CardBody>
-              <Form
-                className="form-horizontal"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  return false;
-                }}
-              >
-                <div className="form-group">
-                  <Label className="form-label">User Name</Label>
-                  <Input
-                    name="username"
-                    // value={name}
-                    className="form-control"
-                    placeholder="Enter User Name"
-                    type="text"
-                    onChange={validation.handleChange}
-                    onBlur={validation.handleBlur}
-                    value={validation.values.username || ""}
-                    invalid={
-                      validation.touched.username && validation.errors.username ? true : false
-                    }
-                  />
-                  {validation.touched.username && validation.errors.username ? (
-                    <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
-                  ) : null}
-                  <Input name="idx" value={idx} type="hidden" />
-                </div>
-                <div className="text-center mt-4">
-                  <Button type="submit" color="danger">
-                    Update User Name
-                  </Button>
-                </div>
-              </Form>
-            </CardBody>
-          </Card>
+          <Row className="my-2 justify-content-center">
+            <Col lg="3" className="d-grid align-content-center">
+              <h4 className="card-title mb-4">Change User Name</h4>
+              <Card>
+                <CardBody>
+                  <Form
+                    className="form-horizontal"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      validation.handleSubmit();
+                      return false;
+                    }}
+                  >
+                    <div className="form-group">
+                      <Label className="form-label">User Name</Label>
+                      <Input
+                        name="username"
+                        // value={name}
+                        className="form-control"
+                        placeholder="Enter User Name"
+                        type="text"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.username || ""}
+                        invalid={
+                          validation.touched.username && validation.errors.username ? true : false
+                        }
+                      />
+                      {validation.touched.username && validation.errors.username ? (
+                        <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
+                      ) : null}
+                      <Input name="idx" value={idx} type="hidden" />
+                    </div>
+                    <div className="text-center mt-4">
+                      <Button type="submit" color="danger">
+                        Update User Name
+                      </Button>
+                    </div>
+                  </Form>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
         </Container>
 
-        <MyWallet />
       </div>
     </React.Fragment>
   );

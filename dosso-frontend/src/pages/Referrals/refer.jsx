@@ -5,6 +5,7 @@ let referImge = "../Assets/images/Refer.png"
 let winImg = "../Assets/images/trip4win.jpg"
 
 const refer = () => {
+    document.title = "Refer & Earn";
 
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text);

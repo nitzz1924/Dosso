@@ -20,17 +20,17 @@ const Footer = () => {
     <React.Fragment>
       <div className="mobile-nav">
         <nav>
-          <Link to="/" className="nav-item">
+          <Link to="/" className="nav-item" >
             <i data-feather="home" className=""></i>
             Home
           </Link>
 
-          <Link to="/history" className="nav-item">
+          <Link to="/history" className="nav-item" >
             <i data-feather="play-circle" className=""></i>
             My Contests
           </Link>
 
-          <Link to="/refer" className="nav-item">
+          <Link to="/refer" className="nav-item" >
             <i data-feather="users" className=""></i>
             <div>Refer & Earn</div>
           </Link>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from "reactstrap";
+import { Link } from 'react-router-dom';
 
 const Playslots = () => {
 
@@ -7,8 +9,9 @@ const Playslots = () => {
     const [spinDisabled, setSpinDisabled] = useState(false);
     const [gameComplete, setGameComplete] = useState(false);
     const [totalSum, setTotalSum] = useState(0);
+    const [spinResults, setSpinResults] = useState(Array.from({ length: 8 }, () => ''));
 
-    let spinResultSum = 0;
+    let newTotalSum = 0;
 
     const slotSymbols = [
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
@@ -101,11 +104,17 @@ const Playslots = () => {
         setSpincount(newSpincount);
 
 
-        let spinResult = parseInt(displayedSymbols.join(''));
-        const newTotalSum = totalSum + spinResult; // Calculate the new total sum
+        const newSpinResult = parseInt(displayedSymbols.join(''));
+        setSpinResults(prevSpinResults => {
+            const updatedResults = [...prevSpinResults];
+            updatedResults[7 - newSpincount] = newSpinResult;
+            return updatedResults;
+        });
+
+        newTotalSum = totalSum + newSpinResult; // Calculate the new total sum
         setTotalSum(newTotalSum);
 
-        console.log(displayedSymbols, "spinResult", spinResult, "totalSum", totalSum, "newTotalSum", newTotalSum);
+        console.log(displayedSymbols, "newSpinResult", newSpinResult, "totalSum", totalSum, "newTotalSum", newTotalSum);
 
         if (newSpincount <= 0) {
             setGameComplete(true);
@@ -125,32 +134,68 @@ const Playslots = () => {
 
 
     return (
-        <div className="container mb-3">
-            <div className="slotcontainer">
-                {slotSymbols.map((symbols, index) => (
-                    <div key={index} className="slot me-1">
-                        <div className="symbols">
-                            {spun &&
-                                symbols.map((symbol, i) => (
-                                    <div key={i} className="symbol ">
-                                        {symbol}
+        <>
+            <div className=" ">
+                <Container fluid >
+                    <Row className="justify-content-center">
+                        <div className="gamearea py-5 mb-3">
+                            <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
+                                Spin To Play
+                            </div>
+                            <div className="slotcontainer">
+                                {slotSymbols.map((symbols, index) => (
+                                    <div key={index} className="slot me-1">
+                                        <div className="symbols">
+                                            {spun &&
+                                                symbols.map((symbol, i) => (
+                                                    <div key={i} className="symbol ">
+                                                        {symbol}
+                                                    </div>
+                                                ))}
+                                        </div>
                                     </div>
                                 ))}
+                            </div>
+
+                            <div className='d-flex justify-content-around '>
+                                {gameComplete ? (
+                                    <div className='d-flex flex-column '>
+                                        <div className='fw-bold fs-1 text-white text-uppercase text-center'>Game Over</div>
+                                        <Link to="/leaderbaord">
+                                            <button className='btn btn-light btn-lg w-75'>Leaderboard</button>
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}>Play Round <span>({spincount}/7)</span></button>
+                                )}
+
+                                {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    </Row>
+                </Container>
+                <Container fluid >
+                    <Row className="justify-content-center mt-3">
+                        <Col lg="3" className="d-flex flex-column shadow-lg rounded p-3">
+                            {spinResults.map((result, index) => (
+                                <div key={index}>
+                                    {index === 0 && result === '' ? (
+                                        <div className='fs-4 fw-bold text-center bg-black  text-white rounded mb-3'>
+                                            ALL RESULTS
+                                        </div>
+                                    ) : (
+                                        <div className='text-black fs-4 mt-2'>
+                                            <span className="text-muted">{`Round ${index}:`}</span> <span className="fw-bold">{`${result}`}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </Col>
+                    </Row>
+                </Container>
             </div>
 
-            <div className='d-flex justify-content-around '>
-                {gameComplete ? (
-                    <div className='fw-bold fs-1 text-white text-uppercase text-center'>Game Finished</div>
-                ) : (
-                    <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}>Play Round <span>({spincount}/7)</span></button>
-                )}
-
-                {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
-            </div>
-        </div>
+        </>
     );
 };
 

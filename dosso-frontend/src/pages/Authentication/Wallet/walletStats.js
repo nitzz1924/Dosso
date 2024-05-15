@@ -37,7 +37,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
                 </div>
 
                 <div className="">
-                  <Link to="#" className="btn btn-success fw-bold w-md">
+                  <Link to="/addFund" className="btn btn-success fw-bold w-md">
                     Add Money
                   </Link>
                 </div>
