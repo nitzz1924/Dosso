@@ -54,3 +54,8 @@ Route::get('/vendorloginview', [ViewController::class, 'vendorloginview'])->name
 Route::get('/vendordashboardview', [ViewController::class, 'vendordashboardview'])->name('vendordashboardview');
 Route::get('/vendorprofile', [ViewController::class, 'vendorprofile'])->name('vendorprofile');
 Route::get('/studentslistvendor', [ViewController::class, 'studentslistvendor'])->name('studentslistvendor');
+Route::get('/winningreportview', [ViewController::class, 'winningreportview'])->name('winningreportview');
+Route::post('/updateactivationstatus', [StoreController::class, 'updateactivationstatus'])->name('updateactivationstatus');
+Route::get('/reportpage/{id}', [ViewController::class, 'reportpage'])->name('reportpage');
+Route::get('/balanchesheet', [ViewController::class, 'balanchesheet'])->name('balanchesheet');
+Route::get('/getcontestajax/{id}', [ViewController::class, 'getcontestajax'])->name('getcontestajax');

@@ -9,17 +9,19 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::controller(AuthController::class)->group(function(){
-    Route::post('studentlogin','studentlogin');
-    Route::post('studentregister','studentregister');
-    Route::get('studentedit/{id}','studentedit');
-    Route::put('updatestudent/{id}','updatestudent');
-    Route::get('showcontests','showcontests');
-    Route::post('insertwallet','insertwallet');
-    Route::get('transactionlist/{id}','transactionlist');
-    Route::get('walletamount/{id}','walletamount');
-    Route::get('getPoint/{studentId}/{contestId}','getPoint');
-    Route::post('addPoint','addPoint');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('studentlogin', 'studentlogin');
+    Route::post('studentregister', 'studentregister');
+    Route::get('studentedit/{id}', 'studentedit');
+    Route::put('updatestudent/{id}', 'updatestudent');
+    Route::get('showcontests', 'showcontests');
+    Route::post('insertwallet', 'insertwallet');
+    Route::get('transactionlist/{id}', 'transactionlist');
+    Route::get('walletamount/{id}', 'walletamount');
+    Route::get('getPoint/{studentId}/{contestId}', 'getPoint');
+    Route::post('addPoint', 'addPoint');
+    Route::post('createbalancesheet','createbalancesheet');
+    Route::post('createuserspin','createuserspin');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');

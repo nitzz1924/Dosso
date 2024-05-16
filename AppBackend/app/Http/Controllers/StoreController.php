@@ -133,4 +133,14 @@ class StoreController extends Controller
             return back();
         }
     }
+
+    public function updateactivationstatus(Request $req)
+    {
+        $contestid = $req->input('contestid');
+        $status = $req->input('status');
+        $data = AddContest::find($contestid);
+        $data->status = $status;
+        $data->save();
+        return response()->json(['message' => 'Status updated successfully']);
+    }
 }

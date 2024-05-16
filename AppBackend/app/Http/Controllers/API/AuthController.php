@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\AddContest;
 use App\Models\AdminVendors;
+use App\Models\BalanceSheet;
+use App\Models\ContestSpin;
 use App\Models\Wallet;
 use App\Models\Point;
 use Illuminate\Http\Request;
@@ -13,47 +15,51 @@ use App\Models\User;
 use App\Models\Students;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-use Illuminate\Support\Str;
+
 class AuthController extends Controller
 {
-   public function studentregister(Request $request)
-{
-    $validatedData = $request->validate([
-            'username' => 'required|string|unique:students',
+    public function studentregister(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
             'emailaddress' => 'required|email|unique:students',
-            'password' => 'required|string|min:6',
-            'contactnumber' => 'required|string|unique:students',
-            'referbyId' => 'required|string',
-            'status' => 'required|numeric',
+            'password' => 'required',
+            'contactnumber' => 'required|unique:students',
         ]);
 
+        if ($validator->fails()) {
+            $response = [
+                'success' => false,
+                'message' => $validator->errors(),
+                'requestdata' => $request->all()
+            ];
+            return response()->json($response, 400);
+        }
+
         $input = $request->all();
-    $input['password'] = bcrypt($input['password']);
-    $student = Students::create($input);
+        $input['password'] = bcrypt($input['password']);
+        $student = Students::create($input);
 
+        $response = [
+            'success' => true,
+            'data' => $student,
+            'message' => 'Student Registered Successfully..!!!!!'
+        ];
+        return response()->json($response, 200);
+    }
 
-        return response()->json(['message' => 'Student registered successfully', 'data' => $student], 201);
-}
-
-
-protected function generateToken($student)
-{
-    // Generate a random token
-    $token = Str::random(60);
-
-    // Store the token in the session for the authenticated student
-    Session::put('student_token_' . $student->id, $token);
-
-    return $token;
-}
     public function studentlogin(Request $request)
     {
         $credentials = $request->only('username', 'password');
         if (Auth::guard('students')->attempt($credentials)) {
             $student = Auth::guard('students')->user();
+            $success['token'] = $student->createToken('MyApp')->plainTextToken;
+            $success['name'] = $student->username;
+
             $response = [
                 'success' => true,
-                'data' => $student,
+                'data' => $success,
                 'message' => 'Student Login Successfully..!!!!!'
             ];
             return response()->json($response, 200);
@@ -185,7 +191,40 @@ protected function generateToken($student)
         $pointdata->studentId = $request->input('studentId');
         $pointdata->contestId = $request->input('contestId');
         $pointdata->save();
-        return response()->json($pointdata,200);
+        return response()->json($pointdata, 200);
+    }
+    public function createbalancesheet(Request $request)
+    {
+        $balancesheetdata = new BalanceSheet();
+        $balancesheetdata->contestid = $request->input('contestid');
+        $balancesheetdata->userid = $request->input('userid');
+        $balancesheetdata->username = $request->input('username');
+        $balancesheetdata->date = $request->input('date');
+        $balancesheetdata->amount = $request->input('amount');
+        $balancesheetdata->paymode = $request->input('paymode');
+        $balancesheetdata->paymentid = $request->input('paymentid');
+        $balancesheetdata->save();
+        $response = [
+            'success' => true,
+            'data' => $balancesheetdata,
+            'message' => "Contest Balance Sheet Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
+    }
+    public function createuserspin(Request $request)
+    {
+        $contestuserspindata = new ContestSpin();
+        $contestuserspindata->contestid = $request->input('contestid');
+        $contestuserspindata->userid = $request->input('userid');
+        $contestuserspindata->spin = $request->input('spin');
+        $contestuserspindata->spindur = $request->input('spindur');
+        $contestuserspindata->save();
+        $response = [
+            'success' => true,
+            'data' => $contestuserspindata,
+            'message' => "Contest User Spins Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
     }
 
 
