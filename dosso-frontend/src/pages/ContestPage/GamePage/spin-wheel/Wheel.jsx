@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
 import "./wheel.css";
+import CountUp from 'react-countup';
 let pointerImg = "/Assets/images/Asset-6.png"
-
 const Wheels = ({ data }) => {
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
     const [rouletteData, setRouletteData] = useState(data || []);
 
     const handleSpinClick = () => {
-
         if (data && data.length > 0) {
             const newPrizeNumber = Math.floor(Math.random() * data.length);
             setPrizeNumber(newPrizeNumber);
@@ -21,8 +20,10 @@ const Wheels = ({ data }) => {
 
     useEffect(() => {
         const addShortString = data.map((item) => {
+            const randomNumber = Math.floor(Math.random() * (9999 - 999 + 1) + 1000); 
             return {
-                completeOption: item.text,
+                // completeOption: item.value,
+                completeOption: randomNumber,
                 option:
                     item.text.length >= 30
                         ? item.text.substring(0, 30).trimEnd() + "..."
@@ -51,20 +52,20 @@ const Wheels = ({ data }) => {
             <div className="roulette-container align-items-center">
                 <Wheel
                     mustStartSpinning={mustSpin}
-                    spinDuration={[0.2]}
+                    spinDuration={[0.7]}
                     prizeNumber={prizeNumber}
                     data={rouletteData}
-                    outerBorderColor={["#910000"]}
+                    outerBorderColor={["gray"]}
                     outerBorderWidth={[9]}
                     innerBorderColor={["white"]}
-                    radiusLineColor={["#910000"]}
+                    radiusLineColor={["gray"]}
                     radiusLineWidth={[2]}
                     textColors={["black"]}
                     textDistance={55}
                     fontSize={[24]}
                     backgroundColors={[
                         "white",
-                        "#910000",
+                        "gray",
 
                     ]}
                     onStopSpinning={() => {
@@ -88,8 +89,15 @@ const Wheels = ({ data }) => {
                 </button>
             </div>
             <div className="text-center">
-                <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
-                    {!mustSpin ? "You won " + rouletteData[prizeNumber].completeOption + " points" : "Best of luck..."}
+            <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
+                    {!mustSpin && (
+                        <span>
+                            You won{" "}
+                            <CountUp start={1000} end={rouletteData[prizeNumber].completeOption} separator=""
+                            /> points
+                        </span>
+                    )}
+                    {mustSpin && "Best of luck..."}
                 </div>
             </div>
 

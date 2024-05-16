@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, CardFooter, Progress, Nav, NavItem, NavLink, Button, TabContent, TabPane, Table } from "reactstrap";
 
-let players = "https://cdn-icons-png.flaticon.com/512/5619/5619093.png";
+let wheelImg = "Assets/images/fortune-wheel.png"
 
 const Rounds = (props) => {
     const location = useLocation();
     const data = location.state;
 
-    document.title = "Rounds";
+    document.title = "Join Contest";
 
 
     const [activeTab, setActiveTab] = useState('1');
@@ -41,7 +41,7 @@ const Rounds = (props) => {
                                                 <Progress
                                                     animated
                                                     className="mb-1"
-                                                    color="danger"
+                                                    color="secondary"
                                                     max="1000"
                                                     value={750}
 
@@ -65,7 +65,7 @@ const Rounds = (props) => {
                                     </CardText> */}
                                     <Link
                                         to="/spingame"
-                                        className="btn btn-success w-100 fs-4 rounded-3 mt-3"
+                                        className="btn btn-light w-100 fs-4 rounded-3 mt-3"
                                     >
                                         Join <s>₹50</s> ₹1
                                     </Link>
@@ -81,147 +81,176 @@ const Rounds = (props) => {
                     </Row>
                 </Container>
 
-                <Container>
-                    <Row>
-                        <div>
-                            <Nav tabs>
-                                <NavItem>
-                                    <NavLink
-                                        className={activeTab === '1' ? 'active' : ''}
-                                        onClick={() => toggleTab('1')}
-                                    >
-                                        Winner
-                                    </NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink
-                                        className={activeTab === '2' ? 'active' : ''}
-                                        onClick={() => toggleTab('2')}
-                                    >
-                                        Leader Board
-                                    </NavLink>
-                                </NavItem>
-                            </Nav>
-                            <TabContent activeTab={activeTab}>
-                                <TabPane tabId="1">
-                                    <Row>
-                                        <Col sm="12">
-                                            <div className='winningtable'>
-                                                <Table
-                                                    hover
-                                                    responsive
-                                                    size=""
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                                Rank
-                                                            </th>
-                                                            <th className='text-end'>
-                                                                WINNINGS
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥇
-                                                            </th>
-                                                            <td>
-                                                                ₹1 Crore
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥈
-                                                            </th>
-                                                            <td>
-                                                                ₹7 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥉
-                                                            </th>
-                                                            <td>
-                                                                ₹3 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">
-                                                                # 4
-                                                            </th>
-                                                            <td>
-                                                                ₹2 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tabId="2">
-                                    <Row>
-                                        <Col sm="6">
-                                            <div className='winningtable'>
-                                                <Table
-                                                    hover
-                                                    responsive
-                                                    size=""
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                                Rank
-                                                            </th>
-                                                            <th className='text-end'>
-                                                                WINNINGS
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥇
-                                                            </th>
-                                                            <td>
-                                                                ₹1 Crore
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥈
-                                                            </th>
-                                                            <td>
-                                                                ₹7 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row" className='fs-1'>
-                                                                🥉
-                                                            </th>
-                                                            <td>
-                                                                ₹3 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">
-                                                                # 4
-                                                            </th>
-                                                            <td>
-                                                                ₹2 Lakhs
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </Table>
-                                            </div>
-                                        </Col>
+                <Container fluid>
+                    <Row className="my-2 justify-content-center">
+                        <Col lg="3" className="d-grid align-content-center shadow-lg rounded  p-3">
+                            <div>
+                                <Nav justified tabs>
+                                    <NavItem>
+                                        <NavLink
+                                            className={activeTab === '1' ? 'active fw-bold text-uppercase text-black' : 'fw-bold text-uppercase text-secondary'}
+                                            onClick={() => toggleTab('1')}
+                                        >
+                                            Winner
+                                        </NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink
+                                            className={activeTab === '2' ? 'active fw-bold text-uppercase text-black' : 'fw-bold text-uppercase text-secondary'}
+                                            onClick={() => toggleTab('2')}
+                                        >
+                                            Leaderboard
+                                        </NavLink>
+                                    </NavItem>
+                                </Nav>
+                                <TabContent activeTab={activeTab}>
 
-                                    </Row>
-                                </TabPane>
-                            </TabContent>
-                        </div>
+                                    {/* winner prize */}
+                                    <TabPane tabId="1">
+                                        <Row>
+                                            <Col sm="12">
+                                                <div className='winningtable'>
+                                                    <Table
+                                                        hover
+                                                        responsive
+                                                        size=""
+                                                    >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Rank
+                                                                </th>
+                                                                <th className='text-end'>
+                                                                    WINNINGS
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row" className='fs-1'>
+                                                                    🥇
+                                                                </th>
+                                                                <td>
+                                                                    ₹1 Crore
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row" className='fs-1'>
+                                                                    🥈
+                                                                </th>
+                                                                <td>
+                                                                    ₹7 Lakhs
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row" className='fs-1'>
+                                                                    🥉
+                                                                </th>
+                                                                <td>
+                                                                    ₹3 Lakhs
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    # 4
+                                                                </th>
+                                                                <td>
+                                                                    ₹2 Lakhs
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </Table>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+
+                                    {/* Leader Board */}
+                                    <TabPane tabId="2">
+                                        <Row>
+                                            <Col sm="12">
+                                                <div className='winningtable'>
+
+                                                    <Container fluid className=''>
+                                                        <Row>
+                                                            <div className='d-flex justify-content-between align-content-center my-2'>
+                                                                <div className='fs-5 fw-bold my-1 text-center'>Top 5 Ranking</div>
+                                                                <Link to="/leaderbaord" className="">
+                                                                    <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
+                                                                        View All
+                                                                    </Button>
+                                                                </Link>
+                                                            </div>
+                                                            <Card className=' bg-white shadow-sm mb-2 rounded-3'>
+                                                                <CardBody className='d-flex p-2 justify-content-between align-items-center'>
+                                                                    <div className='d-flex align-items-center '>
+                                                                        <div className='me-2 fs-3 border-end'  >🥇</div>
+                                                                        <div className='me-2 border border-1 border-secondary rounded-3'>
+                                                                            <img src={wheelImg} alt="" className="img-fluid " width={35} />
+                                                                        </div>
+                                                                        <div className='me-2 fw-bold fs-5'>Player 1 </div>
+                                                                    </div>
+                                                                    <div className="fw-bold fs-5">8543 pts</div>
+                                                                </CardBody>
+                                                            </Card>
+                                                            <Card className=' bg-white shadow-sm mb-2 rounded-3' >
+                                                                <CardBody className='d-flex p-2 justify-content-between align-items-center'>
+                                                                    <div className='d-flex align-items-center '>
+                                                                        <div className='me-2 fs-3  border-end' >🥈</div>
+                                                                        <div className='me-2 border border-secondary rounded-3'>
+                                                                            <img src={wheelImg} alt="" className="img-fluid " width={35} />
+                                                                        </div>
+                                                                        <div className='me-2 fw-bold fs-5'>Player 2</div>
+                                                                    </div>
+                                                                    <div className="fw-bold fs-5">6524 pts</div>
+                                                                </CardBody>
+                                                            </Card>
+                                                            <Card className=' bg-white shadow-sm mb-2 rounded-3' >
+                                                                <CardBody className='d-flex p-2 justify-content-between align-items-center'>
+                                                                    <div className='d-flex align-items-center '>
+                                                                        <div className='me-2 fs-3 border-end ' >🥉</div>
+                                                                        <div className='me-2 border border-secondary rounded-3'>
+                                                                            <img src={wheelImg} alt="" className="img-fluid " width={35} />
+                                                                        </div>
+                                                                        <div className='me-2 fw-bold fs-5'>Player 3</div>
+                                                                    </div>
+                                                                    <div className="fw-bold fs-5">3545 pts</div>
+                                                                </CardBody>
+                                                            </Card>
+                                                            <Card className=' bg-white shadow-sm mb-2 rounded-3' >
+                                                                <CardBody className='d-flex p-2 justify-content-between align-items-center'>
+                                                                    <div className='d-flex align-items-center ms-3'>
+                                                                        <div className='me-2 fs-5 border-end' >4</div>
+                                                                        <div className='me-2 border border-secondary rounded-3'>
+                                                                            <img src={wheelImg} alt="" className="img-fluid " width={35} />
+                                                                        </div>
+                                                                        <div className='me-2 fw-bold '>Player 4</div>
+                                                                    </div>
+                                                                    <div className="fw-bold fs-6">2345 pts</div>
+                                                                </CardBody>
+                                                            </Card>
+                                                            <Card className=' bg-white shadow-sm mb-2 rounded-3' >
+                                                                <CardBody className='d-flex p-2 justify-content-between align-items-center'>
+                                                                    <div className='d-flex align-items-center ms-3'>
+                                                                        <div className='me-2 fs-5 border-end' >5</div>
+                                                                        <div className='me-2 border border-secondary rounded-3'>
+                                                                            <img src={wheelImg} alt="" className="img-fluid " width={35} />
+                                                                        </div>
+                                                                        <div className='me-2 fw-bold '>Player 5</div>
+                                                                    </div>
+                                                                    <div className="fw-bold fs-6">1234 pts</div>
+                                                                </CardBody>
+                                                            </Card>
+                                                        </Row>
+                                                    </Container>
+                                                </div>
+                                            </Col>
+
+                                        </Row>
+                                    </TabPane>
+                                </TabContent>
+                            </div>
+                        </Col>
                     </Row>
                 </Container>
 

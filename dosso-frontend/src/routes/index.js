@@ -52,6 +52,10 @@ import Spingame from "pages/ContestPage/GamePage/Spingame";
 import History from "pages/ContestPage/History";
 import StudentRegistration from "pages/Registration/StudentRegistration";
 import Home from "pages/Homepage/HomeDashbaord";
+import MyFund from "pages/Authentication/Wallet/MyFund";
+import Refer from "pages/Referrals/refer";
+import AddFund from "pages/Authentication/Wallet/AddFund";
+import LeaderBoard from "pages/ContestPage/GamePage/LeaderBoard";
 
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
@@ -60,9 +64,13 @@ const authProtectedRoutes = [
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
   { path: "/studentRegistration", component: <StudentRegistration /> },
+  { path: "/myWallet", component: <MyFund /> },
+  { path: "/addFund", component: <AddFund /> },
+  { path: "/leaderbaord", component: <LeaderBoard /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },
+  { path: "/refer", component: <Refer /> },
 
   { path: "/dashboard", component: <Dashboard /> },
 

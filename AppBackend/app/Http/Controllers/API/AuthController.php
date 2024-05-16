@@ -191,7 +191,7 @@ class AuthController extends Controller
         $pointdata->studentId = $request->input('studentId');
         $pointdata->contestId = $request->input('contestId');
         $pointdata->save();
-        return response()->json($pointdata,200);
+        return response()->json($pointdata, 200);
     }
     public function createbalancesheet(Request $request)
     {
@@ -209,7 +209,7 @@ class AuthController extends Controller
             'data' => $balancesheetdata,
             'message' => "Contest Balance Sheet Added...!!!!!!!!!",
         ];
-        return response()->json($response,200);
+        return response()->json($response, 200);
     }
     public function createuserspin(Request $request)
     {
@@ -224,7 +224,7 @@ class AuthController extends Controller
             'data' => $contestuserspindata,
             'message' => "Contest User Spins Added...!!!!!!!!!",
         ];
-        return response()->json($response,200);
+        return response()->json($response, 200);
     }
 
 

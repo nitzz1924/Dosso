@@ -5,10 +5,10 @@ import { Row, Col, Card, Button } from "reactstrap"
 
 
 // Carousel images
-const img3 = "https://trendsarthi.com/Appdata/Mega-contest.png"
-const img4 = "https://trendsarthi.com/Appdata/win-price.png"
-const img5 = "https://trendsarthi.com/Appdata/Mega-contest.png"
-const img6 = "https://trendsarthi.com/Appdata/win-price.png";
+const img3 = "Assets/images/1.jpg"
+const img4 = "Assets/images/2.jpg"
+const img5 = "Assets/images/3.jpg"
+const img6 = "Assets/images/4.jpg";
 
 
 const BannerSlider = ({ title }) => {

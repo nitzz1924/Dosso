@@ -23,6 +23,39 @@ const contestData = [
         "firstPrize": "5LAC",
         "status": "New"
     },
+    {
+        "id": 2,
+        "img": rewardImg,
+        "title": "SHAGUN41-2425002",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
+    {
+        "id": 3,
+        "img": rewardImg,
+        "title": "SHAGUN31-2425003",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
+    {
+        "id": 4,
+        "img": rewardImg,
+        "title": "SHAGUN21-2425004",
+        "remainingTime": "15 min",
+        "seats": 150000,
+        "totalRound": 1,
+        "entryFees": "₹51RS",
+        "firstPrize": "5LAC",
+        "status": "Coming soon"
+    },
 
 ];
 
@@ -41,7 +74,7 @@ const Contestlistslider = ({ title }) => {
                     <div className='d-flex justify-content-between align-content-center'>
                         <div className="fs-3 fw-bold text-black text-uppercase">{title}</div>
                         <Link to="/history" className="">
-                            <button className="btn btn-soft-secondary waves-effect waves-light  fw-bold ">
+                            <button className="btn btn-soft-dark waves-effect waves-light  fw-bold ">
                                 History
                             </button>
                         </Link>
@@ -117,8 +150,9 @@ const Contestlistslider = ({ title }) => {
                                             </div>
                                         </div>
                                         <div className="mt-2">
-                                            <button onClick={() => handleClick(item)} className="btn btn-light shadow w-100 fw-bold fs-5 text-uppercase  rounded-5 ">
-                                                Join Contest
+                                            <button onClick={() => handleClick(item)} className={"btn" + (item.status === 'New' ? ' btn-dark ' : ' btn-light ') + "shadow w-100 fw-bold fs-5 text-uppercase rounded-5"}
+                                            disabled={item.status === 'New' ? false : true} >
+                                                {item.status === 'New' ? 'Join Contest' : 'Coming Soon!'}
                                             </button>
                                         </div>
                                     </div>

@@ -21,7 +21,8 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import { loginUser, socialLogin } from "../../store/actions";
 
 // import images
-let profile = "../../Assets/images/Dosso_21_logo.webp"; 
+let profile = "../../Assets/images/Dosso21-logo-new.webp"; 
+
 // import logo from "assets/images/logo.svg";
 
 //Import config
@@ -192,7 +193,7 @@ const Login = props => {
 
                       <div className="mt-3 d-grid">
                         <button
-                          className="btn btn-warning btn-block text-black fw-3"
+                          className="btn btn-secondary btn-white text-black fw-3"
                           type="submit"
                         >
                           Log In
@@ -272,7 +273,7 @@ const Login = props => {
               <div className="mt-5 text-center">
                 <p>
                   Don&#39;t have an account ?{" "}
-                  <Link to="/register" className="fw-medium text-warning">
+                  <Link to="/register" className="fw-medium text-secondary">
                     {" "}
                     Signup now{" "}
                   </Link>{" "}

@@ -15,13 +15,13 @@ import { useFormik } from "formik";
 import { userForgetPassword } from "../../store/actions";
 
 // import images
-import profile from "../../assets/images/profile-img.png";
-let logo = "../../Assets/images/Dosso_21_logo.webp";
+
+let logo = "../../Assets/images/Dosso21-logo-new.webp";
 
 const ForgetPasswordPage = props => {
 
   //meta title
-  document.title = "Forget Password | Skote - React Admin & Dashboard Template";
+  document.title = "Forget Password";
 
   const dispatch = useDispatch();
 
@@ -126,7 +126,7 @@ const ForgetPasswordPage = props => {
                       <Row className="mb-3">
                         <Col className="text-center">
                           <button
-                            className="btn btn-warning w-md text-black"
+                            className="btn btn-light w-md text-black"
                             type="submit"
                           >
                             Reset
