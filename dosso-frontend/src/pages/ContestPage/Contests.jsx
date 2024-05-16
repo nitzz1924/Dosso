@@ -4,7 +4,6 @@ import Contestlistslider from './components/contestlistslider';
 import BannerSlider from 'pages/Homepage/BannerSlider';
 
 
-
 const Contests = () => {
     document.title = "Home";
     return (

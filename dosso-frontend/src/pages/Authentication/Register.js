@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback } from "reactstrap";
 import OTPInput from 'react-otp-input';
+import { navigate } from 'react-router-dom';
 import * as Yup from "yup";
+import axios from "axios";
+import MockAdapter from 'axios-mock-adapter';
 import { useFormik } from "formik";
 import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
-
+let logoImg = "../../../Assets/images/Dosso21-logo-new.webp"; 
+import swal from 'sweetalert';
 const Register = props => {
+  const navigate = navigate();
   document.title = "Registration";
-
+  // Create a new instance of axios
+  const axiosInstance = axios.create();
+  // Create a new instance of the mock adapter
+  const mockAdapter = new MockAdapter(axiosInstance);
   const [generatedOTP, setGeneratedOTP] = useState('');
   const [enteredOTP, setEnteredOTP] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
@@ -56,10 +63,8 @@ const Register = props => {
   const { isValid } = validation;
 
   const generateOTP = (event) => {
-    event.preventDefault(); // Prevent form submission
-    const form = event.target; // Get the form element
-    // Create a new FormData object from the form
-    const formData = new FormData(form);
+    event.preventDefault();
+    const form = event.target;
     console.log(form.value);
     console.log('Generated isValid:', validation.error);
 
@@ -92,34 +97,37 @@ const Register = props => {
       // Store form data in local storage
       localStorage.setItem('userData', JSON.stringify(validation.values));
       try {
-        const dataList=[]
+        const dataList = []
         dataList.push({
-          username:validation.values.mobilenumber,
-          emailaddress:validation.values.email,
-          password:validation.values.password,
-          contactnumber:validation.values.mobilenumber,
-          referbyId:validation.values.referral,
-          status:0,
+          username: validation.values.mobilenumber,
+          emailaddress: validation.values.email,
+          password: validation.values.password,
+          contactnumber: validation.values.mobilenumber,
+          referbyId: validation.values.referral,
+          status: 1,
         })
-        console.log(dataList);
+        // Mock the HTTP request
+        mockAdapter.onPost('https://admin.dosso21.com/api/studentregister').reply(200, { success: true });
         axios.post('https://admin.dosso21.com/api/studentregister', dataList[0], {
-            maxBodyLength: Infinity,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            }
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
         })
-        .then((response) => {
-            // Handle the successful response here
+          .then((response) => {
             console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
+            swal("Great!", "Your Account created!", "success")
+              .then(() => {
+                navigate.push('/login'); // Redirect to '/other-page'
+              });
+          })
+          .catch((error) => {
             // Handle errors here
-            console.log("error->",error);
-        });
-        
-    } catch (error) {
+            console.log("error->", error);
+          });
+
+      } catch (error) {
         console.error(error);
-    }
+      }
       dispatch(registerUser(validation.values));
     } else {
       console.log('Incorrect OTP');
