@@ -339,15 +339,15 @@
 .slot {
   width: 40px;
   height: 40px;
-  border: 0px solid black;
-  /* border: 5px solid transparent; */
+  /* border: 0px solid black; */
+  /* border: 2px groove black; */
   /* border-image: url(../public/Assets/images/border.png) 30 round; */
-  border-radius: 5px;
+  border-radius: 50%;
   display: inline-block;
   overflow: hidden;
   position: relative;
   background: #fafafa;
-  /* box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.4) inset; */
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.7) inset;
 }
 
 .slot .symbols {
@@ -415,4 +415,8 @@
 
 .table-bordered > :not(caption) > * > * {
   text-wrap: nowrap;
+}
+
+.resultTab {
+  border: 3px double rgb(153, 153, 153);
 }

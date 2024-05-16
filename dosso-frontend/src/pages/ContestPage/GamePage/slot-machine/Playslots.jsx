@@ -171,7 +171,7 @@ const Playslots = () => {
                                             </Link>
                                         </div>
                                     ) : (
-                                        <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}>Play Round <span>({spincount}/7)</span></button>
+                                        <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}> {spinDisabled == false ? 'Play Round' : 'Wait...'} <span>({spincount}/7)</span></button>
                                     )}
 
                                     {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
@@ -181,17 +181,17 @@ const Playslots = () => {
                     </Row>
                 </Container>
                 <Container fluid >
-                    <Row className="justify-content-center mt-3">
+                    <Row className="justify-content-center">
                         <Col lg="3" className="d-flex flex-column shadow-lg rounded p-3">
                             {spinResults.map((result, index) => (
                                 <div key={index}>
                                     {index === 0 && result === '' ? (
                                         <div className='fs-4 fw-bold text-center bg-black  text-white rounded mb-3'>
-                                            ALL RESULTS
+                                            Spin Results
                                         </div>
                                     ) : (
-                                        <div className='text-black fs-4 mt-2'>
-                                            <span className="text-muted">{`Round ${index}:`}</span> <span className="fw-bold">{`${result}`}</span>
+                                        <div className='resultTab text-black fs-4 mt-2  px-2  rounded d-flex justify-content-between '>
+                                            <span className="text-dark fw-bold">{`Round ${index} :`}</span> <span className="fw-bolder">{`${result}`}</span>
                                         </div>
                                     )}
                                 </div>
