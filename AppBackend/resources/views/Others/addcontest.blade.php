@@ -53,14 +53,14 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">Start Date</label>
-                                            <input type="date" class="form-control" id="valueval"
+                                            <input type="datetime-local" class="form-control" id="valueval"
                                                 placeholder="enter value" name="startdate">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div>
                                             <label for="placeholderInput" class="form-label">End Date</label>
-                                            <input type="date" class="form-control" id="valueval"
+                                            <input type="datetime-local" class="form-control" id="valueval"
                                                 placeholder="enter value" name="enddate">
                                         </div>
                                     </div>

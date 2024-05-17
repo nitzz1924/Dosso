@@ -84,8 +84,6 @@ const Register = props => {
 
   };
 
-
-
   const handleChange = otp => {
     setEnteredOTP(otp);
     console.log('enteredOTP:', otp);

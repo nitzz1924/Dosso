@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Students;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -123,8 +124,8 @@ class AuthController extends Controller
 
     public function showcontests(Request $request)
     {
-        $contestdata = AddContest::get();
-        return response()->json($contestdata);
+        $contests = AddContest::withCount('playContests')->get();
+        return response()->json($contests);
     }
 
     public function insertwallet(Request $request)

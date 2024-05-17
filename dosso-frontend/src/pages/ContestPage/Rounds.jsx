@@ -7,7 +7,7 @@ let wheelImg = "Assets/images/fortune-wheel.png"
 const Rounds = (props) => {
     const location = useLocation();
     const data = location.state;
-
+    
     document.title = "Join Contest";
 
 
@@ -21,8 +21,6 @@ const Rounds = (props) => {
     return (
         <div>
             <div className="page-content">
-
-
                 <Container fluid className=''>
                     <Row className="flex-column align-items-center justify-content-center">
                         <Col lg={3} className="px-0">
@@ -35,7 +33,7 @@ const Rounds = (props) => {
                                         <div>
                                             <div>Prize Pool</div>
                                             <div className="text-black fs-3" >
-                                                ₹ 8 Crores
+                                                ₹ {data.totalprice}
                                             </div>
                                             <div className="">
                                                 <Progress
@@ -67,7 +65,7 @@ const Rounds = (props) => {
                                         to="/spingame"
                                         className="btn btn-light w-100 fs-4 rounded-3 mt-3"
                                     >
-                                        Join <s>₹50</s> ₹1
+                                        Join ₹ {data.registrationfees}
                                     </Link>
                                 </CardBody>
                                 <CardFooter className=" border-top text-center">

@@ -4110,6 +4110,13 @@ axios-mock-adapter@^1.22.0:
     fast-deep-equal "^3.1.3"
     is-buffer "^2.0.5"
 
+axios-retry@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/axios-retry/-/axios-retry-4.2.0.tgz"
+  integrity sha512-zcVGX7NrRe+nadNFsSlf+KUT8ZFWRd8lf5f2QDqZCvWX6n3KTfPWErpTRxD7Nd7pPzQlnpvoEUq1ZrkhCwj/cA==
+  dependencies:
+    is-retry-allowed "^2.2.0"
+
 axios@^1.2.1:
   version "1.6.8"
   resolved "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz"
@@ -7594,6 +7601,11 @@ is-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/is-regexp/-/is-regexp-1.0.0.tgz"
   integrity sha512-7zjFAPO4/gwyQAAgRRmqeEeyIICSdmCqa3tsVHMdBzaXXRiqopZL4Cyghg/XulGWrtABTpbnYYzzIRffLkP4oA==
+
+is-retry-allowed@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/is-retry-allowed/-/is-retry-allowed-2.2.0.tgz"
+  integrity sha512-XVm7LOeLpTW4jV19QSH38vkswxoLud8sQ57YwJVTPWdiaI9I8keEhGFpBlslyVsgdQy4Opg8QOLb8YRgsyZiQg==
 
 is-root@^2.1.0:
   version "2.1.0"
