@@ -21,10 +21,11 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import withRouter from "components/Common/withRouter";
 
-let avatar = "../../Assets/images/Dosso_21_logo.webp";
+let avatar = "../../Assets/images/Dosso21-logo-new.webp";
 // actions
 
 import { editProfile, resetProfileFlag, } from "store/actions";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
 
@@ -154,6 +155,14 @@ const UserProfile = () => {
                   </Form>
                 </CardBody>
               </Card>
+            </Col>
+          </Row>
+          <Row className="my-2 justify-content-center">
+            <Col lg="3" className="d-grid align-content-center alert alert-info">
+              <h4 className="fs-6">To Rewithdraw Money Complete your KYC Process!</h4>
+              <Link to="/playerkyc">
+                <button className="btn btn-info">Complete KYC</button>
+              </Link>
             </Col>
           </Row>
         </Container>

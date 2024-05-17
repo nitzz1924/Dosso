@@ -2,7 +2,7 @@ import React from 'react'
 import Flicking from "@egjs/react-flicking";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 import { Row, Col, Card, Button } from "reactstrap"
-
+import { AutoPlay } from "@egjs/flicking-plugins";
 
 // Carousel images
 const img3 = "Assets/images/1.jpg"
@@ -12,6 +12,9 @@ const img6 = "Assets/images/4.jpg";
 
 
 const BannerSlider = ({ title }) => {
+
+    const plugins = [new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false })];
+
     return (
         <div className="offer-slider-container">
 
@@ -23,12 +26,16 @@ const BannerSlider = ({ title }) => {
             </Row> */}
             <Flicking
                 align="prev"
+                plugins={plugins}
                 horizontal={true}
                 circular={true}
                 className="flicking-wrapper"
                 resizeOnContentsReady={true}
                 renderOnlyVisible={true}
                 adaptive={false}
+                inputType={["touch", "mouse"]}
+                preventDefaultOnDrag={true}
+                moveType={["strict", { count: 1 }]}
             >
                 <div className='h-50 slider-card' >
                     <img src={img4} className="img-fluid rounded" alt="Responsive image" />

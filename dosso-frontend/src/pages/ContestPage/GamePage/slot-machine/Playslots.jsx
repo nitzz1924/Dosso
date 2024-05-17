@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom';
 
+let instantWin = "/Assets/images/instantWin.wav";
+let playSound2 = "/Assets/images/playSound2.wav";
+
 const Playslots = () => {
 
     const [spincount, setSpincount] = useState(7)
@@ -10,6 +13,9 @@ const Playslots = () => {
     const [gameComplete, setGameComplete] = useState(false);
     const [totalSum, setTotalSum] = useState(0);
     const [spinResults, setSpinResults] = useState(Array.from({ length: 8 }, () => ''));
+    const spinAudio = new Audio(playSound2);
+    const instantWinAudio = new Audio(instantWin);
+
 
     let newTotalSum = 0;
 
@@ -21,7 +27,6 @@ const Playslots = () => {
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-
     ];
 
     function createSymbolElement(symbol) {
@@ -38,6 +43,10 @@ const Playslots = () => {
         if (spun) {
             reset();
         }
+
+         // Create a new audio object
+        spinAudio.play();
+
         const slots = document.querySelectorAll('.slot');
         let completedSlots = 0;
 
@@ -90,7 +99,6 @@ const Playslots = () => {
         if (!slots) return;
         const displayedSymbols = [];
 
-
         slots.forEach((slot, index) => {
             const symbols = slot.querySelector('.symbols');
             const symbolIndex = Math.floor(Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight) % slotSymbols[index].length;
@@ -114,6 +122,8 @@ const Playslots = () => {
         newTotalSum = totalSum + newSpinResult; // Calculate the new total sum
         setTotalSum(newTotalSum);
 
+        instantWinAudio.play();
+        
         console.log(displayedSymbols, "newSpinResult", newSpinResult, "totalSum", totalSum, "newTotalSum", newTotalSum);
 
         if (newSpincount <= 0) {
@@ -150,7 +160,7 @@ const Playslots = () => {
                                 <div className="slotcontainer">
                                     {slotSymbols.map((symbols, index) => (
                                         <div key={index} className="slot me-1">
-                                            <div className="symbols">
+                                            <div className="symbols text-black">
                                                 {spun &&
                                                     symbols.map((symbol, i) => (
                                                         <div key={i} className="symbol ">
@@ -165,7 +175,7 @@ const Playslots = () => {
                                 <div className='d-flex justify-content-around '>
                                     {gameComplete ? (
                                         <div className='d-flex flex-column '>
-                                            <div className='fw-bold fs-1 text-white text-uppercase text-center'>Game Over</div>
+                                            <div className='fw-bold fs-1 text-white text-uppercase text-center'>Turn Over!!!</div>
                                             <Link to="/leaderbaord">
                                                 <button className='btn btn-light btn-lg'>View Leaderboard</button>
                                             </Link>
@@ -182,7 +192,7 @@ const Playslots = () => {
                 </Container>
                 <Container fluid >
                     <Row className="justify-content-center">
-                        <Col lg="3" className="d-flex flex-column shadow-lg rounded p-3">
+                        <Col className="d-flex flex-column shadow-lg rounded p-3">
                             {spinResults.map((result, index) => (
                                 <div key={index}>
                                     {index === 0 && result === '' ? (
@@ -190,8 +200,8 @@ const Playslots = () => {
                                             Spin Results
                                         </div>
                                     ) : (
-                                        <div className='resultTab text-black fs-4 mt-2  px-2  rounded d-flex justify-content-between '>
-                                            <span className="text-dark fw-bold">{`Round ${index} :`}</span> <span className="fw-bolder">{`${result}`}</span>
+                                        <div className='resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between '>
+                                            <span className="text-dark fw-bold">{`Round ${index} :`}</span> <span className="fw-bolder text-success">{`${result}`}</span>
                                         </div>
                                     )}
                                 </div>

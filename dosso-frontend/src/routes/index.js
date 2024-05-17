@@ -56,6 +56,7 @@ import MyFund from "pages/Authentication/Wallet/MyFund";
 import Refer from "pages/Referrals/refer";
 import AddFund from "pages/Authentication/Wallet/AddFund";
 import LeaderBoard from "pages/ContestPage/GamePage/LeaderBoard";
+import Playerkyc from "pages/Authentication/kyc/playerkyc";
 
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
@@ -70,6 +71,7 @@ const authProtectedRoutes = [
   
   //profile
   { path: "/profile", component: <UserProfile /> },
+  { path: "/playerkyc", component: <Playerkyc /> },
   { path: "/refer", component: <Refer /> },
 
   { path: "/dashboard", component: <Dashboard /> },

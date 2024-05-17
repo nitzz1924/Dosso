@@ -5,11 +5,6 @@ import { Row, Col, Card, CardBody, CardHeader, CardFooter, Progress } from "reac
 import { Link, useNavigate } from 'react-router-dom';
 
 let rewardImg = "https://trendsarthi.com/Appdata/Mega-contest.png";
-let magicImg = "https://cdn-icons-png.flaticon.com/512/4338/4338712.png";
-let spinsImg = "https://cdn-icons-png.flaticon.com/512/8146/8146784.png";
-let offerImg = "https://cdn-icons-png.flaticon.com/512/776/776627.png";
-let tackerImg = "https://cdn-icons-png.flaticon.com/512/5694/5694967.png";
-let scholarshipImg = "https://cdn-icons-png.flaticon.com/512/3769/3769879.png";
 
 const contestData = [
     {
@@ -151,7 +146,7 @@ const Contestlistslider = ({ title }) => {
                                         </div>
                                         <div className="mt-2">
                                             <button onClick={() => handleClick(item)} className={"btn" + (item.status === 'New' ? ' btn-dark ' : ' btn-light ') + "shadow w-100 fw-bold fs-5 text-uppercase rounded-5"}
-                                            disabled={item.status === 'New' ? false : true} >
+                                                disabled={item.status === 'New' ? false : true} >
                                                 {item.status === 'New' ? 'Join Contest' : 'Coming Soon!'}
                                             </button>
                                         </div>
