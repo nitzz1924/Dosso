@@ -44,6 +44,7 @@ const Rounds = props => {
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get(
+        // "http://127.0.0.1:8000/api/viewwinzone",
         "https://admin.dosso21.com/api/viewwinzone",
         {
           headers: {
@@ -62,12 +63,9 @@ const Rounds = props => {
   const RankingList = async () => {
     try {
       const response = await axiosInstance.get(
+        // "http://127.0.0.1:8000/api/getpoints/" + data.id,
         "https://admin.dosso21.com/api/getpoints/" + data.id,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        
       )
       console.log("Ranking  Data : ", response.data)
       setrankingdata(response.data)
@@ -131,7 +129,7 @@ const Rounds = props => {
                   </Button>
                 </CardBody>
                 <CardFooter className=" border-top text-center">
-                  End Time: <span className="text-danger">5 Hours</span> left
+                  End Time: <span className="text-danger">{data.enddate}</span> left
                 </CardFooter>
               </Card>
             </Col>

@@ -32,6 +32,7 @@ const Contestlistslider = ({ title }) => {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(
+          // "http://127.0.0.1:8000/api/showcontests",
           "https://admin.dosso21.com/api/showcontests",
           {
             headers: {

@@ -109,8 +109,10 @@ const Playslots = ({data}) => {
             })
             console.log(dataList);
             // Mock the HTTP request
-            mockAdapter.onPost('http://127.0.0.1:8000/api/InsertLastSpin').reply(200, { success: true });
-            axios.post('http://127.0.0.1:8000/api/InsertLastSpin', dataList[0], {
+            // mockAdapter.onPost('http://127.0.0.1:8000/api/InsertLastSpin').reply(200, { success: true });
+            // axios.post('http://127.0.0.1:8000/api/InsertLastSpin', dataList[0], {
+            mockAdapter.onPost('https://admin.dosso21.com/api/InsertLastSpin').reply(200, { success: true });
+            axios.post('https://admin.dosso21.com/api/InsertLastSpin', dataList[0], {
               headers: {
                 'Content-Type': 'multipart/form-data',
               }

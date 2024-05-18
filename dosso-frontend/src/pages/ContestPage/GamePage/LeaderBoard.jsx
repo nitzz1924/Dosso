@@ -11,11 +11,13 @@ const LeaderBoard = () => {
   const [loading, setLoading] = useState(true)
   // Create a new instance of axios
   const axiosInstance = axios.create()
-  axiosRetry(axiosInstance, { retries: 3 })
+  axiosRetry(axiosInstance, { retries: 4 })
   document.title = "Leaderboard"
   const RankingList = async () => {
     try {
       const response = await axiosInstance.get(
+        
+        // "http://127.0.0.1:8000/api/getpoints/" + data.id,
         "https://admin.dosso21.com/api/getpoints/" + data.id,
         {
           headers: {
@@ -23,7 +25,7 @@ const LeaderBoard = () => {
           },
         }
       )
-      console.log("Final Data : ", response.data)
+      console.log("Ranking Data : ", response.data)
       setrankingdata(response.data)
     } catch (error) {
       console.log("error-&gt;", error)
@@ -65,17 +67,14 @@ const LeaderBoard = () => {
                         ? "🥈"
                         : index == 2
                         ? "🥉"
-                        : index}
+                        : index + 1}
                     </div>
                     <div className="me-2 border border-1 border-secondary rounded-3">
                       <img
                         src={
-                          item.studentprofile == null
-                            ? wheelImg
-                            : item.studentprofile
-                        }
-                        alt=""
-                        className="img-fluid "
+                          item.studentprofile === null ? wheelImg : item.studentprofile }
+                        alt="studentprofile"
+                        className="img-fluid"
                         width={35}
                       />
                     </div>
