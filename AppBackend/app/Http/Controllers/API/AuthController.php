@@ -9,6 +9,7 @@ use App\Models\BalanceSheet;
 use App\Models\ContestSpin;
 use App\Models\Wallet;
 use App\Models\Point;
+use App\Models\Winzone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
@@ -226,5 +227,20 @@ class AuthController extends Controller
             'message' => "Contest User Spins Added...!!!!!!!!!",
         ];
         return response()->json($response, 200);
+    }
+
+    public function viewwinzone(Request $request)
+    {
+        $winzondata = Winzone::orderBy('start', 'asc')->get();
+        return response()->json($winzondata);
+    }
+    public function getpoints($id)
+    {
+        $rankingdata = Point::join('students','points.studentId','=', 'students.id')
+            ->select('students.studentname', 'students.studentprofile', 'points.*')
+            ->where('points.contestid', $id)
+            ->orderBy('points.point','desc')
+            ->get();
+        return response()->json($rankingdata);
     }
 }

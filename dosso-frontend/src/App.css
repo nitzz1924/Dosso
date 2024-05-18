@@ -420,3 +420,19 @@
 .resultTab {
   border: 3px double rgb(153, 153, 153);
 }
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Ensure it is above the sidebar */
+  }
+  .sidebar-open .sidebar-background {
+  /* Additional styles to ensure sidebar is visible */
+  z-index: 1000;
+}
+}

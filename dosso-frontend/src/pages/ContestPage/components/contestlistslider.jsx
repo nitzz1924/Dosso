@@ -89,7 +89,7 @@ const Contestlistslider = ({ title }) => {
         )
         console.log("Final Data : ", response.data)
         setContestData(response.data)
-      } catch (error) {
+      } catch (error) { 
         console.log("error-&gt;", error)
       } finally {
         setLoading(false)
