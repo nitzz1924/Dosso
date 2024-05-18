@@ -1,23 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Card, CardBody, Label, Input, Dropdown, Button, Form, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-
-import withRouter from "components/Common/withRouter";
-
-// Formik Validation
-import * as Yup from "yup";
-import { useFormik } from "formik";
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, CardBody, Label, Input, Dropdown, Button, Form, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import withRouter from 'components/Common/withRouter';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 
 const Playerkyc = () => {
     document.title = "Player KYC";
 
-    const [selectedFiles, setselectedFiles] = useState([]);
-    const [selectedPanFiles, setselectedPanFiles] = useState([]);
-    const [selectStdIdFiles, setselectStdIdFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedPanFiles, setSelectedPanFiles] = useState([]);
+    const [selectStdIdFiles, setSelectStdIdFiles] = useState([]);
     const [playerType, setPlayerType] = useState("");
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
     const toggle = () => setDropdownOpen((prevState) => !prevState);
+
+    const validationSchema = Yup.object().shape({
+        aadhaar: Yup.string().required('Aadhaar number is required'),
+        pannumber: Yup.string().required('PAN number is required'),
+        gstnumber: playerType === "business" ? Yup.string().required('GST number is required') : Yup.string(),
+        studentid: playerType === "student" ? Yup.string().required('Student ID is required') : Yup.string(),
+        accnumber: Yup.string().required('Account number is required'),
+        accname: Yup.string().required('Account holder name is required'),
+        ifsccode: Yup.string().required('IFSC code is required'),
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            aadhaar: '',
+            pannumber: '',
+            gstnumber: '',
+            studentid: '',
+            accnumber: '',
+            accname: '',
+            ifsccode: '',
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            setSubmitted(true);
+        },
+    });
 
     function handleAcceptedFiles(files) {
         files.map(file =>
@@ -26,8 +51,9 @@ const Playerkyc = () => {
                 formattedSize: formatBytes(file.size),
             })
         )
-        setselectedFiles(files)
+        setSelectedFiles(files)
     }
+
     function handleStdIdFiles(files) {
         files.map(file =>
             Object.assign(file, {
@@ -35,7 +61,7 @@ const Playerkyc = () => {
                 formattedSize: formatBytes(file.size),
             })
         )
-        setselectStdIdFiles(files)
+        setSelectStdIdFiles(files)
     }
 
     function handlePANFiles(files) {
@@ -45,7 +71,7 @@ const Playerkyc = () => {
                 formattedSize: formatBytes(file.size),
             })
         )
-        setselectedPanFiles(files)
+        setSelectedPanFiles(files)
     }
 
     function formatBytes(bytes, decimals = 2) {
@@ -66,19 +92,21 @@ const Playerkyc = () => {
         <div className='page-content'>
             <Container fluid>
                 <Row className="my-2 justify-content-center">
-                    <Col lg="3" className="d-grid align-content-center p-0">
+                    <Col lg="6" className="d-grid align-content-center p-0">
                         <Card>
                             <CardBody>
                                 <Form
-                                    className="form-verticle"
-                                    onSubmit={(e) => {
-                                        e.preventDefault();
-                                        return false;
-                                    }}
+                                    className="form-vertical"
+                                    onSubmit={formik.handleSubmit}
                                 >
+                                    {submitted && (
+                                        <div className="text-center mt-3 text-success">
+                                            Your KYC verification will be done in 24 hours.
+                                        </div>
+                                    )}
                                     <div className='d-flex justify-content-center '>
                                         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                                            <DropdownToggle caret >Select Player Type</DropdownToggle>
+                                            <DropdownToggle caret color="primary" >Select Your Type</DropdownToggle>
                                             <DropdownMenu>
                                                 <DropdownItem onClick={() => handlePlayerTypeSelect("student")}><i className='bx bx-user-pin'></i> Student</DropdownItem>
                                                 <DropdownItem onClick={() => handlePlayerTypeSelect("business")}><i className='bx bx-briefcase-alt-2'></i> Business</DropdownItem>
@@ -88,22 +116,43 @@ const Playerkyc = () => {
                                     </div>
 
                                     {playerType === "business" && (
-                                        <div className="form-group">
+                                        <div className="form-group mt-3">
                                             <Label className="form-label">GST Number</Label>
-                                            <Input name="gstnumber" className="form-control border" placeholder="Enter Your GST Number" type="text" />
+                                            <Input 
+                                                name="gstnumber"
+                                                className="form-control border"
+                                                placeholder="Enter Your GST Number"
+                                                type="text"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.gstnumber}
+                                            />
+                                            {formik.touched.gstnumber && formik.errors.gstnumber ? (
+                                                <div className="text-danger">{formik.errors.gstnumber}</div>
+                                            ) : null}
                                         </div>
                                     )}
 
                                     {playerType === "student" && (
-
                                         <div className="form-group border border-2 mt-2 border-secondary rounded-3 p-2">
                                             <Label className="form-label">Student ID</Label>
-                                            <Input name="studentid" className="form-control border" placeholder="Enter Your Name" type="text" />
+                                            <Input 
+                                                name="studentid"
+                                                className="form-control border"
+                                                placeholder="Enter Your Student ID"
+                                                type="text"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.studentid}
+                                            />
+                                            {formik.touched.studentid && formik.errors.studentid ? (
+                                                <div className="text-danger">{formik.errors.studentid}</div>
+                                            ) : null}
 
                                             <div className="mt-3 mb-2 form-label" style={{ fontSize: "12px" }}>
                                                 Upload Student ID
                                             </div>
-                                            
+
                                             <Dropzone onDrop={acceptedFiles => {
                                                 handleStdIdFiles(acceptedFiles)
                                             }}
@@ -163,9 +212,20 @@ const Playerkyc = () => {
                                         </div>
                                     )}
 
-                                    <div className="form-group border border-2 mt-2 border-secondary rounded-3 p-2">
+                                    <div className="form-group border border-2 mt-2 border-success rounded-3 p-2">
                                         <Label className="form-label">Aadhaar Card Number</Label>
-                                        <Input name="aadhaar" className="form-control border" placeholder="Enter aadhaar number" type="text" />
+                                        <Input 
+                                            name="aadhaar"
+                                            className="form-control border"
+                                            placeholder="Enter aadhaar number"
+                                            type="text"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.aadhaar}
+                                        />
+                                        {formik.touched.aadhaar && formik.errors.aadhaar ? (
+                                            <div className="text-danger">{formik.errors.aadhaar}</div>
+                                        ) : null}
 
                                         <div className="mt-3 mb-2 form-label" style={{ fontSize: "12px" }}>
                                             Upload Aadhaar card Image
@@ -226,9 +286,20 @@ const Playerkyc = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group border border-2 mt-2 border-secondary rounded-3 p-2">
+                                    <div className="form-group border border-2 mt-2 border-danger rounded-3 p-2">
                                         <Label className="form-label">PAN Number</Label>
-                                        <Input name="pannumber" className="form-control border" placeholder="Enter Your PAN Number" type="text" />
+                                        <Input 
+                                            name="pannumber"
+                                            className="form-control border"
+                                            placeholder="Enter Your PAN Number"
+                                            type="text"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.pannumber}
+                                        />
+                                        {formik.touched.pannumber && formik.errors.pannumber ? (
+                                            <div className="text-danger">{formik.errors.pannumber}</div>
+                                        ) : null}
 
                                         <div className="mt-3 mb-2 form-label" style={{ fontSize: "12px" }}>
                                             Upload Pan card Image
@@ -289,20 +360,53 @@ const Playerkyc = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group mt-3 border border-2 p-2 border-secondary border-secondary rounded-3">
+                                    <div className="form-group mt-3 border border-2 p-2 border-info border-secondary rounded-3">
                                         <div className='fw-bolder fs-5 text-dark'>Bank Details</div>
                                         <Label className="form-label">Account Number</Label>
-                                        <Input name="accnumber" className="form-control border" placeholder="Enter Your Account Number" type="text" />
+                                        <Input 
+                                            name="accnumber"
+                                            className="form-control border"
+                                            placeholder="Enter Your Account Number"
+                                            type="text"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.accnumber}
+                                        />
+                                        {formik.touched.accnumber && formik.errors.accnumber ? (
+                                            <div className="text-danger">{formik.errors.accnumber}</div>
+                                        ) : null}
 
                                         <Label className="form-label">Account Holder Name</Label>
-                                        <Input name="accname" className="form-control border" placeholder="Enter Your Name" type="text" />
+                                        <Input 
+                                            name="accname"
+                                            className="form-control border"
+                                            placeholder="Enter Your Name"
+                                            type="text"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.accname}
+                                        />
+                                        {formik.touched.accname && formik.errors.accname ? (
+                                            <div className="text-danger">{formik.errors.accname}</div>
+                                        ) : null}
 
                                         <Label className="form-label">IFSC Code</Label>
-                                        <Input name="ifsccode" className="form-control border" placeholder="Enter IFSC Code" type="text" />
+                                        <Input 
+                                            name="ifsccode"
+                                            className="form-control border"
+                                            placeholder="Enter IFSC Code"
+                                            type="text"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.ifsccode}
+                                        />
+                                        {formik.touched.ifsccode && formik.errors.ifsccode ? (
+                                            <div className="text-danger">{formik.errors.ifsccode}</div>
+                                        ) : null}
                                     </div>
 
                                     <div className="text-center mt-4">
-                                        <Button type="submit" color="danger">
+                                        <Button type="submit" color="primary">
                                             Submit Documents
                                         </Button>
                                     </div>
@@ -311,10 +415,9 @@ const Playerkyc = () => {
                         </Card>
                     </Col>
                 </Row>
-
             </Container>
         </div>
-    )
+    );
 }
 
 export default withRouter(Playerkyc);
