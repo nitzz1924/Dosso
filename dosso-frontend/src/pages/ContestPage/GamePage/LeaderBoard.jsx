@@ -16,7 +16,7 @@ const LeaderBoard = () => {
   const RankingList = async () => {
     try {
       const response = await axiosInstance.get(
-        "http://127.0.0.1:8000/api/getpoints/" + data.id,
+        "https://admin.dosso21.com/api/getpoints/" + data.id,
         {
           headers: {
             "Content-Type": "multipart/form-data",

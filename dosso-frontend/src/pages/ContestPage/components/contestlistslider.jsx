@@ -14,54 +14,6 @@ import {
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 
-let rewardImg = "https://trendsarthi.com/Appdata/Mega-contest.png"
-
-// const contestData = [
-//   {
-//     id: 1,
-//     img: rewardImg,
-//     title: "SHAGUN51-2425001",
-//     remainingTime: "15 min",
-//     seats: 150000,
-//     totalRound: 1,
-//     entryFees: "₹51RS",
-//     firstPrize: "5LAC",
-//     status: "New",
-//   },
-//   {
-//     id: 2,
-//     img: rewardImg,
-//     title: "SHAGUN41-2425002",
-//     remainingTime: "15 min",
-//     seats: 150000,
-//     totalRound: 1,
-//     entryFees: "₹51RS",
-//     firstPrize: "5LAC",
-//     status: "Coming soon",
-//   },
-//   {
-//     id: 3,
-//     img: rewardImg,
-//     title: "SHAGUN31-2425003",
-//     remainingTime: "15 min",
-//     seats: 150000,
-//     totalRound: 1,
-//     entryFees: "₹51RS",
-//     firstPrize: "5LAC",
-//     status: "Coming soon",
-//   },
-//   {
-//     id: 4,
-//     img: rewardImg,
-//     title: "SHAGUN21-2425004",
-//     remainingTime: "15 min",
-//     seats: 150000,
-//     totalRound: 1,
-//     entryFees: "₹51RS",
-//     firstPrize: "5LAC",
-//     status: "Coming soon",
-//   },
-// ]
 
 const Contestlistslider = ({ title }) => {
   const navigate = useNavigate()
@@ -80,7 +32,7 @@ const Contestlistslider = ({ title }) => {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://127.0.0.1:8000/api/showcontests",
+          "https://admin.dosso21.com/api/showcontests",
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -90,7 +42,7 @@ const Contestlistslider = ({ title }) => {
         console.log("Final Data : ", response.data)
         setContestData(response.data)
       } catch (error) { 
-        console.log("error-&gt;", error)
+        console.log("error", error)
       } finally {
         setLoading(false)
       }
@@ -103,11 +55,6 @@ const Contestlistslider = ({ title }) => {
     return <div>Loading......</div>
   }
 
-//   contestData.map((item, key) => {
-//     const member = 152000 - item.joinmembers;
-//     setMember(member);
-//     console.log(member);
-//   })
 
   return (
     <div className="">
@@ -135,8 +82,8 @@ const Contestlistslider = ({ title }) => {
         renderOnlyVisible={true}
         // panelsPerView={3}
       >
-        {(contestData || []).map((item, key) => (
-          <div className="flicking-viewport vertical " key={item.id}>
+        {(contestData || []).map( (item, key) => (
+          <div className="flicking-viewport vertical " key={key}>
             <div className="flicking-camera shadow-sm">
               <Card className="mb-3  flicking-panel shadow border border-secondary rounded-3">
                 <CardHeader className="bg-white rounded-3 border-bottom d-flex justify-content-between">
