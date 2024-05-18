@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import axiosRetry from "axios-retry"
 import {
@@ -23,8 +23,8 @@ import {
 } from "reactstrap"
 
 let wheelImg = "Assets/images/fortune-wheel.png"
-
 const Rounds = props => {
+  const navigate = useNavigate()
   const location = useLocation()
   const data = location.state
   document.title = "Join Contest"
@@ -223,11 +223,9 @@ const Rounds = props => {
                                 <div className="fs-5 fw-bold my-1 text-center">
                                   Top 5 Ranking
                                 </div>
-                                <Link to="/leaderbaord" className="">
-                                  <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
+                                  <Button onClick={() =>  navigate("/leaderbaord", { state: data })} className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
                                     View All
                                   </Button>
-                                </Link>
                               </div>
                               {(rankingdata.slice(0, 3) || []).map(
                                 (item, index) => (
