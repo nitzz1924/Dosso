@@ -2,9 +2,10 @@ import React from 'react'
 import { Container, Row, Col } from "reactstrap";
 import Playslots from './slot-machine/Playslots';
 
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const Spingame = () => {
-
+    const location = useLocation();
+    const data = location.state;
     document.title = "Dosso 21";
 
     return (
@@ -14,7 +15,7 @@ const Spingame = () => {
                     <Row className="justify-content-center ">
                         <Col lg="3" className=" ">
                             
-                            <Playslots />
+                            <Playslots data={data} />
                         </Col>
                     </Row>
                 </Container>

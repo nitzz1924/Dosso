@@ -24,6 +24,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('createuserspin','createuserspin');
     Route::get('viewwinzone','viewwinzone');
     Route::get('getpoints/{id}','getpoints');
+    Route::post('InsertLastSpin','InsertLastSpin');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');

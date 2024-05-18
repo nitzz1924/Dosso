@@ -7,6 +7,7 @@ use App\Models\AddContest;
 use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
 use App\Models\ContestSpin;
+use App\Models\PlayerSpin;
 use App\Models\Wallet;
 use App\Models\Point;
 use App\Models\Winzone;
@@ -242,5 +243,20 @@ class AuthController extends Controller
             ->orderBy('points.point','desc')
             ->get();
         return response()->json($rankingdata);
+    }
+
+    public function InsertLastSpin(Request $request)
+    {
+        $playerspindata = new Point();
+        $playerspindata->studentid = $request->input('studentid');
+        $playerspindata->contestid = $request->input('contestid');
+        $playerspindata->point = $request->input('point');
+        $playerspindata->save();
+        $response = [
+            'success' => true,
+            'data' => $playerspindata,
+            'message' => "Spins Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
     }
 }
