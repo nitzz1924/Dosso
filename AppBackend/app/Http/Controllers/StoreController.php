@@ -22,8 +22,6 @@ class StoreController extends Controller
                 'startdate' => 'required',
                 'enddate' => 'required',
                 'registrationfees' => 'required',
-                'totalround' => 'required',
-                'completedround' => 'required',
                 'totalprice' => 'required',
                 'totalspin' => 'required',
                 'thumbnail' => 'required',
@@ -41,8 +39,6 @@ class StoreController extends Controller
                 'startdate' => $req->startdate,
                 'enddate' => $req->enddate,
                 'registrationfees' => $req->registrationfees,
-                'totalround' => $req->totalround,
-                'completedround' => $req->completedround,
                 'totalprice' => $req->totalprice,
                 'totalspin' => $req->totalspin,
                 'thumbnail' => $imagePath,
@@ -51,8 +47,8 @@ class StoreController extends Controller
             return redirect()->route('addcontestview')->with('success', 'Contest Created..!!');
         }
         catch(\Exception $c){
-            //  return redirect()->route('addcontestview')->with('error', $c->getMessage());
-            return redirect()->route('addcontestview')->with('error', 'Not Created Try Again...');
+              return redirect()->route('addcontestview')->with('error', $c->getMessage());
+            //return redirect()->route('addcontestview')->with('error', 'Not Created Try Again...');
         }
     }
 
@@ -84,7 +80,7 @@ class StoreController extends Controller
             ]);
             return redirect()->route('addvendorview')->with('success', 'Vendor Created..!!');
         }catch(\Exception $c){
-            //  return redirect()->route('addvendorview')->with('error', $c->getMessage());
+            //return redirect()->route('addvendorview')->with('error', $c->getMessage());
             return redirect()->route('addvendorview')->with('error', 'Not Created Try Again...');
         }
     }
@@ -109,14 +105,13 @@ class StoreController extends Controller
                 'adstitle' => $req->adstitle,
                 'addimage' => $imagePath,
                 'displayshow' => $req->displayshow,
-                // 'url' => $req->url,
                 'redirectlink' => $req->redirectlink,
                 'mediatype' => $req->mediatype,
                 'videourl' => $req->videourl,
             ]);
             return redirect()->route('adshowview')->with('success', 'Add Show Created..!!');
         }catch(\Exception $c){
-            // return redirect()->route('adshowview')->with('error', $c->getMessage());
+            //return redirect()->route('adshowview')->with('error', $c->getMessage());
             return redirect()->route('adshowview')->with('error', 'Not Created Try Again...');
         }
     }
@@ -137,5 +132,15 @@ class StoreController extends Controller
             //return redirect()->route('addcontestview')->with('error', $r->getMessage());
             return back();
         }
+    }
+
+    public function updateactivationstatus(Request $req)
+    {
+        $contestid = $req->input('contestid');
+        $status = $req->input('status');
+        $data = AddContest::find($contestid);
+        $data->status = $status;
+        $data->save();
+        return response()->json(['message' => 'Status updated successfully']);
     }
 }

@@ -5,13 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\AddContest;
 use App\Models\AdminVendors;
+use App\Models\BalanceSheet;
+use App\Models\ContestSpin;
 use App\Models\Wallet;
+use App\Models\Point;
+use App\Models\Winzone;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Students;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -23,13 +28,13 @@ class AuthController extends Controller
             'emailaddress' => 'required|email|unique:students',
             'password' => 'required',
             'contactnumber' => 'required|unique:students',
-            'aadharcardnumber' => 'required|unique:students',
         ]);
 
         if ($validator->fails()) {
             $response = [
                 'success' => false,
-                'message' => $validator->errors()
+                'message' => $validator->errors(),
+                'requestdata' => $request->all()
             ];
             return response()->json($response, 400);
         }
@@ -38,14 +43,9 @@ class AuthController extends Controller
         $input['password'] = bcrypt($input['password']);
         $student = Students::create($input);
 
-        //Generating API Token in PlainText Format
-        $success['token'] = $student->createToken('MyApp')->plainTextToken;
-        //Getting User Name from user table
-        $success['tabledata'] = $student;
-
         $response = [
             'success' => true,
-            'data' => $success,
+            'data' => $student,
             'message' => 'Student Registered Successfully..!!!!!'
         ];
         return response()->json($response, 200);
@@ -54,7 +54,6 @@ class AuthController extends Controller
     public function studentlogin(Request $request)
     {
         $credentials = $request->only('username', 'password');
-
         if (Auth::guard('students')->attempt($credentials)) {
             $student = Auth::guard('students')->user();
             $success['token'] = $student->createToken('MyApp')->plainTextToken;
@@ -74,7 +73,6 @@ class AuthController extends Controller
             return response()->json($response, 401);
         }
     }
-
     public function studentedit($id)
     {
         $studentdata = Students::find($id);
@@ -127,8 +125,8 @@ class AuthController extends Controller
 
     public function showcontests(Request $request)
     {
-        $contestdata = AddContest::get();
-        return response()->json($contestdata);
+        $contests = AddContest::withCount('playContests')->get();
+        return response()->json($contests);
     }
 
     public function insertwallet(Request $request)
@@ -176,5 +174,73 @@ class AuthController extends Controller
 
         return response()->json($response, 200);
     }
+    public function getPoint($studentId, $contestId)
+    {
+        $resultData = Point::whereRaw('contestId = ? and studentId = ?', [$contestId, $studentId])->get();
+        //dd($resultData);
+        $response = [
+            'message' => 'Here is your Point List List...',
+            'success' => true,
+            'data' => $resultData,
+        ];
+        return response()->json($response, 200);
+    }
 
+    public function addPoint(Request $request)
+    {
+        $pointdata = new Point();
+        $pointdata->point = $request->input('point');
+        $pointdata->studentId = $request->input('studentId');
+        $pointdata->contestId = $request->input('contestId');
+        $pointdata->save();
+        return response()->json($pointdata, 200);
+    }
+    public function createbalancesheet(Request $request)
+    {
+        $balancesheetdata = new BalanceSheet();
+        $balancesheetdata->contestid = $request->input('contestid');
+        $balancesheetdata->userid = $request->input('userid');
+        $balancesheetdata->username = $request->input('username');
+        $balancesheetdata->date = $request->input('date');
+        $balancesheetdata->amount = $request->input('amount');
+        $balancesheetdata->paymode = $request->input('paymode');
+        $balancesheetdata->paymentid = $request->input('paymentid');
+        $balancesheetdata->save();
+        $response = [
+            'success' => true,
+            'data' => $balancesheetdata,
+            'message' => "Contest Balance Sheet Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
+    }
+    public function createuserspin(Request $request)
+    {
+        $contestuserspindata = new ContestSpin();
+        $contestuserspindata->contestid = $request->input('contestid');
+        $contestuserspindata->userid = $request->input('userid');
+        $contestuserspindata->spin = $request->input('spin');
+        $contestuserspindata->spindur = $request->input('spindur');
+        $contestuserspindata->save();
+        $response = [
+            'success' => true,
+            'data' => $contestuserspindata,
+            'message' => "Contest User Spins Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
+    }
+
+    public function viewwinzone(Request $request)
+    {
+        $winzondata = Winzone::orderBy('start', 'asc')->get();
+        return response()->json($winzondata);
+    }
+    public function getpoints($id)
+    {
+        $rankingdata = Point::join('students','points.studentId','=', 'students.id')
+            ->select('students.studentname', 'students.studentprofile', 'points.*')
+            ->where('points.contestid', $id)
+            ->orderBy('points.point','desc')
+            ->get();
+        return response()->json($rankingdata);
+    }
 }

@@ -1,94 +1,37 @@
 import PropTypes from "prop-types";
 import React from "react";
-
 import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
-
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
-
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
-//Social Media Imports
-import { GoogleLogin } from "react-google-login";
-// import TwitterLogin from "react-twitter-auth"
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-
-// actions
-import { loginUser, socialLogin } from "../../store/actions";
-
-// import images
-let profile = "../../Assets/images/Dosso21-logo-new.webp"; 
-
-// import logo from "assets/images/logo.svg";
-
-//Import config
-import { facebook, google } from "../../config";
-
+import { loginUser } from "../../store/actions";
+let profile = "../../Assets/images/Dosso21-logo-new.webp";
 const Login = props => {
-
   //meta title
   document.title = "Login";
-
   const dispatch = useDispatch();
-
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-
     initialValues: {
-      email: "admin@dosso.com" || '',
+      mobileNumber: "6375475956" || '',
       password: "123456" || '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
+      mobileNumber: Yup.string().required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.router.navigate));
     }
   });
-
   const { error } = useSelector(state => ({
     error: state.Login.error,
   }));
-
-  const signIn = (res, type) => {
-    if (type === "google" && res) {
-      const postData = {
-        name: res.profileObj.name,
-        email: res.profileObj.email,
-        token: res.tokenObj.access_token,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.router.navigate, type));
-    } else if (type === "facebook" && res) {
-      const postData = {
-        name: res.name,
-        email: res.email,
-        token: res.accessToken,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.router.navigate, type));
-    }
-  };
-
-  //handleGoogleLoginResponse
-  const googleResponse = response => {
-    signIn(response, "google");
-  };
-
-  //handleTwitterLoginResponse
-  // const twitterResponse = e => {}
-
-  //handleFacebookLoginResponse
-  const facebookResponse = response => {
-    signIn(response, "facebook");
-  };
-
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -96,11 +39,11 @@ const Login = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "rgb(236, 236, 236)"}}>
+      <div className="account-pages d-grid align-items-center" style={{ height: "100vh", backgroundColor: "#fff" }}>
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
-              <Card className="overflow-hidden">
+              <Card className="overflow-hidden" style={{ border: 0, }}>
                 <div className="border-bottom">
                   <Row>
                     <Col xs={7}>
@@ -110,25 +53,11 @@ const Login = props => {
                       </div>
                     </Col>
                     <Col className="col-5 text-center align-self-end">
-                      <img src={profile} alt="" className="" height="110"/>
+                      <img src={profile} alt="" className="" height="110" />
                     </Col>
                   </Row>
                 </div>
                 <CardBody className="text-black" >
-                  {/* <div>
-                    <Link to="/" className="logo-light-element">
-                      <div className="avatar-md profile-user-wid mb-4">
-                        <span className="avatar-title rounded-circle bg-light">
-                          <img
-                            src={logo}
-                            alt=""
-                            className="rounded-circle"
-                            height="34"
-                          />
-                        </span>
-                      </div>
-                    </Link>
-                  </div> */}
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -143,19 +72,19 @@ const Login = props => {
                       <div className="mb-3">
                         <Label className="form-label">Enter Unique ID</Label>
                         <Input
-                          name="email"
+                          name="Mobile"
                           className="form-control"
-                          placeholder="Enter email"
-                          type="email"
+                          placeholder="Enter Mobile"
+                          type="number"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.email || ""}
+                          value={validation.values.Mobile || ""}
                           invalid={
-                            validation.touched.email && validation.errors.email ? true : false
+                            validation.touched.Mobile && validation.errors.Mobile ? true : false
                           }
                         />
-                        {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                        {validation.touched.Mobile && validation.errors.Mobile ? (
+                          <FormFeedback type="invalid">{validation.errors.Mobile}</FormFeedback>
                         ) : null}
                       </div>
 

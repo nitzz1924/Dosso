@@ -11,8 +11,6 @@ import { withTranslation } from "react-i18next";
 // Redux Store
 import { changeSidebarType, showRightSidebarAction, toggleLeftmenu, } from 'store/layout/actions';
 
-
-
 const Header = props => {
   const [search, setsearch] = useState(false);
   const [pageTitle, setPageTitle] = useState("Default Title");
@@ -21,9 +19,12 @@ const Header = props => {
     var body = document.body;
     if (window.screen.width <= 998) {
       body.classList.toggle("sidebar-enable");
+      body.classList.toggle("sidebar-overlay");
     } else {
       body.classList.toggle("vertical");
       body.classList.toggle("sidebar-enable");
+      body.classList.toggle("sidebar-overlay");
+
     }
 
     var vOverlay = document.getElementById("vOverlay")

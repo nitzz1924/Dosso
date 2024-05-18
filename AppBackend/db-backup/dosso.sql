@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2024 at 08:52 AM
+-- Generation Time: May 15, 2024 at 03:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,8 +33,6 @@ CREATE TABLE `add_contests` (
   `startdate` varchar(255) NOT NULL,
   `enddate` varchar(255) NOT NULL,
   `registrationfees` varchar(255) NOT NULL,
-  `totalround` varchar(255) NOT NULL,
-  `completedround` varchar(255) NOT NULL,
   `totalprice` varchar(255) NOT NULL,
   `totalspin` varchar(255) NOT NULL,
   `thumbnail` text NOT NULL,
@@ -48,11 +46,8 @@ CREATE TABLE `add_contests` (
 -- Dumping data for table `add_contests`
 --
 
-INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalround`, `completedround`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'dummy', '2024-04-15', '2024-04-24', '', '00', '00', '00', '00', '1712301170.jpg', '00', '0', '2024-04-05 01:42:50', '2024-04-05 07:28:09'),
-(2, 'dummy2', '2024-05-02', '2024-04-26', '', '00', '12', '21', '21', '1712303273.jpg', '33', '0', '2024-04-05 02:17:53', '2024-04-05 02:17:53'),
-(3, 'dummy 23', '2024-04-17', '2024-04-20', '', '3', '14', '215', '2', '1712561465.jpg', '36', '0', '2024-04-08 02:01:05', '2024-04-08 02:01:05'),
-(5, 'New Contest', '2024-04-17', '2024-04-19', '200', '2', '56', '455', '4', '1712815816.jpg', '477', '0', '2024-04-11 00:40:16', '2024-04-11 00:40:16');
+INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-07 04:09:48');
 
 -- --------------------------------------------------------
 
@@ -79,11 +74,8 @@ CREATE TABLE `add_shows` (
 --
 
 INSERT INTO `add_shows` (`id`, `adstitle`, `displayshow`, `url`, `redirectlink`, `mediatype`, `addimage`, `videourl`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'dummy title', 'home', '0', 'https://optireachdigital.in/', 'image', '1712389148.jpg', '0', '0', '2024-04-06 02:09:08', '2024-04-06 02:09:08'),
-(2, 'dummy title 2', 'about', '0', 'www.google.com', 'video', NULL, 'https://www.youtube.com/watch?v=XtFI7SNtVpY', '1', '2024-04-06 02:26:47', '2024-04-06 07:57:06'),
-(3, 'dummy title 3', 'about', '0', 'https://optireachdigital.in/', 'image', '1712390341.jpg', '0', '0', '2024-04-06 02:29:01', '2024-04-06 02:29:01'),
-(4, 'dummy title 4', 'listings', '0', 'www.google.com', 'video', NULL, 'https://www.youtube.com/watch?v=XtFI7SNtVpY', '0', '2024-04-06 02:46:08', '2024-04-06 02:46:08'),
-(5, 'dummy title 5', 'listings', '0', 'www.google.com', 'image', '1712820808.jpg', '0', '0', '2024-04-11 02:03:28', '2024-04-11 02:03:28');
+(2, 'Win Price', 'home', '0', 'google.com', 'image', '1714807678.png', '0', '0', '2024-05-04 01:57:58', '2024-05-04 01:57:58'),
+(3, 'Mega Contest', 'home', '0', 'google.com', 'image', '1714807762.png', '0', '0', '2024-05-04 01:59:22', '2024-05-04 01:59:22');
 
 -- --------------------------------------------------------
 
@@ -99,7 +91,7 @@ CREATE TABLE `admin_vendors` (
   `contactno` varchar(255) NOT NULL,
   `emailaddress` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `referidvendor` varchar(255) NOT NULL,
+  `referidvendor` varchar(255) NOT NULL DEFAULT '0',
   `status` varchar(255) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -110,9 +102,39 @@ CREATE TABLE `admin_vendors` (
 --
 
 INSERT INTO `admin_vendors` (`id`, `vendorname`, `vendorprofile`, `schoolname`, `contactno`, `emailaddress`, `password`, `referidvendor`, `status`, `created_at`, `updated_at`) VALUES
-(100001, 'dummy vendor', '1712317356.jpg', 'dummy school', '010000', 'dm@gmail.com', '$2y$12$eTEUba1H5abK8D3cjpCQseMwBeDPS3fr0hLDhfanUC0spjcD4SR.S', '1001', '0', '2024-04-05 06:12:36', '2024-04-05 06:12:36'),
-(100002, 'dummy vendor two', '1712317468.jpg', 'dummy school two', '010000', 'dmmm@gmail.com', '$2y$12$NcbbQ69cIlNWuHpNVEj6Bu3kM4tYTUWTqYcrRYiiFAeWxjkVhchXK', '1002', '0', '2024-04-05 06:14:29', '2024-04-05 06:14:29'),
-(100003, 'Nitesh', '1712317571.jpg', 'XYZ School', '665464565', 'ans@gmail.com', '$2y$12$Lu7Tk6PJTLquR/xr/MQvC.9HzD1tCreVEkRJo/eqi4I7u.c54c9ge', '1003', '1', '2024-04-05 06:16:11', '2024-04-05 11:48:43');
+(1, 'Kishan', '1714808062.png', 'digitals', '5895645896', 'ans@gmail.com', '$2y$12$68HlP8PCTPQx1V5UsFBmI.Tm/AadmnPDlW2TlGm.xjXpslCax5Qf6', '0', '0', '2024-05-04 02:04:23', '2024-05-04 02:04:23'),
+(2, 'Anshul', '1714808148.png', 'digitals', '5895645856', 'admin@gmail.com', '$2y$12$mhpv4qeKOYvFZxtLAQ3DZ.Ix9c1SCzyMYBU5vEGqS4HFXxxAiTtXW', '0', '0', '2024-05-04 02:05:48', '2024-05-04 02:05:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `balance_sheets`
+--
+
+CREATE TABLE `balance_sheets` (
+  `id` int(11) NOT NULL,
+  `contestid` varchar(255) NOT NULL,
+  `userid` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `amount` varchar(255) NOT NULL,
+  `paymode` varchar(255) NOT NULL,
+  `paymentid` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `balance_sheets`
+--
+
+INSERT INTO `balance_sheets` (`id`, `contestid`, `userid`, `username`, `date`, `amount`, `paymode`, `paymentid`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1', '101', 'dummy', '15th-May-2024', '20000', 'online', 'ABC12', '0', '2024-05-15 10:26:38', '2024-05-15 10:26:38'),
+(2, '1', '101', 'dummy', '15th-May-2024', '50000', 'online', 'ABC12', '0', '2024-05-15 10:26:38', '2024-05-15 10:26:38'),
+(3, '4', '101', 'dummy', '15th-May-2024', '50000', 'online', 'ABC12', '0', '2024-05-15 10:26:38', '2024-05-15 10:26:38'),
+(6, '1', '0', 'megatrons', '2nd July', '4000', 'Cash', '0001AD', '0', '2024-05-15 06:56:53', '2024-05-15 06:56:53'),
+(7, '2', '10', 'autobots', '7nd July', '40800', 'Online', '0001AD', '0', '2024-05-15 07:03:36', '2024-05-15 07:03:36');
 
 -- --------------------------------------------------------
 
@@ -137,6 +159,31 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contest_spins`
+--
+
+CREATE TABLE `contest_spins` (
+  `id` int(11) NOT NULL,
+  `contestid` varchar(255) NOT NULL,
+  `userid` varchar(255) NOT NULL,
+  `spin` varchar(255) NOT NULL,
+  `spindur` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contest_spins`
+--
+
+INSERT INTO `contest_spins` (`id`, `contestid`, `userid`, `spin`, `spindur`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1', '10', '5', '10s', '0', '2024-05-15 07:51:57', '2024-05-15 07:51:57'),
+(2, '2', '105', '10', '110s', '0', '2024-05-15 07:57:12', '2024-05-15 07:57:12');
 
 -- --------------------------------------------------------
 
@@ -233,11 +280,12 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '0001_01_01_000000_create_users_table', 1),
-(2, '0001_01_01_000001_create_cache_table', 1),
-(3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '2024_04_04_105604_add_two_factor_columns_to_users_table', 1),
-(5, '2024_04_04_105626_create_personal_access_tokens_table', 1);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
+(4, '2019_08_19_000000_create_failed_jobs_table', 1),
+(5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(6, '2024_05_03_060326_create_sessions_table', 1);
 
 -- --------------------------------------------------------
 
@@ -290,25 +338,9 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (13, 'App\\Models\\Students', 10010, 'MyApp', '31bdddcd56cdb0e4cac373a64699087b406d11150c49445f30387826801513b3', '[\"*\"]', NULL, NULL, '2024-04-11 00:09:46', '2024-04-11 00:09:46'),
 (14, 'App\\Models\\Students', 10007, 'MyApp', '0dee144eff7f0a5d5637cca91d67fd8aa067b4da72edce77902082fdd7f62710', '[\"*\"]', NULL, NULL, '2024-04-11 00:11:18', '2024-04-11 00:11:18'),
 (15, 'App\\Models\\Students', 10010, 'MyApp', 'ea8d172ec65900066519a6c85368f7dcc262f53347328bd82054c383a3e6966c', '[\"*\"]', NULL, NULL, '2024-04-11 00:12:03', '2024-04-11 00:12:03'),
-(16, 'App\\Models\\Students', 10011, 'MyApp', 'c763fcdb891fa2dca739ec89a19ce66cce074ee578e6cda7d74223d16cf9cead', '[\"*\"]', NULL, NULL, '2024-04-14 23:54:26', '2024-04-14 23:54:26');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `player_rounds`
---
-
-CREATE TABLE `player_rounds` (
-  `id` int(11) NOT NULL,
-  `studentid` varchar(255) NOT NULL,
-  `contestid` varchar(255) NOT NULL,
-  `startdate` varchar(255) NOT NULL,
-  `enddate` varchar(255) NOT NULL,
-  `starttime` varchar(255) NOT NULL,
-  `endtime` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(16, 'App\\Models\\Students', 10011, 'MyApp', 'c763fcdb891fa2dca739ec89a19ce66cce074ee578e6cda7d74223d16cf9cead', '[\"*\"]', NULL, NULL, '2024-04-14 23:54:26', '2024-04-14 23:54:26'),
+(17, 'App\\Models\\Students', 10012, 'MyApp', '38053979312bc7830a37ed1c2577e5b46ea30e2c5ffe34f55f1e623d2a1cf5b2', '[\"*\"]', NULL, NULL, '2024-05-07 05:14:24', '2024-05-07 05:14:24'),
+(18, 'App\\Models\\Students', 10013, 'MyApp', 'c4baf3c8b52984026c2dd5692056cb8fee9800a42fbda2ec512a747c1e8e7884', '[\"*\"]', NULL, NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57');
 
 -- --------------------------------------------------------
 
@@ -338,10 +370,43 @@ CREATE TABLE `play_contests` (
   `studentid` varchar(255) NOT NULL,
   `contestid` varchar(255) NOT NULL,
   `conteststatus` varchar(255) NOT NULL,
+  `rank` varchar(255) NOT NULL,
+  `winningprice` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `play_contests`
+--
+
+INSERT INTO `play_contests` (`id`, `studentid`, `contestid`, `conteststatus`, `rank`, `winningprice`, `status`, `created_at`, `updated_at`) VALUES
+(1, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-08 06:00:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `points`
+--
+
+CREATE TABLE `points` (
+  `id` int(11) NOT NULL,
+  `point` int(11) NOT NULL,
+  `studentId` varchar(255) NOT NULL,
+  `contestId` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `points`
+--
+
+INSERT INTO `points` (`id`, `point`, `studentId`, `contestId`, `created_at`, `updated_at`) VALUES
+(1, 500, '21', '12', '2024-05-03 07:17:06', '2024-05-03 07:17:06'),
+(2, 600, '12', '129', '2024-05-03 07:19:40', '2024-05-03 07:19:40'),
+(4, 9000, '88', '8', '2024-05-03 07:31:57', '2024-05-03 07:31:57');
 
 -- --------------------------------------------------------
 
@@ -363,14 +428,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('0h2Ex9qK2isgSy7K6Wv6SUMTtaqqXelCZuVKbkXr', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVnN6QnZwdVFUNEhNWXo0eHU5Yk05WVduUW02T3ZhNEtSNTM1SkZ3aSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1712829957),
-('3U1BIofdT0W5SBbXZ4E1qN4EovqSrrz3pCgixAT6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYko0ZWFycEtOWVdibmVyTkxJM0ZkOUROVEtucDY3NWV6aXpEemZ5NSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1712731537),
-('elQlMsS8BRsaArV2CuDqWdWiloNtzhbWMqyTyjn7', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRnFGTElqdHFYZWpXc1FNNHlEYzd2cm1FbFlvNFdCeUdiTE1uWHNWayI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC92ZW5kb3JkYXNoYm9hcmR2aWV3Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1NDoibG9naW5fdmVuZG9yc181OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEwMDAwMzt9', 1712644945),
-('gd5KNXWvSlr243Lny68YRM8PogW3mD3ooPUhUlTs', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiREtuZmU0ZU85NEhUdXBBSDZXT3BiN1hYMGJmRFJtZHk2S0VSRlltSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdHVkZW50c2xpc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1713161775),
-('JsqxfDN1ZSHrBm9KoUARhhcl9DCeHPDCL6KRVxi3', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieGlKb01IR2d1QUpsVHlmOU1DSnZwYjlBbm50NE1Hbjhza3N1bjhKTCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvbG9naW4iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1712740452),
-('PtmjxLxj1CU20Ahkz3nu1D6QKuZMitZg0KK52Mrk', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3ZlbmRvcmxvZ2ludmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NjoiX3Rva2VuIjtzOjQwOiJQeTBFUE45UFlXdW1Mb0ZYbm1NdEVtRmpVdm9IZEdWRHhiTjZoN3ZjIjtzOjU0OiJsb2dpbl92ZW5kb3JzXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwMDAzO30=', 1712644121),
-('QgUBDaANXjB0nYdf3rt5bAq7MYVuiZhfpI7I1hq6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV0JzRExvVGx2RUFETG5jZ1JwNzhrZzkySEdGdXI5enV4UmhYR3l6byI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1713012444),
-('ZMTUi4ydPdol0yefz7HTHFgzF71aKMtbeOuxu95O', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZ253SG9KWnJGeFZ5QVVjeFpXRHd0SkpiUXBqMFNNdnA3WFJNcXBzdSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdHVkZW50c2xpc3QiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1712753176);
+('Ko6qQI2FrIMR9IG6Va81wP8IJrsk7MIUhGeLVrql', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQWJ2Q0Q3OHZFU3EwalZwYkZ0a01rblgwak1WWG5FM0JSTWtCMjFZNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1715779026);
 
 -- --------------------------------------------------------
 
@@ -380,22 +438,22 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
-  `studentname` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `education` varchar(255) NOT NULL,
-  `school_universityname` varchar(255) NOT NULL,
-  `studentidimage` varchar(255) NOT NULL,
-  `aadharcardnumber` varchar(255) NOT NULL,
-  `aadharimage` text NOT NULL,
-  `contactnumber` varchar(255) NOT NULL,
-  `emailaddress` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `pin` varchar(255) NOT NULL,
+  `studentname` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `education` varchar(255) DEFAULT NULL,
+  `school_universityname` varchar(255) DEFAULT NULL,
+  `studentidimage` varchar(255) DEFAULT NULL,
+  `aadharcardnumber` varchar(255) DEFAULT NULL,
+  `aadharimage` text DEFAULT NULL,
+  `contactnumber` varchar(255) DEFAULT NULL,
+  `emailaddress` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `referbyId` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT '0',
-  `studentprofile` varchar(255) NOT NULL,
+  `studentprofile` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -408,7 +466,9 @@ INSERT INTO `students` (`id`, `studentname`, `username`, `education`, `school_un
 (10007, 'XYZ', 'xyz_456789', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$/98IBEn9LB0dhGshbjPEaOvNqHGKBdAgCR.MHQJJfgfdeGJQwv7tG', 'null', '0', 'null', '2024-04-10 04:21:55', '2024-04-11 00:11:18'),
 (10008, 'null', 'noizy_123', 'null', 'null', 'null', 'null', 'null', '0000000000', 'noizy@gmail.com', 'null', 'null', 'null', '$2y$12$OLrtDaOZPZiGaMhJkmlY7uGRGySE6EJ9pDRQlJvfKmp5gL.Ywm5fa', 'null', '0', 'null', '2024-04-10 06:37:19', '2024-04-10 06:37:19'),
 (10010, 'XYZ', 'xyz_11', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$PKjat7ob02.gpYCo7KYQ8OtL3cdA6Pa/FPecpG2HLBlewqHFrTCQG', 'null', '0', 'null', '2024-04-11 00:09:46', '2024-04-11 00:12:03'),
-(10011, 'null', 'noizy_12378895645', 'null', 'null', 'null', '555555555555', 'null', '6522525948', 'uuu@gmail.com', 'null', 'null', 'null', '$2y$12$Wopg7YlJhRa2/S1Ob6peVOXL7hn0JetjIDOZoiJQdsZP6Rh8dSdG6', 'null', '0', 'null', '2024-04-14 23:54:26', '2024-04-14 23:54:26');
+(10011, 'null', 'noizy_12378895645', 'null', 'null', 'null', '555555555555', 'null', '6522525948', 'uuu@gmail.com', 'null', 'null', 'null', '$2y$12$Wopg7YlJhRa2/S1Ob6peVOXL7hn0JetjIDOZoiJQdsZP6Rh8dSdG6', 'null', '0', 'null', '2024-04-14 23:54:26', '2024-04-14 23:54:26'),
+(10012, 'Anshhhhh', 'ansh_88', NULL, NULL, NULL, NULL, NULL, '548554548', 'dosso@gmail.com', NULL, NULL, NULL, '$2y$12$EKZ0MgfjS6FGVEoWmOiy0.x9mz7RFyANFY1IlJydGm5IrreYySIWG', '0001ADMIN', '0', NULL, '2024-05-07 05:14:24', '2024-05-07 05:14:24'),
+(10013, 'Anshhhhh', 'ansh_88666', NULL, NULL, NULL, NULL, NULL, '5485548', 'dosso22@gmail.com', NULL, NULL, NULL, '$2y$12$UvbP6Pyazk9NZCGSUp/8BuWw5giwRt4pGiKOJkZUeUI/BL/8Vg.hm', '0001ADMIN', '0', NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57');
 
 -- --------------------------------------------------------
 
@@ -457,17 +517,35 @@ CREATE TABLE `wallets` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `wallets`
+-- Table structure for table `winzone`
 --
 
-INSERT INTO `wallets` (`id`, `userid`, `transactionid`, `credit`, `debit`, `transactiontype`, `status`, `created_at`, `updated_at`) VALUES
-(1, '101', '11', 500, 600, '', '0', '2024-04-14 23:42:14', '2024-04-14 23:42:14'),
-(2, '102', '13', 10000, 600, 'Net Banking', '0', '2024-04-14 23:46:37', '2024-04-14 23:46:37'),
-(3, '101', '11', 10000, 600, 'Net Banking', '0', '2024-04-15 00:25:45', '2024-04-15 00:25:45'),
-(4, '101', '11', 9000, 600, 'Net Banking', '0', '2024-04-15 00:25:53', '2024-04-15 00:25:53'),
-(5, '101', '11', 9000, 600, 'Cash', '0', '2024-04-15 00:26:01', '2024-04-15 00:26:01'),
-(6, '103', '16', 9500, 500, 'Cash', '0', '2024-04-15 01:18:30', '2024-04-15 01:18:30');
+CREATE TABLE `winzone` (
+  `id` int(11) NOT NULL,
+  `start` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `update_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `winzone`
+--
+
+INSERT INTO `winzone` (`id`, `start`, `end`, `title`, `price`, `status`, `created_at`, `update_at`) VALUES
+(1, 1, 1, 'RANK WINNER', 500000, 1, '2024-05-03 08:40:56', '2024-05-03 08:40:56'),
+(2, 2, 2, 'RANK WINNER', 300000, 1, '2024-05-03 08:41:30', '2024-05-03 08:41:30'),
+(3, 3, 3, 'RANK WINNER', 100000, 1, '2024-05-03 08:41:56', '2024-05-03 08:41:56'),
+(4, 4, 10, 'RANK WINNER', 21000, 1, '2024-05-03 08:42:31', '2024-05-03 08:42:31'),
+(5, 11, 221, 'RANK WINNER', 2100, 1, '2024-05-03 08:54:31', '2024-05-03 08:54:31'),
+(6, 222, 40000, 'RANK WINNER', 51, 1, '2024-05-03 09:01:23', '2024-05-03 09:01:23'),
+(7, 151000, 151000, 'RANK WINNER', 100000, 1, '2024-05-03 09:03:36', '2024-05-03 09:03:36');
 
 --
 -- Indexes for dumped tables
@@ -492,6 +570,12 @@ ALTER TABLE `admin_vendors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `balance_sheets`
+--
+ALTER TABLE `balance_sheets`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cache`
 --
 ALTER TABLE `cache`
@@ -502,6 +586,12 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `contest_spins`
+--
+ALTER TABLE `contest_spins`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `create_rounds`
@@ -550,12 +640,6 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `player_rounds`
---
-ALTER TABLE `player_rounds`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `player_spins`
 --
 ALTER TABLE `player_spins`
@@ -565,6 +649,12 @@ ALTER TABLE `player_spins`
 -- Indexes for table `play_contests`
 --
 ALTER TABLE `play_contests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `points`
+--
+ALTER TABLE `points`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -595,6 +685,12 @@ ALTER TABLE `wallets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `winzone`
+--
+ALTER TABLE `winzone`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -602,25 +698,31 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `add_contests`
 --
 ALTER TABLE `add_contests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `add_shows`
 --
 ALTER TABLE `add_shows`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `admin_vendors`
 --
 ALTER TABLE `admin_vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100004;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `create_rounds`
+-- AUTO_INCREMENT for table `balance_sheets`
 --
-ALTER TABLE `create_rounds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `balance_sheets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `contest_spins`
+--
+ALTER TABLE `contest_spins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -629,58 +731,46 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `player_rounds`
+-- AUTO_INCREMENT for table `points`
 --
-ALTER TABLE `player_rounds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `player_spins`
---
-ALTER TABLE `player_spins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `play_contests`
---
-ALTER TABLE `play_contests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `points`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10012;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10014;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `winzone`
+--
+ALTER TABLE `winzone`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

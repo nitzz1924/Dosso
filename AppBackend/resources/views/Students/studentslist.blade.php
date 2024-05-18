@@ -38,20 +38,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($studentdata as $index => $row)
                                 <tr>
-                                    <td>1001</td>
+                                    <td>100{{$index + 1}}</td>
                                     <td>
                                         <img class="square--100" src="{{ asset('assets/images/user-dummy-img.jpg') }}"
                                             alt="" width="50px" height="50px">
                                     </td>
-                                    <td>Dummy</td>
-                                    <td>dummy_123</td>
-                                    <td>1234567890</td>
-                                    <td>john.doe@example.com</td>
-                                    <td>New York</td>
-                                    <td>New York</td>
-                                    <td>305006</td>
-                                    <td>ref1</td>
+                                    <td>{{$row->studentname}}</td>
+                                    <td>{{$row->username}}</td>
+                                    <td>{{$row->contactnumber}}</td>
+                                    <td>{{$row->emailaddress}}</td>
+                                    <td>{{$row->city}}</td>
+                                    <td>{{$row->state}}</td>
+                                    <td>{{$row->pin}}</td>
+                                    <td>{{$row->referbyId}}</td>
                                     <td>
                                         <span class="badge rounded-pill bg-success-subtle text-success">Success</span>
                                     </td>
@@ -60,6 +61,7 @@
                                             id="">Dectivate</button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

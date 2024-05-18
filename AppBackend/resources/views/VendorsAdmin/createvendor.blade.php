@@ -124,7 +124,7 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     <td>{{ $row->id }}</td>
                                     <td>{{ $row->vendorname }}</td>
                                     <td><img src="{{ asset('uploads/' . $row->vendorprofile) }}" alt="Thumbnail"
-                                            width="100px" class="rounded-pill"></td>
+                                            width="100px" class="square-100"></td>
                                     <td>{{ $row->schoolname }}</td>
                                     <td>{{ $row->contactno }}</td>
                                     <td>{{ $row->emailaddress }}</td>
