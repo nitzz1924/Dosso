@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, CardBody, Label, Input, Dropdown, Button, Form, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Container, Row, Col, Card, CardBody, Label, Input, Dropdown, Button, Form, DropdownToggle, DropdownMenu, DropdownItem, FormGroup } from 'reactstrap';
 import withRouter from 'components/Common/withRouter';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -13,10 +13,7 @@ const Playerkyc = () => {
     const [selectedPanFiles, setSelectedPanFiles] = useState([]);
     const [selectStdIdFiles, setSelectStdIdFiles] = useState([]);
     const [playerType, setPlayerType] = useState("");
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     const validationSchema = Yup.object().shape({
         aadhaar: Yup.string().required('Aadhaar number is required'),
@@ -105,20 +102,22 @@ const Playerkyc = () => {
                                         </div>
                                     )}
                                     <div className='d-flex justify-content-center '>
-                                        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-                                            <DropdownToggle caret color="primary" >Select Your Type</DropdownToggle>
-                                            <DropdownMenu>
-                                                <DropdownItem onClick={() => handlePlayerTypeSelect("student")}><i className='bx bx-user-pin'></i> Student</DropdownItem>
-                                                <DropdownItem onClick={() => handlePlayerTypeSelect("business")}><i className='bx bx-briefcase-alt-2'></i> Business</DropdownItem>
-                                                <DropdownItem onClick={() => handlePlayerTypeSelect("individual")}><i className='bx bx-user'></i> Individual</DropdownItem>
-                                            </DropdownMenu>
-                                        </Dropdown>
+
+                                        <FormGroup>
+                                            <Label for="playerType"> Select Player Type</Label>
+                                            <Input id="playerType" name="select" type="select">
+                                                <option onClick={() => handlePlayerTypeSelect("individual")}><i className='bx bx-user'></i> Individual </option>
+                                                <option onClick={() => handlePlayerTypeSelect("student")}><i className='bx bx-user-pin'></i> Student </option>
+                                                <option onClick={() => handlePlayerTypeSelect("business")}><i className='bx bx-briefcase-alt-2'></i> Business </option>
+                                            </Input>
+                                        </FormGroup>
+
                                     </div>
 
                                     {playerType === "business" && (
                                         <div className="form-group mt-3">
                                             <Label className="form-label">GST Number</Label>
-                                            <Input 
+                                            <Input
                                                 name="gstnumber"
                                                 className="form-control border"
                                                 placeholder="Enter Your GST Number"
@@ -134,9 +133,9 @@ const Playerkyc = () => {
                                     )}
 
                                     {playerType === "student" && (
-                                        <div className="form-group border border-2 mt-2 border-secondary rounded-3 p-2">
+                                        <div className="form-group bg-light shadow-sm mt-3 mb-4 rounded-3 p-3">
                                             <Label className="form-label">Student ID</Label>
-                                            <Input 
+                                            <Input
                                                 name="studentid"
                                                 className="form-control border"
                                                 placeholder="Enter Your Student ID"
@@ -212,9 +211,9 @@ const Playerkyc = () => {
                                         </div>
                                     )}
 
-                                    <div className="form-group border border-2 mt-2 border-success rounded-3 p-2">
+                                    <div className="form-group bg-light shadow-sm mt-3 mb-4 rounded-3 p-3">
                                         <Label className="form-label">Aadhaar Card Number</Label>
-                                        <Input 
+                                        <Input
                                             name="aadhaar"
                                             className="form-control border"
                                             placeholder="Enter aadhaar number"
@@ -286,9 +285,9 @@ const Playerkyc = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group border border-2 mt-2 border-danger rounded-3 p-2">
+                                    <div className="form-group bg-light shadow-sm mt-3 mb-4 rounded-3 p-3">
                                         <Label className="form-label">PAN Number</Label>
-                                        <Input 
+                                        <Input
                                             name="pannumber"
                                             className="form-control border"
                                             placeholder="Enter Your PAN Number"
@@ -360,10 +359,10 @@ const Playerkyc = () => {
                                         </div>
                                     </div>
 
-                                    <div className="form-group mt-3 border border-2 p-2 border-info border-secondary rounded-3">
+                                    <div className="form-group mt-3 bg-light shadow-sm mb-4 p-3 rounded-3">
                                         <div className='fw-bolder fs-5 text-dark'>Bank Details</div>
                                         <Label className="form-label">Account Number</Label>
-                                        <Input 
+                                        <Input
                                             name="accnumber"
                                             className="form-control border"
                                             placeholder="Enter Your Account Number"
@@ -377,7 +376,7 @@ const Playerkyc = () => {
                                         ) : null}
 
                                         <Label className="form-label">Account Holder Name</Label>
-                                        <Input 
+                                        <Input
                                             name="accname"
                                             className="form-control border"
                                             placeholder="Enter Your Name"
@@ -391,7 +390,7 @@ const Playerkyc = () => {
                                         ) : null}
 
                                         <Label className="form-label">IFSC Code</Label>
-                                        <Input 
+                                        <Input
                                             name="ifsccode"
                                             className="form-control border"
                                             placeholder="Enter IFSC Code"
@@ -406,7 +405,7 @@ const Playerkyc = () => {
                                     </div>
 
                                     <div className="text-center mt-4">
-                                        <Button type="submit" color="primary">
+                                        <Button type="submit" color="success rounded-3">
                                             Submit Documents
                                         </Button>
                                     </div>

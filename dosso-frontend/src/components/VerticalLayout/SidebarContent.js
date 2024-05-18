@@ -150,6 +150,13 @@ const SidebarContent = props => {
       body.classList.toggle("vertical");
       body.classList.toggle("sidebar-enable");
     }
+    var vOverlay = document.getElementById("vOverlay")
+
+    if (window.screen.width <= 998) {
+      vOverlay.classList.toggle("d-block");
+    } else {
+      vOverlay.classList.toggle("d-block");
+    }
   }
 
   return (
@@ -190,14 +197,14 @@ const SidebarContent = props => {
                 <span>{props.t("Withdrawal")}</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/" onClick={() => {
                 tToggle();
               }}>
                 <i className="bx bx-home-circle"></i>
                 <span>{props.t("Winning History")}</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/" onClick={() => {
                 tToggle();

@@ -419,35 +419,20 @@
   border-radius: 7px;
 }
 
-.vertical-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(54, 61, 72, 0.35);
-  z-index: 993;
-  display: none;
-}
-
 .form-verticle .form-label {
   margin-top: 10px;
   margin-bottom: 5px;
   font-weight: bold;
 }
 @media (max-width: 768px) {
-  .sidebar-overlay {
-    position: absolute;
-    display: block;
+  .vertical-overlay {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999; /* Ensure it is above the sidebar */
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(54, 61, 72, 0.35);
+    z-index: 993;
+    display: none;
   }
-  .sidebar-open .sidebar-background {
-  /* Additional styles to ensure sidebar is visible */
-  z-index: 1000;
-}
 }
