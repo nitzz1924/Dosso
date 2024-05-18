@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2024 at 03:28 PM
+-- Generation Time: May 18, 2024 at 09:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,8 @@ CREATE TABLE `add_contests` (
 --
 
 INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-07 04:09:48');
+(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-07 04:09:48'),
+(2, 'dummy contest', '2024-05-17T17:28', '2024-05-18T06:29', '200', '400', '2', '1715947142.png', '80000', '0', '2024-05-17 06:29:02', '2024-05-17 06:29:02');
 
 -- --------------------------------------------------------
 
@@ -382,7 +383,8 @@ CREATE TABLE `play_contests` (
 --
 
 INSERT INTO `play_contests` (`id`, `studentid`, `contestid`, `conteststatus`, `rank`, `winningprice`, `status`, `created_at`, `updated_at`) VALUES
-(1, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-08 06:00:35');
+(1, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 10:11:02'),
+(2, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57');
 
 -- --------------------------------------------------------
 
@@ -404,9 +406,9 @@ CREATE TABLE `points` (
 --
 
 INSERT INTO `points` (`id`, `point`, `studentId`, `contestId`, `created_at`, `updated_at`) VALUES
-(1, 500, '21', '12', '2024-05-03 07:17:06', '2024-05-03 07:17:06'),
-(2, 600, '12', '129', '2024-05-03 07:19:40', '2024-05-03 07:19:40'),
-(4, 9000, '88', '8', '2024-05-03 07:31:57', '2024-05-03 07:31:57');
+(1, 500, '10013', '1', '2024-05-03 07:17:06', '2024-05-03 07:17:06'),
+(2, 600, '10012', '1', '2024-05-03 07:19:40', '2024-05-03 07:19:40'),
+(4, 9000, '10011', '1', '2024-05-03 07:31:57', '2024-05-03 07:31:57');
 
 -- --------------------------------------------------------
 
@@ -428,7 +430,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Ko6qQI2FrIMR9IG6Va81wP8IJrsk7MIUhGeLVrql', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQWJ2Q0Q3OHZFU3EwalZwYkZ0a01rblgwak1WWG5FM0JSTWtCMjFZNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1715779026);
+('CFskUfCToK9AUOg2b02J250IwoHqlwEnNc9xVEoj', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY2xlWHJuVGRDOXV3VzR5RjRqTHZRaWxNMWNsU2tXeUJmcWxiSFVZSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716017478),
+('yYiiEJfe9eISbwrxfnOHpoC07ikvtoY6XhS8xpUz', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNUttVmJ2VlhjYmFFNTBHZWs0UHVaUXdyQjdhT2p3RTNwUUxHaFcxZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1715948527);
 
 -- --------------------------------------------------------
 
@@ -463,12 +466,13 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `studentname`, `username`, `education`, `school_universityname`, `studentidimage`, `aadharcardnumber`, `aadharimage`, `contactnumber`, `emailaddress`, `city`, `state`, `pin`, `password`, `referbyId`, `status`, `studentprofile`, `created_at`, `updated_at`) VALUES
-(10007, 'XYZ', 'xyz_456789', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$/98IBEn9LB0dhGshbjPEaOvNqHGKBdAgCR.MHQJJfgfdeGJQwv7tG', 'null', '0', 'null', '2024-04-10 04:21:55', '2024-04-11 00:11:18'),
-(10008, 'null', 'noizy_123', 'null', 'null', 'null', 'null', 'null', '0000000000', 'noizy@gmail.com', 'null', 'null', 'null', '$2y$12$OLrtDaOZPZiGaMhJkmlY7uGRGySE6EJ9pDRQlJvfKmp5gL.Ywm5fa', 'null', '0', 'null', '2024-04-10 06:37:19', '2024-04-10 06:37:19'),
-(10010, 'XYZ', 'xyz_11', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$PKjat7ob02.gpYCo7KYQ8OtL3cdA6Pa/FPecpG2HLBlewqHFrTCQG', 'null', '0', 'null', '2024-04-11 00:09:46', '2024-04-11 00:12:03'),
-(10011, 'null', 'noizy_12378895645', 'null', 'null', 'null', '555555555555', 'null', '6522525948', 'uuu@gmail.com', 'null', 'null', 'null', '$2y$12$Wopg7YlJhRa2/S1Ob6peVOXL7hn0JetjIDOZoiJQdsZP6Rh8dSdG6', 'null', '0', 'null', '2024-04-14 23:54:26', '2024-04-14 23:54:26'),
+(10007, 'XYZ', 'xyz_456789', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$/98IBEn9LB0dhGshbjPEaOvNqHGKBdAgCR.MHQJJfgfdeGJQwv7tG', 'null', '0', NULL, '2024-04-10 04:21:55', '2024-05-18 07:21:54'),
+(10008, 'null', 'noizy_123', 'null', 'null', 'null', 'null', 'null', '0000000000', 'noizy@gmail.com', 'null', 'null', 'null', '$2y$12$OLrtDaOZPZiGaMhJkmlY7uGRGySE6EJ9pDRQlJvfKmp5gL.Ywm5fa', 'null', '0', NULL, '2024-04-10 06:37:19', '2024-05-18 07:21:59'),
+(10010, 'XYZ', 'xyz_11', 'null', 'null', 'null', 'null', 'null', '0000000000', 'xyz@gmail.com', 'null', 'null', 'null', '$2y$12$PKjat7ob02.gpYCo7KYQ8OtL3cdA6Pa/FPecpG2HLBlewqHFrTCQG', 'null', '0', NULL, '2024-04-11 00:09:46', '2024-05-18 07:22:01'),
+(10011, 'aaajubhaaju', 'noizy_12378895645', 'null', 'null', 'null', '555555555555', 'null', '6522525948', 'uuu@gmail.com', 'null', 'null', 'null', '$2y$12$Wopg7YlJhRa2/S1Ob6peVOXL7hn0JetjIDOZoiJQdsZP6Rh8dSdG6', 'null', '0', NULL, '2024-04-14 23:54:26', '2024-05-18 07:22:04'),
 (10012, 'Anshhhhh', 'ansh_88', NULL, NULL, NULL, NULL, NULL, '548554548', 'dosso@gmail.com', NULL, NULL, NULL, '$2y$12$EKZ0MgfjS6FGVEoWmOiy0.x9mz7RFyANFY1IlJydGm5IrreYySIWG', '0001ADMIN', '0', NULL, '2024-05-07 05:14:24', '2024-05-07 05:14:24'),
-(10013, 'Anshhhhh', 'ansh_88666', NULL, NULL, NULL, NULL, NULL, '5485548', 'dosso22@gmail.com', NULL, NULL, NULL, '$2y$12$UvbP6Pyazk9NZCGSUp/8BuWw5giwRt4pGiKOJkZUeUI/BL/8Vg.hm', '0001ADMIN', '0', NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57');
+(10013, 'Anshhhhh', 'ansh_88666', NULL, NULL, NULL, NULL, NULL, '5485548', 'dosso22@gmail.com', NULL, NULL, NULL, '$2y$12$UvbP6Pyazk9NZCGSUp/8BuWw5giwRt4pGiKOJkZUeUI/BL/8Vg.hm', '0001ADMIN', '0', NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57'),
+(10014, NULL, '1234567899', NULL, NULL, NULL, NULL, NULL, '1234567899', 'dossoAA22@gmail.com', NULL, NULL, NULL, '$2y$12$ZyAgZUNMLlE7uNBwsqcbsOEcW5qNW7il0/EsDh7dSr3bO5d87wr.C', '0001A', '0', NULL, '2024-05-16 02:36:06', '2024-05-16 02:36:06');
 
 -- --------------------------------------------------------
 
@@ -520,10 +524,10 @@ CREATE TABLE `wallets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `winzone`
+-- Table structure for table `winzones`
 --
 
-CREATE TABLE `winzone` (
+CREATE TABLE `winzones` (
   `id` int(11) NOT NULL,
   `start` int(11) NOT NULL,
   `end` int(11) NOT NULL,
@@ -535,17 +539,18 @@ CREATE TABLE `winzone` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `winzone`
+-- Dumping data for table `winzones`
 --
 
-INSERT INTO `winzone` (`id`, `start`, `end`, `title`, `price`, `status`, `created_at`, `update_at`) VALUES
+INSERT INTO `winzones` (`id`, `start`, `end`, `title`, `price`, `status`, `created_at`, `update_at`) VALUES
 (1, 1, 1, 'RANK WINNER', 500000, 1, '2024-05-03 08:40:56', '2024-05-03 08:40:56'),
 (2, 2, 2, 'RANK WINNER', 300000, 1, '2024-05-03 08:41:30', '2024-05-03 08:41:30'),
 (3, 3, 3, 'RANK WINNER', 100000, 1, '2024-05-03 08:41:56', '2024-05-03 08:41:56'),
 (4, 4, 10, 'RANK WINNER', 21000, 1, '2024-05-03 08:42:31', '2024-05-03 08:42:31'),
 (5, 11, 221, 'RANK WINNER', 2100, 1, '2024-05-03 08:54:31', '2024-05-03 08:54:31'),
 (6, 222, 40000, 'RANK WINNER', 51, 1, '2024-05-03 09:01:23', '2024-05-03 09:01:23'),
-(7, 151000, 151000, 'RANK WINNER', 100000, 1, '2024-05-03 09:03:36', '2024-05-03 09:03:36');
+(7, 151000, 151000, 'RANK WINNER', 100000, 1, '2024-05-03 09:03:36', '2024-05-03 09:03:36'),
+(8, 4001, 15999, 'GIFT COUPON', 0, 1, '2024-05-03 09:03:36', '2024-05-03 09:03:36');
 
 --
 -- Indexes for dumped tables
@@ -685,9 +690,9 @@ ALTER TABLE `wallets`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `winzone`
+-- Indexes for table `winzones`
 --
-ALTER TABLE `winzone`
+ALTER TABLE `winzones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -698,7 +703,7 @@ ALTER TABLE `winzone`
 -- AUTO_INCREMENT for table `add_contests`
 --
 ALTER TABLE `add_contests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `add_shows`
@@ -752,7 +757,7 @@ ALTER TABLE `points`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10014;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10015;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -767,10 +772,10 @@ ALTER TABLE `wallets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `winzone`
+-- AUTO_INCREMENT for table `winzones`
 --
-ALTER TABLE `winzone`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `winzones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
