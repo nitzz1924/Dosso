@@ -23,4 +23,4 @@ const Spingame = () => {
     )
 }
 
-export default Spingame
+export default Spingame;

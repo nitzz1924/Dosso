@@ -61,11 +61,9 @@ const Contestlistslider = ({ title }) => {
       <Row className="my-2">
         <Col className="d-grid align-content-center">
           <div className="d-flex justify-content-between align-content-center">
-            <div className="fs-3 fw-bold text-black text-uppercase">
-              {title}
-            </div>
+            <div className="fs-3 fw-bold text-black text-uppercase">{title}</div>
             <Link to="/history" className="">
-              <button className="btn btn-soft-dark waves-effect waves-light  fw-bold ">
+              <button className="btn btn-soft-dark waves-effect waves-light fw-bold ">
                 History
               </button>
             </Link>
@@ -80,43 +78,37 @@ const Contestlistslider = ({ title }) => {
         className="flicking-wrapper"
         resizeOnContentsReady={true}
         renderOnlyVisible={true}
-        // panelsPerView={3}
       >
-        {(contestData || []).map( (item, key) => (
+        {(contestData || []).map((item, key) => (
           <div className="flicking-viewport vertical " key={key}>
             <div className="flicking-camera shadow-sm">
-              <Card className="mb-3  flicking-panel shadow border border-secondary rounded-3">
+              <Card className="mb-3 flicking-panel shadow border border-secondary rounded-3">
                 <CardHeader className="bg-white rounded-3 border-bottom d-flex justify-content-between">
                   <div className="mb-0 text-muted">
                     <i className="bx bx-time-five text-body me-1"></i>
                     {item.enddate}
                   </div>
-                  {/* <div className="mb-0 text-muted">
-                                        <span>
-                                            Round: {item.seats}/{item.totalRound}
-                                        </span>
-                                        <b>{item.round}</b>
-                                    </div> */}
+
                   <div className="mb-0">
                     <span className="badge text-bg-danger fs-6">
-                    {item.status === "2" ? "Active" : ""}
+                      {item.status === "2" ? "Active" : ""}
                     </span>
                   </div>
                 </CardHeader>
                 <CardBody className="p-3">
                   <div className="text-start">
-                    <div className=" d-flex justify-content-between">
-                      {/* <img src={item.img} alt="" className="avatar-sm" /> */}
+                    <div className="d-flex justify-content-between">
                       <div>
-                        <div className=" fw-bolder fs-3 text-black">
-                          {item.title}
+                        <div className="fw-bolder fs-3 text-black">{item.title}</div>
+                        <div className="mb-0 text-muted">
+                          <i className="bx bx-trophy text-body me-1"></i>
+                          Prize pool: <span className="text-success fw-bold">₹{item.totalprice}</span>
                         </div>
-                        <div className="text-muted">Winning reward</div>
                       </div>
                       <div>
                         Entry Fees
-                        <div className="badge text-bg-secondary   d-grid justify-content-center">
-                          <span className="text-center round-text  text-white">
+                        <div className="badge text-bg-secondary d-grid justify-content-center">
+                          <span className="text-center round-text text-white">
                             ₹ {item.registrationfees}
                           </span>
                         </div>
@@ -129,15 +121,13 @@ const Contestlistslider = ({ title }) => {
                         color="secondary"
                         max={Number(item.joinmembers)}
                         value={Number(item.play_contests_count)}
-                        style={{
-                          height: "5px",
-                        }}
+                        style={{ height: "5px" }}
                       ></Progress>
                       <div className="float-start text-danger progress-text fw-bold">
-                        {Number(item.joinmembers)-Number(item.play_contests_count)} Spots left
+                        {Number(item.joinmembers) - Number(item.play_contests_count)} Spots left
                       </div>
                       <div className="float-end text-muted progress-text">
-                       {Number(item.joinmembers)} Spots
+                        {Number(item.joinmembers)} Spots
                       </div>
                     </div>
                     <div className="mt-2">
@@ -155,15 +145,10 @@ const Contestlistslider = ({ title }) => {
                     </div>
                   </div>
                 </CardBody>
-                <CardFooter className=" d-flex justify-content-between">
-                  <div className="mb-0 text-muted">
-                    <i className="bx bx-trophy text-body me-1"></i>
-                    ₹ {item.totalprice}
-                  </div>
-
+                <CardFooter className="d-flex justify-content-center">
                   <div className="mb-0 text-muted">
                     <b>{item.play_contests_count}</b>
-                    <span className="ms-1">participants</span>
+                    <span className="ms-1">Participants</span>
                   </div>
                 </CardFooter>
               </Card>
@@ -172,7 +157,7 @@ const Contestlistslider = ({ title }) => {
         ))}
       </Flicking>
     </div>
-  )
-}
+  );
+};
 
-export default Contestlistslider
+export default Contestlistslider;

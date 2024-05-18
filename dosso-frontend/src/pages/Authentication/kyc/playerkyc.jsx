@@ -115,7 +115,7 @@ const Playerkyc = () => {
                                     </div>
 
                                     {playerType === "business" && (
-                                        <div className="form-group mt-3">
+                                        <div className="form-group bg-light shadow-sm mt-2 mb-4 rounded-3 p-3">
                                             <Label className="form-label">GST Number</Label>
                                             <Input
                                                 name="gstnumber"
