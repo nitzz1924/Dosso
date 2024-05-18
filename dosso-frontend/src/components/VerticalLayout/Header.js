@@ -25,6 +25,14 @@ const Header = props => {
       body.classList.toggle("vertical");
       body.classList.toggle("sidebar-enable");
     }
+
+    var vOverlay = document.getElementById("vOverlay")
+
+    if (window.screen.width <= 998) {
+      vOverlay.classList.toggle("d-block");
+    } else {
+      vOverlay.classList.toggle("d-block");
+    }
   }
 
   // Update the title whenever needed
@@ -35,6 +43,9 @@ const Header = props => {
 
   return (
     <React.Fragment>
+      <div id='vOverlay' className="vertical-overlay " onClick={() => {
+        tToggle();
+      }}></div>
       <header id="page-topbar">
         <div className="navbar-header">
           <div className="d-flex">

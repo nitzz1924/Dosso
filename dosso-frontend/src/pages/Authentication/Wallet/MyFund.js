@@ -12,6 +12,7 @@ import WalletStats from "./walletStats";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const MyWallet = () => {
 
@@ -38,7 +39,14 @@ const MyWallet = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-
+          <Row className="justify-content-center">
+            <Col lg="3" className="d-grid align-content-center alert alert-info">
+              <div className="mb-2">To Rewithdraw Money Complete your KYC Process!</div>
+              <Link to="/playerkyc">
+                <button className="btn btn-info">Complete KYC</button>
+              </Link>
+            </Col>
+          </Row>
           {!isEmpty(wallet) && (
             <Row className="justify-content-center ">
               <Col xl="3" className="p-0">
@@ -50,6 +58,7 @@ const MyWallet = () => {
               </Col>
             </Row>
           )}
+
           <Row className="justify-content-center ">
             <Col lg="3" className="p-0">
               {!isEmpty(wallet["walletHistory"]) && (
