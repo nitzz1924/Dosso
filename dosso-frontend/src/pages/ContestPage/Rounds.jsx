@@ -54,7 +54,7 @@ const Rounds = props => {
       console.log("Final Data : ", response.data)
       setWinzoneData(response.data)
     } catch (error) {
-      console.log("error-&gt;", error)
+      console.log("error", error)
     } finally {
       setLoading(false)
     }
@@ -69,10 +69,10 @@ const Rounds = props => {
           },
         }
       )
-      console.log("Final Data : ", response.data)
+      console.log("Ranking  Data : ", response.data)
       setrankingdata(response.data)
     } catch (error) {
-      console.log("error-&gt;", error)
+      console.log("error", error)
     } finally {
       setLoading(false)
     }
@@ -122,15 +122,13 @@ const Rounds = props => {
                       </div>
                     </div>
                   </CardTitle>
-                  {/* <CardText className=" text-center">
-                                        Top 25 will qualify for next round
-                                    </CardText> */}
-                  <Link
-                    to="/spingame"
+                  
+                  <Button
+                    onClick={() => navigate("/spingame", { state: data })}
                     className="btn btn-light w-100 fs-4 rounded-3 mt-3"
                   >
                     Join ₹ {data.registrationfees}
-                  </Link>
+                  </Button>
                 </CardBody>
                 <CardFooter className=" border-top text-center">
                   End Time: <span className="text-danger">5 Hours</span> left
@@ -223,9 +221,14 @@ const Rounds = props => {
                                 <div className="fs-5 fw-bold my-1 text-center">
                                   Top 5 Ranking
                                 </div>
-                                  <Button onClick={() =>  navigate("/leaderbaord", { state: data })} className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
-                                    View All
-                                  </Button>
+                                <Button
+                                  onClick={() =>
+                                    navigate("/leaderbaord", { state: data })
+                                  }
+                                  className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold "
+                                >
+                                  View All
+                                </Button>
                               </div>
                               {(rankingdata.slice(0, 3) || []).map(
                                 (item, index) => (

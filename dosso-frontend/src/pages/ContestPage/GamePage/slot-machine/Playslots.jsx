@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from "reactstrap";
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from "react-router-dom"
 let instantWin = "/Assets/images/instantWin.wav";
 let playSound2 = "/Assets/images/playSound2.wav";
-
-const Playslots = () => {
+import axios from "axios";
+import MockAdapter from 'axios-mock-adapter';
+const Playslots = ({data}) => {
 
     const [spincount, setSpincount] = useState(7)
     const [slots, setSlots] = useState(null);
     const [spinDisabled, setSpinDisabled] = useState(false);
     const [gameComplete, setGameComplete] = useState(false);
     const [totalSum, setTotalSum] = useState(0);
+    const navigate = useNavigate()
     const [spinResults, setSpinResults] = useState(Array.from({ length: 8 }, () => ''));
     const spinAudio = new Audio(playSound2);
     const instantWinAudio = new Audio(instantWin);
+    const axiosInstance = axios.create();
+    // Create a new instance of the mock adapter
+    const mockAdapter = new MockAdapter(axiosInstance);
 
-
+    
     let newTotalSum = 0;
 
     const slotSymbols = [
@@ -93,7 +97,36 @@ const Playslots = () => {
             symbols.style.transition = '';
         });
     }
-
+    //Insert API
+    const InsertLastSpin = async (newTotalSum) => {
+        try {
+            const dataList = []
+            dataList.push({
+              studentid: 1,
+              contestid: data.id,
+              point: newTotalSum,
+              status: 1,
+            })
+            console.log(dataList);
+            // Mock the HTTP request
+            mockAdapter.onPost('http://127.0.0.1:8000/api/InsertLastSpin').reply(200, { success: true });
+            axios.post('http://127.0.0.1:8000/api/InsertLastSpin', dataList[0], {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              }
+            })
+              .then((response) => {
+                console.log(JSON.stringify(response.data));
+              })
+              .catch((error) => {
+                // Handle errors here
+                console.log("error->", error);
+              });
+    
+          } catch (error) {
+            console.error(error);
+          }
+      }
     function logDisplayedSymbols() {
 
         if (!slots) return;
@@ -129,6 +162,7 @@ const Playslots = () => {
         if (newSpincount <= 0) {
             setGameComplete(true);
             setSpinDisabled(true);
+            InsertLastSpin(newTotalSum);
         }
 
     }
@@ -176,9 +210,7 @@ const Playslots = () => {
                                     {gameComplete ? (
                                         <div className='d-flex flex-column '>
                                             <div className='fw-bold fs-1 text-white text-uppercase text-center'>Turn Over!!!</div>
-                                            <Link to="/leaderbaord">
-                                                <button className='btn btn-light btn-lg'>View Leaderboard</button>
-                                            </Link>
+                                                <button onClick={() =>  navigate("/leaderbaord", { state: data })} className='btn btn-light btn-lg'>View Leaderboard</button>
                                         </div>
                                     ) : (
                                         <button className='btn btn-light btn-lg w-75' disabled={spinDisabled} onClick={spin}> {spinDisabled == false ? 'Play Round' : 'Wait...'} <span>({spincount}/7)</span></button>
