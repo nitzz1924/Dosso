@@ -18,7 +18,6 @@ import { getLocalData } from "services/global-storage"
 const MyWallet = () => {
   //meta title
   document.title = "My Wallet"
-
   const [wallet, setWallet] = useState(0)
   const [credithis, setCredithis] = useState([])
   const [debithis, setDebithis] = useState([])

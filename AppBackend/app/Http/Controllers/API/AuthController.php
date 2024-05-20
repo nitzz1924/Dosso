@@ -135,8 +135,8 @@ class AuthController extends Controller
         $walletdata = new Wallet();
         $walletdata->userid = $request->input('userid');
         $walletdata->transactionid = $request->input('transactionid');
-        $walletdata->credit = $request->input('credit');
-        $walletdata->debit = $request->input('debit');
+        $walletdata->paymenttype = $request->input('paymenttype');
+        $walletdata->amount = $request->input('amount');
         $walletdata->transactiontype = $request->input('transactiontype');
         $walletdata->save();
         return response()->json($walletdata);

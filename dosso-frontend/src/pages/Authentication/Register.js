@@ -7,6 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { useFormik } from "formik";
 import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
+<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
 import swal from 'sweetalert';
@@ -14,6 +15,15 @@ import config from "constants/config";
 
 
 const Register = props => {
+=======
+import { Link , useNavigate} from "react-router-dom";
+let logoImg = "../../../Assets/images/Dosso21-logo-new.webp"; 
+import swal from 'sweetalert';
+
+
+const Register = props => {
+  const navigate = useNavigate();
+>>>>>>> nitesh/main
   document.title = "Registration";
   const navigate = useNavigate();
   // Create a new instance of axios
@@ -117,7 +127,11 @@ const Register = props => {
             console.log(JSON.stringify(response.data));
             swal("Great!", "Your Account created!", "success")
               .then(() => {
+<<<<<<< HEAD
                 navigate('/login');
+=======
+                navigate("/login")
+>>>>>>> nitesh/main
               });
           })
           .catch((error) => {
