@@ -5,7 +5,7 @@ let instantWin = "/Assets/images/instantWin.wav"
 let playSound2 = "/Assets/images/playSound2.wav"
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
-import config from "config/config"
+import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 const Playslots = ({ data }) => {
   const [spincount, setSpincount] = useState(7)
