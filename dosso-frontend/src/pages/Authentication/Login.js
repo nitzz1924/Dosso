@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { loginUser } from "../../store/actions";
 let profile = "../../Assets/images/Dosso21-logo-new.webp";
+import { getLocalData } from "services/global-storage";
+import { Link, useNavigate } from "react-router-dom"
 const Login = props => {
+  const navigate = useNavigate()
   //meta title
   document.title = "Login";
   const dispatch = useDispatch();
@@ -18,20 +20,27 @@ const Login = props => {
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
-      mobileNumber: "6375475956" || '',
-      password: "123456" || '',
+      username: "1234567899" || '',
+      password: "12345" || '',
     },
     validationSchema: Yup.object({
-      mobileNumber: Yup.string().required("Please Enter Your Mobile Number"),
+      username: Yup.number().required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
+      console.log(values);
       dispatch(loginUser(values, props.router.navigate));
     }
   });
   const { error } = useSelector(state => ({
     error: state.Login.error,
   }));
+
+  useEffect(() => {
+    if(getLocalData('userId')){
+      navigate("/contests")
+    }
+  });
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -43,7 +52,7 @@ const Login = props => {
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
-              <Card className="overflow-hidden" style={{ border: 0, }}>
+              <Card className="overflow-hidden shadow-lg" style={{ border: 0, }}>
                 <div className="border-bottom">
                   <Row>
                     <Col xs={7}>
@@ -72,19 +81,19 @@ const Login = props => {
                       <div className="mb-3">
                         <Label className="form-label">Enter Unique ID</Label>
                         <Input
-                          name="Mobile"
+                          name="username"
                           className="form-control"
                           placeholder="Enter Mobile"
                           type="number"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.Mobile || ""}
+                          value={validation.values.username || ""}
                           invalid={
-                            validation.touched.Mobile && validation.errors.Mobile ? true : false
+                            validation.touched.username && validation.errors.username ? true : false
                           }
                         />
-                        {validation.touched.Mobile && validation.errors.Mobile ? (
-                          <FormFeedback type="invalid">{validation.errors.Mobile}</FormFeedback>
+                        {validation.touched.username && validation.errors.username ? (
+                          <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
                         ) : null}
                       </div>
 
@@ -122,72 +131,12 @@ const Login = props => {
 
                       <div className="mt-3 d-grid">
                         <button
-                          className="btn btn-secondary btn-white text-black fw-3"
+                          className="btn btn-secondary fw-3"
                           type="submit"
                         >
                           Log In
                         </button>
                       </div>
-
-                      {/* <div className="mt-4 text-center">
-                        <h5 className="font-size-14 mb-3">Sign in with</h5> 
-
-                        <ul className="list-inline">
-                            <li className="list-inline-item">
-                              <FacebookLogin
-                                appId={facebook.APP_ID}
-                                autoLoad={false}
-                                callback={facebookResponse}
-                                render={renderProps => (
-                                  <Link
-                                    to="#"
-                                    className="social-list-item bg-primary text-white border-primary"
-                                    onClick={renderProps.onClick}
-                                  >
-                                    <i className="mdi mdi-facebook" />
-                                  </Link>
-                                )}
-                              />
-                            </li> 
-                        <li className="list-inline-item">
-                          <TwitterLogin
-                            loginUrl={
-                              "http://localhost:4000/api/v1/auth/twitter"
-                            }
-                            onSuccess={this.twitterResponse}
-                            onFailure={this.onFailure}
-                            requestTokenUrl={
-                              "http://localhost:4000/api/v1/auth/twitter/revers"
-                            }
-                            showIcon={false}
-                            tag={"div"}
-                          >
-                            <a
-                              href=""
-                              className="social-list-item bg-info text-white border-info"
-                            >
-                              <i className="mdi mdi-twitter" />
-                            </a>
-                          </TwitterLogin>
-                        </li>
-                        <li className="list-inline-item">
-                              <GoogleLogin
-                                clientId={google.CLIENT_ID}
-                                render={renderProps => (
-                                  <Link
-                                    to="#"
-                                    className="social-list-item bg-danger text-white border-danger"
-                                    onClick={renderProps.onClick}
-                                  >
-                                    <i className="mdi mdi-google" />
-                                  </Link>
-                                )}
-                                onSuccess={googleResponse}
-                                onFailure={() => { }}
-                              />
-                            </li> 
-                        </ul>
-                      </div> */}
 
                       <div className="mt-4 text-center">
                         <Link to="/forgot-password" className="text-muted">
@@ -201,14 +150,13 @@ const Login = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don&#39;t have an account ?{" "}
-                  <Link to="/register" className="fw-medium text-secondary">
-                    {" "}
-                    Signup now{" "}
-                  </Link>{" "}
+                  Don't have an account? 
+                  <Link to="/register" className="fw-medium text-secondary ms-1 fw-bold text-black text-uppercase">
+                    Signup now
+                  </Link>
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dosso21. Developed with{" "}
+                  © {new Date().getFullYear()} Dosso21. Developed with
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>

@@ -5,6 +5,8 @@ let instantWin = "/Assets/images/instantWin.wav";
 let playSound2 = "/Assets/images/playSound2.wav";
 import axios from "axios";
 import MockAdapter from 'axios-mock-adapter';
+import config from "constants/config";
+import { getLocalData } from 'services/global-storage';
 const Playslots = ({data}) => {
 
     const [spincount, setSpincount] = useState(7)
@@ -102,17 +104,15 @@ const Playslots = ({data}) => {
         try {
             const dataList = []
             dataList.push({
-              studentid: 1,
+              studentid:getLocalData('userId'),
               contestid: data.id,
               point: newTotalSum,
               status: 1,
             })
             console.log(dataList);
             // Mock the HTTP request
-            // mockAdapter.onPost('http://127.0.0.1:8000/api/InsertLastSpin').reply(200, { success: true });
-            // axios.post('http://127.0.0.1:8000/api/InsertLastSpin', dataList[0], {
-            mockAdapter.onPost('https://admin.dosso21.com/api/InsertLastSpin').reply(200, { success: true });
-            axios.post('https://admin.dosso21.com/api/InsertLastSpin', dataList[0], {
+            mockAdapter.onPost(config.apiUrl+'InsertLastSpin').reply(200, { success: true });
+            axios.post(config.apiUrl+'InsertLastSpin', dataList[0], {
               headers: {
                 'Content-Type': 'multipart/form-data',
               }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import axiosRetry from "axios-retry"
+import config from "constants/config"
 import {
   Container,
   Row,
@@ -43,9 +44,7 @@ const Rounds = props => {
   }
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get(
-        // "http://127.0.0.1:8000/api/viewwinzone",
-        "https://admin.dosso21.com/api/viewwinzone",
+      const response = await axiosInstance.get(config.apiUrl+"viewwinzone",
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -62,10 +61,7 @@ const Rounds = props => {
   }
   const RankingList = async () => {
     try {
-      const response = await axiosInstance.get(
-        // "http://127.0.0.1:8000/api/getpoints/" + data.id,
-        "https://admin.dosso21.com/api/getpoints/" + data.id,
-        
+      const response = await axiosInstance.get(config.apiUrl+"getpoints/" + data.id,
       )
       console.log("Ranking  Data : ", response.data)
       setrankingdata(response.data)

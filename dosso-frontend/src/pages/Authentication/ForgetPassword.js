@@ -129,7 +129,7 @@ const ForgetPasswordPage = props => {
                             className="btn btn-light w-md text-black"
                             type="submit"
                           >
-                            Reset
+                            Send Request
                           </button>
                         </Col>
                       </Row>
@@ -140,7 +140,7 @@ const ForgetPasswordPage = props => {
               <div className="mt-5 text-center text-secondary">
                 <p>
                   Go back to{" "}
-                  <Link to="/login" className="font-weight-medium text-warning">
+                  <Link to="/login" className="font-weight-medium text-black fw-bold">
                     Login
                   </Link>{" "}
                 </p>

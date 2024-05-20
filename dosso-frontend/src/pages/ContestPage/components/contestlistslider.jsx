@@ -3,6 +3,7 @@ import axios from "axios"
 import Flicking from "@egjs/react-flicking"
 import "@egjs/flicking-plugins/dist/flicking-plugins.css"
 import axiosRetry from "axios-retry"
+import config from "constants/config"
 import {
   Row,
   Col,
@@ -31,9 +32,7 @@ const Contestlistslider = ({ title }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(
-          // "http://127.0.0.1:8000/api/showcontests",
-          "https://admin.dosso21.com/api/showcontests",
+        const response = await axiosInstance.get(config.apiUrl+"showcontests",
           {
             headers: {
               "Content-Type": "multipart/form-data",

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback } from "reactstrap";
 import OTPInput from 'react-otp-input';
-import { navigate } from 'react-router-dom';
 import * as Yup from "yup";
 import axios from "axios";
 import MockAdapter from 'axios-mock-adapter';
 import { useFormik } from "formik";
 import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-let logoImg = "../../../Assets/images/Dosso21-logo-new.webp"; 
+import { Link, useNavigate } from "react-router-dom";
+let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
 import swal from 'sweetalert';
+import config from "constants/config";
+
+
 const Register = props => {
-  const navigate = navigate();
   document.title = "Registration";
+  const navigate = useNavigate();
   // Create a new instance of axios
   const axiosInstance = axios.create();
   // Create a new instance of the mock adapter
@@ -105,8 +107,8 @@ const Register = props => {
           status: 1,
         })
         // Mock the HTTP request
-        mockAdapter.onPost('https://admin.dosso21.com/api/studentregister').reply(200, { success: true });
-        axios.post('https://admin.dosso21.com/api/studentregister', dataList[0], {
+        mockAdapter.onPost(config.apiUrl + 'studentregister').reply(200, { success: true });
+        axios.post(config.apiUrl + 'studentregister', dataList[0], {
           headers: {
             'Content-Type': 'multipart/form-data',
           }
@@ -115,12 +117,12 @@ const Register = props => {
             console.log(JSON.stringify(response.data));
             swal("Great!", "Your Account created!", "success")
               .then(() => {
-                navigate.push('/login'); // Redirect to '/other-page'
+                navigate('/login');
               });
           })
           .catch((error) => {
             // Handle errors here
-            console.log("error->", error);
+            console.log("error", error);
           });
 
       } catch (error) {
@@ -252,6 +254,7 @@ const Register = props => {
                     <Form>
                       {isValid && showOTPInput && ( // Conditionally render OTP input section
                         <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
+                        Enter OTP
                           <OTPInput
                             value={enteredOTP}
                             onChange={handleChange}
@@ -261,16 +264,16 @@ const Register = props => {
                             shouldAutoFocus={true}
                             renderInput={(props) => <input {...props} />}
                             inputStyle={{
-                              border: "1px solid transparent",
-                              borderRadius: "2px",
+                              border: "1px solid #000",
+                              borderRadius: "5px",
                               width: "40px",
                               height: "40px",
                               fontSize: "16px",
-                              color: "#D5A24A",
+                              color: "#000",
                               fontWeight: "500",
-                              caretColor: "golden",
+                              caretColor: "#000",
                               margin: "2px",
-                              backgroundColor: "#222736",
+                              backgroundColor: "white",
                             }}
                             focusStyle={{
                               border: "1px solid golden",
@@ -282,7 +285,7 @@ const Register = props => {
                           />
                           <div className="mt-2 d-grid">
                             <button
-                              className="btn btn-light text-black btn-block "
+                              className="btn btn-dark btn-block text-uppercase fw-bold"
                               type="button"
                               // onClick={verifyOTP}
                               onClick={() => {
@@ -293,7 +296,7 @@ const Register = props => {
                                 }
                               }}
                             >
-                              Register
+                              Register NOw
                             </button>
                           </div>
                         </div>
