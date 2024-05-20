@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import {
+  Button,
   Card,
   CardBody,
   Col,
@@ -10,9 +11,10 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap"
-import { Link } from "react-router-dom"
+import { Link , useNavigate } from "react-router-dom"
 
 const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
+const navigate = useNavigate()
   return (
     <Card>
 
@@ -21,7 +23,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
           <Col className="d-grid   align-items-center ">
             <div>
               <p className="text-muted mb-2 text-center">Available Balance</p>
-              <h3 className="text-center fw-bold text-success ">{wallet}</h3>
+              <h3 className="text-center fw-bold text-success ">₹{wallet}</h3>
             </div>
           </Col>
         </Row>
@@ -37,9 +39,9 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
                 </div>
 
                 <div className="">
-                  <Link to="/addFund" className="btn btn-success fw-bold w-md">
+                  <div  onClick={() => navigate("/addfund", { state: wallet })}  className="btn btn-success fw-bold w-md">
                     Add Money
-                  </Link>
+                  </div>
                 </div>
               </div>
             </Col>

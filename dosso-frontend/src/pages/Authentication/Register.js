@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback } from "reactstrap";
 import OTPInput from 'react-otp-input';
-import { navigate } from 'react-router-dom';
 import * as Yup from "yup";
 import axios from "axios";
 import MockAdapter from 'axios-mock-adapter';
 import { useFormik } from "formik";
 import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 let logoImg = "../../../Assets/images/Dosso21-logo-new.webp"; 
 import swal from 'sweetalert';
+
+
 const Register = props => {
-  const navigate = navigate();
+  const navigate = useNavigate();
   document.title = "Registration";
   // Create a new instance of axios
   const axiosInstance = axios.create();
@@ -115,7 +116,7 @@ const Register = props => {
             console.log(JSON.stringify(response.data));
             swal("Great!", "Your Account created!", "success")
               .then(() => {
-                navigate.push('/login'); // Redirect to '/other-page'
+                navigate("/login")
               });
           })
           .catch((error) => {
