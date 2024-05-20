@@ -9,20 +9,19 @@ import {
   useExpanded,
   usePagination,
 } from "react-table";
-import { Table, Row, Col, Button, Input, CardBody } from "reactstrap";
+import { Table, Row, Col, Button, Input } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
 import JobListGlobalFilter from "../../components/Common/GlobalSearchFilter";
 
-// Define a default UI for filtering
 function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,
   setGlobalFilter,
-  isJobListGlobalFilter
+  isJobListGlobalFilter,
 }) {
   const count = preGlobalFilteredRows.length;
   const [value, setValue] = React.useState(globalFilter);
-  const onChange = useAsyncDebounce(value => {
+  const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined);
   }, 200);
 
@@ -36,7 +35,7 @@ function GlobalFilter({
                 Search this table
               </span>
               <input
-                onChange={e => {
+                onChange={(e) => {
                   setValue(e.target.value);
                   onChange(e.target.value);
                 }}
@@ -50,12 +49,8 @@ function GlobalFilter({
             <i className="bx bx-search-alt search-icon"></i>
           </div>
         </div>
-
       </Col>
-      {isJobListGlobalFilter && (
-        <JobListGlobalFilter />
-      )}
-
+      {isJobListGlobalFilter && <JobListGlobalFilter />}
     </React.Fragment>
   );
 }
@@ -74,7 +69,6 @@ const TableContainer = ({
   customPageSize,
   className,
   customPageSizeOptions,
-
 }) => {
   const {
     getTableProps,
@@ -116,18 +110,19 @@ const TableContainer = ({
     usePagination
   );
 
-  const generateSortingIndicator = column => {
+  const generateSortingIndicator = (column) => {
     return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : "";
   };
 
-  const onChangeInSelect = event => {
+  const onChangeInSelect = (event) => {
     setPageSize(Number(event.target.value));
   };
 
-  const onChangeInInput = event => {
+  const onChangeInInput = (event) => {
     const page = event.target.value ? Number(event.target.value) - 1 : 0;
     gotoPage(page);
   };
+
   return (
     <Fragment>
       <Row className="mb-2">
@@ -137,7 +132,7 @@ const TableContainer = ({
             value={pageSize}
             onChange={onChangeInSelect}
           >
-            {[10, 20, 30, 40, 50].map(pageSize => (
+            {[10, 20, 30, 40, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize}
               </option>
@@ -202,9 +197,9 @@ const TableContainer = ({
       <div className="table-responsive react-table">
         <Table bordered hover {...getTableProps()} className={className}>
           <thead className="table-light table-nowrap">
-            {headerGroups.map(headerGroup => (
+            {headerGroups.map((headerGroup) => (
               <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
+                {headerGroup.headers.map((column) => (
                   <th key={column.id}>
                     <div className="mb-2" {...column.getSortByToggleProps()}>
                       {column.render("Header")}
@@ -218,20 +213,16 @@ const TableContainer = ({
           </thead>
 
           <tbody {...getTableBodyProps()}>
-            {page.map(row => {
+            {page.map((row) => {
               prepareRow(row);
               return (
-                <Fragment key={row.getRowProps().key}>
-                  <tr>
-                    {row.cells.map(cell => {
-                      return (
-                        <td key={cell.id} {...cell.getCellProps()}>
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </Fragment>
+                <tr key={row.id} {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td key={cell.id} {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
               );
             })}
           </tbody>
@@ -294,7 +285,19 @@ const TableContainer = ({
 };
 
 TableContainer.propTypes = {
-  preGlobalFilteredRows: PropTypes.any,
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  isGlobalFilter: PropTypes.bool,
+  isJobListGlobalFilter: PropTypes.bool,
+  isAddOptions: PropTypes.bool,
+  isAddUserList: PropTypes.bool,
+  handleOrderClicks: PropTypes.func,
+  handleUserClick: PropTypes.func,
+  handleCustomerClick: PropTypes.func,
+  isAddCustList: PropTypes.bool,
+  customPageSize: PropTypes.number,
+  className: PropTypes.string,
+  customPageSizeOptions: PropTypes.array,
 };
 
 export default TableContainer;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Card, CardBody, Button } from "reactstrap"
+import config from "config/config"
 let wheelImg = "Assets/images/fortune-wheel.png"
 import axios from "axios"
 import axiosRetry from "axios-retry"
@@ -15,10 +16,7 @@ const LeaderBoard = () => {
   document.title = "Leaderboard"
   const RankingList = async () => {
     try {
-      const response = await axiosInstance.get(
-        
-        // "http://127.0.0.1:8000/api/getpoints/" + data.id,
-        "https://admin.dosso21.com/api/getpoints/" + data.id,
+      const response = await axiosInstance.get(config.apiUrl+"getpoints/" + data.id,
         {
           headers: {
             "Content-Type": "multipart/form-data",

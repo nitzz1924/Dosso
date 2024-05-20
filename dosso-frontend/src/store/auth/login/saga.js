@@ -10,7 +10,7 @@ function* loginUser({ payload: { user, history } }) {
     authenticationService.login(user.username, user.password).then(response => {
       localStorage.setItem("authUser", JSON.stringify(response))
       loginSuccess(response)
-      history("/dashboard")
+      history("/contests")
     })
   } catch (error) {
     yield put(apiError(error))

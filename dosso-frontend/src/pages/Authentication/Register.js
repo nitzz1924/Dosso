@@ -105,8 +105,8 @@ const Register = props => {
           status: 1,
         })
         // Mock the HTTP request
-        mockAdapter.onPost('https://admin.dosso21.com/api/studentregister').reply(200, { success: true });
-        axios.post('https://admin.dosso21.com/api/studentregister', dataList[0], {
+        mockAdapter.onPost(config.apiUrl+'studentregister').reply(200, { success: true });
+        axios.post(config.apiUrl+'studentregister', dataList[0], {
           headers: {
             'Content-Type': 'multipart/form-data',
           }

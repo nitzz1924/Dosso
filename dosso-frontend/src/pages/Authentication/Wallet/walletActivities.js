@@ -1,91 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Card, CardBody, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
-import { getCryptoProducts as onGetCryptoProducts } from "store/actions";
 import TableContainer from "../../../components/Common/TableContainer";
-import { useDispatch, useSelector } from 'react-redux';
-import { Idno, Pdate, Type, Value, ValueInUsd, Amount } from "./CryptoWalCol";
 
-const WalletActivities = () => {
-  const dispatch = useDispatch();
-
+const WalletActivities = ({ debit, credit, all }) => {
   const [activeTab, setActiveTab] = useState("all");
 
-  const { products } = useSelector(state => ({
-    products: state.crypto.products,
-  }));
+  const [debitn, setDebitn] = useState(debit || []);
+  const [creditn, setCreditn] = useState(credit || []);
+  const [alln, setAlln] = useState(all || []);
 
-  const [productData, setSetProductData] = useState([products]);
-
-  const toggleTab = tab => {
+  const toggleTab = (tab) => {
     if (activeTab !== tab) {
       setActiveTab(tab);
     }
   };
 
   useEffect(() => {
-    dispatch(onGetCryptoProducts());
-    if(activeTab !== 'all'){
-      var allProduct = products.filter(product =>
-        product.type === activeTab
-      );
-    }else{
-      var allProduct = products;
-    }
-
-    setSetProductData(allProduct)
-  }, [activeTab]);
+    setDebitn(debit || []);
+    setCreditn(credit || []);
+    setAlln(all || []);
+  }, [debit, credit, all]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "Id No",
-        accessor: "idno",
-        filterable: true,
-        Cell: cellProps => {
-          return <Idno {...cellProps} />;
-        },
-      },
-      {
         Header: "Date",
-        accessor: "pdate",
+        accessor: "created_at",
         filterable: true,
-        Cell: cellProps => {
-          return <Pdate {...cellProps} />;
-        },
       },
       {
-        Header: "Type",
-        accessor: "type",
+        Header: "TID",
+        accessor: "transactionid",
         filterable: true,
-        Cell: cellProps => {
-          return <Type {...cellProps} />;
-        },
-      },
-      {
-        Header: "Currency",
-        accessor: "coin",
-        filterable: true,
-        Cell: cellProps => {
-          return <Value {...cellProps} />;
-        },
       },
       {
         Header: "Amount",
         accessor: "amount",
         filterable: true,
-        Cell: cellProps => {
-          return <Amount {...cellProps} />;
-        },
       },
       {
-        Header: "Amount in USD",
-        accessor: "valueInUsd",
+        Header: "Pay Type",
+        accessor: "paymenttype",
         filterable: true,
-        Cell: cellProps => {
-          return <ValueInUsd {...cellProps} />;
-        },
       },
     ],
     []
@@ -98,45 +55,41 @@ const WalletActivities = () => {
         <ul className="nav nav-tabs nav-tabs-custom">
           <NavItem>
             <NavLink
-              className={classnames({
-                active: activeTab === "all",
-              })}
-              onClick={() => {
-                toggleTab("all");
-              }}
+              className={classnames({ active: activeTab === "all" })}
+              onClick={() => toggleTab("all")}
             >
               All
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({
-                active: activeTab === "Buy",
-              })}
-              onClick={() => {
-                toggleTab("Buy");
-              }}
+              className={classnames({ active: activeTab === "Debit" })}
+              onClick={() => toggleTab("Debit")}
             >
-              Credit
+              Debit
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({
-                active: activeTab === "Sell",
-              })}
-              onClick={() => {
-                toggleTab("Sell");
-              }}
+              className={classnames({ active: activeTab === "Credit" })}
+              onClick={() => toggleTab("Credit")}
             >
-              Debit
+              Credit
             </NavLink>
           </NavItem>
         </ul>
         <div className="mt-4">
           <TableContainer
             columns={columns}
-            data={activeTab !== 'all' ? productData : products}
+            data={
+              activeTab === "all"
+                ? alln
+                : activeTab === "Debit"
+                ? debitn
+                : activeTab === "Credit"
+                ? creditn
+                : []
+            }
             isGlobalFilter={true}
             customPageSize={10}
           />

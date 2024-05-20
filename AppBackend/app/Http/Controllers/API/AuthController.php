@@ -58,7 +58,7 @@ class AuthController extends Controller
         if (Auth::guard('students')->attempt($credentials)) {
             $student = Auth::guard('students')->user();
             $success['token'] = $student->createToken('MyApp')->plainTextToken;
-            $success['name'] = $student->username;
+            $success['data'] = $student;
 
             $response = [
                 'success' => true,
@@ -154,9 +154,11 @@ class AuthController extends Controller
     }
     public function walletamount($id)
     {
-        $creditTotal = Wallet::where('userid', $id)->sum('credit');
-        $debitTotal = Wallet::where('userid', $id)->sum('debit');
-
+        $creditTotal = Wallet::where('userid', $id)->where('paymenttype','credit')->sum('amount');
+        $debitTotal = Wallet::where('userid', $id)->where('paymenttype','debit')->sum('amount');
+        $transaction = Wallet::where('userid', $id)->get();
+        $debithistory = Wallet::where('userid', $id)->where('paymenttype','debit')->get();
+        $credithistory = Wallet::where('userid', $id)->where('paymenttype','credit')->get();
         $walletamount = $creditTotal - $debitTotal;
 
         if ($creditTotal == 0 && $debitTotal == 0) {
@@ -169,7 +171,10 @@ class AuthController extends Controller
             $response = [
                 'message' => 'Your Wallet Amount.',
                 'success' => true,
-                'data' => $walletamount,
+                'walletamount' => $walletamount,
+                'transaction'=>$transaction,
+                'debithistory' => $debithistory,
+                'credithistory' => $credithistory,
             ];
         }
 
@@ -258,5 +263,12 @@ class AuthController extends Controller
             'message' => "Spins Added...!!!!!!!!!",
         ];
         return response()->json($response, 200);
+    }
+
+    public function studentlogout(Request $request)
+    {
+        Auth::guard('students')->logout();
+
+        return response()->json(['message' => 'Successfully logged out', 'success' => true]);
     }
 }

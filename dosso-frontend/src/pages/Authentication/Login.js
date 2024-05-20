@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { loginUser } from "../../store/actions";
 let profile = "../../Assets/images/Dosso21-logo-new.webp";
+import { getLocalData } from "services/global-storage";
+import { Link, useNavigate } from "react-router-dom"
 const Login = props => {
+  const navigate = useNavigate()
   //meta title
   document.title = "Login";
   const dispatch = useDispatch();
@@ -18,20 +20,27 @@ const Login = props => {
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
-      mobileNumber: "6375475956" || '',
-      password: "123456" || '',
+      username: "1234567899" || '',
+      password: "12345" || '',
     },
     validationSchema: Yup.object({
-      mobileNumber: Yup.string().required("Please Enter Your Mobile Number"),
+      username: Yup.number().required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values) => {
+      console.log(values);
       dispatch(loginUser(values, props.router.navigate));
     }
   });
   const { error } = useSelector(state => ({
     error: state.Login.error,
   }));
+
+  useEffect(() => {
+    if(getLocalData('userId')){
+      navigate("/contests")
+    }
+  });
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -72,19 +81,19 @@ const Login = props => {
                       <div className="mb-3">
                         <Label className="form-label">Enter Unique ID</Label>
                         <Input
-                          name="Mobile"
+                          name="username"
                           className="form-control"
                           placeholder="Enter Mobile"
                           type="number"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
-                          value={validation.values.Mobile || ""}
+                          value={validation.values.username || ""}
                           invalid={
-                            validation.touched.Mobile && validation.errors.Mobile ? true : false
+                            validation.touched.username && validation.errors.username ? true : false
                           }
                         />
-                        {validation.touched.Mobile && validation.errors.Mobile ? (
-                          <FormFeedback type="invalid">{validation.errors.Mobile}</FormFeedback>
+                        {validation.touched.username && validation.errors.username ? (
+                          <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
                         ) : null}
                       </div>
 

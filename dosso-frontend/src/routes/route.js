@@ -1,8 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-
+import { getLocalData } from "services/global-storage";
 const Authmiddleware = (props) => {
-  if (!localStorage.getItem("authUser")) {
+  if (!getLocalData('userId')) {
     return (
       <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
     );
