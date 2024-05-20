@@ -12,7 +12,7 @@ import {
 } from "reactstrap"
 import { Link } from "react-router-dom"
 
-const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
+const WalletStats = ({ wallet }) => {
   return (
     <Card>
 
@@ -66,8 +66,6 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
 
 WalletStats.propTypes = {
   wallet: PropTypes.any,
-  isMenu: PropTypes.bool,
-  toggleMenu: PropTypes.func,
 }
 
 export default WalletStats

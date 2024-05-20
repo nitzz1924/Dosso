@@ -436,3 +436,17 @@
     display: none;
   }
 }
+
+.vertical-menu div[data-simplebar="init"] {
+  height: 100% !important;
+}
+.vertical-menu .simplebar-mask {
+  height: 100% !important;
+}
+
+.simplebar-content {
+  height: 100% !important;
+}
+.simplebar-wrapper {
+  height: 100% !important;
+}

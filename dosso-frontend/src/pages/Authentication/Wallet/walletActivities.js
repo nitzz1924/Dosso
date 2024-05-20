@@ -5,7 +5,6 @@ import classnames from "classnames";
 import { getCryptoProducts as onGetCryptoProducts } from "store/actions";
 import TableContainer from "../../../components/Common/TableContainer";
 import { useDispatch, useSelector } from 'react-redux';
-import { Idno, Pdate, Type, Value, ValueInUsd, Amount } from "./CryptoWalCol";
 
 const WalletActivities = () => {
   const dispatch = useDispatch();
@@ -43,49 +42,37 @@ const WalletActivities = () => {
         Header: "Id No",
         accessor: "idno",
         filterable: true,
-        Cell: cellProps => {
-          return <Idno {...cellProps} />;
-        },
+        
       },
       {
         Header: "Date",
         accessor: "pdate",
         filterable: true,
-        Cell: cellProps => {
-          return <Pdate {...cellProps} />;
-        },
+        
       },
       {
         Header: "Type",
         accessor: "type",
         filterable: true,
-        Cell: cellProps => {
-          return <Type {...cellProps} />;
-        },
+        
       },
       {
         Header: "Currency",
         accessor: "coin",
         filterable: true,
-        Cell: cellProps => {
-          return <Value {...cellProps} />;
-        },
+        
       },
       {
         Header: "Amount",
         accessor: "amount",
         filterable: true,
-        Cell: cellProps => {
-          return <Amount {...cellProps} />;
-        },
+        
       },
       {
         Header: "Amount in USD",
         accessor: "valueInUsd",
         filterable: true,
-        Cell: cellProps => {
-          return <ValueInUsd {...cellProps} />;
-        },
+        
       },
     ],
     []

@@ -161,81 +161,85 @@ const SidebarContent = props => {
 
   return (
     <React.Fragment>
-      <SimpleBar className="h-100" ref={ref}>
-        <div id="sidebar-menu">
-          <ul className="metismenu list-unstyled" id="side-menu">
+      <SimpleBar ref={ref}>
+        <div id="sidebar-menu" className="h-100">
+          <ul className="metismenu h-100 list-unstyled align-content-between flex-column d-flex" id="side-menu">
             {/* <li className="menu-title">{props.t("Menu")} </li> */}
-            <div className="mx-3 text-center">
-              <img
-                className="img-fluid"
-                src={user1}
-                alt="Header Avatar"
-                width={100}
-              />
+            <div>
+              <div className="mx-3 text-center">
+                <img
+                  className="img-fluid"
+                  src={user1}
+                  alt="Header Avatar"
+                  width={100}
+                />
+              </div>
+              <li>
+                <Link to="/" onClick={() => {
+                  tToggle();
+                }}>
+                  <i className="bx bx-home-circle"></i>
+                  <span>{props.t("Home")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile" onClick={() => {
+                  tToggle();
+                }}>
+                  <i className="bx bx-user"></i>
+                  <span>{props.t("Account Details")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/myWallet" onClick={() => {
+                  tToggle();
+                }}>
+                  <i className='bx bx-wallet-alt' ></i>
+                  <span>{props.t("Withdrawal")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/logout">
+                  <i className="bx bx-power-off"></i>
+                  <span>{props.t("Log Out")}</span>
+                </Link>
+              </li>
             </div>
-            <li>
-              <Link to="/" onClick={() => {
-                tToggle();
-              }}>
-                <i className="bx bx-home-circle"></i>
-                <span>{props.t("Home")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/profile" onClick={() => {
-                tToggle();
-              }}>
-                <i className="bx bx-user"></i>
-                <span>{props.t("Account Details")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/myWallet" onClick={() => {
-                tToggle();
-              }}>
-                <i className='bx bx-wallet-alt' ></i>
-                <span>{props.t("Withdrawal")}</span>
-              </Link>
-            </li>
-            {/* <li>
-              <Link to="/" onClick={() => {
-                tToggle();
-              }}>
-                <i className="bx bx-home-circle"></i>
-                <span>{props.t("Winning History")}</span>
-              </Link>
-            </li> */}
-            <li>
-              <Link to="/" onClick={() => {
-                tToggle();
-              }}>
-                <i className='bx bx-help-circle' ></i>
-                <span>{props.t("Help & Support")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/" onClick={() => {
-                tToggle();
-              }}>
-                <i className='bx bx-calendar-exclamation' ></i>
-                <span>{props.t("Terms & Conditions")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/" onClick={() => {
-                tToggle();
-              }}>
-                <i className='bx bx-target-lock'></i>
-                <span>{props.t("Our Mission")}</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/logout">
-                <i className="bx bx-power-off"></i>
-                <span>{props.t("Log Out")}</span>
-              </Link>
-            </li>
 
+            <div className="border-top mt-auto">
+              <li>
+                <Link to="/ourmission" onClick={() => {
+                  tToggle();
+                }}>
+                  
+                  <span>{props.t("Our Mission")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacypolicy" onClick={() => {
+                  tToggle();
+                }}>
+
+                  <span>{props.t("Privacy Policy")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/refundpolicy" onClick={() => {
+                  tToggle();
+                }}>
+
+                  <span>{props.t("Refund Policy")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/termsandcondistions" onClick={() => {
+                  tToggle();
+                }}>
+
+                  <span>{props.t("Terms & Conditions")}</span>
+                </Link>
+              </li>
+            </div>
           </ul>
         </div>
       </SimpleBar>
