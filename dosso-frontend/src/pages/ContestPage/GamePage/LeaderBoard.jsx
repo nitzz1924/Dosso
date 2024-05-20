@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Container, Row, Card, CardBody, Button } from "reactstrap"
-import config from "config/config"
+import config from "constants/config"
 let wheelImg = "Assets/images/fortune-wheel.png"
 import axios from "axios"
 import axiosRetry from "axios-retry"

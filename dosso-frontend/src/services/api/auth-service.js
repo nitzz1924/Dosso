@@ -5,7 +5,7 @@ import {
 } from "../global-storage"
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
-import config from "config/config"
+import config from "constants/config"
 const login = (username, password) => {
   // Create a new instance of axios
   const axiosInstance = axios.create()

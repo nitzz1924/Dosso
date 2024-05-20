@@ -3,7 +3,7 @@ import axios from "axios"
 import Flicking from "@egjs/react-flicking"
 import "@egjs/flicking-plugins/dist/flicking-plugins.css"
 import axiosRetry from "axios-retry"
-import config from "config/config"
+import config from "constants/config"
 import {
   Row,
   Col,

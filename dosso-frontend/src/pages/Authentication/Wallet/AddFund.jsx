@@ -20,7 +20,7 @@ import { useFormik } from "formik"
 import { getElement } from "@egjs/react-flicking"
 import axios from "axios"
 import axiosRetry from "axios-retry"
-import config from "config/config"
+import config from "constants/config"
 import MockAdapter from "axios-mock-adapter"
 import { getLocalData } from "services/global-storage"
 

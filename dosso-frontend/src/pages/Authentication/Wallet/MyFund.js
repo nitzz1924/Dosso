@@ -8,7 +8,7 @@ import WalletActivities from "./walletActivities"
 import WalletStats from "./walletStats"
 import axios from "axios"
 import axiosRetry from "axios-retry"
-import config from "config/config"
+import config from "constants/config"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
