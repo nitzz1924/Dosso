@@ -23,6 +23,7 @@ const MyWallet = () => {
   const [debithis, setDebithis] = useState([])
   const [allhis, setAllhis] = useState([])
   const [loading, setLoading] = useState(true)
+  const [kycstatus, setKycStatus] = useState([])
 
   // Create a new instance of axios
   const axiosInstance = axios.create()
@@ -50,8 +51,30 @@ const MyWallet = () => {
       setLoading(false)
     }
   }
+  const showkycstatus = async () => {
+    try {
+      const response = await axiosInstance.get(
+        config.apiUrl + "showkycstatus/" + getLocalData("userId"),
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      console.log("Status Data : ", response.data)
+      const data = Array.isArray(response.data)
+        ? response.data
+        : [response.data]
+      setKycStatus(data)
+    } catch (error) {
+      console.log("error", error)
+    } finally {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
     getWalletData()
+    showkycstatus()
   }, [])
   const toggleMenu = () => {
     setIsMenu(!isMenu)
@@ -64,19 +87,28 @@ const MyWallet = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <Row className="justify-content-center">
-            <Col
-              lg="3"
-              className="d-grid align-content-center alert alert-info"
-            >
-              <div className="mb-2">
-                To Rewithdraw Money Complete your KYC Process!
-              </div>
-              <Link to="/playerkyc">
-                <button className="btn btn-info">Complete KYC</button>
-              </Link>
-            </Col>
-          </Row>
+          {kycstatus.map((item, key) => (
+            <Row className="justify-content-center" key={key}>
+              <Col lg="3" className={item.color}>
+                <div className="mb-2">{item.message}</div>
+                {item.status === null && (
+                  <Link to="/playerkyc">
+                    <button className="btn btn-info">Complete KYC</button>
+                  </Link>
+                )}
+                {item.status === 2 && (
+                  <Link to="/playerkyc">
+                    <button className="btn btn-info">Complete KYC</button>
+                  </Link>
+                )}
+                {item.status === 3 && (
+                  <Link to="/playerkyc">
+                    <button className="btn btn-info">Complete KYC</button>
+                  </Link>
+                )}
+              </Col>
+            </Row>
+          ))}
           {wallet && (
             <Row className="justify-content-center ">
               <Col xl="3" className="p-0">
@@ -88,12 +120,11 @@ const MyWallet = () => {
               </Col>
             </Row>
           )}
-
           <Row className="justify-content-center ">
             <Col lg="3" className="p-0">
               {wallet && (
                 <WalletActivities
-                  debit={debithis }
+                  debit={debithis}
                   credit={credithis}
                   all={allhis}
                 />

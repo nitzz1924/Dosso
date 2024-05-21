@@ -16,10 +16,10 @@ const login = (username, password) => {
     const data = { username: username, password: password }
     console.log("Data : ", data)
     mockAdapter
-      .onPost(config.apiUrl+"studentlogin")
+      .onPost(config.apiUrl + "studentlogin")
       .reply(200, { success: true })
     axios
-      .post(config.apiUrl+"studentlogin", data, {
+      .post(config.apiUrl + "studentlogin", data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -31,8 +31,8 @@ const login = (username, password) => {
         )
         storeLocalData("accessToken", response.data.data.data.id)
         storeLocalData("userId", response.data.data.data.id)
-        storeLocalData("authUser", JSON.stringify(response.data.data.data.data))
-        resolve(response.data.data.data.id)
+        storeLocalData("authUser", JSON.stringify(response.data.data.data))
+        resolve(response.data.data.data)
         console.log("login User", response.data)
       })
       .catch(error => {
@@ -64,12 +64,12 @@ const signup = (
 }
 const logout = () => {
   return new Promise((resolve, reject) => {
-    axios.get(config.apiUrl+"studentlogout",{
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-      )
+    axios
+      .get(config.apiUrl + "studentlogout", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then(response => {
         console.log("logout")
         removeLocalData("accessToken")

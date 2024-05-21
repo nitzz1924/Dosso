@@ -7,7 +7,10 @@ use App\Models\AddContest;
 use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
 use App\Models\ContestSpin;
+use App\Models\Kyc;
+use App\Models\PlayContest;
 use App\Models\PlayerSpin;
+use App\Models\PaymentRequest;
 use App\Models\Wallet;
 use App\Models\Point;
 use App\Models\Winzone;
@@ -154,11 +157,11 @@ class AuthController extends Controller
     }
     public function walletamount($id)
     {
-        $creditTotal = Wallet::where('userid', $id)->where('paymenttype','credit')->sum('amount');
-        $debitTotal = Wallet::where('userid', $id)->where('paymenttype','debit')->sum('amount');
+        $creditTotal = Wallet::where('userid', $id)->where('paymenttype', 'credit')->sum('amount');
+        $debitTotal = Wallet::where('userid', $id)->where('paymenttype', 'debit')->sum('amount');
         $transaction = Wallet::where('userid', $id)->get();
-        $debithistory = Wallet::where('userid', $id)->where('paymenttype','debit')->get();
-        $credithistory = Wallet::where('userid', $id)->where('paymenttype','credit')->get();
+        $debithistory = Wallet::where('userid', $id)->where('paymenttype', 'debit')->get();
+        $credithistory = Wallet::where('userid', $id)->where('paymenttype', 'credit')->get();
         $walletamount = $creditTotal - $debitTotal;
 
         if ($creditTotal == 0 && $debitTotal == 0) {
@@ -172,7 +175,7 @@ class AuthController extends Controller
                 'message' => 'Your Wallet Amount.',
                 'success' => true,
                 'walletamount' => $walletamount,
-                'transaction'=>$transaction,
+                'transaction' => $transaction,
                 'debithistory' => $debithistory,
                 'credithistory' => $credithistory,
             ];
@@ -242,10 +245,10 @@ class AuthController extends Controller
     }
     public function getpoints($id)
     {
-        $rankingdata = Point::join('students','points.studentId','=', 'students.id')
+        $rankingdata = Point::join('students', 'points.studentId', '=', 'students.id')
             ->select('students.studentname', 'students.studentprofile', 'points.*')
             ->where('points.contestid', $id)
-            ->orderBy('points.point','desc')
+            ->orderBy('points.point', 'desc')
             ->get();
         return response()->json($rankingdata);
     }
@@ -270,5 +273,95 @@ class AuthController extends Controller
         Auth::guard('students')->logout();
 
         return response()->json(['message' => 'Successfully logged out', 'success' => true]);
+    }
+
+    public function mycontests($id)
+    {
+        $historydata = PlayContest::join('add_contests AS ac', 'play_contests.contestid', '=', 'ac.id')
+            ->select('ac.*', 'play_contests.status AS playconteststatus', 'play_contests.rank AS contestrank', 'play_contests.winningprice AS contestwinprice')
+            ->where('play_contests.studentid', $id)
+            ->get();
+        return response()->json($historydata);
+    }
+
+    public function insertkyc(Request $req)
+    {
+        $kycdata = new Kyc();
+        $kycdata->studentid = $req->input('studentid');
+        $kycdata->studentimg = $req->input('studentimg');
+        $kycdata->playerid = $req->input('playerid');
+        $kycdata->aadhaar = $req->input('aadhaar');
+        $kycdata->pannumber = $req->input('pannumber');
+        $kycdata->gstnumber = $req->input('gstnumber');
+        $kycdata->accnumber = $req->input('accnumber');
+        $kycdata->ifsccode = $req->input('ifsccode');
+        $kycdata->playertype = $req->input('playerType');
+        $kycdata->accname = $req->input('accname');
+        $kycdata->aadhaarimg = $req->input('aadhaarimg');
+        $kycdata->panimg = $req->input('panimg');
+        $kycdata->status = 1;
+
+        // Handling multiple Images of Students
+        if ($req->hasfile('studentimg')) {
+            $studentImages = [];
+            foreach ($req->file('studentimg') as $file) {
+                $imageName = md5(rand(1000, 10000)) . '.' . strtolower($file->getClientOriginalExtension());
+                $file->move(public_path('uploads/kyc'), $imageName);
+                $studentImages[] = 'uploads/kyc/' . $imageName;
+            }
+            $kycdata->studentimg = json_encode($studentImages);
+        }
+        // Handling multiple Images of AADHAR
+        if ($req->hasfile('aadhaarimg')) {
+            $aadharimages = [];
+            foreach ($req->file('aadhaarimg') as $file) {
+                $imageName = md5(rand(1000, 10000)) . '.' . strtolower($file->getClientOriginalExtension());
+                $file->move(public_path('uploads/kyc'), $imageName);
+                $aadharimages[] = 'uploads/kyc/' . $imageName;
+            }
+            $kycdata->aadhaarimg = json_encode($aadharimages);
+        }
+        // Handling multiple Images of PAN
+        if ($req->hasfile('panimg')) {
+            $panimages = [];
+            foreach ($req->file('panimg') as $file) {
+                $imageName = md5(rand(1000, 10000)) . '.' . strtolower($file->getClientOriginalExtension());
+                $file->move(public_path('uploads/kyc'), $imageName);
+                $panimages[] = 'uploads/kyc/' . $imageName;
+            }
+            $kycdata->panimg = json_encode($panimages);
+        }
+        $kycdata->save();
+        $response = [
+            'success' => true,
+            'data' => $kycdata,
+            'message' => "KYC Added...!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
+    }
+
+    public function showkycstatus($id)
+    {
+        $status = Kyc::where('playerid', $id)->value('status');
+        if ($status == 1) {
+            return response()->json(['message' => 'KYC Verification Pending', 'color' => "'d-grid align-content-center alert alert-warning col-lg-3 justify-content-center'", 'status' => 0]);
+        } elseif ($status == 2) {
+            return response()->json(['message' => 'KYC Verified', 'color' => "'d-grid align-content-center alert alert-success col-lg-3 justify-content-center'", 'status' => 1]);
+        }elseif ($status == 3) {
+            return response()->json(['message' => 'The KYC application was declined due to insufficient documentation', 'color' => "'d-grid align-content-center alert alert-danger col-lg-3 justify-content-center'", 'status' => 2]);
+        } else {
+            return response()->json(['message' => 'To Rewithdraw Money Complete your KYC Process!', 'color' => "'d-grid align-content-center alert alert-info col-lg-3 justify-content-center'", 'status' => null]);
+        }
+    }
+    public function paymentRequest(Request $request)
+    {
+        $payementreqdata = new PaymentRequest();
+        $payementreqdata->playerId = $request->input('playerId');
+        $payementreqdata->contestid = $request->input('contestid');
+        $payementreqdata->amount = $request->input('amount');
+        $payementreqdata->rank = $request->input('rank');
+        $payementreqdata->status = 1;
+        $payementreqdata->save();
+        return response()->json($payementreqdata, 200);
     }
 }

@@ -26,6 +26,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('getpoints/{id}','getpoints');
     Route::post('InsertLastSpin','InsertLastSpin');
     Route::get('studentlogout','studentlogout');
+    Route::get('mycontests/{id}','mycontests');
+    Route::post('insertkyc','insertkyc');
+    Route::get('showkycstatus/{id}','showkycstatus');
+    Route::post('paymentRequest','paymentRequest');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');
