@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Container,
   Row,
@@ -11,75 +11,50 @@ import {
   Input,
   FormFeedback,
   Form,
-} from "reactstrap";
+} from "reactstrap"
 
 // Formik Validation
-import * as Yup from "yup";
-import { useFormik } from "formik";
+import * as Yup from "yup"
+import { useFormik } from "formik"
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
-import withRouter from "components/Common/withRouter";
+import { useSelector, useDispatch } from "react-redux"
+import withRouter from "components/Common/withRouter"
 
-let avatar = "../../Assets/images/Dosso21-logo-new.webp";
+let avatar = "../../Assets/images/Dosso21-logo-new.webp"
 // actions
 
-import { editProfile, resetProfileFlag, } from "store/actions";
-import { Link } from "react-router-dom";
+import { editProfile, resetProfileFlag } from "store/actions"
+import { Link } from "react-router-dom"
+import { getLocalData } from "services/global-storage"
 
 const UserProfile = () => {
-
   //meta title
-  document.title = "My Profile";
+  document.title = "My Profile"
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [email, setemail] = useState("");
-  const [name, setname] = useState("");
-  const [idx, setidx] = useState(1);
+  const [email, setemail] = useState("")
+  const [name, setname] = useState("")
+  const [idx, setidx] = useState(1)
 
   const { error, success } = useSelector(state => ({
     error: state.Profile.error,
     success: state.Profile.success,
-  }));
+  }))
 
   useEffect(() => {
-    if (localStorage.getItem("authUser")) {
-      const obj = JSON.parse(localStorage.getItem("authUser"));
-      if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
-        setname(obj.displayName);
-        setemail(obj.email);
-        setidx(obj.uid);
-      } else if (
-        process.env.REACT_APP_DEFAULTAUTH === "fake" ||
-        process.env.REACT_APP_DEFAULTAUTH === "jwt"
-      ) {
-        setname(obj.username);
-        setemail(obj.email);
-        setidx(obj.uid);
-      }
+    if (getLocalData('authUser')) {
+      const obj = JSON.parse(getLocalData('authUser'))
+      console.log("data",obj);
+      setname(obj.studentname)
+      setemail(obj.emailaddress)
+      setidx(obj.id)
       setTimeout(() => {
-        dispatch(resetProfileFlag());
-      }, 3000);
+        dispatch(resetProfileFlag())
+      }, 3000)
     }
-  }, [dispatch, success]);
-
-  const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
-    enableReinitialize: true,
-
-    initialValues: {
-      username: name || '',
-      idx: idx || '',
-    },
-    validationSchema: Yup.object({
-      username: Yup.string().required("Please Enter Your UserName"),
-    }),
-    onSubmit: (values) => {
-      dispatch(editProfile(values));
-    }
-  });
-
+  }, [dispatch, success])
 
   return (
     <React.Fragment>
@@ -112,64 +87,10 @@ const UserProfile = () => {
               </Card>
             </Col>
           </Row>
-
-
-          <Row className="my-2 justify-content-center">
-            <Col lg="3" className="d-grid align-content-center">
-              <h4 className="card-title mb-4">Change User Name</h4>
-              <Card>
-                <CardBody>
-                  <Form
-                    className="form-horizontal"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      validation.handleSubmit();
-                      return false;
-                    }}
-                  >
-                    <div className="form-group">
-                      <Label className="form-label">User Name</Label>
-                      <Input
-                        name="username"
-                        // value={name}
-                        className="form-control"
-                        placeholder="Enter User Name"
-                        type="text"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.username || ""}
-                        invalid={
-                          validation.touched.username && validation.errors.username ? true : false
-                        }
-                      />
-                      {validation.touched.username && validation.errors.username ? (
-                        <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
-                      ) : null}
-                      <Input name="idx" value={idx} type="hidden" />
-                    </div>
-                    <div className="text-center mt-4">
-                      <Button type="submit" color="danger">
-                        Update User Name
-                      </Button>
-                    </div>
-                  </Form>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="my-2 justify-content-center">
-            <Col lg="3" className="d-grid align-content-center alert alert-info">
-              <h4 className="fs-6">To Rewithdraw Money Complete your KYC Process!</h4>
-              <Link to="/playerkyc">
-                <button className="btn btn-info">Complete KYC</button>
-              </Link>
-            </Col>
-          </Row>
         </Container>
-
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default withRouter(UserProfile);
+export default withRouter(UserProfile)

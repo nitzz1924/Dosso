@@ -1,9 +1,10 @@
+import config from 'constants/config';
 import React from 'react'
 import { Container, Row, Col } from "reactstrap";
+import { getLocalData } from 'services/global-storage';
 
 let referImge = "../Assets/images/Refer.png"
 let winImg = "../Assets/images/trip4win.jpg"
-
 const refer = () => {
     document.title = "Refer & Earn";
 
@@ -11,12 +12,12 @@ const refer = () => {
         navigator.clipboard.writeText(text);
     }
 
-    let referCode = "XYZ123"
-    let playerPhone = "1324657989"
+    let referCode = getLocalData("userId");
+    // let playerPhone = "1324657989"
 
-    function shareOnWhatsapp(referCode, playerPhone) {
-        const message = encodeURIComponent(`Check out Dosso21, Play 4 Win! You can earn from your One Tap now!%0A%0AUse my referral code to sign up and ONE TICKET OF LUXURY OVERSEAS TOUR.%0A%0AReferral code: ${referCode}%0ADownload Doss21 App here: https://Dosso21.com`);
-        const whatsappLink = `https://api.whatsapp.com/send/?phone=${playerPhone}&text=${message}`;
+    function shareOnWhatsapp(referCode) {
+        const message = encodeURIComponent(`🎉 Check Out Dosso21 - Play 4 Win! 🎉 \n💰 Earn Big with Just One Tap!💰\n🌟 Special Offer Just for You! 🌟\n 👉 Use my referral code *${referCode}* to sign up and get a FREE TICKET for a Luxury Overseas Tour! 🌍✈️\n\n Download the Dosso21 App now and start your winning journey!\n 🔗 Download Dosso21 App :  ${config.applink} \n Don't miss out on your chance to win big and travel in style! 🏆🌴`);
+        const whatsappLink = `https://api.whatsapp.com/send/?text=${message}`;
 
         window.open(whatsappLink, '_blank');
     }
@@ -64,7 +65,7 @@ const refer = () => {
                                     <button onClick={() => copyToClipboard(document.getElementById("p1").textContent)} className='btn btn-outline-secondary fs-4'>
                                         Copy Code
                                     </button>
-                                    <button onClick={() => shareOnWhatsapp( referCode, playerPhone )} className='btn btn-success fs-4'>
+                                    <button onClick={() => shareOnWhatsapp( referCode )} className='btn btn-success fs-4'>
                                         <i className='bx bxl-whatsapp '></i> Share Code
                                     </button>
                                 </div>

@@ -11,13 +11,12 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap"
-import { Link , useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
-const navigate = useNavigate()
+  const navigate = useNavigate()
   return (
     <Card>
-
       <CardBody className="border-top">
         <Row>
           <Col className="d-grid   align-items-center ">
@@ -35,11 +34,14 @@ const navigate = useNavigate()
             <Col xs="6">
               <div className="border pb-2 rounded border-2">
                 <div className="font-size-45 text-secondary mb-2">
-                  <i className='bx bx-money'></i>
+                  <i className="bx bx-money"></i>
                 </div>
 
                 <div className="">
-                  <div  onClick={() => navigate("/addfund", { state: wallet })}  className="btn btn-success fw-bold w-md">
+                  <div
+                    onClick={() => navigate("/addfund", { state: wallet })}
+                    className="btn btn-success fw-bold w-md"
+                  >
                     Add Money
                   </div>
                 </div>
@@ -49,7 +51,7 @@ const navigate = useNavigate()
             <Col xs="6">
               <div className="border pb-2 rounded border-2">
                 <div className="font-size-45 text-secondary mb-2">
-                  <i className='bx bxs-bank'></i>
+                  <i className="bx bxs-bank"></i>
                 </div>
 
                 <div className="">
