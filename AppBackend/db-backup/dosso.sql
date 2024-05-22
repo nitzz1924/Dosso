@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2024 at 02:53 PM
+-- Generation Time: May 22, 2024 at 07:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -346,8 +346,19 @@ CREATE TABLE `payment_requests` (
   `amount` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
   `message` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment_requests`
+--
+
+INSERT INTO `payment_requests` (`id`, `playerId`, `contestid`, `amount`, `rank`, `message`, `created_at`, `updated_at`, `status`) VALUES
+(1, '23', '121', 50000, 15, NULL, '2024-05-21 23:35:16', '2024-05-21 23:35:16', 1),
+(2, '23', '1121', 50000, 25, NULL, '2024-05-21 23:36:17', '2024-05-21 23:36:17', 1),
+(3, '10014', '1', 7000, 6, NULL, '2024-05-22 00:03:52', '2024-05-22 00:03:52', 1);
 
 -- --------------------------------------------------------
 
@@ -514,6 +525,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('5JYCdQMlfLIJcNMLeQK60Uzfj2jSLiz3JusCFBZK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY29zVVkzRng4WWpxcVFGOExmNzhyU2R1VUl0RHFiVXg1VWFNcFMzQSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1716356222),
 ('Dp7EygqGmYvAMIwWtzLwngUuxxpNNU4HdI1m5FlO', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWjRZYnJuZHM3bWVPZXhmRElzTEVIc1QwNGxTTEVPNE9lZUY5YXFQZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93aW5uaW5ncmVwb3J0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716287532);
 
 -- --------------------------------------------------------
@@ -856,7 +868,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payment_requests`
 --
 ALTER TABLE `payment_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

@@ -17,42 +17,41 @@ import axios from "axios"
 import axiosRetry from "axios-retry"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
-let rewardImg = "https://cdn-icons-png.flaticon.com/128/2282/2282531.png"
-let magicImg = "https://cdn-icons-png.flaticon.com/512/4338/4338712.png"
-let spinsImg = "https://cdn-icons-png.flaticon.com/512/8146/8146784.png"
-let offerImg = "https://cdn-icons-png.flaticon.com/512/776/776627.png"
-let tackerImg = "https://cdn-icons-png.flaticon.com/512/5694/5694967.png"
-let scholarshipImg = "https://cdn-icons-png.flaticon.com/512/3769/3769879.png"
+import MockAdapter from "axios-mock-adapter"
 import swal from "sweetalert"
+
 const History = () => {
   const [loading, setLoading] = useState(true)
   const [contestData, setContestData] = useState([])
   const navigate = useNavigate()
   // Create a new instance of axios
   const axiosInstance = axios.create()
+  const mockAdapter = new MockAdapter(axiosInstance)
+
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
   const handleClick = contest => {
-    console.log(contest);
+    console.log(contest)
     if (contest.status === "1") {
       navigate("/rounds", { state: contest })
     } else if (contest.status === "2") {
-      console.log(contest);
-      //requestPayment(contest);
+      console.log(contest)
+      requestPayment(contest)
     }
   }
   const requestPayment = item => {
     try {
+      console.log("requestPayment : ", item)
       const dataList = []
       dataList.push({
-        playerId: item.playerId,
-        contestid: item.contestid,
-        amount: item.password,
-        rank: item.mobilenumber,
+        playerId: getLocalData("userId"),
+        contestid: item.id,
+        amount: item.contestwinprice,
+        rank: item.contestrank,
       })
       // Mock the HTTP request
       mockAdapter
-        .onPost(config.apiUrl + "paymentRequest")
+        .onPost(config.apiUrl + "paymentRequest", dataList[0])
         .reply(200, { success: true })
       axios
         .post(config.apiUrl + "paymentRequest", dataList[0], {
@@ -77,7 +76,7 @@ const History = () => {
   useEffect(() => {
     const mycontests = async () => {
       try {
-        const response = await axiosInstance.get(
+        const response = await axios.get(
           config.apiUrl + "mycontests/" + getLocalData("userId"),
           {
             headers: {
