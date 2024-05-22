@@ -35,6 +35,8 @@ Route::get('/addcontestview', [ViewController::class, 'addcontestview'])->name('
 Route::get('/studentslist', [ViewController::class, 'studentslist'])->name('studentslist');
 Route::get('/addvendorview', [ViewController::class, 'addvendorview'])->name('addvendorview');
 Route::get('/adshowview', [ViewController::class, 'adshowview'])->name('adshowview');
+Route::get('/kycrecords', [ViewController::class, 'kycrecords'])->name('kycrecords');
+Route::get('/paymentrequests', [ViewController::class, 'paymentrequests'])->name('paymentrequests');
 
 //Store Routes
 Route::post('/createcontest', [StoreController::class, 'createcontest'])->name('createcontest');

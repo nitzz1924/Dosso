@@ -6,6 +6,8 @@ use App\Models\AddContest;
 use App\Models\AddShow;
 use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
+use App\Models\Kyc;
+use App\Models\PaymentRequest;
 use App\Models\PlayContest;
 use App\Models\Students;
 use Illuminate\Http\Request;
@@ -105,4 +107,20 @@ class ViewController extends Controller
             ->select('students.studentname', 'play_contests.*')->where('contestid',$request->id)->orderBy('rank','desc')->get();
         return view('Others.report', compact('playdata','contestdata'));
     }
+
+    public function kycrecords()
+    {
+        $kycdata = Kyc::get();
+        return view('Others.kycrecords',compact('kycdata'));
+    }
+    public function paymentrequests()
+{
+    $paymentdata = PaymentRequest::select('payment_requests.*', 'students.studentname as studentname','students.contactnumber as contactnumber', 'add_contests.title as contest_title')
+        ->join('students', 'payment_requests.playerId', '=', 'students.id')
+        ->join('add_contests', 'payment_requests.contestid', '=', 'add_contests.id')
+        ->paginate(10);
+    // dd($paymentdata);
+    return view('Others.paymentrequests', compact('paymentdata'));
+}
+
 }

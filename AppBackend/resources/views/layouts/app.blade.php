@@ -2,7 +2,7 @@
 {{-- -------------------------------------------------🔱JAI SHREE MAHAKAAL🔱--------------------------------------------------------------- --}}
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="black" data-sidebar-size="lg" data-sidebar="dark"
-    data-sidebar-image="none" data-preloader="enable" data-bs-theme="dark">
+    data-sidebar-image="none" data-preloader="enable" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8">

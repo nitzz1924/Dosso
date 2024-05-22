@@ -33,6 +33,7 @@ const login = (username, password) => {
         storeLocalData("userId", response.data.data.data.id)
         storeLocalData("authUser", JSON.stringify(response.data.data.data))
         resolve(response.data.data.data)
+        console.log("losssssss", response.data.data.data)
         console.log("login User", response.data)
       })
       .catch(error => {
