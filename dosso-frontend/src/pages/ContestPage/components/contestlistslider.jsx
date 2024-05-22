@@ -100,10 +100,7 @@ const Contestlistslider = ({ title }) => {
                     <div className="d-flex justify-content-between">
                       <div>
                         <div className="fw-bolder fs-3 text-black">{item.title}</div>
-                        <div className="mb-0 text-muted">
-                          <i className="bx bx-trophy text-body me-1"></i>
-                          Prize pool: <span className="text-success fw-bold">₹{item.totalprice}</span>
-                        </div>
+                        
                       </div>
                       <div>
                         Entry Fees

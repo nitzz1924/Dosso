@@ -145,18 +145,27 @@ const History = () => {
                       </CardHeader>
                       <CardBody className="p-3">
                         <div className="text-start">
-                          <div className="d-flex justify-content-between">
-                            <div>
-                              <div className="fw-bolder fs-3 text-black">
-                                {item.title}
-                              </div>
-                              <div className="mb-0 text-muted">
-                                <i className="bx bx-trophy text-body me-1"></i>
-                                Prize pool:{" "}
-                                <span className="text-success fw-bold">
-                                  ₹{item.totalprice}
+                          <div className="d-flex justify-content-between flex-column ">
+
+                            <div className="fw-bolder fs-3 text-black text-center">
+                              {item.title}
+                            </div>
+                            <div className="bg-secodary w-100 p-2 d-flex justify-content-between ">
+                              <div className="mb-0 text-muted me-1">
+                                🏅
+                                Your Rank:
+                                <span className="text-success fw-bold me-1">
+                                  #{item.contestrank}
                                 </span>
                               </div>
+                              <div className="mb-0 text-muted me-1">
+                                🏆
+                                Your Reward:
+                                <span className="text-success fw-bold me-1">
+                                  ₹{item.contestwinprice}
+                                </span>
+                              </div>
+
                             </div>
                           </div>
                           <div className="mt-2">
@@ -167,8 +176,8 @@ const History = () => {
                                 (item.status === "1"
                                   ? " btn-dark "
                                   : item.status === "2"
-                                  ? " btn-primary "
-                                  : " btn-light ") +
+                                    ? " btn-primary "
+                                    : " btn-light ") +
                                 "shadow w-100 fw-bold fs-5 text-uppercase rounded-5"
                               }
                               disabled={item.status === "0" ? true : false}
@@ -176,16 +185,16 @@ const History = () => {
                               {item.status === "1"
                                 ? "Play Now"
                                 : item.status === "2"
-                                ? "Request Payment"
-                                : "Yet to start!"}
+                                  ? "Request Payment"
+                                  : "Yet to start!"}
                             </button>
                           </div>
                         </div>
                       </CardBody>
                       <CardFooter className="d-flex justify-content-center">
                         <div className="mb-0 text-muted">
-                          <b>{item.play_contests_count}</b>
-                          <span className="ms-1">Participants</span>
+                          <i className="bx bx-trophy text-body me-1"></i>
+                          Prize pool: <span className="text-dark fw-bold">₹{item.totalprice}</span>
                         </div>
                       </CardFooter>
                     </Card>
