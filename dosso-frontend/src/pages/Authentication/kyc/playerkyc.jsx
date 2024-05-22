@@ -19,6 +19,8 @@ import { Link , useNavigate } from "react-router-dom"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import swal from 'sweetalert';
+
+
 const Playerkyc = () => {
   document.title = "Player KYC"
   const navigate = useNavigate();
