@@ -7,9 +7,7 @@ import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
-
 const Playslots = ({ data }) => {
-
   const [spincount, setSpincount] = useState(7)
   const [slots, setSlots] = useState(null)
   const [spinDisabled, setSpinDisabled] = useState(false)
@@ -140,7 +138,6 @@ const Playslots = ({ data }) => {
       console.error(error)
     }
   }
-
   function logDisplayedSymbols() {
     if (!slots) return
     const displayedSymbols = []
@@ -190,7 +187,6 @@ const Playslots = ({ data }) => {
       InsertLastSpin(newTotalSum)
     }
   }
-
   useEffect(() => {
     if (!slots) {
       // Select slots once when the component mounts
@@ -206,58 +202,59 @@ const Playslots = ({ data }) => {
       <div className=" ">
         <Container fluid>
           <Row className="justify-content-center">
-            <div className="button-ring button-ring-sq">
-              <div className="gamearea py-5 my-2">
-                <video className="video-background" autoPlay loop muted>
-                  <source src="/Assets/images/gamebg.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="content-overlay">
-                  <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
-                    Spin To Play
-                  </div>
-                  <div className="slotcontainer">
-                    {slotSymbols.map((symbols, index) => (
-                      <div key={index} className="slot linear me-1">
-                        <div className="symbols text-black">
-                          {spun &&
-                            symbols.map((symbol, i) => (
-                              <div key={i} className="symbol ">
-                                {symbol}
-                              </div>
-                            ))}
-                        </div>
+          <div className="button-ring button-ring-sq">
+            <div className="gamearea py-5 my-2">
+              <video className="video-background" autoPlay loop muted>
+                <source src="/Assets/images/gamebg.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="content-overlay">
+                <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
+                  Spin To Play
+                </div>
+                <div className="slotcontainer">
+                  {slotSymbols.map((symbols, index) => (
+                    <div key={index} className="slot linear me-1">
+                      <div className="symbols text-black">
+                        {spun &&
+                          symbols.map((symbol, i) => (
+                            <div key={i} className="symbol ">
+                              {symbol}
+                            </div>
+                          ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
 
-                  <div className="d-flex justify-content-around ">
-                    {gameComplete ? (
-                      <div className="d-flex flex-column ">
-                        <div className="fw-bold fs-1 text-white text-uppercase text-center">
-                          Turn Over!!!
-                        </div>
-                        <button
-                          onClick={() =>
-                            navigate("/leaderbaord", { state: data })
-                          }
-                          className="btn btn-light btn-lg"
-                        >
-                          View Leaderboard
-                        </button>
+                <div className="d-flex justify-content-around ">
+                  {gameComplete ? (
+                    <div className="d-flex flex-column ">
+                      <div className="fw-bold fs-1 text-white text-uppercase text-center">
+                        Turn Over!!!
                       </div>
-                    ) : (
                       <button
-                        className="btn btn-light btn-lg w-75"
-                        disabled={spinDisabled}
-                        onClick={spin}
+                        onClick={() =>
+                          navigate("/leaderbaord", { state: data })
+                        }
+                        className="btn btn-light btn-lg"
                       >
-                        {spinDisabled == false ? "Play Round " : "Wait..."}
-                        <span>({spincount}/7)</span>
+                        View Leaderboard
                       </button>
-                    )}
+                    </div>
+                  ) : (
+                    <button
+                      className="btn btn-light btn-lg w-75"
+                      disabled={spinDisabled}
+                      onClick={spin}
+                    >
+                      {" "}
+                      {spinDisabled == false ? "Play Round" : "Wait..."}{" "}
+                      <span>({spincount}/7)</span>
+                    </button>
+                  )}
 
-                    {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
+                  {/* <button className='btn btn-secondary btn-lg' onClick={reset}>Reset</button> */}
                   </div>
                 </div>
               </div>
@@ -270,12 +267,12 @@ const Playslots = ({ data }) => {
               {spinResults.map((result, index) => (
                 <div key={index}>
                   {index === 0 && result === "" ? (
-                    <div className="fs-4 fw-bold text-center w-100  pt-1  mb-3 slot linear">
+                    <div className="fs-4 fw-bold text-center w-100  pt-1  mb-3 linear resultss">
                       Spin Results
                     </div>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
-                      <span className="text-dark fw-bold"> {`Round ${index} :`}</span>
+                      <span className="text-dark fw-bold">{`Round ${index} :`}</span>{" "}
                       <span className="fw-bolder text-success">{`${result}`}</span>
                     </div>
                   )}
