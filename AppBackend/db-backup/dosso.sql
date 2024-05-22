@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 09:59 AM
+-- Generation Time: May 21, 2024 at 02:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,8 @@ CREATE TABLE `add_contests` (
 --
 
 INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-07 04:09:48'),
-(2, 'dummy contest', '2024-05-17T17:28', '2024-05-18T06:29', '200', '400', '2', '1715947142.png', '80000', '0', '2024-05-17 06:29:02', '2024-05-17 06:29:02');
+(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-21 10:35:23'),
+(2, 'dummy contest', '2024-05-17T17:28', '2024-05-18T06:29', '200', '400', '2', '1715947142.png', '80000', '2', '2024-05-17 06:29:02', '2024-05-21 05:01:45');
 
 -- --------------------------------------------------------
 
@@ -267,6 +267,39 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kycs`
+--
+
+CREATE TABLE `kycs` (
+  `id` int(11) NOT NULL,
+  `studentid` varchar(255) DEFAULT NULL,
+  `playerid` varchar(255) DEFAULT NULL,
+  `studentimg` text DEFAULT NULL,
+  `aadhaar` varchar(255) DEFAULT NULL,
+  `pannumber` varchar(255) DEFAULT NULL,
+  `gstnumber` varchar(255) DEFAULT NULL,
+  `accnumber` varchar(255) DEFAULT NULL,
+  `ifsccode` varchar(255) DEFAULT NULL,
+  `playertype` varchar(255) DEFAULT NULL,
+  `accname` varchar(255) DEFAULT NULL,
+  `aadhaarimg` text DEFAULT NULL,
+  `panimg` text DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kycs`
+--
+
+INSERT INTO `kycs` (`id`, `studentid`, `playerid`, `studentimg`, `aadhaar`, `pannumber`, `gstnumber`, `accnumber`, `ifsccode`, `playertype`, `accname`, `aadhaarimg`, `panimg`, `status`, `created_at`, `updated_at`) VALUES
+(8, NULL, '10014', NULL, '25452525252', '573554354354', NULL, 'fgfdgd52345354', '52896', 'individual', 'dummy', '[\"uploads\\/kyc\\/495dabfd0ca768a3c3abd672079f48b6.png\",\"uploads\\/kyc\\/8133415ea4647b6345849fb38311cf32.png\",\"uploads\\/kyc\\/488c1e0332065eb80e1129139a67d6e0.png\"]', '[\"uploads\\/kyc\\/95e62984b87e90645a5cf77037395959.jpg\"]', '1', '2024-05-21 04:06:18', '2024-05-21 04:06:18'),
+(9, NULL, '10014', NULL, '25452525252', '573554354354', NULL, 'fgfdgd52345354', '52896', 'individual', 'dummy', '[\"uploads\\/kyc\\/a2fe8c05877ec786290dd1450c3385cd.png\",\"uploads\\/kyc\\/c2937f3a1b3a177d2408574da0245a19.png\"]', '[\"uploads\\/kyc\\/dccb1c3a558c50d389c24d69a9856730.jpg\"]', '1', '2024-05-21 04:07:16', '2024-05-21 04:07:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -299,6 +332,22 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_requests`
+--
+
+CREATE TABLE `payment_requests` (
+  `id` int(11) NOT NULL,
+  `playerId` varchar(255) NOT NULL,
+  `contestid` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -341,7 +390,27 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (15, 'App\\Models\\Students', 10010, 'MyApp', 'ea8d172ec65900066519a6c85368f7dcc262f53347328bd82054c383a3e6966c', '[\"*\"]', NULL, NULL, '2024-04-11 00:12:03', '2024-04-11 00:12:03'),
 (16, 'App\\Models\\Students', 10011, 'MyApp', 'c763fcdb891fa2dca739ec89a19ce66cce074ee578e6cda7d74223d16cf9cead', '[\"*\"]', NULL, NULL, '2024-04-14 23:54:26', '2024-04-14 23:54:26'),
 (17, 'App\\Models\\Students', 10012, 'MyApp', '38053979312bc7830a37ed1c2577e5b46ea30e2c5ffe34f55f1e623d2a1cf5b2', '[\"*\"]', NULL, NULL, '2024-05-07 05:14:24', '2024-05-07 05:14:24'),
-(18, 'App\\Models\\Students', 10013, 'MyApp', 'c4baf3c8b52984026c2dd5692056cb8fee9800a42fbda2ec512a747c1e8e7884', '[\"*\"]', NULL, NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57');
+(18, 'App\\Models\\Students', 10013, 'MyApp', 'c4baf3c8b52984026c2dd5692056cb8fee9800a42fbda2ec512a747c1e8e7884', '[\"*\"]', NULL, NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57'),
+(19, 'App\\Models\\Students', 10014, 'MyApp', 'bc5163a50abece22e43f5863f3c9e77de171b52aa93671f2fe4f7e743e3f8dc6', '[\"*\"]', NULL, NULL, '2024-05-19 23:33:14', '2024-05-19 23:33:14'),
+(20, 'App\\Models\\Students', 10014, 'MyApp', '79de69c51fdf9fe2b5a6026991b50d197c72007c2227159276e744c3ffdd5c27', '[\"*\"]', NULL, NULL, '2024-05-19 23:44:08', '2024-05-19 23:44:08'),
+(21, 'App\\Models\\Students', 10014, 'MyApp', '6ce9bd3213b313673d85b0ea290726d18263c5aeaa4831c06a80c8282fe844c3', '[\"*\"]', NULL, NULL, '2024-05-20 00:09:35', '2024-05-20 00:09:35'),
+(22, 'App\\Models\\Students', 10014, 'MyApp', 'e720b212581cf308e6197d19f3cb0afacc8f55b7f671a64bc040449ac2e6c98d', '[\"*\"]', NULL, NULL, '2024-05-20 00:12:00', '2024-05-20 00:12:00'),
+(23, 'App\\Models\\Students', 10014, 'MyApp', '1479b8c5d323c86e43c7758af5b2bed108ec206fd266e29aba96147769862578', '[\"*\"]', NULL, NULL, '2024-05-20 00:15:27', '2024-05-20 00:15:27'),
+(24, 'App\\Models\\Students', 10014, 'MyApp', '20f521fbf62e2838ef8f3ca15f0ff76eb9d9138ad95aaae1f24035c2aaaafc4f', '[\"*\"]', NULL, NULL, '2024-05-20 00:17:02', '2024-05-20 00:17:02'),
+(25, 'App\\Models\\Students', 10014, 'MyApp', '43b7cf72594b8da0bf70419cab5a73b23c44ac0cdd39f6adaa43b1187b4d9189', '[\"*\"]', NULL, NULL, '2024-05-20 00:18:45', '2024-05-20 00:18:45'),
+(26, 'App\\Models\\Students', 10014, 'MyApp', '174b8d649091d32c8130ae34bc423653289418699915c608ec710ca0a7538fd6', '[\"*\"]', NULL, NULL, '2024-05-20 00:19:52', '2024-05-20 00:19:52'),
+(27, 'App\\Models\\Students', 10014, 'MyApp', '023aa2d63b6a01895a0aaf47028f75e0f87829afdb4fecb1faff8b533a1cf184', '[\"*\"]', NULL, NULL, '2024-05-20 01:05:02', '2024-05-20 01:05:02'),
+(28, 'App\\Models\\Students', 10014, 'MyApp', '2d6d79e3a1261a19185ddb7f13967e6d2ebc2391aaf5f4ea2c2dc141ace77439', '[\"*\"]', NULL, NULL, '2024-05-20 01:05:46', '2024-05-20 01:05:46'),
+(29, 'App\\Models\\Students', 10014, 'MyApp', 'dee5f3062ca623727735cfdefdfaee81297ac3b3dfe24309c0fde523289ce6d0', '[\"*\"]', NULL, NULL, '2024-05-20 01:15:23', '2024-05-20 01:15:23'),
+(30, 'App\\Models\\Students', 10014, 'MyApp', '8a39c42d5a6d15e69185388198216df79ad82925ae0e3afc38c74a77c3a11294', '[\"*\"]', NULL, NULL, '2024-05-20 01:19:39', '2024-05-20 01:19:39'),
+(31, 'App\\Models\\Students', 10014, 'MyApp', '3fea1431d8531ec5d90ec5dcb124b86b98298018c4f593ed364a6500f418292e', '[\"*\"]', NULL, NULL, '2024-05-20 01:28:11', '2024-05-20 01:28:11'),
+(32, 'App\\Models\\Students', 10014, 'MyApp', 'dd56932e2d935b9e9cad05cf5d01fcdbb8359254499d0c84b959a3371d6dec7a', '[\"*\"]', NULL, NULL, '2024-05-20 05:46:33', '2024-05-20 05:46:33'),
+(33, 'App\\Models\\Students', 10014, 'MyApp', 'e6430765326451f07c87524a8882e191df1a672f8ab0fba2522322a240bf53a2', '[\"*\"]', NULL, NULL, '2024-05-20 05:51:41', '2024-05-20 05:51:41'),
+(34, 'App\\Models\\Students', 10014, 'MyApp', 'f6dfaee547c3de05256409bbb7f7c5a92bfa23e129e7171a5b1d5d9fec9f7b42', '[\"*\"]', NULL, NULL, '2024-05-20 06:36:30', '2024-05-20 06:36:30'),
+(35, 'App\\Models\\Students', 10014, 'MyApp', 'cb0a447b660b6a637cee01734fb6cc3d3c2a37324dd5b6f09e0ad7041424249c', '[\"*\"]', NULL, NULL, '2024-05-21 04:10:56', '2024-05-21 04:10:56'),
+(36, 'App\\Models\\Students', 10014, 'MyApp', '32201088f39b1b816fef2d3650e35fd9cd959f070551b63771fa12bc5c946691', '[\"*\"]', NULL, NULL, '2024-05-21 04:24:36', '2024-05-21 04:24:36'),
+(37, 'App\\Models\\Students', 10014, 'MyApp', 'cdeed41e0353d4165f2034d9080944148f7cb5721d983cf1b5971c0ef63bd182', '[\"*\"]', NULL, NULL, '2024-05-21 04:26:19', '2024-05-21 04:26:19'),
+(38, 'App\\Models\\Students', 10014, 'MyApp', 'd41609271538f9089a79211d16140331d1c31590b88863f1f6109ddf03dfeffa', '[\"*\"]', NULL, NULL, '2024-05-21 04:27:24', '2024-05-21 04:27:24');
 
 -- --------------------------------------------------------
 
@@ -351,14 +420,21 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 
 CREATE TABLE `player_spins` (
   `id` int(11) NOT NULL,
-  `studentid` varchar(255) NOT NULL,
-  `contestid` varchar(255) NOT NULL,
-  `spinnumber` varchar(255) NOT NULL,
-  `spinvalue` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `studentid` varchar(255) DEFAULT NULL,
+  `contestid` varchar(255) DEFAULT NULL,
+  `spinnumber` varchar(255) DEFAULT NULL,
+  `spinvalue` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `player_spins`
+--
+
+INSERT INTO `player_spins` (`id`, `studentid`, `contestid`, `spinnumber`, `spinvalue`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1', '102', '5', '2345', '0', '2024-05-18 06:10:53', '2024-05-18 06:10:53');
 
 -- --------------------------------------------------------
 
@@ -384,7 +460,8 @@ CREATE TABLE `play_contests` (
 
 INSERT INTO `play_contests` (`id`, `studentid`, `contestid`, `conteststatus`, `rank`, `winningprice`, `status`, `created_at`, `updated_at`) VALUES
 (1, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 10:11:02'),
-(2, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57');
+(2, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57'),
+(3, '10014', '1', '2', '6', '7000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57');
 
 -- --------------------------------------------------------
 
@@ -408,7 +485,14 @@ CREATE TABLE `points` (
 INSERT INTO `points` (`id`, `point`, `studentId`, `contestId`, `created_at`, `updated_at`) VALUES
 (1, 500, '10013', '1', '2024-05-03 07:17:06', '2024-05-03 07:17:06'),
 (2, 600, '10012', '1', '2024-05-03 07:19:40', '2024-05-03 07:19:40'),
-(4, 9000, '10011', '1', '2024-05-03 07:31:57', '2024-05-03 07:31:57');
+(4, 9000, '10011', '1', '2024-05-03 07:31:57', '2024-05-03 07:31:57'),
+(5, 5, '12', '1021', '2024-05-18 06:19:15', '2024-05-18 06:19:15'),
+(6, 5, '123', '1021', '2024-05-18 06:28:26', '2024-05-18 06:28:26'),
+(7, 5, '123', '1021', '2024-05-18 06:28:42', '2024-05-18 06:28:42'),
+(8, 4563543, '10008', '1', '2024-05-18 06:29:42', '2024-05-18 06:29:42'),
+(9, 7926100, '10009', '1', '2024-05-18 06:30:07', '2024-05-18 06:30:07'),
+(10, 2765219, '10014', '1', '2024-05-18 06:31:27', '2024-05-18 06:31:27'),
+(11, 48934353, '10010', '1', '2024-05-18 06:34:58', '2024-05-18 06:34:58');
 
 -- --------------------------------------------------------
 
@@ -430,8 +514,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('CFskUfCToK9AUOg2b02J250IwoHqlwEnNc9xVEoj', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY2xlWHJuVGRDOXV3VzR5RjRqTHZRaWxNMWNsU2tXeUJmcWxiSFVZSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716017478),
-('yYiiEJfe9eISbwrxfnOHpoC07ikvtoY6XhS8xpUz', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNUttVmJ2VlhjYmFFNTBHZWs0UHVaUXdyQjdhT2p3RTNwUUxHaFcxZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1715948527);
+('Dp7EygqGmYvAMIwWtzLwngUuxxpNNU4HdI1m5FlO', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWjRZYnJuZHM3bWVPZXhmRElzTEVIc1QwNGxTTEVPNE9lZUY5YXFQZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93aW5uaW5ncmVwb3J0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716287532);
 
 -- --------------------------------------------------------
 
@@ -472,7 +555,7 @@ INSERT INTO `students` (`id`, `studentname`, `username`, `education`, `school_un
 (10011, 'aaajubhaaju', 'noizy_12378895645', 'null', 'null', 'null', '555555555555', 'null', '6522525948', 'uuu@gmail.com', 'null', 'null', 'null', '$2y$12$Wopg7YlJhRa2/S1Ob6peVOXL7hn0JetjIDOZoiJQdsZP6Rh8dSdG6', 'null', '0', NULL, '2024-04-14 23:54:26', '2024-05-18 07:22:04'),
 (10012, 'Anshhhhh', 'ansh_88', NULL, NULL, NULL, NULL, NULL, '548554548', 'dosso@gmail.com', NULL, NULL, NULL, '$2y$12$EKZ0MgfjS6FGVEoWmOiy0.x9mz7RFyANFY1IlJydGm5IrreYySIWG', '0001ADMIN', '0', NULL, '2024-05-07 05:14:24', '2024-05-07 05:14:24'),
 (10013, 'Anshhhhh', 'ansh_88666', NULL, NULL, NULL, NULL, NULL, '5485548', 'dosso22@gmail.com', NULL, NULL, NULL, '$2y$12$UvbP6Pyazk9NZCGSUp/8BuWw5giwRt4pGiKOJkZUeUI/BL/8Vg.hm', '0001ADMIN', '0', NULL, '2024-05-07 05:18:57', '2024-05-07 05:18:57'),
-(10014, NULL, '1234567899', NULL, NULL, NULL, NULL, NULL, '1234567899', 'dossoAA22@gmail.com', NULL, NULL, NULL, '$2y$12$ZyAgZUNMLlE7uNBwsqcbsOEcW5qNW7il0/EsDh7dSr3bO5d87wr.C', '0001A', '0', NULL, '2024-05-16 02:36:06', '2024-05-16 02:36:06');
+(10014, 'rajesh', '1234567899', NULL, NULL, NULL, NULL, NULL, '1234567899', 'dossoAA22@gmail.com', NULL, NULL, NULL, '$2y$12$ZyAgZUNMLlE7uNBwsqcbsOEcW5qNW7il0/EsDh7dSr3bO5d87wr.C', '0001A', '0', NULL, '2024-05-16 02:36:06', '2024-05-20 12:37:04');
 
 -- --------------------------------------------------------
 
@@ -513,13 +596,23 @@ CREATE TABLE `wallets` (
   `id` int(11) NOT NULL,
   `userid` varchar(255) NOT NULL,
   `transactionid` varchar(255) NOT NULL,
-  `credit` float NOT NULL,
-  `debit` float NOT NULL,
+  `amount` float NOT NULL,
+  `paymenttype` varchar(255) NOT NULL DEFAULT '"credit","debit"',
   `transactiontype` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wallets`
+--
+
+INSERT INTO `wallets` (`id`, `userid`, `transactionid`, `amount`, `paymenttype`, `transactiontype`, `status`, `created_at`, `updated_at`) VALUES
+(1, '10014', '12', 1000, 'credit', 'PhonePe', '0', '2024-05-20 07:24:18', '2024-05-20 07:25:18'),
+(7, '10014', '15', 10000, 'Credit', 'PhonePe', '0', '2024-05-20 06:04:52', '2024-05-20 06:04:52'),
+(8, '10014', '15', 2500, 'Credit', 'PhonePe', '0', '2024-05-20 06:07:47', '2024-05-20 06:07:47'),
+(9, '10014', '15', 500, 'Credit', 'PhonePe', '0', '2024-05-20 06:08:46', '2024-05-20 06:08:46');
 
 -- --------------------------------------------------------
 
@@ -625,6 +718,12 @@ ALTER TABLE `job_batches`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kycs`
+--
+ALTER TABLE `kycs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -635,6 +734,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `payment_requests`
+--
+ALTER TABLE `payment_requests`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -736,22 +841,40 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `kycs`
+--
+ALTER TABLE `kycs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `payment_requests`
+--
+ALTER TABLE `payment_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `player_spins`
+--
+ALTER TABLE `player_spins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `points`
 --
 ALTER TABLE `points`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -769,7 +892,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `winzones`

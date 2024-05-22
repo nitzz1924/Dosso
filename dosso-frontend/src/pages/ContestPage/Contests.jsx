@@ -11,11 +11,7 @@ const Contests = () => {
                 <Container fluid >
                     <Row className="justify-content-center">
                         <Col lg="3" className="p-0">
-                            {/* <div className="fw-bold col-12 pb-2 fs-5 text-warning">
-                                Contests
-                            </div> */}
                             <BannerSlider />
-
                         </Col>
                     </Row>
                     <Row className="justify-content-center my-3 p-0">
