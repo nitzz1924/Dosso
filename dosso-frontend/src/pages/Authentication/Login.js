@@ -1,46 +1,57 @@
-import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
+import PropTypes from "prop-types"
+import React, { useEffect } from "react"
+import {
+  Row,
+  Col,
+  CardBody,
+  Card,
+  Alert,
+  Container,
+  Form,
+  Input,
+  FormFeedback,
+  Label,
+} from "reactstrap"
 //redux
-import { useSelector, useDispatch } from "react-redux";
-import withRouter from "components/Common/withRouter";
+import { useSelector, useDispatch } from "react-redux"
+import withRouter from "components/Common/withRouter"
 // Formik validation
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { loginUser } from "../../store/actions";
-let profile = "../../Assets/images/Dosso21-logo-new.webp";
-import { getLocalData } from "services/global-storage";
+import * as Yup from "yup"
+import { useFormik } from "formik"
+import { loginUser } from "../../store/actions"
+let profile = "../../Assets/images/Dosso21-logo-new.webp"
+import { getLocalData } from "services/global-storage"
 import { Link, useNavigate } from "react-router-dom"
 const Login = props => {
   const navigate = useNavigate()
   //meta title
-  document.title = "Login";
-  const dispatch = useDispatch();
+  document.title = "Login"
+  const dispatch = useDispatch()
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
-      username: "1234567899" || '',
-      password: "12345" || '',
+      username: "1234567899" || "",
+      password: "12345" || "",
     },
     validationSchema: Yup.object({
       username: Yup.number().required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
-      dispatch(loginUser(values, props.router.navigate));
-    }
-  });
+    onSubmit: values => {
+      console.log(values)
+      dispatch(loginUser(values, props.router.navigate))
+    },
+  })
   const { error } = useSelector(state => ({
     error: state.Login.error,
-  }));
+  }))
 
   useEffect(() => {
-    if(getLocalData('userId')){
+    if (getLocalData("userId")) {
       navigate("/contests")
     }
-  });
+  })
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -48,11 +59,14 @@ const Login = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{ height: "100vh", backgroundColor: "#fff" }}>
+      <div
+        className="account-pages d-grid align-items-center"
+        style={{ height: "100vh", backgroundColor: "#fff" }}
+      >
         <Container>
           <Row className="justify-content-center">
             <Col md={8} lg={6} xl={5}>
-              <Card className="overflow-hidden shadow-lg" style={{ border: 0, }}>
+              <Card className="overflow-hidden shadow-lg" style={{ border: 0 }}>
                 <div className="border-bottom">
                   <Row>
                     <Col xs={7}>
@@ -66,14 +80,14 @@ const Login = props => {
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="text-black" >
+                <CardBody className="text-black">
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        validation.handleSubmit();
-                        return false;
+                      onSubmit={e => {
+                        e.preventDefault()
+                        validation.handleSubmit()
+                        return false
                       }}
                     >
                       {error ? <Alert color="danger">{error}</Alert> : null}
@@ -89,11 +103,17 @@ const Login = props => {
                           onBlur={validation.handleBlur}
                           value={validation.values.username || ""}
                           invalid={
-                            validation.touched.username && validation.errors.username ? true : false
+                            validation.touched.username &&
+                            validation.errors.username
+                              ? true
+                              : false
                           }
                         />
-                        {validation.touched.username && validation.errors.username ? (
-                          <FormFeedback type="invalid">{validation.errors.username}</FormFeedback>
+                        {validation.touched.username &&
+                        validation.errors.username ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.username}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
@@ -107,11 +127,17 @@ const Login = props => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           invalid={
-                            validation.touched.password && validation.errors.password ? true : false
+                            validation.touched.password &&
+                            validation.errors.password
+                              ? true
+                              : false
                           }
                         />
-                        {validation.touched.password && validation.errors.password ? (
-                          <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                        {validation.touched.password &&
+                        validation.errors.password ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.password}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
@@ -150,8 +176,11 @@ const Login = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don't have an account? 
-                  <Link to="/register" className="fw-medium text-secondary ms-1 fw-bold text-black text-uppercase">
+                  Don't have an account?
+                  <Link
+                    to="/register"
+                    className="fw-medium text-secondary ms-1 fw-bold text-black text-uppercase"
+                  >
                     Signup now
                   </Link>
                 </p>
@@ -165,11 +194,11 @@ const Login = props => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default withRouter(Login);
+export default withRouter(Login)
 
 Login.propTypes = {
   history: PropTypes.object,
-};
+}
