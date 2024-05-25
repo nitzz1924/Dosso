@@ -5,10 +5,12 @@ import { Row, Col, Card, Button } from "reactstrap"
 import { AutoPlay } from "@egjs/flicking-plugins";
 
 // Carousel images
-const img3 = "Assets/images/1.jpg"
-const img4 = "Assets/images/2.jpg"
-const img5 = "Assets/images/3.jpg"
-const img6 = "Assets/images/4.jpg";
+const img1 = "https://admin.dosso21.com/uploads/1716641240.jpg"
+const img2 = "https://admin.dosso21.com/uploads/1716641279.jpg"
+const img3 = "https://admin.dosso21.com/uploads/1716641305.jpg"
+const img4 = "https://admin.dosso21.com/uploads/1716641328.jpg";
+const img5 = "https://admin.dosso21.com/uploads/1716641354.jpg";
+const img6 = "https://admin.dosso21.com/uploads/1716641373.jpg";
 
 
 const BannerSlider = ({ title }) => {
@@ -38,10 +40,16 @@ const BannerSlider = ({ title }) => {
                 moveType={["strict", { count: 1 }]}
             >
                 <div className='h-50 slider-card' >
-                    <img src={img4} className="img-fluid rounded" alt="Responsive image" />
+                    <img src={img1} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+                <div className='h-50 slider-card' >
+                    <img src={img2} className="img-fluid rounded" alt="Responsive image" />
+                </div>
+                <div className='h-50 slider-card' >
+                    <img src={img3} className="img-fluid rounded" alt="Responsive image" />
                 </div>
                 <div className='h-50 slider-card'>
-                    <img src={img3} className="img-fluid rounded" alt="Responsive image" />
+                    <img src={img4} className="img-fluid rounded" alt="Responsive image" />
                 </div>
                 <div className='h-50 slider-card'>
                     <img src={img5} className="img-fluid rounded" alt="Responsive image" />

@@ -20,16 +20,18 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('walletamount/{id}', 'walletamount');
     Route::get('getPoint/{studentId}/{contestId}', 'getPoint');
     Route::post('addPoint', 'addPoint');
-    Route::post('createbalancesheet','createbalancesheet');
-    Route::post('createuserspin','createuserspin');
-    Route::get('viewwinzone','viewwinzone');
-    Route::get('getpoints/{id}','getpoints');
-    Route::post('InsertLastSpin','InsertLastSpin');
-    Route::get('studentlogout','studentlogout');
-    Route::get('mycontests/{id}','mycontests');
-    Route::post('insertkyc','insertkyc');
-    Route::get('showkycstatus/{id}','showkycstatus');
-    Route::post('paymentRequest','paymentRequest');
+    Route::post('createbalancesheet', 'createbalancesheet');
+    Route::post('createuserspin', 'createuserspin');
+    Route::get('viewwinzone', 'viewwinzone');
+    Route::get('getpoints/{id}', 'getpoints');
+    Route::post('InsertLastSpin', 'InsertLastSpin');
+    Route::get('studentlogout', 'studentlogout');
+    Route::get('mycontests/{id}', 'mycontests');
+    Route::post('insertkyc', 'insertkyc');
+    Route::get('showkycstatus/{id}', 'showkycstatus');
+    Route::post('paymentRequest', 'paymentRequest');
+    Route::get('countplaycontests/{id}', 'countplaycontests');
+    Route::post('phonepe-payment', 'handlePayment');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');

@@ -24,7 +24,7 @@ const refer = () => {
 
     return (
         <>
-            <div className="page-content  ">
+            <div className="page-content">
                 <Container className=''>
                     <Row className="justify-content-center ">
                         <Col lg="6" className="p-0">
@@ -35,7 +35,7 @@ const refer = () => {
                     </Row>
                 </Container>
                 <Container className='my-3'>
-                    <Row className="justify-content-center shadow-lg py-3 rounded-3">
+                    <Row className="justify-content-center shadow-lg py-3 rounded-3 bg-white">
                         <Col xs="4" className="">
                             <div>
                                 <img src={winImg} alt="referImage" className='img-fluid rounded ' />

@@ -51,7 +51,6 @@ Route::post('/loginvendor', [AuthenticationController::class, 'loginvendor'])->n
 Route::get('/logoutvendor', [AuthenticationController::class, 'logoutvendor'])->name('logoutvendor');
 
 
-
 Route::get('/vendorloginview', [ViewController::class, 'vendorloginview'])->name('vendorloginview');
 Route::get('/vendordashboardview', [ViewController::class, 'vendordashboardview'])->name('vendordashboardview');
 Route::get('/vendorprofile', [ViewController::class, 'vendorprofile'])->name('vendorprofile');
@@ -61,3 +60,7 @@ Route::post('/updateactivationstatus', [StoreController::class, 'updateactivatio
 Route::get('/reportpage/{id}', [ViewController::class, 'reportpage'])->name('reportpage');
 Route::get('/balanchesheet', [ViewController::class, 'balanchesheet'])->name('balanchesheet');
 Route::get('/getcontestajax/{id}', [ViewController::class, 'getcontestajax'])->name('getcontestajax');
+
+
+
+

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Point extends Model
 {
     protected $fillable = ['id','point','studentId','contestId'];
+
+    public function addContest()
+      {
+        return $this->belongsTo(AddContest::class, 'contestId');
+      }
 }

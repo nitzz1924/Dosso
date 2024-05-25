@@ -13,7 +13,7 @@ import {
   Button,
   FormText,
 } from "reactstrap"
-import { Link ,useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 // Formik Validation
 import * as Yup from "yup"
 import { useFormik } from "formik"
@@ -23,7 +23,7 @@ import axiosRetry from "axios-retry"
 import config from "constants/config"
 import MockAdapter from "axios-mock-adapter"
 import { getLocalData } from "services/global-storage"
-
+import CryptoJS from 'crypto-js';
 const AddFund = () => {
   document.title = "Add Fund"
   const navigate = useNavigate()
@@ -32,8 +32,8 @@ const AddFund = () => {
   // Create a new instance of axios
   const axiosInstance = axios.create()
   axiosRetry(axiosInstance, { retries: 3 })
-   // Create a new instance of the mock adapter
-   const mockAdapter = new MockAdapter(axiosInstance)
+  // Create a new instance of the mock adapter
+  const mockAdapter = new MockAdapter(axiosInstance)
   const [initialAmount, setInitialAmount] = useState("500")
   const [loading, setLoading] = useState(true)
   const [walletdata, setWalletData] = useState([])
@@ -65,35 +65,32 @@ const AddFund = () => {
       try {
         const dataList = []
         dataList.push({
-          userid: getLocalData('userId'),
+          userid: getLocalData("userId"),
           transactionid: 15,
           amount: validation.values.initialAmount,
-          transactiontype:'PhonePe',
-          paymenttype: 'Credit',
+          transactiontype: "PhonePe",
+          paymenttype: "Credit",
           status: 0,
         })
-        console.log(dataList);
+        console.log(dataList)
         // Mock the HTTP request
-        mockAdapter.onPost(config.apiUrl+'insertwallet').reply(200, { success: true });
-        axios.post(config.apiUrl+'insertwallet', dataList[0], {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
-        })
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            swal("Great!", "Amount Added Successfully!", "success")
-              .then(() => {
-                navigate('/contests'); // Redirect to '/other-page'
-              });
+        mockAdapter
+          .onPost(config.apiUrl + "insertwallet")
+          .reply(200, { success: true })
+        axios
+          .post(config.apiUrl + "insertwallet", dataList[0], {})
+          .then(response => {
+            console.log(JSON.stringify(response.data))
+            swal("Great!", "Amount Added Successfully!", "success").then(() => {
+              navigate("/contests") // Redirect to '/other-page'
+            })
           })
-          .catch((error) => {
+          .catch(error => {
             // Handle errors here
-            console.log("error->", error);
-          });
-  
+            console.log("error->", error)
+          })
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
   })
@@ -107,9 +104,73 @@ const AddFund = () => {
     validation.setFieldValue("initialAmount", amount)
   }
   useEffect(() => {
-    setLoading(false);
+    setLoading(false)
   }, [])
-
+  async function handlePhonePePayment() {
+    const amount = 1000 // Replace with actual amount
+    const redirectUrl = "http://localhost:3000/addfund/success" // Replace with your redirect URL
+    const dataList = []
+    dataList.push({
+      initialAmount: 100,
+      redirectUrl: "http://localhost:3000/addfund/success",
+    })
+    axios
+      .post(config.apiUrl + "phonepe-payment", dataList[0], {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(response => {
+        console.log(JSON.stringify(response.data))
+        swal("Great!", "Payment Successfully!", "success").then(() => {
+        })
+      })
+      .catch(error => {
+        // Handle errors here
+        console.log("error->", error)
+      })
+  }
+  // async function handlePhonePePayment() {
+  //   try {
+  //     const payload = {
+  //       amount: 10000,
+  //       redirectUrl: "https://webhook.site/redirect-url",
+  //       redirectMode: "REDIRECT",
+  //       merchantId: "M228QYEMQERGS",
+  //       merchantTransactionId: "MT7850590068188104",
+  //       callbackUrl: "https://webhook.site/callback-url",
+  //       mobileNumber: "9999999999",
+  //       paymentInstrument: {
+  //         type: "PAY_PAGE"
+  //       }
+  //     };
+  //     const payloadString = JSON.stringify(payload);
+  //     const salt = 'b7dbb332-a97f-4dfc-b6eb-64d397216248'; // Replace with your actual salt key
+  //     const hash = CryptoJS.SHA256(payloadString + salt + '/pg/v1/pay' + 'b7dbb332-a97f-4dfc-b6eb-64d397216248').toString();
+  //     const xVerifyHeader = hash + '###1'; // Assuming '1' is the version
+  
+  //     const response = await axios.post(
+  //       "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+  //       jsonToBase64(payload),
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "X-VERIFY": xVerifyHeader,
+  //         }
+  //       }
+  //     );
+  
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+   
+  // }
+  function jsonToBase64(jsonData) {
+    const jsonString = JSON.stringify(jsonData); // Convert JSON object to string
+    const base64String = btoa(jsonString); // Encode string to Base64
+    return base64String;
+  }
   if (loading) {
     return <div>Loading......</div>
   }
@@ -240,6 +301,14 @@ const AddFund = () => {
                             </Button>
                           </div>
                         </Form>
+                        <Button
+                          type="submit"
+                          color="dark"
+                          className="fw-bold"
+                          onClick={handlePhonePePayment}
+                        >
+                          Make Payment
+                        </Button>
                       </div>
                     </Col>
                   </Row>

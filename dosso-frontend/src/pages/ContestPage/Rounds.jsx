@@ -133,7 +133,7 @@ const Rounds = props => {
         </Container>
 
         <Container fluid>
-          <Row className="my-2 justify-content-center">
+          <Row className="my-2 justify-content-center bg-white">
             <Col
               lg="3"
               className="d-grid align-content-center shadow-lg rounded  p-3"

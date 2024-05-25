@@ -109,7 +109,7 @@ const History = () => {
                 My Contests
               </div>
               <Link to="/contests" className="">
-                <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
+                <Button className="btn btn-soft-dark waves-effect waves-light btn-danger fw-bold ">
                   Back
                 </Button>
               </Link>

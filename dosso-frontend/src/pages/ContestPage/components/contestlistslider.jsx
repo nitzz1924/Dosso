@@ -104,7 +104,7 @@ const Contestlistslider = ({ title }) => {
                       </div>
                       <div>
                         Entry Fees
-                        <div className="badge text-bg-secondary d-grid justify-content-center">
+                        <div className="badge text-bg-warning d-grid justify-content-center">
                           <span className="text-center round-text text-white">
                             ₹ {item.registrationfees}
                           </span>

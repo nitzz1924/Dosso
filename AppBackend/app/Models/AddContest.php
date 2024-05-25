@@ -13,6 +13,10 @@ class AddContest extends Model
     {
         return $this->hasMany(PlayContest::class, 'contestid');
     }
+    public function ContestPoints()
+    {
+        return $this->hasMany(Point::class, 'contestId');
+    }
 
     public function paymentRequests()
     {

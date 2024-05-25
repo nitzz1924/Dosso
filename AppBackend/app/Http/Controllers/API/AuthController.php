@@ -21,6 +21,8 @@ use App\Models\Students;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -347,7 +349,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'KYC Verification Pending', 'color' => "'d-grid align-content-center alert alert-warning col-lg-3 justify-content-center'", 'status' => 0]);
         } elseif ($status == 2) {
             return response()->json(['message' => 'KYC Verified', 'color' => "'d-grid align-content-center alert alert-success col-lg-3 justify-content-center'", 'status' => 1]);
-        }elseif ($status == 3) {
+        } elseif ($status == 3) {
             return response()->json(['message' => 'The KYC application was declined due to insufficient documentation', 'color' => "'d-grid align-content-center alert alert-danger col-lg-3 justify-content-center'", 'status' => 2]);
         } else {
             return response()->json(['message' => 'To Rewithdraw Money Complete your KYC Process!', 'color' => "'d-grid align-content-center alert alert-info col-lg-3 justify-content-center'", 'status' => null]);
@@ -363,5 +365,121 @@ class AuthController extends Controller
         $payementreqdata->status = 1;
         $payementreqdata->save();
         return response()->json($payementreqdata, 200);
+    }
+
+    public function countplaycontests($id)
+    {
+        // Fetch the contest with the play contests count
+        $contest = AddContest::where('id', $id)->withCount('ContestPoints')->first();
+
+        // Check if the contest exists
+        if (!$contest) {
+            return response()->json([
+                'message' => 'Contest not found.',
+                'success' => false,
+            ], 404);
+        }
+
+        // Fetch the win zones
+        $winzones = Winzone::orderBy('start', 'asc')->get();
+
+        // Check if the number of play contests is greater than or equal to the join members
+        if ($contest->play_contests_count >= intval($contest->joinmembers)) {
+            // Fetch play contests and order them by points descending
+            $playcontests = Point::where('contestId', $id)->orderBy('point', 'desc')->get();
+
+            // Update the ranks and winning prices
+            foreach ($playcontests as $index => $data) {
+                foreach ($winzones as $value) {
+                    if ($index + 1 >= $value->start && $index + 1 <= $value->end) {
+                        $playcontest = PlayContest::where('studentid', $data->studentId)
+                            ->where('contestid', $id)
+                            ->first();
+                        if ($playcontest) {
+                            $playcontest->update([
+                                'rank' => $index + 1,
+                                'winningprice' => $value->price,
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            $response = [
+                'message' => 'Contest has reached the required number of join members.',
+                'success' => true,
+            ];
+        } else {
+            $response = [
+                'message' => 'Contest has not yet reached the required number of join members.',
+                'success' => false,
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+
+
+    public function handlePayment(Request $request)
+    {
+        // Validate request input
+        $validated = $request->validate([
+            'initialAmount' => 'required|numeric|min:1',
+        ]);
+
+        $amount = $validated['initialAmount'];
+        $redirectUrl = 'http://localhost:3000/addfund';
+
+        $merchantId = env('PHONEPE_MERCHANT_ID');
+        $saltKey = env('PHONEPE_SALT_KEY');
+
+        // Ensure that environment variables are set
+        if (!$merchantId || !$saltKey) {
+            Log::error('Payment processing failed: Missing configuration for PHONEPE_MERCHANT_ID or PHONEPE_SALT_KEY.');
+            return response()->json(['error' => 'Internal server error.'], 500);
+        }
+
+        $client = new Client();
+
+        $payload = [
+            'merchantId' => $merchantId,
+            'amount' => $amount,
+            'merchantTransactionId' => 'MT' . time(),
+            'redirectUrl' => $redirectUrl,
+            'redirectMode' => 'REDIRECT',
+            'callbackUrl' => $redirectUrl,
+            'mobileNumber' => '6375475956',
+            'paymentInstrument' => [
+                'type' => 'PAY_PAGE'
+            ]
+        ];
+
+        // Calculate the X-VERIFY header
+        $xVerifyHeader = $this->calculateXVerifyHeader($payload, $saltKey);
+
+        try {
+            $response = $client->post('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'X-VERIFY' => $xVerifyHeader,
+                ],
+                'json' => $payload,
+            ]);
+            $responseBody = json_decode($response->getBody(), true);
+            return response()->json($responseBody);
+        } catch (Exception $e) {
+            // Log the error and return an appropriate response
+            Log::error('Payment processing failed: ' . $e->getMessage());
+            return response()->json(['error' =>  $e->getMessage()], 500);
+        }
+    }
+
+    private function calculateXVerifyHeader($payload, $saltKey)
+    {
+        // Assuming this function is defined and generates the X-VERIFY header correctly
+        // You should implement the actual logic here
+        $data = json_encode($payload);
+        return hash_hmac('sha256', $data, $saltKey);
     }
 }
