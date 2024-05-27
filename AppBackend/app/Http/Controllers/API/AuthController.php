@@ -459,7 +459,7 @@ class AuthController extends Controller
         $xVerifyHeader = $this->calculateXVerifyHeader($payload, $saltKey);
 
         try {
-            $response = $client->post('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', [
+            $response = $client->post('https://api.phonepe.com/apis/hermes/pg/v1/pay', [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'X-VERIFY' => $xVerifyHeader,

@@ -113,7 +113,7 @@ const MyWallet = () => {
             <Row className="justify-content-center ">
               <Col xl="3" className="p-0">
                 <WalletStats
-                  wallet={wallet}
+                  wallet={wallet<=0?'0':wallet}
                   isMenu={isMenu}
                   toggleMenu={toggleMenu}
                 />

@@ -14,6 +14,7 @@ import {
 import { Link, useNavigate } from "react-router-dom"
 
 const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
+  console.log("Wallet Start : " , wallet);
   const navigate = useNavigate()
   return (
     <Card>
@@ -31,7 +32,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
         <div className="text-center fw-bold fs-3 mb-2">Transact</div>
         <div className="text-center">
           <Row>
-            <Col xs="6">
+            <Col xs="12">
               <div className="border pb-2 rounded border-2">
                 <div className="font-size-45 text-secondary mb-2">
                   <i className="bx bx-money"></i>
@@ -39,7 +40,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
 
                 <div className="">
                   <div
-                    onClick={() => navigate("/addfund", { state: wallet })}
+                    onClick={() => navigate("/addfund", { state: wallet<=0?'0':wallet })}
                     className="btn btn-success fw-bold w-md"
                   >
                     Add Money
@@ -48,7 +49,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
               </div>
             </Col>
 
-            <Col xs="6">
+            {/* <Col xs="6">
               <div className="border pb-2 rounded border-2">
                 <div className="font-size-45 text-secondary mb-2">
                   <i className="bx bxs-bank"></i>
@@ -60,7 +61,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
                   </Link>
                 </div>
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </CardBody>
