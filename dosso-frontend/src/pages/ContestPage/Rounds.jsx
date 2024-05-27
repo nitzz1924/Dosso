@@ -391,7 +391,7 @@ const Rounds = props => {
                 Pay to Participate
               </Button>
             ) : (
-              <Button color="primary" onClick={() => navigate("/myWallet")}>
+              <Button color="primary" onClick={() => navigate("/myFund")}>
                 Add Wallet
               </Button>
             )}

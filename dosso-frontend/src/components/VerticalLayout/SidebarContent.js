@@ -191,7 +191,7 @@ const SidebarContent = props => {
                 </Link>
               </li>
               <li>
-                <Link to="/myWallet" onClick={() => {
+                <Link to="/myFund" onClick={() => {
                   tToggle();
                 }}>
                   <i className='bx bx-wallet-alt' ></i>

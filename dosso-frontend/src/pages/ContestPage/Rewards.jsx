@@ -23,7 +23,7 @@ const Rewards = () => {
     const data = location.state
     const [contestData, setContestData] = useState([])
     const [runConfetti, setrunConfetti] = useState(false)
-    
+
     console.log("Player Data:", data);
 
     const mycontests = async () => {
@@ -57,7 +57,7 @@ const Rewards = () => {
     const runConfettiii = (() => {
         setrunConfetti(true);
     })
-    
+
     return (
         <>
             <div className="page-content">

@@ -100,7 +100,7 @@ const Playerkyc = () => {
           console.log(data)
           swal("Great!", "Your KYC had successfully Inserted!", "success")
           .then(() => {
-            navigate('/myWallet');
+            navigate('/myFund');
           });
         })
         .catch(error => {

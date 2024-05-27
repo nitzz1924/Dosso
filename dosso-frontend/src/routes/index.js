@@ -41,6 +41,7 @@ import Termsandcondistions from "pages/Policies/Termsandcondistions";
 import Refundpolicy from "pages/Policies/Refundpolicy";
 import Ourmission from "pages/Policies/Ourmission";
 import Rewards from "pages/ContestPage/Rewards";
+import Notifications from "pages/ContestPage/Notifications";
 
 
 const authProtectedRoutes = [
@@ -50,10 +51,11 @@ const authProtectedRoutes = [
   { path: "/spingame", component: <Spingame /> },
   { path: "/history", component: <History /> },
   { path: "/studentRegistration", component: <StudentRegistration /> },
-  { path: "/myWallet", component: <MyFund /> },
+  { path: "/myFund", component: <MyFund /> },
   { path: "/addFund", component: <AddFund /> },
   { path: "/leaderbaord", component: <LeaderBoard /> },
   { path: "/rewards", component: <Rewards /> },
+  { path: "/notifications", component: <Notifications /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },

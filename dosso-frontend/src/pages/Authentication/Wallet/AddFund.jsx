@@ -192,7 +192,7 @@ const AddFund = () => {
                       </span>
                     </p>
                   </div>
-                  <Link to="/myWallet" className="">
+                  <Link to="/myFund" className="">
                     <Button className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold ">
                       Back
                     </Button>

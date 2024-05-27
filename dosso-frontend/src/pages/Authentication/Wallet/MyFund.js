@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { getLocalData } from "services/global-storage"
 
-const MyWallet = () => {
+const MyFund = () => {
   //meta title
   document.title = "My Wallet"
   const [wallet, setWallet] = useState(0)
@@ -137,9 +137,9 @@ const MyWallet = () => {
   )
 }
 
-MyWallet.propTypes = {
+MyFund.propTypes = {
   wallet: PropTypes.any,
   onGetWallet: PropTypes.func,
 }
 
-export default withRouter(MyWallet)
+export default withRouter(MyFund)

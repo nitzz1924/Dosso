@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 import { Row, Col } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 //i18n
@@ -15,6 +15,8 @@ const Header = props => {
   const [search, setsearch] = useState(false);
   const [pageTitle, setPageTitle] = useState("Default Title");
   const location = useLocation();
+  const navigate = useNavigate();
+
   function tToggle() {
     var body = document.body;
     if (window.screen.width <= 998) {
@@ -69,13 +71,14 @@ const Header = props => {
                 type="button"
                 className="btn header-item noti-icon "
                 id="page-header-search-dropdown"
+                onClick={() => navigate('/notifications')}
               >
                 <i className="mdi mdi-bell-outline"></i>
               </button>
 
             </div>
             <div className="dropdown d-inline-block d-lg-none">
-              <Link to="/myWallet">
+              <Link to="/myFund">
                 <button
                   type="button"
                   className="btn header-item noti-icon "
