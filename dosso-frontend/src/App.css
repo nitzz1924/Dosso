@@ -573,3 +573,8 @@
 .backgroundBg{
   /* background-image: linear-gradient(#FFDD00, #FF8500); */
 }
+
+.scratchCard {
+  border: 2px dashed rgb(135, 135, 135);
+  border-radius: 10px;
+}

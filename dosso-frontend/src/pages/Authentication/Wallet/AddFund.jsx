@@ -23,7 +23,8 @@ import axiosRetry from "axios-retry"
 import config from "constants/config"
 import MockAdapter from "axios-mock-adapter"
 import { getLocalData } from "services/global-storage"
-import CryptoJS from 'crypto-js';
+// import CryptoJS from 'crypto-js';
+
 const AddFund = () => {
   document.title = "Add Fund"
   const navigate = useNavigate()

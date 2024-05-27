@@ -44,7 +44,7 @@ const Rounds = props => {
   }
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get(config.apiUrl+"viewwinzone",
+      const response = await axiosInstance.get(config.apiUrl + "viewwinzone",
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -61,7 +61,7 @@ const Rounds = props => {
   }
   const RankingList = async () => {
     try {
-      const response = await axiosInstance.get(config.apiUrl+"getpoints/" + data.id,
+      const response = await axiosInstance.get(config.apiUrl + "getpoints/" + data.id,
       )
       console.log("Ranking  Data : ", response.data)
       setrankingdata(response.data)
@@ -116,7 +116,7 @@ const Rounds = props => {
                       </div>
                     </div>
                   </CardTitle>
-                  
+
                   <Button
                     onClick={() => navigate("/spingame", { state: data })}
                     className="btn btn-light w-100 fs-4 rounded-3 mt-3"
@@ -185,10 +185,10 @@ const Rounds = props => {
                                     {item.start == 1
                                       ? "🥇"
                                       : item.start == 2
-                                      ? "🥈"
-                                      : item.start == 3
-                                      ? "🥉"
-                                      : item.start + "-" + item.end}
+                                        ? "🥈"
+                                        : item.start == 3
+                                          ? "🥉"
+                                          : item.start + "-" + item.end}
                                   </th>
                                   <td>
                                     {item.price == 0
@@ -236,10 +236,10 @@ const Rounds = props => {
                                           {index == 0
                                             ? "🥇"
                                             : index == 1
-                                            ? "🥈"
-                                            : index == 2
-                                            ? "🥉"
-                                            : index}
+                                              ? "🥈"
+                                              : index == 2
+                                                ? "🥉"
+                                                : index}
                                         </div>
                                         <div className="me-2 border border-1 border-secondary rounded-3">
                                           <img

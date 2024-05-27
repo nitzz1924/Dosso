@@ -40,6 +40,8 @@ import Privacypolicy from "pages/Policies/Privacypolicy";
 import Termsandcondistions from "pages/Policies/Termsandcondistions";
 import Refundpolicy from "pages/Policies/Refundpolicy";
 import Ourmission from "pages/Policies/Ourmission";
+import Rewards from "pages/ContestPage/Rewards";
+
 
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
@@ -51,6 +53,7 @@ const authProtectedRoutes = [
   { path: "/myWallet", component: <MyFund /> },
   { path: "/addFund", component: <AddFund /> },
   { path: "/leaderbaord", component: <LeaderBoard /> },
+  { path: "/rewards", component: <Rewards /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },

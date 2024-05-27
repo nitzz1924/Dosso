@@ -30,6 +30,7 @@ const History = () => {
 
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
+
   const handleClick = contest => {
     console.log(contest)
     if (contest.status === "1") {
@@ -39,6 +40,7 @@ const History = () => {
       requestPayment(contest)
     }
   }
+
   const requestPayment = item => {
     try {
       console.log("requestPayment : ", item)
@@ -118,7 +120,7 @@ const History = () => {
         </Row>
 
         <Row className="my-2 justify-content-center">
-          <Col lg="3" className="d-grid align-content-center">
+          <Col lg="3" className="d-grid align-content-center p-0">
             <Flicking
               align="prev"
               horizontal={false}
@@ -128,9 +130,9 @@ const History = () => {
               renderOnlyVisible={true}
             >
               {(contestData || []).map((item, key) => (
-                <div className="flicking-viewport vertical " key={key}>
-                  <div className="flicking-camera shadow-sm">
-                    <Card className="mb-3 flicking-panel shadow border border-secondary rounded-3">
+                <div className="flicking-viewport vertical shadow-lg" key={key}>
+                  <div className="flicking-camera ">
+                    <Card className="mb-3 flicking-panel  rounded-3">
                       <CardHeader className="bg-white rounded-3 border-bottom d-flex justify-content-between">
                         <div className="mb-0 text-muted">
                           <i className="bx bx-time-five text-body me-1"></i>
@@ -144,58 +146,55 @@ const History = () => {
                         </div>
                       </CardHeader>
                       <CardBody className="p-3">
-                        <div className="text-start">
-                          <div className="d-flex justify-content-between flex-column ">
-
-                            <div className="fw-bolder fs-3 text-black text-center">
-                              {item.title}
-                            </div>
-                            <div className="bg-secodary w-100 p-2 d-flex justify-content-between ">
-                              <div className="mb-0 text-muted me-1">
-                                🏅
-                                Your Rank:
-                                <span className="text-success fw-bold me-1">
-                                  #{item.contestrank}
-                                </span>
-                              </div>
-                              <div className="mb-0 text-muted me-1">
-                                🏆
-                                Your Reward:
-                                <span className="text-success fw-bold me-1">
-                                  ₹{item.contestwinprice}
-                                </span>
-                              </div>
-
-                            </div>
+                        <div className="d-flex justify-content-between flex-column ">
+                          <div className="fw-bolder fs-3 text-black text-center">
+                            {item.title}
                           </div>
-                          <div className="mt-2">
-                            <button
-                              onClick={() => handleClick(item)}
-                              className={
-                                "btn" +
-                                (item.status === "1"
-                                  ? " btn-dark "
-                                  : item.status === "2"
-                                    ? " btn-primary "
-                                    : " btn-light ") +
-                                "shadow w-100 fw-bold fs-5 text-uppercase rounded-5"
-                              }
-                              disabled={item.status === "0" ? true : false}
-                            >
-                              {item.status === "1"
-                                ? "Play Now"
-                                : item.status === "2"
-                                  ? "Request Payment"
-                                  : "Yet to start!"}
-                            </button>
+                          <div className="mb-0 text-muted text-center">
+                            🏆
+                            Prize pool: <span className="text-dark fw-bold">₹{item.totalprice}</span>
+                          </div>
+                          <div className=" w-100 p-2 d-flex justify-content-center ">
+                            <div className="mb-0 me-1">
+                              Your Rank:
+                              <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                # {item.contestrank}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </CardBody>
-                      <CardFooter className="d-flex justify-content-center">
-                        <div className="mb-0 text-muted">
-                          <i className="bx bx-trophy text-body me-1"></i>
-                          Prize pool: <span className="text-dark fw-bold">₹{item.totalprice}</span>
-                        </div>
+
+                      <CardFooter className="d-flex justify-content-around">
+
+                        <button
+                          onClick={() => handleClick(item)}
+                          className={
+                            "btn" +
+                            (item.status === "1"
+                              ? " btn-outline-dark "
+                              : item.status === "2"
+                                ? " btn-outline-primary "
+                                : " btn-outline-light ") +
+                            "shadow-sm fw-bold fs-5 text-uppercase rounded-3"
+                          }
+                          disabled={item.status === "0" ? true : false}
+                        >
+                          {item.status === "1"
+                            ? "Play Now"
+                            : item.status === "2"
+                              ? "Payment Request"
+                              : "Yet to start!"}
+                        </button>
+
+
+                        <button
+                          onClick={() => navigate("/rewards", { state: item })}
+                          className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-5 text-uppercase rounded-3"
+                        >
+                          Reward
+                        </button>
+
                       </CardFooter>
                     </Card>
                   </div>
