@@ -3,6 +3,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import axiosRetry from "axios-retry"
 import config from "constants/config"
+import swal from "sweetalert"
+import { getLocalData } from "services/global-storage"
+import MockAdapter from "axios-mock-adapter"
+
 import {
   Container,
   Row,
@@ -21,64 +25,145 @@ import {
   TabContent,
   TabPane,
   Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  FormGroup,
+  Label,
+  Input,
 } from "reactstrap"
 
 let wheelImg = "Assets/images/fortune-wheel.png"
+
 const Rounds = props => {
   const navigate = useNavigate()
   const location = useLocation()
   const data = location.state
   document.title = "Join Contest"
+
   const [activeTab, setActiveTab] = useState("1")
   const [winzonedata, setWinzoneData] = useState([])
   const [loading, setLoading] = useState(true)
-  const [rankingdata, setrankingdata] = useState([])
-  // Create a new instance of axios
+  const [rankingdata, setRankingData] = useState([])
+  const [modal, setModal] = useState(false)
+  const [wallet, setWallet] = useState(0)
+
+  // Create a new instance of axios with retry configuration
   const axiosInstance = axios.create()
   axiosRetry(axiosInstance, { retries: 3 })
 
+  const toggle = () => setModal(!modal)
   const toggleTab = tab => {
     if (activeTab !== tab) {
       setActiveTab(tab)
     }
   }
+
+  const insertWallet = async () => {
+    console.log("InsertAPI")
+    try {
+      const dataList = [];
+      dataList.push(
+        {
+          userid: getLocalData("userId"),
+          transactionid: 15,
+          amount: data.registrationfees,
+          transactiontype: "Wallet",
+          paymenttype: "Debit",
+          status: 0,
+        },
+      )
+      console.log("d-LIST " ,dataList);
+
+      // Mock the HTTP request
+      const mockAdapter = new MockAdapter(axiosInstance)
+      mockAdapter
+        .onPost(config.apiUrl + "insertwallet")
+        .reply(200, { success: true })
+
+      axios.post(
+        config.apiUrl + "insertwallet",
+        dataList[0],{}
+      )
+      .then(response => {
+        console.log(JSON.stringify(response.data))
+        swal("Great!", "Participation Successful!", "success").then(() => {
+          navigate(-1) // Redirect to '/other-page'
+        })
+      })
+    } catch (error) {
+      console.error("Error in insertwallet:", error)
+      swal(
+        "Error",
+        "There was an error processing your request. Please try again.",
+        "error"
+      )
+    }
+  }
+
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get(config.apiUrl + "viewwinzone",
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      const response = await axiosInstance.get(config.apiUrl + "viewwinzone", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       console.log("Final Data : ", response.data)
       setWinzoneData(response.data)
     } catch (error) {
-      console.log("error", error)
+      console.error("Error fetching winzone data:", error)
     } finally {
       setLoading(false)
     }
   }
+
   const RankingList = async () => {
     try {
-      const response = await axiosInstance.get(config.apiUrl + "getpoints/" + data.id,
+      const response = await axiosInstance.get(
+        config.apiUrl + "getpoints/" + data.id
       )
-      console.log("Ranking  Data : ", response.data)
-      setrankingdata(response.data)
+      console.log("Ranking Data : ", response.data)
+      setRankingData(response.data)
     } catch (error) {
-      console.log("error", error)
+      console.error("Error fetching ranking data:", error)
     } finally {
       setLoading(false)
     }
   }
+
+  const getWalletData = async () => {
+    // alert("ID",getLocalData("userId"));
+    try {
+      const response = await axiosInstance.get(
+        config.apiUrl + "walletamount/" + getLocalData("userId"),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      console.log("Wallet Data : ", response.data)
+      setWallet(response.data.walletamount)
+    } catch (error) {
+      console.error("Error fetching wallet data:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  function handlejoin() {
+    setModal(true)
+  }
   useEffect(() => {
-    RankingList()
-    fetchData()
+    RankingList();
+    fetchData();
+    getWalletData();
   }, [])
 
   if (loading) {
     return <div>Loading......</div>
   }
+
   return (
     <div>
       <div className="page-content">
@@ -118,14 +203,15 @@ const Rounds = props => {
                   </CardTitle>
 
                   <Button
-                    onClick={() => navigate("/spingame", { state: data })}
+                    onClick={handlejoin}
                     className="btn btn-light w-100 fs-4 rounded-3 mt-3"
                   >
                     Join ₹ {data.registrationfees}
                   </Button>
                 </CardBody>
                 <CardFooter className=" border-top text-center">
-                  End Time: <span className="text-danger">{data.enddate}</span> left
+                  End Time: <span className="text-danger">{data.enddate}</span>{" "}
+                  left
                 </CardFooter>
               </Card>
             </Col>
@@ -276,6 +362,44 @@ const Rounds = props => {
             </Col>
           </Row>
         </Container>
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Contest Participation</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="amount">Amount to be paid</Label>
+              <Input
+                type="text"
+                name="amount"
+                id="amount"
+                value={"₹ " + data.registrationfees}
+                readOnly
+              />
+            </FormGroup>
+            <div className="text-muted text-center mb-2">
+              Your Current Wallet Amount:{" "}
+              <span className="text-success fw-bold">
+                ₹ {wallet <= 0 ? 0 : wallet}
+              </span>
+              {data.registrationfees <= wallet ? null : (
+                <div className="text-danger mb-2">Recharge Your Wallet</div>
+              )}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            {data.registrationfees <= wallet ? (
+              <Button color="primary" onClick={insertWallet}>
+                Pay to Participate
+              </Button>
+            ) : (
+              <Button color="primary" onClick={() => navigate("/myWallet")}>
+                Add Wallet
+              </Button>
+            )}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     </div>
   )

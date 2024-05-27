@@ -83,7 +83,7 @@ const AddFund = () => {
           .then(response => {
             console.log(JSON.stringify(response.data))
             swal("Great!", "Amount Added Successfully!", "success").then(() => {
-              navigate("/contests") // Redirect to '/other-page'
+              navigate(-1) // Redirect to '/other-page'
             })
           })
           .catch(error => {
@@ -188,7 +188,7 @@ const AddFund = () => {
                     <p className="text-muted mb-2">
                       Current Wallet Amount:{" "}
                       <span className="text-success fw-bold">
-                        ₹ {balanceAmount}
+                        ₹{wallet}
                       </span>
                     </p>
                   </div>

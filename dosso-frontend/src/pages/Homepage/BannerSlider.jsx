@@ -57,7 +57,6 @@ const BannerSlider = ({ title }) => {
                 <div className='h-50 slider-card'>
                     <img src={img6} className="img-fluid rounded" alt="Responsive image" />
                 </div>
-
             </Flicking>
         </div>
     )
