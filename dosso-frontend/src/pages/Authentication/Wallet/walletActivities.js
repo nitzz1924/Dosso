@@ -26,7 +26,7 @@ const WalletActivities = ({ debit, credit, all }) => {
     () => [
       {
         Header: "Date",
-        accessor: "created_at",
+        accessor: "created_date",
         filterable: true,
       },
       {

@@ -40,7 +40,7 @@ const MyWallet = () => {
           },
         }
       )
-      console.log("Wallet  Data : ", response.data)
+      console.log("Wallet  Data : ", response.data.credithistory[0].created_date)
       setCredithis(response.data.credithistory)
       setDebithis(response.data.debithistory)
       setAllhis(response.data.transaction)

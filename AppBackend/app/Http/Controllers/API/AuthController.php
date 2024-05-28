@@ -183,13 +183,16 @@ class AuthController extends Controller
         $debitTotal = Wallet::where('userid', $id)->where('paymenttype', 'debit')->sum('amount');
         $transaction = Wallet::where('userid', $id)->get();
         $debithistory = Wallet::where('userid', $id)->where('paymenttype', 'debit')->get();
-        $dateFormat = 'Y-m-d';
+        $dateFormat = 'd-m-Y';
+        foreach ($transaction as $all) {
+            $all->created_date = Carbon::parse($all->created_at)->format($dateFormat);
+        }
         foreach ($debithistory as $debit) {
-            $debit->created_at = Carbon::parse($debit->created_at)->format($dateFormat);
+            $debit->created_date = Carbon::parse($debit->created_at)->format($dateFormat);
         }
         $credithistory = Wallet::where('userid', $id)->where('paymenttype', 'credit')->get();
         foreach ($credithistory as $credit) {
-            $credit->created_at = Carbon::parse($credit->created_at)->format($dateFormat);
+            $credit->created_date = Carbon::parse($credit->created_at)->format($dateFormat);
         }
         $walletamount = $creditTotal - $debitTotal;
 
@@ -294,6 +297,11 @@ class AuthController extends Controller
             'data' => $playerspindata,
             'message' => "Spins Added...!!!!!!!!!",
         ];
+
+        $conteststatus = PlayContest::find($request->playcontestid);
+        $conteststatus->update([
+            'conteststatus' => '2',
+        ]);
         return response()->json($response, 200);
     }
 
@@ -455,8 +463,6 @@ class AuthController extends Controller
 
         return response()->json($response);
     }
-
-
 
     public function handlePayment(Request $request)
     {

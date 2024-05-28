@@ -7,6 +7,7 @@ import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
+import swal from "sweetalert"
 const Playslots = ({ data }) => {
   const [spincount, setSpincount] = useState(7)
   const [slots, setSlots] = useState(null)
@@ -111,6 +112,7 @@ const Playslots = ({ data }) => {
         studentid: getLocalData("userId"),
         contestid: data.id,
         point: newTotalSum,
+        playcontestid : data.playcontestid,
         status: 1,
       })
       console.log(dataList)
@@ -182,6 +184,31 @@ const Playslots = ({ data }) => {
       setGameComplete(true)
       setSpinDisabled(true)
       InsertLastSpin(newTotalSum)
+
+
+      swal({
+        title: "Game Over!",
+        icon: "info",
+        // content: {
+        //   element: "img",
+        //   attributes: {
+        //     src: "https://unsplash.it/400/200",
+        //     height: 200,
+        //     alt: "Custom image",
+        //   },
+        // },
+        buttons: {
+          confirm: {
+            text: "View Leaderboard",
+            closeModal: true,
+          },
+        },
+      }).then((value) => {
+        if (value) {
+          navigate("/leaderbaord", { state: data })
+          swal('Thanks For Playing');
+        }
+      });
     }
   }
   useEffect(() => {
@@ -230,6 +257,7 @@ const Playslots = ({ data }) => {
                   </div>
 
                   <div className="d-flex justify-content-around ">
+
                     {gameComplete ? (
                       <div className="d-flex flex-column ">
                         <div className="fw-bold fs-1 text-white text-uppercase text-center">
