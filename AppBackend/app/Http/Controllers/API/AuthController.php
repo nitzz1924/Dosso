@@ -23,6 +23,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -137,14 +138,33 @@ class AuthController extends Controller
 
     public function insertwallet(Request $request)
     {
+        // Insert into the wallet table
         $walletdata = new Wallet();
         $walletdata->userid = $request->input('userid');
         $walletdata->transactionid = $request->input('transactionid');
         $walletdata->paymenttype = $request->input('paymenttype');
         $walletdata->amount = $request->input('amount');
         $walletdata->transactiontype = $request->input('transactiontype');
-        $walletdata->save();
-        return response()->json($walletdata);
+
+        if ($walletdata->save()) {
+            // Insert into the play_contest table
+            $contestdata = new PlayContest();
+            $contestdata->studentid = $request->input('userid');
+            $contestdata->contestid = $request->input('contestid');
+            $contestdata->rank = 0;
+            $contestdata->winningprice = 0;
+            $contestdata->conteststatus = 1;
+
+            if ($contestdata->save()) {
+                return response()->json(['success' => true, 'data' => $contestdata]);
+            } else {
+                // If the second insertion fails, delete the first insertion to maintain data integrity
+                $walletdata->delete();
+                return response()->json(['success' => false, 'message' => 'Failed to insert contest data.'], 500);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to insert wallet data.'], 500);
+        }
     }
 
     public function transactionlist($id)
@@ -163,7 +183,17 @@ class AuthController extends Controller
         $debitTotal = Wallet::where('userid', $id)->where('paymenttype', 'debit')->sum('amount');
         $transaction = Wallet::where('userid', $id)->get();
         $debithistory = Wallet::where('userid', $id)->where('paymenttype', 'debit')->get();
+        $dateFormat = 'd-m-Y';
+        foreach ($transaction as $all) {
+            $all->created_date = Carbon::parse($all->created_at)->format($dateFormat);
+        }
+        foreach ($debithistory as $debit) {
+            $debit->created_date = Carbon::parse($debit->created_at)->format($dateFormat);
+        }
         $credithistory = Wallet::where('userid', $id)->where('paymenttype', 'credit')->get();
+        foreach ($credithistory as $credit) {
+            $credit->created_date = Carbon::parse($credit->created_at)->format($dateFormat);
+        }
         $walletamount = $creditTotal - $debitTotal;
 
         if ($creditTotal == 0 && $debitTotal == 0) {
@@ -267,6 +297,11 @@ class AuthController extends Controller
             'data' => $playerspindata,
             'message' => "Spins Added...!!!!!!!!!",
         ];
+
+        $conteststatus = PlayContest::find($request->playcontestid);
+        $conteststatus->update([
+            'conteststatus' => '2',
+        ]);
         return response()->json($response, 200);
     }
 
@@ -280,9 +315,18 @@ class AuthController extends Controller
     public function mycontests($id)
     {
         $historydata = PlayContest::join('add_contests AS ac', 'play_contests.contestid', '=', 'ac.id')
-            ->select('ac.*', 'play_contests.status AS playconteststatus', 'play_contests.rank AS contestrank', 'play_contests.winningprice AS contestwinprice')
-            ->where('play_contests.studentid', $id)
-            ->get();
+        ->leftJoin('payment_requests AS pr', 'play_contests.id', '=', 'pr.playcontestid')
+        ->select(
+            'ac.*',
+            'play_contests.conteststatus AS playconteststatus',
+            'play_contests.rank AS contestrank',
+            'play_contests.winningprice AS contestwinprice',
+            'play_contests.id AS playcontestid',
+            'pr.playcontestid AS prid',
+            'pr.id AS paymentrequestid'
+        )
+        ->where('play_contests.studentid', $id)
+        ->get();
         return response()->json($historydata);
     }
 
@@ -362,6 +406,7 @@ class AuthController extends Controller
         $payementreqdata->contestid = $request->input('contestid');
         $payementreqdata->amount = $request->input('amount');
         $payementreqdata->rank = $request->input('rank');
+        $payementreqdata->playcontestid = $request->input('playcontestid');
         $payementreqdata->status = 1;
         $payementreqdata->save();
         return response()->json($payementreqdata, 200);
@@ -419,8 +464,6 @@ class AuthController extends Controller
         return response()->json($response);
     }
 
-
-
     public function handlePayment(Request $request)
     {
         // Validate request input
@@ -471,7 +514,7 @@ class AuthController extends Controller
         } catch (Exception $e) {
             // Log the error and return an appropriate response
             Log::error('Payment processing failed: ' . $e->getMessage());
-            return response()->json(['error' =>  $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
