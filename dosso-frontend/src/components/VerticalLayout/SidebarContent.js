@@ -195,7 +195,7 @@ const SidebarContent = props => {
                   tToggle();
                 }}>
                   <i className='bx bx-wallet-alt' ></i>
-                  <span>{props.t("Withdrawal")}</span>
+                  <span>{props.t("Wallet")}</span>
                 </Link>
               </li>
               <li>
