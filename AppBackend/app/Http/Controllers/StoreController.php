@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\AddShow;
+use App\Models\Nortification;
 use App\Models\Wallet;
 use App\Models\AdminVendors;
 use App\Models\CreateRound;
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\AddContest;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\Catch_;
 use Illuminate\Support\Facades\Validator;
+
 class StoreController extends Controller
 {
     public function createcontest(Request $req)
     {
         //dd($req->all());
-        try{
+        try {
             $req->validate([
                 'title' => 'required',
                 'startdate' => 'required',
@@ -45,9 +48,8 @@ class StoreController extends Controller
                 'joinmembers' => $req->joinmembers,
             ]);
             return redirect()->route('addcontestview')->with('success', 'Contest Created..!!');
-        }
-        catch(\Exception $c){
-              return redirect()->route('addcontestview')->with('error', $c->getMessage());
+        } catch (\Exception $c) {
+            return redirect()->route('addcontestview')->with('error', $c->getMessage());
             //return redirect()->route('addcontestview')->with('error', 'Not Created Try Again...');
         }
     }
@@ -55,7 +57,7 @@ class StoreController extends Controller
     public function createvendor(Request $req)
     {
         // dd($req->all());
-        try{
+        try {
             $req->validate([
                 'vendorname' => 'required',
                 'contactno' => 'required',
@@ -79,7 +81,7 @@ class StoreController extends Controller
                 // 'referidvendor' => $req->referidvendor,
             ]);
             return redirect()->route('addvendorview')->with('success', 'Vendor Created..!!');
-        }catch(\Exception $c){
+        } catch (\Exception $c) {
             //return redirect()->route('addvendorview')->with('error', $c->getMessage());
             return redirect()->route('addvendorview')->with('error', 'Not Created Try Again...');
         }
@@ -88,7 +90,7 @@ class StoreController extends Controller
     public function createadshow(Request $req)
     {
         // dd($req->all());
-        try{
+        try {
             $req->validate([
                 'adstitle' => 'required',
                 'displayshow' => 'required',
@@ -110,7 +112,7 @@ class StoreController extends Controller
                 'videourl' => $req->videourl,
             ]);
             return redirect()->route('adshowview')->with('success', 'Add Show Created..!!');
-        }catch(\Exception $c){
+        } catch (\Exception $c) {
             //return redirect()->route('adshowview')->with('error', $c->getMessage());
             return redirect()->route('adshowview')->with('error', 'Not Created Try Again...');
         }
@@ -118,8 +120,8 @@ class StoreController extends Controller
 
     public function createround(Request $req)
     {
-         //dd($req->all());
-         try{
+        //dd($req->all());
+        try {
             CreateRound::create([
                 'contestid' => $req->contestid,
                 'roundstage' => $req->roundstage,
@@ -128,7 +130,7 @@ class StoreController extends Controller
                 // 'wonby' => $req->wonby,
             ]);
             return back();
-        }catch(\Exception $r){
+        } catch (\Exception $r) {
             //return redirect()->route('addcontestview')->with('error', $r->getMessage());
             return back();
         }
@@ -143,4 +145,45 @@ class StoreController extends Controller
         $data->save();
         return response()->json(['message' => 'Status updated successfully']);
     }
+
+    public function createnortification(Request $req)
+    {
+        try {
+            Nortification::create([
+                'message' => $req->message,
+            ]);
+            return redirect()->route('nortifications')->with('success', 'Nortification Created..!!');
+        } catch (\Exception $c) {
+            //return redirect()->route('nortifications')->with('error', $c->getMessage());
+            return redirect()->route('nortifications')->with('error', 'Not Created Try Again...');
+        }
+    }
+
+    public function deletenortification($id)
+    {
+        $mesagedata = Nortification::find($id);
+        $mesagedata->delete();
+        return back()->with('success', 'Nortification Deleted..!!');
+    }
+
+    public function editnortification($id)
+    {
+        $messagedataedit = Nortification::find($id);
+        return view('others.editnorti', compact('messagedataedit'));
+    }
+
+    public function updatenorti(Request $req)
+    {
+        try {
+            $nortification = Nortification::find($req->nortiid);
+            $nortification->update([
+                'message' => $req->message,
+            ]);
+
+            return back()->with('success', "Updated..!!!");
+        } catch (Exception $e) {
+            return back()->with('error', "Not Updated.! Try Again..");
+        }
+    }
+
 }

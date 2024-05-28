@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2024 at 07:18 AM
+-- Generation Time: May 28, 2024 at 12:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `add_contests` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `startdate` varchar(255) NOT NULL,
-  `enddate` varchar(255) NOT NULL,
+  `startdate` datetime NOT NULL,
+  `enddate` datetime NOT NULL,
   `registrationfees` varchar(255) NOT NULL,
   `totalprice` varchar(255) NOT NULL,
   `totalspin` varchar(255) NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE `add_contests` (
 --
 
 INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-25 13:07:08'),
-(2, 'SHAGUN10-2425002', '2024-05-17T17:28', '2024-05-18T06:29', '10', '2000', '7', '1715947142.png', '2000', '2', '2024-05-17 06:29:02', '2024-05-25 13:05:55');
+(1, 'SHAGUN51-2425001', '2024-05-03 00:00:00', '2024-05-05 00:00:00', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-25 13:07:08'),
+(2, 'SHAGUN10-2425002', '2024-05-17 17:28:00', '2024-05-18 06:29:00', '10', '2000', '7', '1715947142.png', '2000', '2', '2024-05-17 06:29:02', '2024-05-25 13:05:55');
 
 -- --------------------------------------------------------
 
@@ -324,6 +324,28 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nortifications`
+--
+
+CREATE TABLE `nortifications` (
+  `id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nortifications`
+--
+
+INSERT INTO `nortifications` (`id`, `message`, `created_at`, `updated_at`) VALUES
+(4, 'this is my second message', '2024-05-28 09:44:03', '2024-05-28 09:44:03'),
+(5, 'this is my third message updated new', '2024-05-28 09:44:12', '2024-05-28 10:03:28'),
+(6, 'this is my new message', '2024-05-28 10:04:39', '2024-05-28 10:04:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_reset_tokens`
 --
 
@@ -357,8 +379,7 @@ CREATE TABLE `payment_requests` (
 --
 
 INSERT INTO `payment_requests` (`id`, `playerId`, `contestid`, `amount`, `rank`, `message`, `created_at`, `updated_at`, `status`, `playcontestid`) VALUES
-(15, '10014', '1', 3243254, 2, NULL, '2024-05-27 12:45:09', '2024-05-27 12:45:09', 1, 6),
-(22, '10014', '1', 2000, 5, NULL, '2024-05-28 04:50:24', '2024-05-28 04:50:24', 1, 7);
+(15, '10014', '1', 3243254, 2, NULL, '2024-05-27 12:45:09', '2024-05-28 06:23:40', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -473,8 +494,7 @@ CREATE TABLE `play_contests` (
 --
 
 INSERT INTO `play_contests` (`id`, `studentid`, `contestid`, `conteststatus`, `rank`, `winningprice`, `status`, `created_at`, `updated_at`) VALUES
-(6, '10014', '1', '2', '2', '3243254', '1', '2024-05-27 12:08:34', '2024-05-27 12:13:28'),
-(7, '10014', '1', '2', '5', '2000', '1', '2024-05-28 04:42:42', '2024-05-28 04:43:47');
+(7, '10014', '1', '2', '5', '2000', '1', '2024-05-28 04:42:42', '2024-05-28 06:21:56');
 
 -- --------------------------------------------------------
 
@@ -501,7 +521,10 @@ INSERT INTO `points` (`id`, `point`, `studentId`, `contestId`, `created_at`, `up
 (12, 48353, '10013', '1', '2024-05-18 06:34:58', '2024-05-18 06:34:58'),
 (13, 47055370, '10014', '1', '2024-05-24 23:47:23', '2024-05-24 23:47:23'),
 (14, 39084750, '10014', '1', '2024-05-25 02:46:02', '2024-05-25 02:46:02'),
-(15, 33999389, '10014', '1', '2024-05-27 12:10:31', '2024-05-27 12:10:31');
+(15, 33999389, '10014', '1', '2024-05-27 12:10:31', '2024-05-27 12:10:31'),
+(16, 49932528, '10014', '1', '2024-05-28 05:53:15', '2024-05-28 05:53:15'),
+(17, 29735135, '10014', '1', '2024-05-28 06:13:42', '2024-05-28 06:13:42'),
+(18, 40167514, '10014', '1', '2024-05-28 06:21:56', '2024-05-28 06:21:56');
 
 -- --------------------------------------------------------
 
@@ -523,15 +546,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('2JvviodsLHhEk2TcYysSSY80QkzCZccT4kWbI3TQ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY1JSMnlpQWhVVWtLUjA0Tnpxczh5bldXRjJTZWlpY05aekhVNUNYVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716447451),
-('ECtlHFhSOMUH4sz1QXmlvxwzDqhEZcBOOQocu83l', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoic2NJS2poME1OQlBqa294dTllcjRxQjVwOEc3NUxjNXl4SnZURGp6OSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716381722),
-('h0mqgCOLLWPfyxySwDE2LQOyiVM8O3E0EbISCjLb', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiT3dMN0hDNDhGUDRmWVlWR1h0TVBLWUtiRXk1b0RIcEJnTG1Vblo4cSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXltZW50cmVxdWVzdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716438780),
-('iWZU0HENE6tSwX31Cd5s6Q3oJxn7GH3GTFTz0oM3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSXdQMG1JeEZoSldIOWxvTG91emM4YTd0Y2ZVbjdZS0lsU2tqblBuZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716614025),
-('KAo8clLgcqT2k0kjaCQLA5UAXvHljhng5ywAWwqY', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZDB5MzNUR1BhOE12MHlhdWRhazFvVjJvTTZXTG5PSzB6TE1sYzJhTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93aW5uaW5ncmVwb3J0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716870913),
-('lYlrJtQJ9n82PUoEW9oukgpY0ZZzriGBKEkn5Tp3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiOHg2WWkzd0pYSG4yWmpYU0JEV2tlMW5zV0lvRUZoazZIdmNCaElraCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZHNob3d2aWV3Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1716640975),
-('my8xRNyJWtpmChnHCjDAvvhgYI2qTeO9zefXwLru', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaTlicEN4aEh1d3RMS1oxMnR2N0tFcUFVNkMyekx1OWQ5d212bjJyOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716804330),
-('njqPtESW1PwCOQfiOZRP8PZwwMLjOLr0qrj3nSNn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVzI0MzViem1uazFYNnNDa3RGNU42SldWVjVqMk92Z3ljN2YzQ3NBZCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716793456),
-('qDNYdlWDUpdeJLPjlXOetQ45WWDBHN6AnmRE98lM', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoieE9hR1doR1lVTnRYT1VxVkJKRkt1NnJleDBwOEVkUFp1eG1ocXhWYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716549172);
+('0GdRRLpuyNPsYAQ8R3p9Vdwiou4GF2soqYrjAyZ6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiYlMydkV0QTdpZXVDTU9kbnhaUlZJQkM4UlpaNHlFVjJCZmdpY3RHUyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRkY29udGVzdHZpZXciO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716893395);
 
 -- --------------------------------------------------------
 
@@ -755,6 +770,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nortifications`
+--
+ALTER TABLE `nortifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -878,6 +899,12 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `nortifications`
+--
+ALTER TABLE `nortifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `payment_requests`
 --
 ALTER TABLE `payment_requests`
@@ -905,7 +932,7 @@ ALTER TABLE `play_contests`
 -- AUTO_INCREMENT for table `points`
 --
 ALTER TABLE `points`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `students`
