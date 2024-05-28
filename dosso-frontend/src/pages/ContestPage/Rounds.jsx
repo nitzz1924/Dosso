@@ -40,7 +40,7 @@ const Rounds = props => {
   const navigate = useNavigate()
   const location = useLocation()
   const data = location.state
-  document.title = "Join Contest"
+  document.title = "Participate"
 
   const [activeTab, setActiveTab] = useState("1")
   const [winzonedata, setWinzoneData] = useState([])
@@ -89,7 +89,7 @@ const Rounds = props => {
       )
       .then(response => {
         console.log(JSON.stringify(response.data))
-        swal("Great!", "Participation Successful!", "success").then(() => {
+        swal("Great!", "Course has been prebooked!", "success").then(() => {
           navigate(-1) // Redirect to '/other-page'
         })
       })

@@ -112,7 +112,7 @@ const Playslots = ({ data }) => {
         studentid: getLocalData("userId"),
         contestid: data.id,
         point: newTotalSum,
-        playcontestid : data.playcontestid,
+        playcontestid: data.playcontestid,
         status: 1,
       })
       console.log(dataList)

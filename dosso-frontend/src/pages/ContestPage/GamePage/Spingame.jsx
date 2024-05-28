@@ -12,7 +12,7 @@ const Spingame = () => {
     return (
         <>
             <div className="page-content">
-                <Container fluid className=''>
+                <Container fluid className='mb-3'>
                     <Row className="justify-content-center ">
                         <Col lg="3" className=" ">
                             

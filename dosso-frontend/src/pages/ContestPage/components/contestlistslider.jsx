@@ -141,7 +141,7 @@ const Contestlistslider = ({ title }) => {
                         }
                         disabled={item.status === "2" ? false : true}
                       >
-                        {item.status === "2" ? "Join Contest" : "Coming Soon!"}
+                        {item.status === "2" ? "Participate" : "Coming Soon!"}
                       </button>
                     </div>
                   </div>
