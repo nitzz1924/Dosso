@@ -102,6 +102,7 @@
     "simplebar-react": "^2.4.1",
     "styled-components": "^6.1.8",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.11.0",
     "swiper": "^8.4.5",
     "toastr": "^2.1.4",
     "yup": "^0.32.11"

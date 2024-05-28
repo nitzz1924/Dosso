@@ -90,7 +90,7 @@ const Rounds = props => {
       .then(response => {
         console.log(JSON.stringify(response.data))
         swal("Great!", "Course has been prebooked!", "success").then(() => {
-          navigate(-1) // Redirect to '/other-page'
+          navigate('/history') // Redirect to '/other-page'
         })
       })
     } catch (error) {

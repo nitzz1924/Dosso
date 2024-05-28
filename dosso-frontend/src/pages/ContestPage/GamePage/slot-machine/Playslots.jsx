@@ -7,7 +7,10 @@ import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
-import swal from "sweetalert"
+import Swal from "sweetalert2"
+import ConfettiExplosion from 'react-confetti-explosion';
+
+import "https://cdn.lordicon.com/lordicon.js"
 
 const Playslots = ({ data }) => {
   const [spincount, setSpincount] = useState(7)
@@ -22,7 +25,8 @@ const Playslots = ({ data }) => {
   const spinAudio = new Audio(playSound2)
   const instantWinAudio = new Audio(instantWin)
   const axiosInstance = axios.create()
-  // Create a new instance of the mock adapter
+  const [isExploding, setIsExploding] = useState(false);
+
   const mockAdapter = new MockAdapter(axiosInstance)
 
   let newTotalSum = 0
@@ -138,6 +142,7 @@ const Playslots = ({ data }) => {
       console.error(error)
     }
   }
+
   function logDisplayedSymbols() {
     if (!slots) return
     const displayedSymbols = []
@@ -186,32 +191,26 @@ const Playslots = ({ data }) => {
       setSpinDisabled(true)
       InsertLastSpin(newTotalSum)
 
+      setIsExploding(true);
 
-      swal({
+      Swal.fire({
         title: "Game Over!",
-        icon: "info",
-        // content: {
-        //   element: "img",
-        //   attributes: {
-        //     src: "https://unsplash.it/400/200",
-        //     height: 200,
-        //     alt: "Custom image",
-        //   },
-        // },
+        html: '<lord-icon src="https://cdn.lordicon.com/ywkwpwhe.json" trigger="hover" style="width:250px;height:250px"></lord-icon>',
         buttons: {
           confirm: {
             text: "View Leaderboard",
             closeModal: true,
           },
         },
-      }).then((value) => {
-        if (value) {
+      }).then((result) => {
+        if (result.isConfirmed) {
           navigate("/leaderbaord", { state: data })
-          swal('Thanks For Playing');
+          Swal.fire('Thanks For Playing');
         }
       });
     }
   }
+  
   useEffect(() => {
     if (!slots) {
       // Select slots once when the component mounts
@@ -230,6 +229,13 @@ const Playslots = ({ data }) => {
   return (
     <>
       <div className="mb-3 ">
+        {isExploding &&
+          <ConfettiExplosion
+            force={1}
+            duration={10000}
+            particleCount={1000}
+            width={1500}
+          />}
         <Container fluid>
           <Row className="justify-content-center">
             <div className="button-ring button-ring-sq">
@@ -239,9 +245,9 @@ const Playslots = ({ data }) => {
                   Your browser does not support the video tag.
                 </video>
                 <div className="content-overlay">
-                  <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
-                    Spin To Play
-                  </div>
+                  {/* <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
+                    Tap To Play
+                  </div> */}
                   <div className="slotcontainer">
                     {slotSymbols.map((symbols, index) => (
                       <div key={index} className="slot linear me-1">
@@ -275,7 +281,7 @@ const Playslots = ({ data }) => {
                       </div>
                     ) : (
                       <button
-                        className="btn btn-dark text-warning  playbtn btn-lg w-75 "
+                        className={(spinDisabled == false ? " playbtn text-warning  " : " ") + "btn btn-dark   btn-lg w-75 "}
                         disabled={spinDisabled}
                         onClick={handlechange}
                       >

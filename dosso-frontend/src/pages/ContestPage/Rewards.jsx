@@ -6,8 +6,6 @@ let IMG = "Assets/images/google-scratch-card.jpg";
 let reward = "Assets/images/gift-box.png";
 import axios from "axios"
 import axiosRetry from "axios-retry"
-import { getLocalData } from "services/global-storage"
-import config from "constants/config"
 import ConfettiExplosion from 'react-confetti-explosion';
 
 const Rewards = () => {
