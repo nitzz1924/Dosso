@@ -55,7 +55,7 @@ const refer = () => {
                     </Row>
                 </Container>
                 <Container className='my-2'>
-                    <Row className="justify-content-center ">
+                    <Row className="justify-content-center mb-4">
                         <Col lg="4" className="p-0">
                             <Row className="">
                                 <Col xs="12" className="justify-items-center d-grid">

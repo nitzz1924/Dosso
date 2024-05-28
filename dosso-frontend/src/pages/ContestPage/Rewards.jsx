@@ -17,39 +17,23 @@ const Rewards = () => {
     const location = useLocation();
     const navigate = useNavigate();
     axiosRetry(axios, { retries: 3 })
-    // Default values in case location.state is null
-    const data = location.state
-    const [contestData, setContestData] = useState([])
-    const [rewardClaimed, setRewardClaimed] = useState(false)
-    const [isExploding, setIsExploding] = useState(false);
-    console.log("Player Data:", data);
 
-    const mycontests = async () => {
-        try {
-            const response = await axios.get(
-                config.apiUrl + "mycontests/" + getLocalData("userId"),
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            )
-            console.log("My Contests Data : ", response.data)
-            setContestData(response.data)
-        } catch (error) {
-            console.log("error", error)
-        } finally {
-            setLoading(false)
-        }
-    }
+    const data = location.state
+    const playcontestid = data.playcontestid;
+    const [rewardClaimed, setRewardClaimed] = useState(() => {
+        const storedClaims = JSON.parse(localStorage.getItem('rewardClaims')) || {};
+        return storedClaims[playcontestid] || false;
+    });
+    const [isExploding, setIsExploding] = useState(false);
 
     useEffect(() => {
-        mycontests()
-    }, [])
+        const storedClaims = JSON.parse(localStorage.getItem('rewardClaims')) || {};
+        storedClaims[playcontestid] = rewardClaimed;
+        localStorage.setItem('rewardClaims', JSON.stringify(storedClaims));
+        console.log(storedClaims);
+    }, [rewardClaimed, playcontestid]);
 
-    if (loading) {
-        return <div>Loading......</div>
-    }
+
     const runConfettiii = (() => {
         setIsExploding(true);
         setRewardClaimed(true);

@@ -8,6 +8,7 @@ import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import swal from "sweetalert"
+
 const Playslots = ({ data }) => {
   const [spincount, setSpincount] = useState(7)
   const [slots, setSlots] = useState(null)
@@ -228,7 +229,7 @@ const Playslots = ({ data }) => {
 
   return (
     <>
-      <div className=" ">
+      <div className="mb-3 ">
         <Container fluid>
           <Row className="justify-content-center">
             <div className="button-ring button-ring-sq">
@@ -274,12 +275,12 @@ const Playslots = ({ data }) => {
                       </div>
                     ) : (
                       <button
-                        className="btn btn-light btn-lg w-75"
+                        className="btn btn-dark text-warning  playbtn btn-lg w-75 "
                         disabled={spinDisabled}
                         onClick={handlechange}
                       >
 
-                        {spinDisabled == false ? "Play Round" : "Wait..."}
+                        {spinDisabled == false ? "Play Round " : "Wait..."}
                         <span>({spincount}/7)</span>
                       </button>
                     )}
@@ -297,7 +298,7 @@ const Playslots = ({ data }) => {
               {spinResults.map((result, index) => (
                 <div key={index}>
                   {index === 0 && result === "" ? (
-                    <div className="fs-4 fw-bold text-center w-100  pt-1  mb-3 linear resultss">
+                    <div className="fs-4 fw-bold text-center w-100  pt-1">
                       Spin Results
                     </div>
                   ) : (

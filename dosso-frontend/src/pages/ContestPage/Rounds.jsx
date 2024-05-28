@@ -300,7 +300,7 @@ const Rounds = props => {
                             <Row>
                               <div className="d-flex justify-content-between align-content-center my-2">
                                 <div className="fs-5 fw-bold my-1 text-center">
-                                  Top 5 Ranking
+                                  Top 3 Ranks
                                 </div>
                                 <Button
                                   onClick={() =>

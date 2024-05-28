@@ -65,7 +65,7 @@ const Contestlistslider = ({ title }) => {
             </div>
             <Link to="/history" className="">
               <button className="btn btn-soft-dark waves-effect waves-light fw-bold ">
-                History
+                My Contest
               </button>
             </Link>
           </div>
@@ -157,6 +157,7 @@ const Contestlistslider = ({ title }) => {
           </div>
         ))}
       </Flicking>
+      <p className="text-center text-muted">THE END</p>
     </div>
   )
 }

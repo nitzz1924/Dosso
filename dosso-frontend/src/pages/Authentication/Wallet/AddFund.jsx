@@ -186,9 +186,9 @@ const AddFund = () => {
                   <div>
                     <h3 className=" fw-bold"> Recharge Your Wallet</h3>
                     <p className="text-muted mb-2">
-                      Current Wallet Amount:{" "}
-                      <span className="text-success fw-bold">
-                        ₹{wallet}
+                      Current Wallet Amount:
+                      <span className="text-info fw-bold ms-1 fs-5">
+                         ₹ {wallet}
                       </span>
                     </p>
                   </div>

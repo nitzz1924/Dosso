@@ -106,7 +106,7 @@ const History = () => {
 
   return (
     <div className="page-content">
-      <Container fluid className="justify-content-center ">
+      <Container fluid className="justify-content-center">
         <Row className="my-2 justify-content-center">
           <Col lg="3" className="d-grid align-content-center">
             <div className="d-flex justify-content-between align-content-center">
@@ -132,19 +132,19 @@ const History = () => {
               resizeOnContentsReady={true}
               renderOnlyVisible={true}
             >
-              {(contestData || []).map((item, key) => (
+              {(contestData || []).sort((a, b) => a.contestwinprice - b.contestwinprice).map((item, key) => (
                 <div className="flicking-viewport vertical shadow-lg" key={key}>
                   <div className="flicking-camera ">
-                    <Card className="mb-3 flicking-panel  rounded-3">
-                      <CardHeader className="bg-white rounded-3 border-bottom d-flex justify-content-between">
+                    <Card className={(item.status === "2" ? "  border-success " : "closed") + "mb-3  border border-2 flicking-panel  rounded-3"}>
+                      <CardHeader className="rounded-3 border-bottom d-flex justify-content-between" >
                         <div className="mb-0 text-muted">
                           <i className="bx bx-time-five text-body me-1"></i>
                           {item.enddate}
                         </div>
 
                         <div className="mb-0">
-                          <span className="badge text-bg-danger fs-6">
-                            {item.status === "2" ? "Active" : ""}
+                          <span className="badge text-bg-success fs-6">
+                            {item.status === "2" ? "Active" : "closed"}
                           </span>
                         </div>
                       </CardHeader>
@@ -159,57 +159,70 @@ const History = () => {
                               ₹{item.totalprice}
                             </span>
                           </div>
-                          <div className=" w-100 p-2 d-flex justify-content-center ">
+                          <div className=" w-100 p-2 d-flex justify-content-around ">
                             <div className="mb-0 me-1">
                               Your Rank:
                               <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
                                 # {item.contestrank}
                               </div>
                             </div>
+                            {item.status === "3" &&
+                              <div className="mb-0 me-1 text-center">
+                                Reward:
+                                <div className="text-dark fs-3 fw-bold ms-1 px-2 bg-warning text-center rounded">
+                                  {item.contestwinprice}
+                                </div>
+                              </div>
+                            }
                           </div>
                         </div>
                       </CardBody>
+                      {item.status !== "3" &&
+                        <CardFooter className="d-flex justify-content-around">
+                          {item.playconteststatus === "2" && (
+                            <button
+                              onClick={() =>
+                                navigate("/rewards", { state: item })
+                              }
+                              className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                            >
+                              Claim Reward
+                            </button>
+                          )}
 
-                      <CardFooter className="d-flex justify-content-around">
-                        <button
-                          onClick={() => handleClick(item)}
-                          disabled={item.playcontestid==item.prid ? true : false}
-                          className={
-                            "btn" +
-                            (item.playconteststatus === "1"
-                              ? " btn-outline-dark "
-                              : item.playconteststatus === "2"
-                              ? " btn-outline-primary "
-                              : " btn-outline-light ") +
-                            "shadow-sm fw-bold fs-5 text-uppercase rounded-3"
-                          }
-                        >
-                          {item.playconteststatus === "1"
-                            ? "Play Now"
-                            : item.playconteststatus === "2"
-                            ? "Payment Request"
-                            : "Yet to start!"}
-                        </button>
-                        {item.playconteststatus === "2" && (
                           <button
-                            onClick={() =>
-                              navigate("/rewards", { state: item })
+                            onClick={() => handleClick(item)}
+                            disabled={item.playcontestid == item.prid ? true : false}
+                            className={
+                              "btn" +
+                              (item.playconteststatus === "1"
+                                ? " btn-dark w-lg rewardCard "
+                                : item.playconteststatus === "2"
+                                  ? " btn-info "
+                                  : " btn-light ") +
+                              "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
                             }
-                            className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-5 text-uppercase rounded-3"
                           >
-                            Reward
+                            {item.playconteststatus === "1"
+                              ? "Play Now"
+                              : item.playconteststatus === "2"
+                                ? "Payment Request"
+                                : "Yet to start!"}
                           </button>
-                        )}
-                      </CardFooter>
+
+                        </CardFooter>
+                      }
                     </Card>
                   </div>
+
                 </div>
               ))}
             </Flicking>
+            <p className="text-center text-muted">THE END</p>
           </Col>
         </Row>
       </Container>
-    </div>
+    </div >
   )
 }
 

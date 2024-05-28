@@ -41,7 +41,7 @@ const WalletStats = ({ wallet, isMenu, toggleMenu }) => {
                 <div className="">
                   <div
                     onClick={() => navigate("/addfund", { state: wallet<=0?'0':wallet })}
-                    className="btn btn-success fw-bold w-md"
+                    className="btn btn-success fw-bold"
                   >
                     Add Money
                   </div>

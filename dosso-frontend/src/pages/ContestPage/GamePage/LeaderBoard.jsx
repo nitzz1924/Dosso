@@ -12,7 +12,7 @@ const LeaderBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  
+
   const [rankingdata, setrankingdata] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -78,15 +78,16 @@ const LeaderBoard = () => {
                             width={25}
                           />
                         </div>
-                        <div className="me-2 fw-bold fs-5">{userRank.studentname}</div>
+                        <div className="me-2 fw-bold fs-6">{userRank.studentname}</div>
                       </div>
+                      <div className="fw-bold fs-6">{userRank.point} pts</div>
                       <Button
                         onClick={() => navigate("/history")}
-                        className="btn btn-light rounded-pill px-3 waves-effect waves-light fw-bold"
+                        className="btn btn-light btn-sm rounded-pill px-3 waves-effect waves-light fw-bold"
                       >
                         Reward
                       </Button>
-                      <div className="fw-bold fs-5">{userRank.point} pts</div>
+
                     </CardBody>
                   </Card>
                 ))}
@@ -101,14 +102,14 @@ const LeaderBoard = () => {
                 <Card className="bg-white shadow-sm mb-2 rounded-3" key={item.id}>
                   <CardBody className="d-flex p-2 justify-content-between align-items-center text-capitalize">
                     <div className="d-flex align-items-center">
-                      <div className="me-2 fs-3 border-end">
-                        {index === 0
+                      <div className="me-2 fs-6 border-end">
+                        # {index === 0
                           ? "🥇"
                           : index === 1
-                          ? "🥈"
-                          : index === 2
-                          ? "🥉"
-                          : index + 1}
+                            ? "🥈"
+                            : index === 2
+                              ? "🥉"
+                              : index + 1}
                       </div>
                       <div className="me-2">
                         <img
@@ -118,9 +119,9 @@ const LeaderBoard = () => {
                           width={25}
                         />
                       </div>
-                      <div className="me-2 fw-bold fs-5">{item.studentname}</div>
+                      <div className="me-2 fw-bold fs-6">{item.studentname}</div>
                     </div>
-                    <div className="fw-bold fs-5">{item.point} pts</div>
+                    <div className="fw-bold fs-6">{item.point} pts</div>
                   </CardBody>
                 </Card>
               ))}

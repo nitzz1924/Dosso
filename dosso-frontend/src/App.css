@@ -601,3 +601,18 @@
     transform: scale(1);
   }
 }
+
+.playbtn {
+  animation: glow 800ms ease-out infinite alternate;
+  
+}
+@keyframes glow {
+  0% {
+  border-color: #D4A34F;
+  box-shadow: 0 0 5px rgba(255, 251, 0, 0.2), inset 0 0 5px rgba(255, 234, 0, 0.1), 0 2px 0 #000;
+  }	
+  100% {
+  border-color: #D4A34F;
+  box-shadow: 0 0 20px rgba(255, 242, 0, 0.6), inset 0 0 10px rgba(255, 191, 0, 0.4), 0 2px 0 #000;
+  }
+}
