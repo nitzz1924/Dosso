@@ -176,7 +176,7 @@ const History = () => {
                               : item.status === "2"
                                 ? " btn-outline-primary "
                                 : " btn-outline-light ") +
-                            "shadow-sm fw-bold fs-5 text-uppercase rounded-3"
+                            "shadow-sm fw-bold fs-6 text-uppercase rounded-3"
                           }
                           disabled={item.status === "0" ? true : false}
                         >
@@ -190,9 +190,9 @@ const History = () => {
 
                         <button
                           onClick={() => navigate("/rewards", { state: item })}
-                          className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-5 text-uppercase rounded-3"
+                          className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-6 text-uppercase rounded-3"
                         >
-                          Reward
+                          Claim Reward
                         </button>
 
                       </CardFooter>

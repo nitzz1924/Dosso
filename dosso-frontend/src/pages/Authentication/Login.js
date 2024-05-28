@@ -31,8 +31,8 @@ const Login = props => {
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
-      username: "1234567899" || "",
-      password: "12345" || "",
+      username: "" || "",
+      password: "" || "",
     },
     validationSchema: Yup.object({
       username: Yup.number().required("Please Enter Your Mobile Number"),
@@ -104,13 +104,13 @@ const Login = props => {
                           value={validation.values.username || ""}
                           invalid={
                             validation.touched.username &&
-                            validation.errors.username
+                              validation.errors.username
                               ? true
                               : false
                           }
                         />
                         {validation.touched.username &&
-                        validation.errors.username ? (
+                          validation.errors.username ? (
                           <FormFeedback type="invalid">
                             {validation.errors.username}
                           </FormFeedback>
@@ -128,13 +128,13 @@ const Login = props => {
                           onBlur={validation.handleBlur}
                           invalid={
                             validation.touched.password &&
-                            validation.errors.password
+                              validation.errors.password
                               ? true
                               : false
                           }
                         />
                         {validation.touched.password &&
-                        validation.errors.password ? (
+                          validation.errors.password ? (
                           <FormFeedback type="invalid">
                             {validation.errors.password}
                           </FormFeedback>
@@ -188,6 +188,9 @@ const Login = props => {
                   © {new Date().getFullYear()} Dosso21. Developed with
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
+                <Link to="/privacypolicy">
+                  <p className="text-muted">Privacy Policy</p>
+                </Link>
               </div>
             </Col>
           </Row>

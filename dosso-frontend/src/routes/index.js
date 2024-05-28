@@ -70,7 +70,7 @@ const authProtectedRoutes = [
   { path: "/pages-timeline", component: <PagesTimeline /> },
   { path: "/pages-faqs", component: <PagesFaqs /> },
   { path: "/pages-pricing", component: <PagesPricing /> },
-  { path: "/privacypolicy", component: <Privacypolicy /> },
+  
   { path: "/termsandcondistions", component: <Termsandcondistions /> },
   { path: "/refundpolicy", component: <Refundpolicy /> },
   { path: "/ourmission", component: <Ourmission /> },
@@ -88,7 +88,7 @@ const publicRoutes = [
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
   { path: "/register", component: <Register /> },
-  
+  { path: "/privacypolicy", component: <Privacypolicy /> },
   
 
 ];

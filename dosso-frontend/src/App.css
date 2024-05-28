@@ -486,22 +486,26 @@
   overflow: hidden;
   background-color: black;
   border-radius: 10% 10% 15% 15%/ 10% 10% 100% 100%;
-  box-shadow: 0 0 0 0px #444,0px 10px 20px rgba(0,0,0,0.8);
- 
+  box-shadow: 0 0 0 0px #444, 0px 10px 20px rgba(0, 0, 0, 0.8);
 }
 
-.button-ring{
+.button-ring {
   /* margin: 30px 0; */
-  position:relative;
-  overflow:hidden;
+  position: relative;
+  overflow: hidden;
   /* height:120px; */
   /* width:120px; */
-  background: linear-gradient(#EBEBEC  15%,#0E100F 50%, #EBEBEC 75%,#0E100F 100%);
+  background: linear-gradient(
+    #ebebec 15%,
+    #0e100f 50%,
+    #ebebec 75%,
+    #0e100f 100%
+  );
   border-radius: 10% 10% 15% 15%/ 10% 10% 100% 100%;
   /* display:flex; */
   /* justify-content: center; */
   /* align-items:center; */
-  box-shadow: 0 0 0 0px #444, 0px 5px 50px rgba(0,0,0,0.5)
+  box-shadow: 0 0 0 0px #444, 0px 5px 50px rgba(0, 0, 0, 0.5);
 }
 
 .video-background {
@@ -570,11 +574,30 @@
 .simplebar-wrapper {
   height: 100% !important;
 }
-.backgroundBg{
+.backgroundBg {
   /* background-image: linear-gradient(#FFDD00, #FF8500); */
 }
 
 .scratchCard {
   border: 2px dashed rgb(135, 135, 135);
   border-radius: 10px;
+}
+
+.rewardCard  {
+  /* filter: drop-shadow(0 0 4px #000); */
+  transition: transform 0.5s;
+  animation: animate 2s linear infinite;
+  transform: scale(0.5);
+}
+
+@keyframes animate {
+  0%, 100% {
+    transform: scale(0.8);
+  }
+  20%, 80% {
+    transform: scale(0.9);
+  }
+  40%, 60% {
+    transform: scale(1);
+  }
 }
