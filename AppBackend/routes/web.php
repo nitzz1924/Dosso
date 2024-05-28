@@ -37,14 +37,22 @@ Route::get('/addvendorview', [ViewController::class, 'addvendorview'])->name('ad
 Route::get('/adshowview', [ViewController::class, 'adshowview'])->name('adshowview');
 Route::get('/kycrecords', [ViewController::class, 'kycrecords'])->name('kycrecords');
 Route::get('/paymentrequests', [ViewController::class, 'paymentrequests'])->name('paymentrequests');
+Route::get('/nortifications', [ViewController::class, 'nortifications'])->name('nortifications');
 
 //Store Routes
 Route::post('/createcontest', [StoreController::class, 'createcontest'])->name('createcontest');
 Route::post('/createvendor', [StoreController::class, 'createvendor'])->name('createvendor');
 Route::post('/createadshow', [StoreController::class, 'createadshow'])->name('createadshow');
 Route::post('/createround', [StoreController::class, 'createround'])->name('createround');
+Route::post('/createnortification', [StoreController::class, 'createnortification'])->name('createnortification');
 
 
+//Delete Routes
+Route::get('/deletenortification/{id}', [StoreController::class, 'deletenortification'])->name('deletenortification');
+
+//Edit & Update Routes
+Route::get('/editnortification/{id}', [StoreController::class, 'editnortification'])->name('editnortification');
+Route::post('/updatenorti', [StoreController::class, 'updatenorti'])->name('updatenorti');
 
 //Authentication Routes
 Route::post('/loginvendor', [AuthenticationController::class, 'loginvendor'])->name('loginvendor');

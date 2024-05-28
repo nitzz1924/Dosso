@@ -13,6 +13,7 @@ use App\Models\PlayerSpin;
 use App\Models\PaymentRequest;
 use App\Models\Wallet;
 use App\Models\Point;
+use App\Models\Nortification;
 use App\Models\Winzone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -524,5 +525,15 @@ class AuthController extends Controller
         // You should implement the actual logic here
         $data = json_encode($payload);
         return hash_hmac('sha256', $data, $saltKey);
+    }
+
+    public function getallnortifications()
+    {
+        $mesagedata = Nortification::get();
+        $dateFormat = 'd-m-Y';
+        foreach ($mesagedata as $all) {
+            $all->created_date = Carbon::parse($all->created_at)->format($dateFormat);
+        }
+        return response()->json($mesagedata);
     }
 }

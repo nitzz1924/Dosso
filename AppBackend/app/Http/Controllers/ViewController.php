@@ -7,6 +7,7 @@ use App\Models\AddShow;
 use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
 use App\Models\Kyc;
+use App\Models\Nortification;
 use App\Models\PaymentRequest;
 use App\Models\PlayContest;
 use App\Models\Students;
@@ -48,12 +49,12 @@ class ViewController extends Controller
     public function balanchesheet()
     {
         $contestdata = AddContest::get();
-        return view('Others.balanchesheet',compact('contestdata'));
+        return view('Others.balanchesheet', compact('contestdata'));
     }
 
     public function getcontestajax($id)
     {
-        $contestdata = BalanceSheet::where('contestid',$id)->get();
+        $contestdata = BalanceSheet::where('contestid', $id)->get();
         $totalAmount = $contestdata->sum('amount');
         $response = [
             'success' => true,
@@ -103,24 +104,29 @@ class ViewController extends Controller
     public function reportpage(Request $request)
     {
         $contestdata = AddContest::find($request->id);
-        $playdata = PlayContest::join('students','play_contests.studentid','students.id')
-            ->select('students.studentname', 'play_contests.*')->where('contestid',$request->id)->orderBy('rank','desc')->get();
-        return view('Others.report', compact('playdata','contestdata'));
+        $playdata = PlayContest::join('students', 'play_contests.studentid', 'students.id')
+            ->select('students.studentname', 'play_contests.*')->where('contestid', $request->id)->orderBy('rank', 'desc')->get();
+        return view('Others.report', compact('playdata', 'contestdata'));
     }
 
     public function kycrecords()
     {
         $kycdata = Kyc::get();
-        return view('Others.kycrecords',compact('kycdata'));
+        return view('Others.kycrecords', compact('kycdata'));
     }
     public function paymentrequests()
-{
-    $paymentdata = PaymentRequest::select('payment_requests.*', 'students.studentname as studentname','students.contactnumber as contactnumber', 'add_contests.title as contest_title')
-        ->join('students', 'payment_requests.playerId', '=', 'students.id')
-        ->join('add_contests', 'payment_requests.contestid', '=', 'add_contests.id')
-        ->paginate(10);
-    // dd($paymentdata);
-    return view('Others.paymentrequests', compact('paymentdata'));
-}
+    {
+        $paymentdata = PaymentRequest::select('payment_requests.*', 'students.studentname as studentname', 'students.contactnumber as contactnumber', 'add_contests.title as contest_title')
+            ->join('students', 'payment_requests.playerId', '=', 'students.id')
+            ->join('add_contests', 'payment_requests.contestid', '=', 'add_contests.id')
+            ->paginate(10);
+        // dd($paymentdata);
+        return view('Others.paymentrequests', compact('paymentdata'));
+    }
 
+    public function nortifications()
+    {
+        $mesagedata = Nortification::get();
+        return view('Others.nortifications',compact('mesagedata'));
+    }
 }

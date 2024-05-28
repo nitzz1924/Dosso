@@ -32,6 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('paymentRequest', 'paymentRequest');
     Route::get('countplaycontests/{id}', 'countplaycontests');
     Route::post('phonepe-payment', 'handlePayment');
+    Route::get('getallnortifications', 'getallnortifications');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');

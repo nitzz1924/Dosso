@@ -94,20 +94,26 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('balanchesheet')}}">
-                        <i class=' bx bx-spreadsheet'></i>
+                        <i class='bx bx-spreadsheet'></i>
                         <span>Balance Sheet</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('kycrecords')}}">
-                        <i class=' bx bx-spreadsheet'></i>
+                        <i class='bx bx-spreadsheet'></i>
                         <span>All KYC's</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{route('paymentrequests')}}">
-                        <i class=' bx bx-spreadsheet'></i>
+                        <i class='bx bx-spreadsheet'></i>
                         <span>All Payment Requests</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{route('nortifications')}}">
+                        <i class='bx bx-bell'></i>
+                        <span>Send Nortifications</span>
                     </a>
                 </li>
             </ul>
