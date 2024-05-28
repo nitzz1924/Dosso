@@ -15,7 +15,6 @@ import {
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 
-
 const Contestlistslider = ({ title }) => {
   const navigate = useNavigate()
   const [contestData, setContestData] = useState([])
@@ -32,7 +31,8 @@ const Contestlistslider = ({ title }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(config.apiUrl+"showcontests",
+        const response = await axiosInstance.get(
+          config.apiUrl + "showcontests",
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -41,7 +41,7 @@ const Contestlistslider = ({ title }) => {
         )
         console.log("Final Data : ", response.data)
         setContestData(response.data)
-      } catch (error) { 
+      } catch (error) {
         console.log("error", error)
       } finally {
         setLoading(false)
@@ -55,13 +55,14 @@ const Contestlistslider = ({ title }) => {
     return <div>Loading......</div>
   }
 
-
   return (
     <div className="">
       <Row className="my-2">
         <Col className="d-grid align-content-center">
           <div className="d-flex justify-content-between align-content-center">
-            <div className="fs-3 fw-bold text-black text-uppercase">{title}</div>
+            <div className="fs-3 fw-bold text-black text-uppercase">
+              {title}
+            </div>
             <Link to="/history" className="">
               <button className="btn btn-soft-dark waves-effect waves-light fw-bold ">
                 History
@@ -99,8 +100,9 @@ const Contestlistslider = ({ title }) => {
                   <div className="text-start">
                     <div className="d-flex justify-content-between">
                       <div>
-                        <div className="fw-bolder fs-3 text-black">{item.title}</div>
-                        
+                        <div className="fw-bolder fs-3 text-black">
+                          {item.title}
+                        </div>
                       </div>
                       <div>
                         Entry Fees
@@ -121,7 +123,9 @@ const Contestlistslider = ({ title }) => {
                         style={{ height: "5px" }}
                       ></Progress>
                       <div className="float-start text-danger progress-text fw-bold">
-                        {Number(item.joinmembers) - Number(item.play_contests_count)} Spots left
+                        {Number(item.joinmembers) -
+                          Number(item.play_contests_count)}{" "}
+                        Spots left
                       </div>
                       <div className="float-end text-muted progress-text">
                         {Number(item.joinmembers)} Spots
@@ -154,7 +158,7 @@ const Contestlistslider = ({ title }) => {
         ))}
       </Flicking>
     </div>
-  );
-};
+  )
+}
 
-export default Contestlistslider;
+export default Contestlistslider

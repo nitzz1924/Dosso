@@ -71,6 +71,7 @@ const Rounds = props => {
           amount: data.registrationfees,
           transactiontype: "Wallet",
           paymenttype: "Debit",
+          contestid : data.id,
           status: 0,
         },
       )

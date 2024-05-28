@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2024 at 07:41 AM
+-- Generation Time: May 28, 2024 at 07:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,8 @@ CREATE TABLE `add_contests` (
 --
 
 INSERT INTO `add_contests` (`id`, `title`, `startdate`, `enddate`, `registrationfees`, `totalprice`, `totalspin`, `thumbnail`, `joinmembers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-21 10:35:23'),
-(2, 'dummy contest', '2024-05-17T17:28', '2024-05-18T06:29', '200', '400', '2', '1715947142.png', '80000', '2', '2024-05-17 06:29:02', '2024-05-21 05:01:45');
+(1, 'SHAGUN51-2425001', '2024-05-03', '2024-05-05', '51', '7650000', '7', '1714725337.png', '151000', '2', '2024-05-03 03:05:37', '2024-05-25 13:07:08'),
+(2, 'SHAGUN10-2425002', '2024-05-17T17:28', '2024-05-18T06:29', '10', '2000', '7', '1715947142.png', '2000', '2', '2024-05-17 06:29:02', '2024-05-25 13:05:55');
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ CREATE TABLE `add_shows` (
   `id` int(11) NOT NULL,
   `adstitle` varchar(255) NOT NULL,
   `displayshow` varchar(255) NOT NULL,
-  `url` text NOT NULL DEFAULT '0',
+  `url` text DEFAULT NULL,
   `redirectlink` text NOT NULL,
   `mediatype` varchar(255) NOT NULL,
   `addimage` text DEFAULT NULL,
@@ -348,17 +348,17 @@ CREATE TABLE `payment_requests` (
   `message` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `status` int(11) NOT NULL DEFAULT 1
+  `status` int(11) NOT NULL DEFAULT 1,
+  `playcontestid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `payment_requests`
 --
 
-INSERT INTO `payment_requests` (`id`, `playerId`, `contestid`, `amount`, `rank`, `message`, `created_at`, `updated_at`, `status`) VALUES
-(1, '23', '121', 50000, 15, NULL, '2024-05-21 23:35:16', '2024-05-21 23:35:16', 1),
-(2, '23', '1121', 50000, 25, NULL, '2024-05-21 23:36:17', '2024-05-21 23:36:17', 1),
-(3, '10014', '1', 7000, 6, NULL, '2024-05-22 00:03:52', '2024-05-22 00:03:52', 1);
+INSERT INTO `payment_requests` (`id`, `playerId`, `contestid`, `amount`, `rank`, `message`, `created_at`, `updated_at`, `status`, `playcontestid`) VALUES
+(15, '10014', '1', 3243254, 2, NULL, '2024-05-27 12:45:09', '2024-05-27 12:45:09', 1, 6),
+(22, '10014', '1', 2000, 5, NULL, '2024-05-28 04:50:24', '2024-05-28 04:50:24', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -421,7 +421,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (35, 'App\\Models\\Students', 10014, 'MyApp', 'cb0a447b660b6a637cee01734fb6cc3d3c2a37324dd5b6f09e0ad7041424249c', '[\"*\"]', NULL, NULL, '2024-05-21 04:10:56', '2024-05-21 04:10:56'),
 (36, 'App\\Models\\Students', 10014, 'MyApp', '32201088f39b1b816fef2d3650e35fd9cd959f070551b63771fa12bc5c946691', '[\"*\"]', NULL, NULL, '2024-05-21 04:24:36', '2024-05-21 04:24:36'),
 (37, 'App\\Models\\Students', 10014, 'MyApp', 'cdeed41e0353d4165f2034d9080944148f7cb5721d983cf1b5971c0ef63bd182', '[\"*\"]', NULL, NULL, '2024-05-21 04:26:19', '2024-05-21 04:26:19'),
-(38, 'App\\Models\\Students', 10014, 'MyApp', 'd41609271538f9089a79211d16140331d1c31590b88863f1f6109ddf03dfeffa', '[\"*\"]', NULL, NULL, '2024-05-21 04:27:24', '2024-05-21 04:27:24');
+(38, 'App\\Models\\Students', 10014, 'MyApp', 'd41609271538f9089a79211d16140331d1c31590b88863f1f6109ddf03dfeffa', '[\"*\"]', NULL, NULL, '2024-05-21 04:27:24', '2024-05-21 04:27:24'),
+(39, 'App\\Models\\Students', 10014, 'MyApp', '7c302edd7ba68fdf616dafe11b8969516f68af5a0617d056ec3e43ac4ba25f68', '[\"*\"]', NULL, NULL, '2024-05-22 00:32:17', '2024-05-22 00:32:17'),
+(40, 'App\\Models\\Students', 10014, 'MyApp', '20ba8fe564f0c9d15a93de5c8df7f0aa239968bee5552d2edc5a8886d4c82ed3', '[\"*\"]', NULL, NULL, '2024-05-27 00:38:13', '2024-05-27 00:38:13'),
+(41, 'App\\Models\\Students', 10014, 'MyApp', '635c947c36a40e245cbe68aba7c2b5a169ac5e2e31fefa1cd1d37119069c0e3e', '[\"*\"]', NULL, NULL, '2024-05-27 01:48:20', '2024-05-27 01:48:20');
 
 -- --------------------------------------------------------
 
@@ -458,9 +461,9 @@ CREATE TABLE `play_contests` (
   `studentid` varchar(255) NOT NULL,
   `contestid` varchar(255) NOT NULL,
   `conteststatus` varchar(255) NOT NULL,
-  `rank` varchar(255) NOT NULL,
-  `winningprice` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `rank` varchar(255) DEFAULT NULL,
+  `winningprice` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -470,9 +473,8 @@ CREATE TABLE `play_contests` (
 --
 
 INSERT INTO `play_contests` (`id`, `studentid`, `contestid`, `conteststatus`, `rank`, `winningprice`, `status`, `created_at`, `updated_at`) VALUES
-(1, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 10:11:02'),
-(2, '10012', '1', '2', '5', '2000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57'),
-(3, '10014', '1', '2', '6', '7000', '1', '2024-05-08 06:00:35', '2024-05-17 11:38:57');
+(6, '10014', '1', '2', '2', '3243254', '1', '2024-05-27 12:08:34', '2024-05-27 12:13:28'),
+(7, '10014', '1', '2', '5', '2000', '1', '2024-05-28 04:42:42', '2024-05-28 04:43:47');
 
 -- --------------------------------------------------------
 
@@ -494,16 +496,12 @@ CREATE TABLE `points` (
 --
 
 INSERT INTO `points` (`id`, `point`, `studentId`, `contestId`, `created_at`, `updated_at`) VALUES
-(1, 500, '10013', '1', '2024-05-03 07:17:06', '2024-05-03 07:17:06'),
-(2, 600, '10012', '1', '2024-05-03 07:19:40', '2024-05-03 07:19:40'),
-(4, 9000, '10011', '1', '2024-05-03 07:31:57', '2024-05-03 07:31:57'),
-(5, 5, '12', '1021', '2024-05-18 06:19:15', '2024-05-18 06:19:15'),
-(6, 5, '123', '1021', '2024-05-18 06:28:26', '2024-05-18 06:28:26'),
-(7, 5, '123', '1021', '2024-05-18 06:28:42', '2024-05-18 06:28:42'),
-(8, 4563543, '10008', '1', '2024-05-18 06:29:42', '2024-05-18 06:29:42'),
-(9, 7926100, '10009', '1', '2024-05-18 06:30:07', '2024-05-18 06:30:07'),
 (10, 2765219, '10014', '1', '2024-05-18 06:31:27', '2024-05-18 06:31:27'),
-(11, 48934353, '10010', '1', '2024-05-18 06:34:58', '2024-05-18 06:34:58');
+(11, 48934353, '10012', '1', '2024-05-18 06:34:58', '2024-05-18 06:34:58'),
+(12, 48353, '10013', '1', '2024-05-18 06:34:58', '2024-05-18 06:34:58'),
+(13, 47055370, '10014', '1', '2024-05-24 23:47:23', '2024-05-24 23:47:23'),
+(14, 39084750, '10014', '1', '2024-05-25 02:46:02', '2024-05-25 02:46:02'),
+(15, 33999389, '10014', '1', '2024-05-27 12:10:31', '2024-05-27 12:10:31');
 
 -- --------------------------------------------------------
 
@@ -525,8 +523,15 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('5JYCdQMlfLIJcNMLeQK60Uzfj2jSLiz3JusCFBZK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY29zVVkzRng4WWpxcVFGOExmNzhyU2R1VUl0RHFiVXg1VWFNcFMzQSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWxhbmNoZXNoZWV0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1716356222),
-('Dp7EygqGmYvAMIwWtzLwngUuxxpNNU4HdI1m5FlO', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWjRZYnJuZHM3bWVPZXhmRElzTEVIc1QwNGxTTEVPNE9lZUY5YXFQZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93aW5uaW5ncmVwb3J0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716287532);
+('2JvviodsLHhEk2TcYysSSY80QkzCZccT4kWbI3TQ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiY1JSMnlpQWhVVWtLUjA0Tnpxczh5bldXRjJTZWlpY05aekhVNUNYVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716447451),
+('ECtlHFhSOMUH4sz1QXmlvxwzDqhEZcBOOQocu83l', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoic2NJS2poME1OQlBqa294dTllcjRxQjVwOEc3NUxjNXl4SnZURGp6OSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716381722),
+('h0mqgCOLLWPfyxySwDE2LQOyiVM8O3E0EbISCjLb', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiT3dMN0hDNDhGUDRmWVlWR1h0TVBLWUtiRXk1b0RIcEJnTG1Vblo4cSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wYXltZW50cmVxdWVzdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716438780),
+('iWZU0HENE6tSwX31Cd5s6Q3oJxn7GH3GTFTz0oM3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSXdQMG1JeEZoSldIOWxvTG91emM4YTd0Y2ZVbjdZS0lsU2tqblBuZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716614025),
+('KAo8clLgcqT2k0kjaCQLA5UAXvHljhng5ywAWwqY', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZDB5MzNUR1BhOE12MHlhdWRhazFvVjJvTTZXTG5PSzB6TE1sYzJhTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC93aW5uaW5ncmVwb3J0dmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkd2w5bEYub3FnTEJleC52UVppOElidTJ0cGFELzRGQ3RrcExhVVFhS0UxTTVmNHplSnYxMDYiO30=', 1716870913),
+('lYlrJtQJ9n82PUoEW9oukgpY0ZZzriGBKEkn5Tp3', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiOHg2WWkzd0pYSG4yWmpYU0JEV2tlMW5zV0lvRUZoazZIdmNCaElraCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZHNob3d2aWV3Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiR3bDlsRi5vcWdMQmV4LnZRWmk4SWJ1MnRwYUQvNEZDdGtwTGFVUWFLRTFNNWY0emVKdjEwNiI7fQ==', 1716640975),
+('my8xRNyJWtpmChnHCjDAvvhgYI2qTeO9zefXwLru', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaTlicEN4aEh1d3RMS1oxMnR2N0tFcUFVNkMyekx1OWQ5d212bjJyOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716804330),
+('njqPtESW1PwCOQfiOZRP8PZwwMLjOLr0qrj3nSNn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVzI0MzViem1uazFYNnNDa3RGNU42SldWVjVqMk92Z3ljN2YzQ3NBZCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716793456),
+('qDNYdlWDUpdeJLPjlXOetQ45WWDBHN6AnmRE98lM', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoieE9hR1doR1lVTnRYT1VxVkJKRkt1NnJleDBwOEVkUFp1eG1ocXhWYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHdsOWxGLm9xZ0xCZXgudlFaaThJYnUydHBhRC80RkN0a3BMYVVRYUtFMU01ZjR6ZUp2MTA2Ijt9', 1716549172);
 
 -- --------------------------------------------------------
 
@@ -621,10 +626,18 @@ CREATE TABLE `wallets` (
 --
 
 INSERT INTO `wallets` (`id`, `userid`, `transactionid`, `amount`, `paymenttype`, `transactiontype`, `status`, `created_at`, `updated_at`) VALUES
-(1, '10014', '12', 1000, 'credit', 'PhonePe', '0', '2024-05-20 07:24:18', '2024-05-20 07:25:18'),
-(7, '10014', '15', 10000, 'Credit', 'PhonePe', '0', '2024-05-20 06:04:52', '2024-05-20 06:04:52'),
-(8, '10014', '15', 2500, 'Credit', 'PhonePe', '0', '2024-05-20 06:07:47', '2024-05-20 06:07:47'),
-(9, '10014', '15', 500, 'Credit', 'PhonePe', '0', '2024-05-20 06:08:46', '2024-05-20 06:08:46');
+(10, '10014', '15', 5, 'Credit', 'PhonePe', '0', '2024-05-27 00:13:12', '2024-05-27 07:46:36'),
+(11, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 00:24:16', '2024-05-27 00:24:16'),
+(12, '10014', '15', 500, 'Credit', 'PhonePe', '0', '2024-05-27 03:10:38', '2024-05-27 03:10:38'),
+(13, '10014', '15', 500, 'Credit', 'PhonePe', '0', '2024-05-27 03:12:42', '2024-05-27 03:12:42'),
+(14, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 04:02:45', '2024-05-27 04:02:45'),
+(15, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 04:52:55', '2024-05-27 04:52:55'),
+(16, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 04:53:35', '2024-05-27 04:53:35'),
+(17, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 04:54:20', '2024-05-27 04:54:20'),
+(18, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 04:55:12', '2024-05-27 04:55:12'),
+(19, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-27 12:08:34', '2024-05-27 12:08:34'),
+(20, '10014', '15', 51, 'Debit', 'Wallet', '0', '2024-05-28 04:42:42', '2024-05-28 04:42:42'),
+(21, '10014', '15', 8000, 'Credit', 'PhonePe', '0', '2024-05-28 05:04:46', '2024-05-28 05:04:46');
 
 -- --------------------------------------------------------
 
@@ -868,13 +881,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payment_requests`
 --
 ALTER TABLE `payment_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `player_spins`
@@ -883,10 +896,16 @@ ALTER TABLE `player_spins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `play_contests`
+--
+ALTER TABLE `play_contests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `points`
 --
 ALTER TABLE `points`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -904,7 +923,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `winzones`

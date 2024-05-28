@@ -10,7 +10,6 @@ import {
   Container,
   CardFooter,
   CardHeader,
-  Progress,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -19,23 +18,42 @@ import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
 import swal from "sweetalert"
+import { toUpper } from "lodash"
 
 const History = () => {
   const [loading, setLoading] = useState(true)
   const [contestData, setContestData] = useState([])
+  const [disabledContests, setDisabledContests] = useState(false)
   const navigate = useNavigate()
-  // Create a new instance of axios
   const axiosInstance = axios.create()
   const mockAdapter = new MockAdapter(axiosInstance)
-
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
 
+  const mycontests = async () => {
+    try {
+      const response = await axios.get(
+        config.apiUrl + "mycontests/" + getLocalData("userId"),
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      console.log("My Contests Data : ", response.data)
+      setContestData(response.data)
+    } catch (error) {
+      console.log("error", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleClick = contest => {
     console.log(contest)
-    if (contest.status === "1") {
-      navigate("/rounds", { state: contest })
-    } else if (contest.status === "2") {
+    if (contest.playconteststatus === "1") {
+      navigate("/spingame", { state: contest })
+    } else if (contest.playconteststatus === "2") {
       console.log(contest)
       requestPayment(contest)
     }
@@ -50,6 +68,7 @@ const History = () => {
         contestid: item.id,
         amount: item.contestwinprice,
         rank: item.contestrank,
+        playcontestid: item.playcontestid,
       })
       // Mock the HTTP request
       mockAdapter
@@ -64,7 +83,8 @@ const History = () => {
         .then(response => {
           console.log(JSON.stringify(response.data))
           swal("Great!", "Payment Request Sent", "success").then(() => {
-            navigate("/history")
+            setContestData([])
+            mycontests()
           })
         })
         .catch(error => {
@@ -75,32 +95,15 @@ const History = () => {
       console.error(error)
     }
   }
-  useEffect(() => {
-    const mycontests = async () => {
-      try {
-        const response = await axios.get(
-          config.apiUrl + "mycontests/" + getLocalData("userId"),
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        console.log("My Contests Data : ", response.data)
-        setContestData(response.data)
-      } catch (error) {
-        console.log("error", error)
-      } finally {
-        setLoading(false)
-      }
-    }
 
+  useEffect(() => {
     mycontests()
   }, [])
 
   if (loading) {
     return <div>Loading......</div>
   }
+
   return (
     <div className="page-content">
       <Container fluid className="justify-content-center ">
@@ -151,8 +154,10 @@ const History = () => {
                             {item.title}
                           </div>
                           <div className="mb-0 text-muted text-center">
-                            🏆
-                            Prize pool: <span className="text-dark fw-bold">₹{item.totalprice}</span>
+                            🏆 Prize pool:{" "}
+                            <span className="text-dark fw-bold">
+                              ₹{item.totalprice}
+                            </span>
                           </div>
                           <div className=" w-100 p-2 d-flex justify-content-center ">
                             <div className="mb-0 me-1">
@@ -166,35 +171,35 @@ const History = () => {
                       </CardBody>
 
                       <CardFooter className="d-flex justify-content-around">
-
                         <button
                           onClick={() => handleClick(item)}
+                          disabled={item.playcontestid==item.prid ? true : false}
                           className={
                             "btn" +
-                            (item.status === "1"
+                            (item.playconteststatus === "1"
                               ? " btn-outline-dark "
-                              : item.status === "2"
-                                ? " btn-outline-primary "
-                                : " btn-outline-light ") +
+                              : item.playconteststatus === "2"
+                              ? " btn-outline-primary "
+                              : " btn-outline-light ") +
                             "shadow-sm fw-bold fs-5 text-uppercase rounded-3"
                           }
-                          disabled={item.status === "0" ? true : false}
                         >
-                          {item.status === "1"
+                          {item.playconteststatus === "1"
                             ? "Play Now"
-                            : item.status === "2"
-                              ? "Payment Request"
-                              : "Yet to start!"}
+                            : item.playconteststatus === "2"
+                            ? "Payment Request"
+                            : "Yet to start!"}
                         </button>
-
-
-                        <button
-                          onClick={() => navigate("/rewards", { state: item })}
-                          className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-5 text-uppercase rounded-3"
-                        >
-                          Reward
-                        </button>
-
+                        {item.playconteststatus === "2" && (
+                          <button
+                            onClick={() =>
+                              navigate("/rewards", { state: item })
+                            }
+                            className="btn btn-outline-success waves-effect waves-light fw-bold shadow fs-5 text-uppercase rounded-3"
+                          >
+                            Reward
+                          </button>
+                        )}
                       </CardFooter>
                     </Card>
                   </div>

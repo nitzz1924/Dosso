@@ -8,7 +8,7 @@ use App\Models\Students;
 use App\Models\AddContest;
 class PaymentRequest extends Model
 {
-    protected $fillable = ['id','contestid','userid','amount','rank','message','status'];
+    protected $fillable = ['id','contestid','userid','amount','rank','message','status', "playcontestid"];
 
     public function student()
     {
