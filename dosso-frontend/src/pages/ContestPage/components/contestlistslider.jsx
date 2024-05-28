@@ -14,6 +14,7 @@ import {
   Progress,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
+import Countdown from "react-countdown";
 
 const Contestlistslider = ({ title }) => {
   const navigate = useNavigate()
@@ -87,26 +88,26 @@ const Contestlistslider = ({ title }) => {
                 <CardHeader className="bg-white rounded-3 border-bottom d-flex justify-content-between">
                   <div className="mb-0 text-muted">
                     <i className="bx bx-time-five text-body me-1"></i>
-                    {item.enddate}
+                    <Countdown date={item.enddate} />
                   </div>
 
                   <div className="mb-0">
-                    <span className="badge text-bg-danger fs-6">
+                    <span className="badge text-bg-success fs-6">
                       {item.status === "2" ? "Active" : ""}
                     </span>
                   </div>
                 </CardHeader>
                 <CardBody className="p-3">
                   <div className="text-start">
-                    <div className="d-flex justify-content-between">
-                      <div>
-                        <div className="fw-bolder fs-3 text-black">
-                          {item.title}
-                        </div>
+                    <div className="d-flex justify-content-between align-items-center">
+
+                      <div className="fw-bolder fs-3 text-black">
+                        {item.title}
                       </div>
+
                       <div>
                         Entry Fees
-                        <div className="badge text-bg-warning d-grid justify-content-center">
+                        <div className="badge text-bg-info d-grid justify-content-center">
                           <span className="text-center round-text text-white">
                             ₹ {item.registrationfees}
                           </span>
@@ -136,8 +137,8 @@ const Contestlistslider = ({ title }) => {
                         onClick={() => handleClick(item)}
                         className={
                           "btn" +
-                          (item.status === "2" ? " btn-dark " : " btn-light ") +
-                          "shadow w-100 fw-bold fs-5 text-uppercase rounded-5"
+                          (item.status === "2" ? " btn-outline-dark " : " btn-light ") +
+                          "shadow-sm w-100 fw-bold fs-5 text-uppercase rounded-5"
                         }
                         disabled={item.status === "2" ? false : true}
                       >

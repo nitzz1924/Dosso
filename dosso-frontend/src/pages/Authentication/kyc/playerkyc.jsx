@@ -18,7 +18,7 @@ import Dropzone from "react-dropzone"
 import { Link , useNavigate } from "react-router-dom"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 
 const Playerkyc = () => {
@@ -98,7 +98,7 @@ const Playerkyc = () => {
         .then(response => response.json())
         .then(data => {
           console.log(data)
-          swal("Great!", "Your KYC had successfully Inserted!", "success")
+          Swal.fire("Great!", "Your KYC had successfully Inserted!", "success")
           .then(() => {
             navigate('/myFund');
           });

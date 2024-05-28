@@ -82,7 +82,7 @@ const AddFund = () => {
           .post(config.apiUrl + "insertwallet", dataList[0], {})
           .then(response => {
             console.log(JSON.stringify(response.data))
-            swal("Great!", "Amount Added Successfully!", "success").then(() => {
+            Swal.fire("Great!", "Amount Added Successfully!", "success").then(() => {
               navigate(-1) // Redirect to '/other-page'
             })
           })
@@ -123,7 +123,7 @@ const AddFund = () => {
       })
       .then(response => {
         console.log(JSON.stringify(response.data))
-        swal("Great!", "Payment Successfully!", "success").then(() => {
+        Swal.fire("Great!", "Payment Successfully!", "success").then(() => {
         })
       })
       .catch(error => {
@@ -149,7 +149,7 @@ const AddFund = () => {
   //     const salt = 'b7dbb332-a97f-4dfc-b6eb-64d397216248'; // Replace with your actual salt key
   //     const hash = CryptoJS.SHA256(payloadString + salt + '/pg/v1/pay' + 'b7dbb332-a97f-4dfc-b6eb-64d397216248').toString();
   //     const xVerifyHeader = hash + '###1'; // Assuming '1' is the version
-  
+
   //     const response = await axios.post(
   //       "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
   //       jsonToBase64(payload),
@@ -160,12 +160,12 @@ const AddFund = () => {
   //         }
   //       }
   //     );
-  
+
   //     console.log(response.data);
   //   } catch (error) {
   //     console.error(error);
   //   }
-   
+
   // }
   function jsonToBase64(jsonData) {
     const jsonString = JSON.stringify(jsonData); // Convert JSON object to string
@@ -188,7 +188,7 @@ const AddFund = () => {
                     <p className="text-muted mb-2">
                       Current Wallet Amount:
                       <span className="text-info fw-bold ms-1 fs-5">
-                         ₹ {wallet}
+                        ₹ {wallet}
                       </span>
                     </p>
                   </div>
@@ -234,7 +234,7 @@ const AddFund = () => {
                               Min value: ₹500 & Max value: ₹10,000
                             </FormText>
                             {validation.touched.initialAmount &&
-                            validation.errors.initialAmount ? (
+                              validation.errors.initialAmount ? (
                               <FormFeedback type="invalid">
                                 {validation.errors.initialAmount}
                               </FormFeedback>

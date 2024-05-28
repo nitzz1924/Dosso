@@ -17,7 +17,7 @@ import axiosRetry from "axios-retry"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
-import swal from "sweetalert"
+import Swal from "sweetalert2"
 import { toUpper } from "lodash"
 
 const History = () => {
@@ -82,7 +82,7 @@ const History = () => {
         })
         .then(response => {
           console.log(JSON.stringify(response.data))
-          swal("Great!", "Payment Request Sent", "success").then(() => {
+          Swal.fire("Great!", "Payment Request Sent", "success").then(() => {
             setContestData([])
             mycontests()
           })

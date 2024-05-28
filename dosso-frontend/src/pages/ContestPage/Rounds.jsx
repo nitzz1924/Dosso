@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import axiosRetry from "axios-retry"
 import config from "constants/config"
-import swal from "sweetalert"
+import Swal from "sweetalert2"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
 
@@ -89,13 +89,13 @@ const Rounds = props => {
       )
       .then(response => {
         console.log(JSON.stringify(response.data))
-        swal("Great!", "Course has been prebooked!", "success").then(() => {
+        Swal.fire("Great!", "Course has been prebooked!", "success").then(() => {
           navigate('/history') // Redirect to '/other-page'
         })
       })
     } catch (error) {
       console.error("Error in insertwallet:", error)
-      swal(
+      Swal.fire(
         "Error",
         "There was an error processing your request. Please try again.",
         "error"

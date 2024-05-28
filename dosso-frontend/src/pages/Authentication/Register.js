@@ -9,7 +9,7 @@ import { registerUser, apiError } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import config from "constants/config";
 
 
@@ -115,7 +115,7 @@ const Register = props => {
         })
           .then((response) => {
             console.log(JSON.stringify(response.data));
-            swal("Great!", "Your Account created!", "success")
+            Swal.fire("Great!", "Your Account created!", "success")
               .then(() => {
                 navigate('/login');
               });
