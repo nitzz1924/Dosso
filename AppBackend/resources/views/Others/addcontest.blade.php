@@ -166,9 +166,9 @@ MAHADEV🔱--------------------------------------------------------------- --}}
                                     </td>
                                     <td>
                                         <select class="form-select" id="conteststatus" name="totalspin">
-                                            <option value="0" selected>Activate</option>
-                                            <option value="1">Deactivate</option>
-                                            <option value="2">Completed</option>
+                                            <option value="1" selected>Deactivate</option>
+                                            <option value="2" >Activate</option>
+                                            <option value="3">Completed</option>
                                         </select>
                                         <input type="hidden" name="contestid" value="{{$row->id}}" class="contestid">
                                     </td>
