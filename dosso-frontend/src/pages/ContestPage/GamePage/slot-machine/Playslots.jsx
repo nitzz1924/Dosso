@@ -11,7 +11,7 @@ import Swal from "sweetalert2"
 import ConfettiExplosion from 'react-confetti-explosion';
 const instantWin = "/Assets/images/instantWin.wav"
 const playSound2 = "/Assets/images/metalcraking.mp3"
-let gameOver = "/Assets/images/game-over.gif"
+let gameOver = "/Assets/images/flag.png"
 
 import "https://cdn.lordicon.com/lordicon.js"
 
@@ -198,8 +198,8 @@ const Playslots = ({ data }) => {
       setIsExploding(true);
 
       Swal.fire({
-        // title: "Game Over!",
-        html: "<img src='" + {gameOver} + "' style='width:150px;'>",
+        title: "Turn Complete!",
+        html: "<img src='/Assets/images/confetti.gif' style='width:100px;'>",
         buttons: {
           confirm: {
             text: "View Leaderboard",
@@ -272,10 +272,10 @@ const Playslots = ({ data }) => {
 
                     {gameComplete ? (
                       <div className="d-flex flex-column ">
-                        {/* <div className="fw-bold fs-1 text-white text-uppercase text-center">
-                          Thanks For Playing
+                        <div className="fw-bold fs-1 text-white text-center">
+                          Thanks For Playing!
                         </div>
-                        <button
+                        {/* <button
                           onClick={() =>
                             navigate("/leaderbaord", { state: data })
                           }

@@ -254,7 +254,7 @@ const Register = props => {
                     <Form>
                       {isValid && showOTPInput && ( // Conditionally render OTP input section
                         <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
-                        Enter OTP
+                        Enter OTP: {generatedOTP}
                           <OTPInput
                             value={enteredOTP}
                             onChange={handleChange}
@@ -315,14 +315,13 @@ const Register = props => {
               </Card>
               <div className="mt-5 text-center text-black">
                 <p>
-                  Already have an account ?{" "}
+                  Already have an account ?
                   <Link to="/login" className="font-weight-medium text-secondary">
-                    {" "}
                     Login
-                  </Link>{" "}
+                  </Link>
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dosso21. Crafted with{" "}
+                  © {new Date().getFullYear()} Dosso21. Crafted with
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
