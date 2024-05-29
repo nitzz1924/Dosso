@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Container, Row, Col } from "reactstrap"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-let instantWin = "/Assets/images/instantWin.wav"
-let playSound2 = "/Assets/images/metalcraking.mp3"
+// let instantWin = "/Assets/images/instantWin.wav"
+// let playSound2 = "/Assets/images/metalcraking.mp3"
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import Swal from "sweetalert2"
 import ConfettiExplosion from 'react-confetti-explosion';
+const instantWin = "/Assets/images/instantWin.wav"
+const playSound2 = "/Assets/images/metalcraking.mp3"
+let gameOver = "/Assets/images/game-over.gif"
 
 import "https://cdn.lordicon.com/lordicon.js"
 
@@ -22,8 +25,8 @@ const Playslots = ({ data }) => {
   const [spinResults, setSpinResults] = useState(
     Array.from({ length: 8 }, () => "")
   )
-  const spinAudio = new Audio(playSound2)
-  const instantWinAudio = new Audio(instantWin)
+  const spinAudio = useRef(new Audio(playSound2));
+  const instantWinAudio = useRef(new Audio(instantWin));
   const axiosInstance = axios.create()
   const [isExploding, setIsExploding] = useState(false);
 
@@ -175,7 +178,7 @@ const Playslots = ({ data }) => {
     newTotalSum = totalSum + newSpinResult // Calculate the new total sum
     setTotalSum(newTotalSum)
 
-    instantWinAudio.play()
+    instantWinAudio.current.play();
 
     console.log(
       displayedSymbols,
@@ -195,8 +198,8 @@ const Playslots = ({ data }) => {
       setIsExploding(true);
 
       Swal.fire({
-        title: "Game Over!",
-        html: '<lord-icon src="https://cdn.lordicon.com/ywkwpwhe.json" trigger="loop" style="width:100px;height:100px"></lord-icon>',
+        // title: "Game Over!",
+        html: "<img src='" + {gameOver} + "' style='width:150px;'>",
         buttons: {
           confirm: {
             text: "View Leaderboard",
@@ -211,7 +214,7 @@ const Playslots = ({ data }) => {
       });
     }
   }
-  
+
   useEffect(() => {
     if (!slots) {
       // Select slots once when the component mounts
@@ -224,7 +227,7 @@ const Playslots = ({ data }) => {
 
   const handlechange = () => {
     spin();
-    spinAudio.play()
+    spinAudio.current.play()
   }
 
   return (
@@ -234,7 +237,7 @@ const Playslots = ({ data }) => {
           <ConfettiExplosion
             force={1}
             duration={10000}
-            particleCount={1000}
+            particleCount={250}
             width={1500}
           />}
         <Container fluid>
@@ -249,6 +252,7 @@ const Playslots = ({ data }) => {
                   {/* <div className="fw-bold col-12 pb-2 fs-1 text-white text-uppercase text-center">
                     Tap To Play
                   </div> */}
+
                   <div className="slotcontainer">
                     {slotSymbols.map((symbols, index) => (
                       <div key={index} className="slot linear me-1">
@@ -268,21 +272,21 @@ const Playslots = ({ data }) => {
 
                     {gameComplete ? (
                       <div className="d-flex flex-column ">
-                        <div className="fw-bold fs-1 text-white text-uppercase text-center">
-                          Turn Over!!!
+                        {/* <div className="fw-bold fs-1 text-white text-uppercase text-center">
+                          Thanks For Playing
                         </div>
                         <button
                           onClick={() =>
                             navigate("/leaderbaord", { state: data })
                           }
-                          className="btn btn-light btn-lg"
+                          className="btn btn-dark playbtn text-sucess btn-lg text-center"
                         >
                           View Leaderboard
-                        </button>
+                        </button> */}
                       </div>
                     ) : (
                       <button
-                        className={(spinDisabled == false ? " playbtn text-warning  " : " ") + "btn btn-dark   btn-lg w-75 "}
+                        className={(spinDisabled == false ? " playbtn text-warning  " : " ") + "btn btn-dark btn-lg w-75 "}
                         disabled={spinDisabled}
                         onClick={handlechange}
                       >
@@ -319,7 +323,7 @@ const Playslots = ({ data }) => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </div >
     </>
   )
 }
