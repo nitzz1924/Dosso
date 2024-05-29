@@ -27,8 +27,8 @@ function GlobalFilter({
 
   return (
     <React.Fragment>
-      <Col md={12}>
-        <div className="search-box me-xxl-2 w-100 my-3 my-xxl-2 d-inline-block">
+      <Col>
+        <div className="search-box me-xxl-2 w-100 my-xxl-2 d-inline-block">
           <div className="position-relative">
             <label htmlFor="search-bar-0" className="search-label w-100">
               <span id="search-bar-0-label" className="sr-only">
@@ -41,7 +41,7 @@ function GlobalFilter({
                 }}
                 id="search-bar-0"
                 type="text"
-                className="form-control "
+                className="form-control border border-secondary"
                 placeholder={`${count} records...`}
                 value={value || ""}
               />
@@ -126,9 +126,9 @@ const TableContainer = ({
   return (
     <Fragment>
       <Row className="mb-2">
-        <Col md={12}>
+        <Col>
           <select
-            className="form-select"
+            className="form-select border border-secondary"
             value={pageSize}
             onChange={onChangeInSelect}
           >
@@ -229,20 +229,20 @@ const TableContainer = ({
         </Table>
       </div>
 
-      <Row className="justify-content-md-end justify-content-center align-items-center">
+      <Row className="justify-content-md-end justify-content-center align-items-center mt-2">
         <Col className="col-md-auto">
           <div className="d-flex gap-1">
             <Button
-              color="primary"
+              color="dark"
               onClick={() => gotoPage(0)}
-              disabled={!canPreviousPage}
+              disabled={!canPreviousPage} className="py-0 px-2"
             >
               {"<<"}
             </Button>
             <Button
-              color="primary"
+              color="dark"
               onClick={previousPage}
-              disabled={!canPreviousPage}
+              disabled={!canPreviousPage} className="py-0 px-2"
             >
               {"<"}
             </Button>
@@ -267,13 +267,13 @@ const TableContainer = ({
 
         <Col className="col-md-auto">
           <div className="d-flex gap-1">
-            <Button color="primary" onClick={nextPage} disabled={!canNextPage}>
+            <Button color="dark" className="py-0 px-2" onClick={nextPage} disabled={!canNextPage}>
               {">"}
             </Button>
             <Button
-              color="primary"
+              color="dark"
               onClick={() => gotoPage(pageCount - 1)}
-              disabled={!canNextPage}
+              disabled={!canNextPage} className="py-0 px-2"
             >
               {">>"}
             </Button>

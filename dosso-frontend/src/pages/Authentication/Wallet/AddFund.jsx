@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import {
   Card,
   CardBody,
@@ -17,14 +17,28 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 // Formik Validation
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import { getElement } from "@egjs/react-flicking"
 import axios from "axios"
 import axiosRetry from "axios-retry"
 import config from "constants/config"
 import MockAdapter from "axios-mock-adapter"
 import { getLocalData } from "services/global-storage"
-// import CryptoJS from 'crypto-js';
+import useRazorpay from "react-razorpay"
+import Swal from "sweetalert2"
 
+// import CryptoJS from 'crypto-js';
+function loadScript(src) {
+  return new Promise(resolve => {
+    const script = document.createElement("script")
+    script.src = src
+    script.onload = () => {
+      resolve(true)
+    }
+    script.onerror = () => {
+      resolve(false)
+    }
+    document.body.appendChild(script)
+  })
+}
 const AddFund = () => {
   document.title = "Add Fund"
   const navigate = useNavigate()
@@ -38,6 +52,7 @@ const AddFund = () => {
   const [initialAmount, setInitialAmount] = useState("500")
   const [loading, setLoading] = useState(true)
   const [walletdata, setWalletData] = useState([])
+  const [Razorpay] = useRazorpay()
   const [balanceAmount, setbalanceAmount] = useState(wallet)
   const [idx, setidx] = useState(1)
   const validation = useFormik({
@@ -62,34 +77,21 @@ const AddFund = () => {
         ),
     }),
     onSubmit: values => {
-      console.log("Form submitted with values:", values)
+      console.log(
+        "Form submitted with values:",
+        validation.values.initialAmount
+      )
       try {
         const dataList = []
         dataList.push({
           userid: getLocalData("userId"),
-          transactionid: 15,
           amount: validation.values.initialAmount,
-          transactiontype: "PhonePe",
-          paymenttype: "Credit",
-          status: 0,
         })
-        console.log(dataList)
-        // Mock the HTTP request
-        mockAdapter
-          .onPost(config.apiUrl + "insertwallet")
-          .reply(200, { success: true })
-        axios
-          .post(config.apiUrl + "insertwallet", dataList[0], {})
-          .then(response => {
-            console.log(JSON.stringify(response.data))
-            Swal.fire("Great!", "Amount Added Successfully!", "success").then(() => {
-              navigate(-1) // Redirect to '/other-page'
-            })
-          })
-          .catch(error => {
-            // Handle errors here
-            console.log("error->", error)
-          })
+        console.log("pAY DTAA", dataList[0])
+        setTimeout(async () => {
+          await handlePayment(dataList[0]);
+          setSubmitting(false); // Set submitting to false after payment handling
+        }, 1000);
       } catch (error) {
         console.error(error)
       }
@@ -104,74 +106,93 @@ const AddFund = () => {
   const insertAmount = amount => {
     validation.setFieldValue("initialAmount", amount)
   }
-  useEffect(() => {
-    setLoading(false)
-  }, [])
-  async function handlePhonePePayment() {
-    const amount = 1000 // Replace with actual amount
-    const redirectUrl = "http://localhost:3000/addfund/success" // Replace with your redirect URL
-    const dataList = []
-    dataList.push({
-      initialAmount: 100,
-      redirectUrl: "http://localhost:3000/addfund/success",
-    })
-    axios
-      .post(config.apiUrl + "phonepe-payment", dataList[0], {
+  const createOrder = async (item) => {
+    try {
+      console.log("Create Order Data : ", item);
+      const authuser = JSON.parse(getLocalData("authUser"));
+      console.log(authuser.studentname);
+      const dataList = [{
+        playerId: getLocalData("userId"),
+        amount: Number(item.amount),
+        name: authuser.studentname,
+        mobileno: authuser.contactnumber,
+      }];
+      console.log("order : ", dataList);
+      mockAdapter
+        .onPost(config.apiUrl + "createOrder", dataList[0])
+        .reply(200, { success: true });
+      const response = await axios.post(config.apiUrl + "createOrder", dataList[0], {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .then(response => {
-        console.log(JSON.stringify(response.data))
-        Swal.fire("Great!", "Payment Successfully!", "success").then(() => {
-        })
-      })
-      .catch(error => {
-        // Handle errors here
-        console.log("error->", error)
-      })
-  }
-  // async function handlePhonePePayment() {
-  //   try {
-  //     const payload = {
-  //       amount: 10000,
-  //       redirectUrl: "https://webhook.site/redirect-url",
-  //       redirectMode: "REDIRECT",
-  //       merchantId: "M228QYEMQERGS",
-  //       merchantTransactionId: "MT7850590068188104",
-  //       callbackUrl: "https://webhook.site/callback-url",
-  //       mobileNumber: "9999999999",
-  //       paymentInstrument: {
-  //         type: "PAY_PAGE"
-  //       }
-  //     };
-  //     const payloadString = JSON.stringify(payload);
-  //     const salt = 'b7dbb332-a97f-4dfc-b6eb-64d397216248'; // Replace with your actual salt key
-  //     const hash = CryptoJS.SHA256(payloadString + salt + '/pg/v1/pay' + 'b7dbb332-a97f-4dfc-b6eb-64d397216248').toString();
-  //     const xVerifyHeader = hash + '###1'; // Assuming '1' is the version
+      });
+      console.log(JSON.stringify(response.data));
+      return response.data; // Return the data from the Axios response
+    } catch (error) {
+      console.error(error);
+      throw error; // Throw error to be caught by the caller
+    }
+  };
+  
+  const handlePayment = async (item) => {
+    try {
+      const order = await createOrder(item); // Wait for createOrder to resolve
+      console.log("Amount data : ", order);
+    
+      // Your remaining handlePayment logic here...
+      const authuser = JSON.parse(getLocalData("authUser"));
+      console.log(authuser.studentname);
+      const orderamt = Number(order.amount) * 100;
+      const options = {
+        key: config.key,
+        amount: orderamt,
+        currency: "INR",
+        name: authuser.studentname,
+        description: "Wallet Recharge",
+        image: "https://admin.dosso21.com/assets/images/dossologofinal.png",
+        order_id: order.id,
+        handler: function (response) {
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature);
+          navigate("/verify", { state: {data:response,amount:orderamt}})
+        },
+        prefill: {
+          name: authuser.studentname,
+          email: authuser.emailaddress,
+          contact: authuser.contactnumber,
+        },
+        theme: {
+          color: "#28282B",
+        },
+      };
+  
+      const rzp1 = new Razorpay(options);
+  
+      rzp1.on("payment.failed", function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+        // Redirect to failure page
+        navigate("/payment-failure");
+      });
+  
+      rzp1.open();
+    } catch (error) {
+      console.error('Error handling payment:', error);
+      // Handle error or redirect to a failure page
+      navigate("/payment-failure");
+    }
+  };
+  
+  useEffect(() => {
+    setLoading(false)
+  }, [])
 
-  //     const response = await axios.post(
-  //       "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
-  //       jsonToBase64(payload),
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           "X-VERIFY": xVerifyHeader,
-  //         }
-  //       }
-  //     );
-
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  // }
-  function jsonToBase64(jsonData) {
-    const jsonString = JSON.stringify(jsonData); // Convert JSON object to string
-    const base64String = btoa(jsonString); // Encode string to Base64
-    return base64String;
-  }
   if (loading) {
     return <div>Loading......</div>
   }
@@ -234,7 +255,7 @@ const AddFund = () => {
                               Min value: ₹500 & Max value: ₹10,000
                             </FormText>
                             {validation.touched.initialAmount &&
-                              validation.errors.initialAmount ? (
+                            validation.errors.initialAmount ? (
                               <FormFeedback type="invalid">
                                 {validation.errors.initialAmount}
                               </FormFeedback>
@@ -302,14 +323,6 @@ const AddFund = () => {
                             </Button>
                           </div>
                         </Form>
-                        <Button
-                          type="submit"
-                          color="dark"
-                          className="fw-bold"
-                          onClick={handlePhonePePayment}
-                        >
-                          Make Payment
-                        </Button>
                       </div>
                     </Col>
                   </Row>

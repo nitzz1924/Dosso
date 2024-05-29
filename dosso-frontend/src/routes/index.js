@@ -42,7 +42,7 @@ import Refundpolicy from "pages/Policies/Refundpolicy";
 import Ourmission from "pages/Policies/Ourmission";
 import Rewards from "pages/ContestPage/Rewards";
 import Notifications from "pages/ContestPage/Notifications";
-
+import Verify from "pages/Authentication/Wallet/verify";
 
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
@@ -56,6 +56,7 @@ const authProtectedRoutes = [
   { path: "/leaderbaord", component: <LeaderBoard /> },
   { path: "/rewards", component: <Rewards /> },
   { path: "/notifications", component: <Notifications /> },
+  { path: "/verify", component: <Verify /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },
