@@ -30,11 +30,6 @@ const WalletActivities = ({ debit, credit, all }) => {
         filterable: true,
       },
       {
-        Header: "TID",
-        accessor: "transactionid",
-        filterable: true,
-      },
-      {
         Header: "Amount",
         accessor: "amount",
         filterable: true,
@@ -42,6 +37,11 @@ const WalletActivities = ({ debit, credit, all }) => {
       {
         Header: "Pay Type",
         accessor: "paymenttype",
+        filterable: true,
+      },
+      {
+        Header: "TID",
+        accessor: "transactionid",
         filterable: true,
       },
     ],

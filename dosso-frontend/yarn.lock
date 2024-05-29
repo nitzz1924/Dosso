@@ -10950,6 +10950,11 @@ react-rating@^2.0.5:
     "@types/lodash" "^4.14.105"
     "@types/react" "^16.0.40"
 
+react-razorpay@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/react-razorpay/-/react-razorpay-2.0.1.tgz"
+  integrity sha512-eCVTqtAo3Ew6Ie9hjp3+a0BCJ7ZssSF4r2XNeikzXlk8WOD4W58wSSX7x/6R3OhL+yUkhCvW5zOSE8awDIGpAw==
+
 react-redux@^7.2.0:
   version "7.2.9"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-7.2.9.tgz"

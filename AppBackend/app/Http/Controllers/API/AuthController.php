@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
-
+use GuzzleHttp\Exception\RequestException;
 class AuthController extends Controller
 {
     public function studentregister(Request $request)
@@ -535,5 +535,56 @@ class AuthController extends Controller
             $all->created_date = Carbon::parse($all->created_at)->format($dateFormat);
         }
         return response()->json($mesagedata);
+    }
+
+    public function createOrder(Request $req)
+    {
+
+        $client = new Client();
+        $url = 'https://api.razorpay.com/v1/orders';
+        $apiKey = env('RAZORPAY_KEY');
+        $apiSecret = env('RAZORPAY_SECRET');
+
+        $data = [
+            'amount' => (int)($req->amount * 100),
+            'currency' => 'INR',
+            'receipt' => '888888',
+            'notes' => [
+                'userid' => $req->playerId,
+                'name' => $req->name,
+                'mobileno' => $req->mobileno
+            ]
+        ];
+        try {
+            $response = $client->post($url, [
+                'auth' => [$apiKey, $apiSecret],
+                'json' => $data
+            ]);
+
+            $responseBody = json_decode($response->getBody(), true);
+            return response()->json($responseBody);
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $responseBody = json_decode($e->getResponse()->getBody()->getContents(), true);
+                return response()->json($responseBody, $e->getResponse()->getStatusCode());
+            }
+
+            return response()->json(['error' => 'An error occurred'], 500);
+        }
+    }
+    public function walletrecharge(Request $request)
+    {
+        // Insert into the wallet table
+        $walletdata = new Wallet();
+        $walletdata->userid = $request->input('playerId');
+        $walletdata->transactionid = $request->input('transactionid');
+        $walletdata->paymenttype = $request->input('paymentType');
+        $walletdata->amount = $request->input('amount');
+        $walletdata->transactiontype = $request->input('transactiontype');
+        if ($walletdata->save()) {
+            return response()->json(['success' => true, 'data' => $walletdata]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to insert wallet data.'], 500);
+        }
     }
 }
