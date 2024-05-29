@@ -49,7 +49,7 @@ const AddFund = () => {
   axiosRetry(axiosInstance, { retries: 3 })
   // Create a new instance of the mock adapter
   const mockAdapter = new MockAdapter(axiosInstance)
-  const [initialAmount, setInitialAmount] = useState("500")
+  const [initialAmount, setInitialAmount] = useState("10")
   const [loading, setLoading] = useState(true)
   const [walletdata, setWalletData] = useState([])
   const [Razorpay] = useRazorpay()
@@ -68,12 +68,12 @@ const AddFund = () => {
         .required("Please enter an amount")
         .positive("Please enter a positive amount")
         .integer("Amount must be a whole number")
-        .min(500, "Minimum amount is ₹500")
+        .min(10, "Minimum amount is ₹10")
         .max(10000, "Maximum amount is ₹10,000")
         .test(
           "is-multiple-of-100",
           "Amount must be in multiples of ₹100",
-          value => value % 100 === 0
+          value => value % 10 === 0
         ),
     }),
     onSubmit: values => {
@@ -232,7 +232,7 @@ const AddFund = () => {
                         >
                           <div className="form-group">
                             <Label className="form-label fw-bold">
-                              Enter Amount in Multiple of 100 below
+                              Enter Amount in Multiple of 10 below
                             </Label>
                             <Input
                               name="initialAmount"
@@ -252,7 +252,7 @@ const AddFund = () => {
                               }
                             />
                             <FormText>
-                              Min value: ₹500 & Max value: ₹10,000
+                              Min value: ₹10 & Max value: ₹10,000
                             </FormText>
                             {validation.touched.initialAmount &&
                             validation.errors.initialAmount ? (
@@ -265,6 +265,15 @@ const AddFund = () => {
                           <div className="mt-2 fw-bold">
                             or Select From Below
                             <div className="d-flex justify-content-between mt-1 accordion ">
+                              <Button
+                                outline
+                                size="sm"
+                                color="dark"
+                                onClick={() => insertAmount(100)}
+                                className="rounded-pill fs-6 "
+                              >
+                                ₹100
+                              </Button>
                               <Button
                                 outline
                                 size="sm"
@@ -282,15 +291,6 @@ const AddFund = () => {
                                 className="rounded-pill fs-6 "
                               >
                                 ₹1000
-                              </Button>
-                              <Button
-                                outline
-                                size="sm"
-                                color="dark"
-                                onClick={() => insertAmount(2500)}
-                                className="rounded-pill fs-6 "
-                              >
-                                ₹2500
                               </Button>
                               <Button
                                 outline
