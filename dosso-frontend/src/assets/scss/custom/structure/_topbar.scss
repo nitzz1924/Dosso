@@ -23,12 +23,18 @@
     margin: 0 auto;
     height: $header-height;
     padding: 0 calc(#{$grid-gutter-width} * 0.5) 0 0 /*rtl: 0 0 0 calc(#{$grid-gutter-width} / 2) */;
-
+    background-color: #282828;
+    color: gold;
     .dropdown .show {
         &.header-item {
             background-color: var(--#{$prefix}gray-100);
         }
     }
+}
+
+.navbar-header i { 
+    color: gold;
+
 }
 
 .navbar-brand-box {
@@ -130,7 +136,7 @@
 .noti-icon {
     i {
         font-size: 22px;
-        color: $header-item-color;
+        color: gold;
     }
 
     .badge {

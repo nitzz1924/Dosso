@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const Spingame = () => {
     const location = useLocation();
     const data = location.state;
-    console.log("COntst id : ", data);
+    console.log("Contest data : ", data);
     document.title = "Dosso 21";
 
     return (

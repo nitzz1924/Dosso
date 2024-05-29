@@ -71,11 +71,11 @@ const Rounds = props => {
           amount: data.registrationfees,
           transactiontype: "Wallet",
           paymenttype: "Debit",
-          contestid : data.id,
+          contestid: data.id,
           status: 0,
         },
       )
-      console.log("d-LIST " ,dataList);
+      console.log("d-LIST ", dataList);
 
       // Mock the HTTP request
       const mockAdapter = new MockAdapter(axiosInstance)
@@ -85,14 +85,14 @@ const Rounds = props => {
 
       axios.post(
         config.apiUrl + "insertwallet",
-        dataList[0],{}
+        dataList[0], {}
       )
-      .then(response => {
-        console.log(JSON.stringify(response.data))
-        Swal.fire("Great!", "Course has been prebooked!", "success").then(() => {
-          navigate('/history') // Redirect to '/other-page'
+        .then(response => {
+          console.log(JSON.stringify(response.data))
+          Swal.fire("Great!", "Course has been prebooked!", "success").then(() => {
+            navigate('/history') // Redirect to '/other-page'
+          })
         })
-      })
     } catch (error) {
       console.error("Error in insertwallet:", error)
       Swal.fire(
@@ -252,6 +252,7 @@ const Rounds = props => {
                     </NavLink>
                   </NavItem>
                 </Nav>
+
                 <TabContent activeTab={activeTab}>
                   {/* winner prize */}
                   <TabPane tabId="1">
@@ -359,10 +360,12 @@ const Rounds = props => {
                     </Row>
                   </TabPane>
                 </TabContent>
+
               </div>
             </Col>
           </Row>
         </Container>
+
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>Contest Participation</ModalHeader>
           <ModalBody>
@@ -388,11 +391,11 @@ const Rounds = props => {
           </ModalBody>
           <ModalFooter>
             {data.registrationfees <= wallet ? (
-              <Button color="primary" onClick={insertWallet}>
+              <Button color="success" onClick={insertWallet}>
                 Pay to Participate
               </Button>
             ) : (
-              <Button color="primary" onClick={() => navigate("/myFund")}>
+              <Button color="success" onClick={() => navigate("/myFund")}>
                 Add Wallet
               </Button>
             )}

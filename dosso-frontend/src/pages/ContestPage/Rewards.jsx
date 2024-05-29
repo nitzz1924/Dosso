@@ -43,8 +43,8 @@ const Rewards = () => {
                 {isExploding &&
                     <ConfettiExplosion
                         force={1}
-                        duration={10000}
-                        particleCount={1000}
+                        duration={5000}
+                        particleCount={250}
                         width={1500}
                     />}
                 <Container fluid className="">

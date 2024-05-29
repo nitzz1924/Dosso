@@ -81,19 +81,20 @@ const Playslots = ({ data }) => {
         -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight
       symbols.style.top = `${randomOffset}px`
 
-      symbols.addEventListener(
-        "transitionend",
-        () => {
-          completedSlots++
-          if (completedSlots === slots.length && !spinCompleted) {
-            logDisplayedSymbols()
-            spinCompleted = true
-          }
-        },
-        { once: true }
-      )
+      // symbols.addEventListener(
+      //   "transitionend",
+      //   () => {
+      //     completedSlots++
+      //     if (completedSlots === slots.length && !spinCompleted) {
+      //       logDisplayedSymbols()
+      //       spinCompleted = true
+      //     }
+      //   },
+      //   { once: true }
+      // )
     })
-
+    setTimeout(logDisplayedSymbols, 6000);
+    spinCompleted = true
     spun = true
     setSpinDisabled(true)
   }
@@ -195,7 +196,7 @@ const Playslots = ({ data }) => {
 
       Swal.fire({
         title: "Game Over!",
-        html: '<lord-icon src="https://cdn.lordicon.com/ywkwpwhe.json" trigger="hover" style="width:250px;height:250px"></lord-icon>',
+        html: '<lord-icon src="https://cdn.lordicon.com/ywkwpwhe.json" trigger="loop" style="width:100px;height:100px"></lord-icon>',
         buttons: {
           confirm: {
             text: "View Leaderboard",
@@ -300,7 +301,7 @@ const Playslots = ({ data }) => {
         </Container>
         <Container fluid>
           <Row className="justify-content-center mt-3">
-            <Col className="d-flex flex-column shadow-lg rounded p-3">
+            <Col className="d-flex flex-column shadow rounded p-3">
               {spinResults.map((result, index) => (
                 <div key={index}>
                   {index === 0 && result === "" ? (

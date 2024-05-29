@@ -187,7 +187,15 @@ const SidebarContent = props => {
                   tToggle();
                 }}>
                   <i className="bx bx-user"></i>
-                  <span>{props.t("Account Details")}</span>
+                  <span>{props.t("My Profile")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/notifications" onClick={() => {
+                  tToggle();
+                }}>
+                  <i className="mdi mdi-bell-outline"></i>
+                  <span>{props.t("Notifications")}</span>
                 </Link>
               </li>
               <li>

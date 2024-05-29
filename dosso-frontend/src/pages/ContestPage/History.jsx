@@ -10,6 +10,11 @@ import {
   Container,
   CardFooter,
   CardHeader,
+  Nav,
+  NavItem,
+  TabContent,
+  TabPane,
+  NavLink,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -18,7 +23,8 @@ import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
 import Swal from "sweetalert2"
-import { toUpper } from "lodash"
+import Countdown from "react-countdown";
+
 
 const History = () => {
   const [loading, setLoading] = useState(true)
@@ -29,6 +35,14 @@ const History = () => {
   const mockAdapter = new MockAdapter(axiosInstance)
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
+
+  const [activeTab, setActiveTab] = useState("1")
+
+  const toggleTab = tab => {
+    if (activeTab !== tab) {
+      setActiveTab(tab)
+    }
+  }
 
   const mycontests = async () => {
     try {
@@ -121,108 +135,401 @@ const History = () => {
             </div>
           </Col>
         </Row>
+      </Container>
 
-        <Row className="my-2 justify-content-center">
-          <Col lg="3" className="d-grid align-content-center p-0">
-            <Flicking
-              align="prev"
-              horizontal={false}
-              circular={false}
-              className="flicking-wrapper"
-              resizeOnContentsReady={true}
-              renderOnlyVisible={true}
+
+      <div>
+        <Nav justified tabs>
+          <NavItem>
+            <NavLink
+              className={
+                activeTab === "1"
+                  ? "active fw-bold text-uppercase text-black"
+                  : "fw-bold text-uppercase text-secondary"
+              }
+              onClick={() => toggleTab("1")}
             >
-              {(contestData || []).sort((a, b) => a.contestwinprice - b.contestwinprice).map((item, key) => (
-                <div className="flicking-viewport vertical shadow-lg" key={key}>
-                  <div className="flicking-camera ">
-                    <Card className={(item.status === "2" ? "  border-success " : "closed") + "mb-3  border border-2 flicking-panel  rounded-3"}>
-                      <CardHeader className="rounded-3 border-bottom d-flex justify-content-between" >
-                        <div className="mb-0 text-muted">
-                          <i className="bx bx-time-five text-body me-1"></i>
-                          {item.enddate}
+              Joined
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={
+                activeTab === "2"
+                  ? "active fw-bold text-uppercase text-black"
+                  : "fw-bold text-uppercase text-secondary"
+              }
+              onClick={() => toggleTab("2")}
+            >
+              Played
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={
+                activeTab === "3"
+                  ? "active fw-bold text-uppercase text-black"
+                  : "fw-bold text-uppercase text-secondary"
+              }
+              onClick={() => toggleTab("3")}
+            >
+              Closed
+            </NavLink>
+          </NavItem>
+        </Nav>
+
+        <TabContent activeTab={activeTab}>
+          {/* Joined  */}
+          <TabPane tabId="1">
+
+            <Row className="m-2 justify-content-center">
+              <Col lg="3" className="d-grid align-content-center p-0">
+                <Flicking
+                  align="prev"
+                  horizontal={false}
+                  circular={false}
+                  className="flicking-wrapper"
+                  resizeOnContentsReady={true}
+                  renderOnlyVisible={true}
+                >
+                  {(contestData || []).map((item, key) => (
+
+                    (item.playconteststatus === "1" &&
+
+
+                      <div className="flicking-viewport vertical shadow" key={key}>
+                        <div className="flicking-camera ">
+                          <Card className=" border-success mb-3  border border-2 flicking-panel  rounded-3">
+                            <CardHeader className="rounded-3 border-bottom d-flex justify-content-between" >
+                              <div className="mb-0 text-muted">
+                                <i className="bx bx-time-five text-body me-1"></i>
+                                <Countdown date={item.enddate} />
+                              </div>
+
+                              <div className="mb-0">
+                                <span className="badge text-bg-success fs-6">
+                                  {item.status === "2" ? "Active" : "closed"}
+                                </span>
+                              </div>
+                            </CardHeader>
+                            <CardBody className="p-1">
+                              <div className="d-flex justify-content-between flex-column ">
+                                <div className="fw-bolder fs-3 text-black text-center">
+                                  {item.title}
+                                </div>
+                                <div className="mb-0 text-muted text-center">
+                                  🏆 Prize pool:
+                                  <span className="text-dark fw-bold ms-1">
+                                    ₹ {item.totalprice}
+                                  </span>
+                                </div>
+                                {/* {item.playconteststatus === "2" &&
+                                  <div className=" w-100 p-2 d-flex justify-content-around ">
+                                    <div className="mb-0 me-1">
+                                      Your Rank:
+                                      <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                        # {item.contestrank}
+                                      </div>
+                                    </div>
+
+                                    {item.status === "3" &&
+                                      <div className="mb-0 me-1 text-center">
+                                        Reward:
+                                        <div className="text-dark fs-3 fw-bold ms-1 px-2 bg-warning text-center rounded">
+                                          {item.contestwinprice}
+                                        </div>
+                                      </div>
+                                    }
+                                  </div>
+                                } */}
+                              </div>
+                            </CardBody>
+                            {item.status !== "3" &&
+                              <CardFooter className="d-flex justify-content-around">
+                                {item.playconteststatus === "2" && (
+                                  <button
+                                    onClick={() =>
+                                      navigate("/rewards", { state: item })
+                                    }
+                                    className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                                  >
+                                    Claim Reward
+                                  </button>
+                                )}
+
+                                <button
+                                  onClick={() => handleClick(item)}
+                                  disabled={item.playcontestid == item.prid ? true : false}
+                                  className={
+                                    "btn" +
+                                    (item.playconteststatus === "1"
+                                      ? " btn-success w-lg rewardCard "
+                                      : item.playconteststatus === "2"
+                                        ? " btn-info "
+                                        : " btn-light ") +
+                                    "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
+                                  }
+                                >
+                                  {item.playconteststatus === "1"
+                                    ? "Play Now"
+                                    : item.playconteststatus === "2"
+                                      ? "Payment Request"
+                                      : "Yet to start!"}
+                                </button>
+
+                              </CardFooter>
+                            }
+                          </Card>
                         </div>
 
-                        <div className="mb-0">
-                          <span className="badge text-bg-success fs-6">
-                            {item.status === "2" ? "Active" : "closed"}
-                          </span>
-                        </div>
-                      </CardHeader>
-                      <CardBody className="p-3">
-                        <div className="d-flex justify-content-between flex-column ">
-                          <div className="fw-bolder fs-3 text-black text-center">
-                            {item.title}
-                          </div>
-                          <div className="mb-0 text-muted text-center">
-                            🏆 Prize pool:{" "}
-                            <span className="text-dark fw-bold">
-                              ₹{item.totalprice}
-                            </span>
-                          </div>
-                          <div className=" w-100 p-2 d-flex justify-content-around ">
-                            <div className="mb-0 me-1">
-                              Your Rank:
-                              <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
-                                # {item.contestrank}
+                      </div>
+                    )
+                  ))}
+                </Flicking>
+
+
+
+                <p className="text-center text-muted">THE END</p>
+              </Col>
+            </Row>
+
+          </TabPane>
+
+          {/* Played Board */}
+          <TabPane tabId="2">
+
+            <Row className="m-2 justify-content-center">
+              <Col lg="3" className="d-grid align-content-center p-0">
+                <Flicking
+                  align="prev"
+                  horizontal={false}
+                  circular={false}
+                  className="flicking-wrapper"
+                  resizeOnContentsReady={true}
+                  renderOnlyVisible={true}
+                >
+                  {(contestData || []).map((item, key) => (
+
+                    (item.playconteststatus === "2" &&
+
+
+                      <div className="flicking-viewport vertical shadow" key={key}>
+                        <div className="flicking-camera ">
+                          <Card className={(item.playconteststatus === "1" ? "  border-success " ? item.playconteststatus === "2" : "  border-primary " : " border-dark ") + "mb-3  border border-2 flicking-panel  rounded-3"}>
+                            <CardHeader className="rounded-3 border-bottom d-flex justify-content-between" >
+                              <div className="mb-0 text-muted">
+                                <i className="bx bx-time-five text-body me-1"></i>
+                                <Countdown date={item.enddate} />
                               </div>
-                            </div>
-                            {item.status === "3" &&
-                              <div className="mb-0 me-1 text-center">
-                                Reward:
-                                <div className="text-dark fs-3 fw-bold ms-1 px-2 bg-warning text-center rounded">
-                                  {item.contestwinprice}
+
+                              <div className="mb-0">
+                                <span className="badge text-bg-success fs-6">
+                                  {item.status === "2" ? "Active" : "closed"}
+                                </span>
+                              </div>
+                            </CardHeader>
+                            <CardBody className="p-1">
+                              <div className="d-flex justify-content-between flex-column ">
+                                <div className="fw-bolder fs-3 text-black text-center">
+                                  {item.title}
+                                </div>
+                                <div className="mb-0 text-muted text-center">
+                                  🏆 Prize pool:
+                                  <span className="text-dark fw-bold ms-1">
+                                    ₹ {item.totalprice}
+                                  </span>
+                                </div>
+                                <div className=" w-100 p-2 d-flex justify-content-around ">
+                                  <div className="mb-0 me-1">
+                                    Your Rank:
+                                    <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                      # {item.contestrank}
+                                    </div>
+                                  </div>
+                                  {item.status === "3" &&
+                                    <div className="mb-0 me-1 text-center">
+                                      Reward:
+                                      <div className="text-dark fs-3 fw-bold ms-1 px-2 bg-warning text-center rounded">
+                                        {item.contestwinprice}
+                                      </div>
+                                    </div>
+                                  }
                                 </div>
                               </div>
+                            </CardBody>
+                            {item.status !== "3" &&
+                              <CardFooter className="d-flex justify-content-around">
+                                {item.playconteststatus === "2" && (
+                                  <button
+                                    onClick={() =>
+                                      navigate("/rewards", { state: item })
+                                    }
+                                    className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                                  >
+                                    Claim Reward
+                                  </button>
+                                )}
+
+                                <button
+                                  onClick={() => handleClick(item)}
+                                  disabled={item.playcontestid == item.prid ? true : false}
+                                  className={
+                                    "btn" +
+                                    (item.playconteststatus === "1"
+                                      ? " btn-dark w-lg rewardCard "
+                                      : item.playconteststatus === "2"
+                                        ? " btn-info "
+                                        : " btn-light ") +
+                                    "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
+                                  }
+                                >
+                                  {item.playconteststatus === "1"
+                                    ? "Play Now"
+                                    : item.playconteststatus === "2"
+                                      ? "Payment Request"
+                                      : "Yet to start!"}
+                                </button>
+
+                              </CardFooter>
                             }
-                          </div>
+                          </Card>
                         </div>
-                      </CardBody>
-                      {item.status !== "3" &&
-                        <CardFooter className="d-flex justify-content-around">
-                          {item.playconteststatus === "2" && (
-                            <button
-                              onClick={() =>
-                                navigate("/rewards", { state: item })
-                              }
-                              className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
-                            >
-                              Claim Reward
-                            </button>
-                          )}
 
-                          <button
-                            onClick={() => handleClick(item)}
-                            disabled={item.playcontestid == item.prid ? true : false}
-                            className={
-                              "btn" +
-                              (item.playconteststatus === "1"
-                                ? " btn-dark w-lg rewardCard "
-                                : item.playconteststatus === "2"
-                                  ? " btn-info "
-                                  : " btn-light ") +
-                              "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
+                      </div>
+                    )
+                  ))}
+                </Flicking>
+
+
+
+                <p className="text-center text-muted">THE END</p>
+              </Col>
+            </Row>
+
+          </TabPane>
+
+          {/* Closed Board */}
+          <TabPane tabId="3">
+
+            <Row className="m-2 justify-content-center">
+              <Col lg="3" className="d-grid align-content-center p-0">
+                <Flicking
+                  align="prev"
+                  horizontal={false}
+                  circular={false}
+                  className="flicking-wrapper"
+                  resizeOnContentsReady={true}
+                  renderOnlyVisible={true}
+                >
+                  {(contestData || []).map((item, key) => (
+
+                    (item.playconteststatus === "3" &&
+
+
+                      <div className="flicking-viewport vertical shadow" key={key}>
+                        <div className="flicking-camera ">
+                          <Card className={(item.playconteststatus === "1" ? " border-success " ? item.playconteststatus === "2" : " border-primary " : " border-dark ") + "mb-3  border border-2 flicking-panel  rounded-3"}>
+                            <CardHeader className="rounded-3 border-bottom d-flex justify-content-between" >
+                              <div className="mb-0 text-muted">
+                                <i className="bx bx-time-five text-body me-1"></i>
+                                <Countdown date={item.enddate} />
+                              </div>
+
+                              <div className="mb-0">
+                                <span className="badge text-bg-success fs-6">
+                                  {item.status === "2" ? "Active" : "closed"}
+                                </span>
+                              </div>
+                            </CardHeader>
+                            <CardBody className="p-1">
+                              <div className="d-flex justify-content-between flex-column ">
+                                <div className="fw-bolder fs-3 text-black text-center">
+                                  {item.title}
+                                </div>
+                                <div className="mb-0 text-muted text-center">
+                                  🏆 Prize pool:
+                                  <span className="text-dark fw-bold ms-1">
+                                    ₹ {item.totalprice}
+                                  </span>
+                                </div>
+                                <div className=" w-100 p-2 d-flex justify-content-around ">
+                                  {item.playconteststatus === "2" &&
+                                    <div className="mb-0 me-1">
+                                      Your Rank:
+                                      <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                        # {item.contestrank}
+                                      </div>
+                                    </div>
+                                  }
+
+                                  {item.status === "3" &&
+                                    <div className="mb-0 me-1 text-center">
+                                      Reward:
+                                      <div className="text-dark fs-3 fw-bold ms-1 px-2 bg-warning text-center rounded">
+                                        {item.contestwinprice}
+                                      </div>
+                                    </div>
+                                  }
+                                </div>
+                              </div>
+                            </CardBody>
+                            {item.status !== "3" &&
+                              <CardFooter className="d-flex justify-content-around">
+                                {item.playconteststatus === "2" && (
+                                  <button
+                                    onClick={() =>
+                                      navigate("/rewards", { state: item })
+                                    }
+                                    className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                                  >
+                                    Claim Reward
+                                  </button>
+                                )}
+
+                                <button
+                                  onClick={() => handleClick(item)}
+                                  disabled={item.playcontestid == item.prid ? true : false}
+                                  className={
+                                    "btn" +
+                                    (item.playconteststatus === "1"
+                                      ? " btn-dark w-lg rewardCard "
+                                      : item.playconteststatus === "2"
+                                        ? " btn-info "
+                                        : " btn-light ") +
+                                    "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
+                                  }
+                                >
+                                  {item.playconteststatus === "1"
+                                    ? "Play Now"
+                                    : item.playconteststatus === "2"
+                                      ? "Payment Request"
+                                      : "Yet to start!"}
+                                </button>
+
+                              </CardFooter>
                             }
-                          >
-                            {item.playconteststatus === "1"
-                              ? "Play Now"
-                              : item.playconteststatus === "2"
-                                ? "Payment Request"
-                                : "Yet to start!"}
-                          </button>
+                          </Card>
+                        </div>
 
-                        </CardFooter>
-                      }
-                    </Card>
-                  </div>
+                      </div>
+                    )
+                  ))}
+                </Flicking>
 
-                </div>
-              ))}
-            </Flicking>
-            <p className="text-center text-muted">THE END</p>
-          </Col>
-        </Row>
-      </Container>
-    </div >
+
+
+                <p className="text-center text-muted">THE END</p>
+              </Col>
+            </Row>
+
+          </TabPane>
+        </TabContent>
+
+      </div>
+
+
+
+    </div>
   )
 }
 
