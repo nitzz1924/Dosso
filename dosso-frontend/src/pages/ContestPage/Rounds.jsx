@@ -6,7 +6,7 @@ import config from "constants/config"
 import Swal from "sweetalert2"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
-
+import Countdown from "react-countdown";
 import {
   Container,
   Row,
@@ -39,7 +39,7 @@ let wheelImg = "Assets/images/fortune-wheel.png"
 const Rounds = props => {
   const navigate = useNavigate()
   const location = useLocation()
-  const data = location.state
+const data = location.state
   document.title = "Participate"
 
   const [activeTab, setActiveTab] = useState("1")
@@ -211,7 +211,7 @@ const Rounds = props => {
                   </Button>
                 </CardBody>
                 <CardFooter className=" border-top text-center">
-                  End Time: <span className="text-danger">{data.enddate}</span>{" "}
+                  End Time: <span className="text-danger"><Countdown date={data.enddate} /></span>{" "}
                   left
                 </CardFooter>
               </Card>

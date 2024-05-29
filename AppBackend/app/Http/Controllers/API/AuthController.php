@@ -146,7 +146,7 @@ class AuthController extends Controller
         $walletdata->paymenttype = $request->input('paymenttype');
         $walletdata->amount = $request->input('amount');
         $walletdata->transactiontype = $request->input('transactiontype');
-
+        $walletdata->status = 1;
         if ($walletdata->save()) {
             // Insert into the play_contest table
             $contestdata = new PlayContest();
