@@ -43,7 +43,7 @@ import Ourmission from "pages/Policies/Ourmission";
 import Rewards from "pages/ContestPage/Rewards";
 import Notifications from "pages/ContestPage/Notifications";
 import Verify from "pages/Authentication/Wallet/verify";
-
+import Withdraw from "pages/Authentication/Wallet/Withdraw";
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
   { path: "/contests", component: <Contests /> },
@@ -57,6 +57,7 @@ const authProtectedRoutes = [
   { path: "/rewards", component: <Rewards /> },
   { path: "/notifications", component: <Notifications /> },
   { path: "/verify", component: <Verify /> },
+  { path: "/withdraw", component: <Withdraw /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },

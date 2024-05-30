@@ -23,7 +23,6 @@ import config from "constants/config"
 import MockAdapter from "axios-mock-adapter"
 import { getLocalData } from "services/global-storage"
 import useRazorpay from "react-razorpay"
-import Swal from "sweetalert2"
 
 // import CryptoJS from 'crypto-js';
 function loadScript(src) {
@@ -39,8 +38,8 @@ function loadScript(src) {
     document.body.appendChild(script)
   })
 }
-const AddFund = () => {
-  document.title = "Add Fund"
+const Withdraw = () => {
+  document.title = "Withdraw"
   const navigate = useNavigate()
   const location = useLocation()
   const wallet = location.state
@@ -49,11 +48,9 @@ const AddFund = () => {
   axiosRetry(axiosInstance, { retries: 3 })
   // Create a new instance of the mock adapter
   const mockAdapter = new MockAdapter(axiosInstance)
-  const [initialAmount, setInitialAmount] = useState("10")
+  const [initialAmount, setInitialAmount] = useState("500")
   const [loading, setLoading] = useState(true)
-  const [walletdata, setWalletData] = useState([])
   const [Razorpay] = useRazorpay()
-  const [balanceAmount, setbalanceAmount] = useState(wallet)
   const [idx, setidx] = useState(1)
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -68,12 +65,11 @@ const AddFund = () => {
         .required("Please enter an amount")
         .positive("Please enter a positive amount")
         .integer("Amount must be a whole number")
-        .min(10, "Minimum amount is ₹10")
-        .max(10000, "Maximum amount is ₹10,000")
+        .min(500, "Minimum amount is ₹150")
         .test(
           "is-multiple-of-100",
           "Amount must be in multiples of ₹100",
-          value => value % 10 === 0
+          value => value % 100 === 0
         ),
     }),
     onSubmit: values => {
@@ -82,16 +78,47 @@ const AddFund = () => {
         validation.values.initialAmount
       )
       try {
-        const dataList = []
-        dataList.push({
-          userid: getLocalData("userId"),
-          amount: validation.values.initialAmount,
-        })
-        console.log("pAY DTAA", dataList[0])
-        setTimeout(async () => {
-          await handlePayment(dataList[0])
-          setSubmitting(false) // Set submitting to false after payment handling
-        }, 1000)
+        if (wallet >= validation.values.initialAmount) {
+          setTimeout(async () => {
+            try {
+              console.log("requestPayment : ", item)
+              const dataList = []
+              dataList.push({
+                playerId: getLocalData("userId"),
+                contestid: getLocalData("userId"),
+                amount: validation.values.initialAmount,
+                rank: 0,
+                playcontestid: 0,
+              })
+              // Mock the HTTP request
+              mockAdapter
+                .onPost(config.apiUrl + "paymentRequest", dataList[0])
+                .reply(200, { success: true })
+              axios
+                .post(config.apiUrl + "paymentRequest", dataList[0], {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                  },
+                })
+                .then(response => {
+                  console.log(JSON.stringify(response.data))
+                  Swal.fire("Great!", "Payment Request Sent", "success").then(
+                    () => {
+                      navigate("/myFund")
+                    }
+                  )
+                })
+                .catch(error => {
+                  // Handle errors here
+                  console.log("error", error)
+                })
+            } catch (error) {
+              console.error(error)
+            }
+            setSubmitting(false) // Set submitting to false after payment handling
+          }, 1000)
+        } else {
+        }
       } catch (error) {
         console.error(error)
       }
@@ -106,99 +133,9 @@ const AddFund = () => {
   const insertAmount = amount => {
     validation.setFieldValue("initialAmount", amount)
   }
-  const createOrder = async item => {
-    try {
-      console.log("Create Order Data : ", item)
-      const authuser = JSON.parse(getLocalData("authUser"))
-      console.log(authuser.studentname)
-      const dataList = [
-        {
-          playerId: getLocalData("userId"),
-          amount: Number(item.amount),
-          name: authuser.studentname,
-          mobileno: authuser.contactnumber,
-        },
-      ]
-      console.log("order : ", dataList)
-      mockAdapter
-        .onPost(config.apiUrl + "createOrder", dataList[0])
-        .reply(200, { success: true })
-      const response = await axios.post(
-        config.apiUrl + "createOrder",
-        dataList[0],
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      console.log(JSON.stringify(response.data))
-      return response.data // Return the data from the Axios response
-    } catch (error) {
-      console.error(error)
-      throw error // Throw error to be caught by the caller
-    }
-  }
-
-  const handlePayment = async item => {
-    try {
-      const order = await createOrder(item) // Wait for createOrder to resolve
-      console.log("Amount data : ", order)
-
-      // Your remaining handlePayment logic here...
-      const authuser = JSON.parse(getLocalData("authUser"))
-      console.log(authuser.studentname)
-      const orderamt = Number(order.amount) * 100
-      const options = {
-        key: config.key,
-        amount: orderamt,
-        currency: "INR",
-        name: authuser.studentname,
-        description: "Wallet Recharge",
-        image: "https://admin.dosso21.com/assets/images/dossologofinal.png",
-        order_id: order.id,
-        handler: function (response) {
-          // alert(response.razorpay_payment_id);
-          // alert(response.razorpay_order_id);
-          // alert(response.razorpay_signature);
-          navigate("/verify", { state: { data: response, amount: orderamt } })
-        },
-        prefill: {
-          name: authuser.studentname,
-          email: authuser.emailaddress,
-          contact: authuser.contactnumber,
-        },
-        theme: {
-          color: "#28282B",
-        },
-      }
-
-      const rzp1 = new Razorpay(options)
-
-      rzp1.on("payment.failed", function (response) {
-        alert(response.error.code)
-        alert(response.error.description)
-        alert(response.error.source)
-        alert(response.error.step)
-        alert(response.error.reason)
-        alert(response.error.metadata.order_id)
-        alert(response.error.metadata.payment_id)
-        // Redirect to failure page
-        navigate("/payment-failure")
-      })
-
-      rzp1.open()
-    } catch (error) {
-      console.error("Error handling payment:", error)
-      // Handle error or redirect to a failure page
-      navigate("/payment-failure")
-    }
-  }
-
   useEffect(() => {
     setLoading(false)
   }, [])
-
   if (loading) {
     return <div>Loading......</div>
   }
@@ -211,9 +148,9 @@ const AddFund = () => {
               <Card>
                 <CardHeader className="d-flex justify-content-between ">
                   <div>
-                    <h3 className=" fw-bold"> Recharge Your Wallet</h3>
+                    <h3 className=" fw-bold"> Withdraw Wining Price</h3>
                     <p className="text-muted mb-2">
-                      Current Wallet Amount:
+                      Current Wining Amount:
                       <span className="text-info fw-bold ms-1 fs-5">
                         ₹ {wallet}
                       </span>
@@ -238,12 +175,12 @@ const AddFund = () => {
                         >
                           <div className="form-group">
                             <Label className="form-label fw-bold">
-                              Enter Amount in Multiple of 10 below
+                              Enter Amount in Multiple of 100 below
                             </Label>
                             <Input
                               name="initialAmount"
                               className="form-control border fw-bold fs-3 text-success "
-                              placeholder="Enter Amount"
+                              placeholder="Enter Withdraw Amount"
                               type="text"
                               id="fundInput"
                               onChange={e => {
@@ -258,7 +195,7 @@ const AddFund = () => {
                               }
                             />
                             <FormText>
-                              Min value: ₹10 & Max value: ₹10,000
+                              Min value: ₹500 & Max value: ₹10,000
                             </FormText>
                             {validation.touched.initialAmount &&
                             validation.errors.initialAmount ? (
@@ -271,15 +208,6 @@ const AddFund = () => {
                           <div className="mt-2 fw-bold">
                             or Select From Below
                             <div className="d-flex justify-content-between mt-1 accordion ">
-                              <Button
-                                outline
-                                size="sm"
-                                color="dark"
-                                onClick={() => insertAmount(100)}
-                                className="rounded-pill fs-6 "
-                              >
-                                ₹100
-                              </Button>
                               <Button
                                 outline
                                 size="sm"
@@ -302,6 +230,15 @@ const AddFund = () => {
                                 outline
                                 size="sm"
                                 color="dark"
+                                onClick={() => insertAmount(2500)}
+                                className="rounded-pill fs-6 "
+                              >
+                                ₹2500
+                              </Button>
+                              <Button
+                                outline
+                                size="sm"
+                                color="dark"
                                 onClick={() => insertAmount(5000)}
                                 className="rounded-pill fs-6 "
                               >
@@ -318,14 +255,19 @@ const AddFund = () => {
                               </Button>
                             </div>
                           </div>
-
+                          <span style={{ color: "red" }}>
+                            {wallet >= 150
+                              ? "Unable to Process Withdrawal"
+                              : ""}
+                          </span>
                           <div className="text-center mt-4 ">
                             <Button
                               type="submit"
                               color="dark"
                               className="fw-bold"
+                              disabled={wallet == 0 ? true : false}
                             >
-                              Continue Payment
+                              Withdraw Request
                             </Button>
                           </div>
                         </Form>
@@ -342,4 +284,4 @@ const AddFund = () => {
   )
 }
 
-export default AddFund
+export default Withdraw
