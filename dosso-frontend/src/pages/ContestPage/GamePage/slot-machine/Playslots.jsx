@@ -34,6 +34,8 @@ const Playslots = ({ data }) => {
 
   let newTotalSum = 0
 
+  const subjects = ["Sanskrit", "English", "Maths", "Biology", "Science", "Social Science", "General Knowledge", "Hindi"];
+
   const slotSymbols = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -198,7 +200,7 @@ const Playslots = ({ data }) => {
       setIsExploding(true);
 
       Swal.fire({
-        title: "Turn Complete!",
+        title: "Marksheet Generated",
         html: "<img src='/Assets/images/confetti.gif' style='width:100px;'>",
         buttons: {
           confirm: {
@@ -209,7 +211,7 @@ const Playslots = ({ data }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/leaderbaord", { state: data })
-          Swal.fire('Thanks For Playing');
+          Swal.fire('Thanks For Participation');
         }
       });
     }
@@ -273,7 +275,7 @@ const Playslots = ({ data }) => {
                     {gameComplete ? (
                       <div className="d-flex flex-column ">
                         <div className="fw-bold fs-1 text-white text-center">
-                          Thanks For Playing!
+                          Thanks For Participation!
                         </div>
                         {/* <button
                           onClick={() =>
@@ -314,7 +316,7 @@ const Playslots = ({ data }) => {
                     </div>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
-                      <span className="text-dark fw-bold">{`Round ${index} :`}</span>{" "}
+                      <span className="text-dark fw-bold">{`${subjects[index] || `Round ${index + 1}`} :`}</span>
                       <span className="fw-bolder text-success">{`${result}`}</span>
                     </div>
                   )}
