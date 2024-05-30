@@ -24,7 +24,7 @@ const MyFund = () => {
   const [allhis, setAllhis] = useState([])
   const [loading, setLoading] = useState(true)
   const [kycstatus, setKycStatus] = useState([])
-
+  const [currentWin, setCurrentWin] = useState(0)
   // Create a new instance of axios
   const axiosInstance = axios.create()
   axiosRetry(axiosInstance, { retries: 3 })
@@ -45,6 +45,8 @@ const MyFund = () => {
       setDebithis(response.data.debithistory)
       setAllhis(response.data.transaction)
       setWallet(response.data.walletamount)
+      setCurrentWin(response.data.creditWinTotal-response.data.debitWinTotal|0)
+      
     } catch (error) {
       console.log("error", error)
     } finally {
@@ -115,6 +117,7 @@ const MyFund = () => {
                 <WalletStats
                   wallet={wallet<=0?'0':wallet}
                   isMenu={isMenu}
+                  currentWinPrice={currentWin}
                   toggleMenu={toggleMenu}
                 />
               </Col>

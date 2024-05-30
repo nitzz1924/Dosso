@@ -26,6 +26,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use GuzzleHttp\Exception\RequestException;
+
 class AuthController extends Controller
 {
     public function studentregister(Request $request)
@@ -182,6 +183,8 @@ class AuthController extends Controller
     {
         $creditTotal = Wallet::where('userid', $id)->where('paymenttype', 'credit')->sum('amount');
         $debitTotal = Wallet::where('userid', $id)->where('paymenttype', 'debit')->sum('amount');
+        $creditWinTotal = Wallet::where('userid', $id)->where('paymenttype', 'creditWin')->sum('amount');
+        $debitWinTotal = Wallet::where('userid', $id)->where('paymenttype', 'debitWin')->sum('amount');
         $transaction = Wallet::where('userid', $id)->get();
         $debithistory = Wallet::where('userid', $id)->where('paymenttype', 'debit')->get();
         $dateFormat = 'd-m-Y';
@@ -195,7 +198,7 @@ class AuthController extends Controller
         foreach ($credithistory as $credit) {
             $credit->created_date = Carbon::parse($credit->created_at)->format($dateFormat);
         }
-        $walletamount = $creditTotal - $debitTotal;
+        $walletamount = ($creditTotal - $debitTotal) + ($creditWinTotal - $debitWinTotal);
 
         if ($creditTotal == 0 && $debitTotal == 0) {
             $response = [
@@ -211,9 +214,10 @@ class AuthController extends Controller
                 'transaction' => $transaction,
                 'debithistory' => $debithistory,
                 'credithistory' => $credithistory,
+                'creditWinTotal' => $creditWinTotal,
+                'debitWinTotal' => $debitWinTotal
             ];
         }
-
         return response()->json($response, 200);
     }
     public function getPoint($studentId, $contestId)
@@ -316,18 +320,18 @@ class AuthController extends Controller
     public function mycontests($id)
     {
         $historydata = PlayContest::join('add_contests AS ac', 'play_contests.contestid', '=', 'ac.id')
-        ->leftJoin('payment_requests AS pr', 'play_contests.id', '=', 'pr.playcontestid')
-        ->select(
-            'ac.*',
-            'play_contests.conteststatus AS playconteststatus',
-            'play_contests.rank AS contestrank',
-            'play_contests.winningprice AS contestwinprice',
-            'play_contests.id AS playcontestid',
-            'pr.playcontestid AS prid',
-            'pr.id AS paymentrequestid'
-        )
-        ->where('play_contests.studentid', $id)
-        ->get();
+            ->leftJoin('payment_requests AS pr', 'play_contests.id', '=', 'pr.playcontestid')
+            ->select(
+                'ac.*',
+                'play_contests.conteststatus AS playconteststatus',
+                'play_contests.rank AS contestrank',
+                'play_contests.winningprice AS contestwinprice',
+                'play_contests.id AS playcontestid',
+                'pr.playcontestid AS prid',
+                'pr.id AS paymentrequestid'
+            )
+            ->where('play_contests.studentid', $id)
+            ->get();
         return response()->json($historydata);
     }
 
@@ -546,7 +550,7 @@ class AuthController extends Controller
         $apiSecret = env('RAZORPAY_SECRET');
 
         $data = [
-            'amount' => (int)($req->amount * 100),
+            'amount' => (int) ($req->amount * 100),
             'currency' => 'INR',
             'receipt' => '888888',
             'notes' => [

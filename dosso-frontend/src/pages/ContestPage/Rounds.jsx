@@ -6,7 +6,7 @@ import config from "constants/config"
 import Swal from "sweetalert2"
 import { getLocalData } from "services/global-storage"
 import MockAdapter from "axios-mock-adapter"
-import Countdown from "react-countdown";
+import Countdown from "react-countdown"
 import {
   Container,
   Row,
@@ -39,7 +39,7 @@ let wheelImg = "Assets/images/fortune-wheel.png"
 const Rounds = props => {
   const navigate = useNavigate()
   const location = useLocation()
-const data = location.state
+  const data = location.state
   document.title = "Participate"
 
   const [activeTab, setActiveTab] = useState("1")
@@ -63,19 +63,17 @@ const data = location.state
   const insertWallet = async () => {
     console.log("InsertAPI")
     try {
-      const dataList = [];
-      dataList.push(
-        {
-          userid: getLocalData("userId"),
-          transactionid: 15,
-          amount: data.registrationfees,
-          transactiontype: "Wallet",
-          paymenttype: "Debit",
-          contestid: data.id,
-          status: 0,
-        },
-      )
-      console.log("d-LIST ", dataList);
+      const dataList = []
+      dataList.push({
+        userid: getLocalData("userId"),
+        transactionid: 15,
+        amount: data.registrationfees,
+        transactiontype: "Wallet",
+        paymenttype: "Debit",
+        contestid: data.id,
+        status: 0,
+      })
+      console.log("d-LIST ", dataList)
 
       // Mock the HTTP request
       const mockAdapter = new MockAdapter(axiosInstance)
@@ -83,15 +81,15 @@ const data = location.state
         .onPost(config.apiUrl + "insertwallet")
         .reply(200, { success: true })
 
-      axios.post(
-        config.apiUrl + "insertwallet",
-        dataList[0], {}
-      )
+      axios
+        .post(config.apiUrl + "insertwallet", dataList[0], {})
         .then(response => {
           console.log(JSON.stringify(response.data))
-          Swal.fire("Great!", "Course has been prebooked!", "success").then(() => {
-            navigate('/history') // Redirect to '/other-page'
-          })
+          Swal.fire("Great!", "Course has been prebooked!", "success").then(
+            () => {
+              navigate("/history") // Redirect to '/other-page'
+            }
+          )
         })
     } catch (error) {
       console.error("Error in insertwallet:", error)
@@ -156,9 +154,9 @@ const data = location.state
     setModal(true)
   }
   useEffect(() => {
-    RankingList();
-    fetchData();
-    getWalletData();
+    RankingList()
+    fetchData()
+    getWalletData()
   }, [])
 
   if (loading) {
@@ -211,7 +209,10 @@ const data = location.state
                   </Button>
                 </CardBody>
                 <CardFooter className=" border-top text-center">
-                  End Time: <span className="text-danger"><Countdown date={data.enddate} /></span>{" "}
+                  End Time:{" "}
+                  <span className="text-danger">
+                    <Countdown date={data.enddate} />
+                  </span>{" "}
                   left
                 </CardFooter>
               </Card>
@@ -273,10 +274,12 @@ const data = location.state
                                     {item.start == 1
                                       ? "🥇"
                                       : item.start == 2
-                                        ? "🥈"
-                                        : item.start == 3
-                                          ? "🥉"
-                                          : item.start + "-" + item.end}
+                                      ? "🥈"
+                                      : item.start == 3
+                                      ? "🥉"
+                                      : item.start == item.end
+                                      ? item.start
+                                      : item.start + "-" + item.end}
                                   </th>
                                   <td>
                                     {item.price == 0
@@ -324,10 +327,10 @@ const data = location.state
                                           {index == 0
                                             ? "🥇"
                                             : index == 1
-                                              ? "🥈"
-                                              : index == 2
-                                                ? "🥉"
-                                                : index}
+                                            ? "🥈"
+                                            : index == 2
+                                            ? "🥉"
+                                            : index}
                                         </div>
                                         <div className="me-2 border border-1 border-secondary rounded-3">
                                           <img
@@ -360,7 +363,6 @@ const data = location.state
                     </Row>
                   </TabPane>
                 </TabContent>
-
               </div>
             </Col>
           </Row>
