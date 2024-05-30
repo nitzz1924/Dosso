@@ -109,7 +109,7 @@ const MyFund = () => {
               </Col>
             </Row>
           ))}
-          {wallet && (
+          
             <Row className="justify-content-center ">
               <Col xl="3" className="p-0">
                 <WalletStats
@@ -119,16 +119,16 @@ const MyFund = () => {
                 />
               </Col>
             </Row>
-          )}
+         
           <Row className="justify-content-center ">
             <Col lg="3" className="p-0">
-              {wallet && (
+              
                 <WalletActivities
                   debit={debithis}
                   credit={credithis}
                   all={allhis}
                 />
-              )}
+              
             </Col>
           </Row>
         </Container>

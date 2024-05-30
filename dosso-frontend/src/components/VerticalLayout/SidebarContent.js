@@ -183,6 +183,14 @@ const SidebarContent = props => {
                 </Link>
               </li>
               <li>
+                <Link to="/myFund" onClick={() => {
+                  tToggle();
+                }}>
+                  <i className='bx bx-wallet-alt' ></i>
+                  <span>{props.t("Wallet")}</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/profile" onClick={() => {
                   tToggle();
                 }}>
@@ -198,14 +206,7 @@ const SidebarContent = props => {
                   <span>{props.t("Notifications")}</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/myFund" onClick={() => {
-                  tToggle();
-                }}>
-                  <i className='bx bx-wallet-alt' ></i>
-                  <span>{props.t("Wallet")}</span>
-                </Link>
-              </li>
+              
               <li>
                 <Link to="/logout">
                   <i className="bx bx-power-off"></i>

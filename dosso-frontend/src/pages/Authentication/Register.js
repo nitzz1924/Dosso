@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback } from "reactstrap";
 import OTPInput from 'react-otp-input';
-import * as Yup from "yup";
 import axios from "axios";
-import MockAdapter from 'axios-mock-adapter';
 import { useFormik } from "formik";
-import { registerUser, apiError } from "../../store/actions";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
 import Swal from 'sweetalert2';
 import config from "constants/config";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, apiError } from "../../store/actions";
+import { Link } from "react-router-dom";
 
+let logoImg = "../../../Assets/images/Dosso21-logo-new.webp";
 
 const Register = props => {
   document.title = "Registration";
   const navigate = useNavigate();
-  // Create a new instance of axios
-  const axiosInstance = axios.create();
-  // Create a new instance of the mock adapter
-  const mockAdapter = new MockAdapter(axiosInstance);
+  const dispatch = useDispatch();
   const [generatedOTP, setGeneratedOTP] = useState('');
   const [enteredOTP, setEnteredOTP] = useState('');
   const [showOTPInput, setShowOTPInput] = useState(false);
-  const dispatch = useDispatch();
-
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -64,77 +58,89 @@ const Register = props => {
 
   const { isValid } = validation;
 
-  const generateOTP = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    console.log(form.value);
-    console.log('Generated isValid:', validation.error);
-
-    if (validation.isValid
-    ) {
-      const digits = '0123456789';
-      let randomOTP = '';
-      for (let i = 0; i < 6; i++) {
-        randomOTP += digits[Math.floor(Math.random() * 10)];
-      }
-      setGeneratedOTP(randomOTP);
-      console.log('Generated OTP:', randomOTP);
-      setShowOTPInput(true);
-    } else {
-      console.log('Please correct the form errors before generating OTP or ensure mobile number is 10 digits and contains only digits');
+  const checkDuplicate = async () => {
+    try {
+      const response = await axios.post(config.apiUrl + 'checkDuplicate', {
+        emailaddress: validation.values.email,
+        contactnumber: validation.values.mobilenumber,
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      Swal.fire("Oops!", "An unexpected error occurred. Please try again later.", "error");
+      return null;
     }
+  };
 
+  const generateOTP = async (event) => {
+    event.preventDefault();
+
+    if (isValid) {
+      const duplicateCheck = await checkDuplicate();
+      if (duplicateCheck) {
+        if (duplicateCheck.emailExists) {
+          Swal.fire("Duplicate Email", "This email is already registered. Please use a different email.", "error");
+          return;
+        }
+        if (duplicateCheck.contactnumberExists) {
+          Swal.fire("Duplicate Mobile Number", "This mobile number is already registered. Please use a different mobile number.", "error");
+          return;
+        }
+
+        const digits = '0123456789';
+        let randomOTP = '';
+        for (let i = 0; i < 6; i++) {
+          randomOTP += digits[Math.floor(Math.random() * 10)];
+        }
+        setGeneratedOTP(randomOTP);
+        setShowOTPInput(true);
+      } else {
+        Swal.fire("Oops!", "An unexpected error occurred during duplicate check. Please try again later.", "error");
+      }
+    } else {
+      console.log('Please correct the form errors before generating OTP');
+    }
   };
 
   const handleChange = otp => {
     setEnteredOTP(otp);
-    console.log('enteredOTP:', otp);
   };
 
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
-      console.log('OTP Verified Successfully', validation.values);
-      // Store form data in local storage
       localStorage.setItem('userData', JSON.stringify(validation.values));
       try {
-        const dataList = []
-        dataList.push({
+        const dataList = [{
           username: validation.values.mobilenumber,
           emailaddress: validation.values.email,
           password: validation.values.password,
           contactnumber: validation.values.mobilenumber,
           referbyId: validation.values.referral,
           status: 1,
-        })
-        // Mock the HTTP request
-        mockAdapter.onPost(config.apiUrl + 'studentregister').reply(200, { success: true });
+        }];
         axios.post(config.apiUrl + 'studentregister', dataList[0], {
           headers: {
             'Content-Type': 'multipart/form-data',
           }
         })
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            Swal.fire("Great!", "Your Account created!", "success")
-              .then(() => {
-                navigate('/login');
-              });
-          })
-          .catch((error) => {
-            // Handle errors here
-            console.log("error", error);
+        .then((response) => {
+          Swal.fire("Great!", "Your Account created!", "success")
+          .then(() => {
+            navigate('/login');
           });
+        })
+        .catch((error) => {
+          Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
+        });
 
       } catch (error) {
-        console.error(error);
+        Swal.fire("Oops!", "An unexpected error occurred. Please try again later.", "error");
       }
       dispatch(registerUser(validation.values));
     } else {
-      console.log('Incorrect OTP');
-      setErrorMessage('Incorrect OTP. Please try again.');
+      Swal.fire("Incorrect OTP", "The OTP you entered is incorrect. Please try again.", "error");
     }
   };
-
 
   const { user, registrationError } = useSelector(state => ({
     user: state.Account.user,
@@ -145,10 +151,9 @@ const Register = props => {
     dispatch(apiError(""));
   }, [dispatch]);
 
-
   return (
     <React.Fragment>
-      <div className="home-btn   d-sm-block">
+      <div className="home-btn d-sm-block">
         <Link to="/" className="text-dark">
           <i className="bx bx-home h2" />
         </Link>
@@ -254,7 +259,7 @@ const Register = props => {
                     <Form>
                       {isValid && showOTPInput && ( // Conditionally render OTP input section
                         <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
-                        Enter OTP: {generatedOTP}
+                          Enter OTP: {generatedOTP}
                           <OTPInput
                             value={enteredOTP}
                             onChange={handleChange}
@@ -296,7 +301,7 @@ const Register = props => {
                                 }
                               }}
                             >
-                              Register NOw
+                              Register Now
                             </button>
                           </div>
                         </div>

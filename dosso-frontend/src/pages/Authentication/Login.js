@@ -34,12 +34,15 @@ const Login = props => {
       username: "" || "",
       password: "" || "",
     },
-    validationSchema: Yup.object({
-      username: Yup.number().required("Please Enter Your Mobile Number"),
+    validationSchema: Yup.object().shape({
+      username: Yup.string()
+      .matches(/^\d{10}$/, 'Number must be a 10-digit number')
+      .required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: values => {
       console.log(values)
+      // dispatch(loginUser(values, props.router.navigate))
       dispatch(loginUser(values, props.router.navigate))
     },
   })
@@ -47,11 +50,20 @@ const Login = props => {
     error: state.Login.error,
   }))
 
+  const handleLogin = (success) => {
+    if (success) {
+      navigate("/contests")
+    } else {
+      Swal.fire("Invalid Credentials", "Please check your mobile number and password.", "error")
+    }
+  }
+
   useEffect(() => {
     if (getLocalData("userId")) {
       navigate("/contests")
     }
   })
+
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -95,10 +107,13 @@ const Login = props => {
                       <div className="mb-3">
                         <Label className="form-label">Enter Unique ID</Label>
                         <Input
-                          name="username"
-                          className="form-control"
-                          placeholder="Enter Mobile"
-                          type="number"
+                          name="username" 
+                          className="form-control border"
+                          placeholder="Enter Mobile Number"
+                          maxLength={10}
+                          pattern="[0-9]*"
+                          inputMode="numeric"
+                          type="tel"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           value={validation.values.username || ""}
@@ -121,6 +136,7 @@ const Login = props => {
                         <Label className="form-label">Password</Label>
                         <Input
                           name="password"
+                          className="border form-control"
                           value={validation.values.password || ""}
                           type="password"
                           placeholder="Enter Password"
@@ -165,8 +181,8 @@ const Login = props => {
                       </div>
 
                       <div className="mt-4 text-center">
-                        <Link to="/forgot-password" className="text-muted">
-                          <i className="mdi mdi-lock me-1" />
+                        <Link to="/forgot-password" className="text-muted text-decoration-underline">
+                          <i className="mdi mdi-lock me-1 " />
                           Forgot your password?
                         </Link>
                       </div>
@@ -181,12 +197,12 @@ const Login = props => {
                     to="/register"
                     className="fw-medium text-secondary ms-1 fw-bold text-black text-uppercase"
                   >
-                    Signup now
+                    <span className="ms-1 text-info fw-bold text-decoration-underline ">Signup now</span>
                   </Link>
                 </p>
                 <p>
                   © {new Date().getFullYear()} Dosso21. Developed with
-                  <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
+                  <i className="mdi mdi-heart text-danger ms-1" /> by Yuvmedia.
                 </p>
                 <Link to="/privacypolicy">
                   <p className="text-muted">Privacy Policy</p>

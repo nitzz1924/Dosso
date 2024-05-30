@@ -59,6 +59,51 @@ class AuthController extends Controller
         return response()->json($response, 200);
     }
 
+    public function checkDuplicate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'emailaddress' => 'required|email',
+            'contactnumber' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
+
+        $emailExists = Students::where('emailaddress', $request->emailaddress)->exists();
+        $contactnumberExists = Students::where('contactnumber', $request->contactnumber)->exists();
+
+        return response()->json([
+            'success' => true,
+            'emailExists' => $emailExists,
+            'contactnumberExists' => $contactnumberExists,
+        ]);
+    }
+
+    public function validateCredentials(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|numeric',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
+
+        $user = Students::where('contactnumber', $request->username)
+                        ->where('password', bcrypt($request->password))
+                        ->first();
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Invalid mobile number or password'], 401);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Credentials validated successfully']);
+    }
+
+
+
     public function studentlogin(Request $request)
     {
         $credentials = $request->only('username', 'password');

@@ -12,6 +12,8 @@ Route::get('/user', function (Request $request) {
 Route::controller(AuthController::class)->group(function () {
     Route::post('studentlogin', 'studentlogin');
     Route::post('studentregister', 'studentregister');
+    Route::post('checkDuplicate', 'checkDuplicate');
+    Route::post('validateCredentials', 'validateCredentials');
     Route::get('studentedit/{id}', 'studentedit');
     Route::put('updatestudent/{id}', 'updatestudent');
     Route::get('showcontests', 'showcontests');
