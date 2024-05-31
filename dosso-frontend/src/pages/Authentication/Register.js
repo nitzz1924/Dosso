@@ -309,7 +309,7 @@ const Register = props => {
                     </Form>
                     <div className="mt-4 text-center text-secondary ">
                       <p className="mb-0">
-                        By registering you agree to the Dosso21{" "}
+                        By registering you agree to the Dosso21 
                         <Link to="#" className="text-secondary">
                           Terms of Use
                         </Link>

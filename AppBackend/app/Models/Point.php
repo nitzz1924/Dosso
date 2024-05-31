@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Point extends Model
 {
-    protected $fillable = ['id','point','studentId','contestId'];
+    protected $fillable = ['id','point','studentId','contestId', 'spins'];
 
     public function addContest()
       {

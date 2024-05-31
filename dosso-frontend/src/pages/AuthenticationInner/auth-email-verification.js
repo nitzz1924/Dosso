@@ -50,7 +50,7 @@ const EmailVerification = () => {
                       <div className="p-2 mt-4">
                         <h4>Verify your email</h4>
                         <p>
-                          We have sent you verification email{" "}
+                          We have sent you verification email 
                           <span className="fw-semibold">
                             example@abc.com
                           </span>
@@ -71,14 +71,14 @@ const EmailVerification = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Didn&apos;t receive an email ?{" "}
+                  Didn&apos;t receive an email ? 
                   <a href="#" className="fw-medium text-primary">
-                    {" "}
-                    Resend{" "}
-                  </a>{" "}
+                     
+                    Resend 
+                  </a> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
+                  © {new Date().getFullYear()} Skote. Crafted with 
                   <i className="mdi mdi-heart text-danger"></i> by Themesbrand
                 </p>
               </div>

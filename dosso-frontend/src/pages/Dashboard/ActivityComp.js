@@ -16,7 +16,7 @@ const ActivityComp = () => {
               <div className="flex-shrink-0 d-flex">
                 <div className="me-3">
                   <h5 className="font-size-14">
-                    22 Nov{" "}
+                    22 Nov 
                     <i className="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2" />
                   </h5>
                 </div>
@@ -33,7 +33,7 @@ const ActivityComp = () => {
               <div className="d-flex">
                 <div className="flex-shrink-0 me-3">
                   <h5 className="font-size-14">
-                    17 Nov{" "}
+                    17 Nov 
                     <i className="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2" />
                   </h5>
                 </div>
@@ -52,7 +52,7 @@ const ActivityComp = () => {
               <div className="flex-shrink-0 d-flex">
                 <div className="me-3">
                   <h5 className="font-size-14">
-                    15 Nov{" "}
+                    15 Nov 
                     <i className="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2" />
                   </h5>
                 </div>
@@ -68,7 +68,7 @@ const ActivityComp = () => {
               <div className="flex-shrink-0 d-flex">
                 <div className="me-3">
                   <h5 className="font-size-14">
-                    22 Nov{" "}
+                    22 Nov 
                     <i className="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2" />
                   </h5>
                 </div>

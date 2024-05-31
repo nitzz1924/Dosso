@@ -61,6 +61,8 @@ const History = () => {
       setLoading(false)
     }
   }
+  
+  
 
   const handleClick = contest => {
     console.log(contest)
@@ -290,7 +292,7 @@ const History = () => {
             </Row>
           </TabPane>
 
-          {/* Played Board */}
+          {/* Played  */}
           <TabPane tabId="2">
             <Row className="m-2 justify-content-center">
               <Col lg="3" className="d-grid align-content-center p-0">
@@ -315,7 +317,7 @@ const History = () => {
                                 (item.playconteststatus === "1"
                                   ? "  border-success "
                                     ? item.playconteststatus === "2"
-                                    : "  border-primary "
+                                    : "  shadow "
                                   : " border-dark ") +
                                 "mb-3  border border-2 flicking-panel  rounded-3"
                               }
@@ -344,12 +346,17 @@ const History = () => {
                                     </span>
                                   </div>
                                   <div className=" w-100 p-2 d-flex justify-content-around ">
-                                    <div className="mb-0 me-1">
+                                  {item.contestrank == '0' ? 
+                                    <div className="text-info">
+                                      Others are still playing
+                                      </div>
+                                    :  <div className="mb-0 me-1">
                                       Your Rank:
                                       <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
                                         # {item.contestrank}
                                       </div>
                                     </div>
+                                    }
                                     {item.status === "3" && (
                                       <div className="mb-0 me-1 text-center">
                                         Reward:
@@ -387,7 +394,7 @@ const History = () => {
             </Row>
           </TabPane>
 
-          {/* Closed Board */}
+          {/* Closed  */}
           <TabPane tabId="3">
             <Row className="m-2 justify-content-center">
               <Col lg="3" className="d-grid align-content-center p-0">

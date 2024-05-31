@@ -152,7 +152,7 @@ const Dashboard = props => {
                             id="one_month"
                           >
                             Week
-                          </Link>{" "}
+                          </Link> 
                         </li>
                         <li className="nav-item">
                           <Link

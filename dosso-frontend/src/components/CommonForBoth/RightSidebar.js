@@ -221,7 +221,7 @@ const RightSidebar = props => {
                       }
                     }}
                   />
-                  <label className="me-1" htmlFor="radioThemeColored">Colored</label>{" "}
+                  <label className="me-1" htmlFor="radioThemeColored">Colored</label> 
                 </>
               )}
             </div>
@@ -231,7 +231,7 @@ const RightSidebar = props => {
                 <hr className="mt-1" />
                 <div className="radio-toolbar">
                   <span className="mb-2 d-block" id="radio-title">
-                    Left Sidebar Type{" "}
+                    Left Sidebar Type 
                   </span>
                   <input
                     type="radio"

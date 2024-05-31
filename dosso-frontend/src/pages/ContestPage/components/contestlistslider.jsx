@@ -124,11 +124,11 @@ const Contestlistslider = ({ title }) => {
                       ></Progress>
                       <div className="float-start text-danger progress-text fw-bold">
                         {Number(item.joinmembers) -
-                          Number(item.play_contests_count)}{" "}
-                        Spots left
+                          Number(item.play_contests_count)} 
+                          <span className="ms-1">Seats left</span>
                       </div>
                       <div className="float-end text-muted progress-text">
-                        {Number(item.joinmembers)} Spots
+                        {Number(item.joinmembers)} Seats
                       </div>
                     </div>
                     <div className="mt-2">

@@ -136,7 +136,7 @@ const Register2 = () => {
 
                           <div>
                             <p className="mb-0">
-                              By registering you agree to the Skote{" "}
+                              By registering you agree to the Skote 
                               <a href="#" className="text-primary">
                                 Terms of Use
                               </a>
@@ -191,14 +191,14 @@ const Register2 = () => {
 
                         <div className="mt-5 text-center">
                           <p>
-                            Already have an account ?{" "}
+                            Already have an account ? 
                             <Link
                               to="pages-login-2"
                               className="fw-medium text-primary"
                             >
-                              {" "}
+                               
                               Login
-                            </Link>{" "}
+                            </Link> 
                           </p>
                         </div>
                       </div>
@@ -206,9 +206,9 @@ const Register2 = () => {
 
                     <div className="mt-4 mt-md-5 text-center">
                       <p className="mb-0">
-                        ©{" "}
+                        © 
                         { new Date().getFullYear()}
-                        Skote. Crafted with{" "}
+                        Skote. Crafted with 
                         <i className="mdi mdi-heart text-danger"></i> by
                         Themesbrand
                       </p>

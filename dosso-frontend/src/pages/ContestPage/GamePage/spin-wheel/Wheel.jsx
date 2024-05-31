@@ -92,7 +92,7 @@ const Wheels = ({ data }) => {
             <div className="border border-secondary rounded text-dark fw-bold fs-2 my-3 py-2">
                     {!mustSpin && (
                         <span>
-                            You won{" "}
+                            You won 
                             <CountUp start={1000} end={rouletteData[prizeNumber].completeOption} separator=""
                             /> points
                         </span>

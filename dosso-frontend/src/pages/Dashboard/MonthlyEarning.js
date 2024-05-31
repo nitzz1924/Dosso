@@ -8,7 +8,7 @@ import ApexRadial from "./ApexRadial";
 const MonthlyEarning = () => {
   return (
     <React.Fragment>
-      {" "}
+       
       <Card>
         <CardBody>
           <CardTitle className="mb-4">Monthly Earning</CardTitle>
@@ -18,9 +18,9 @@ const MonthlyEarning = () => {
               <h3>$34,252</h3>
               <p className="text-muted">
                 <span className="text-success me-2">
-                  {" "}
-                  12% <i className="mdi mdi-arrow-up"></i>{" "}
-                </span>{" "}
+                   
+                  12% <i className="mdi mdi-arrow-up"></i> 
+                </span> 
                 From previous period
               </p>
               <div className="mt-4">

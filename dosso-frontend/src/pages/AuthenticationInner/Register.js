@@ -169,7 +169,7 @@ const Register = () => {
                             >
                               <i className="mdi mdi-facebook" />
                             </Link>
-                          </li>{" "}
+                          </li> 
                           <li className="list-inline-item">
                             <Link
                               to="#"
@@ -177,7 +177,7 @@ const Register = () => {
                             >
                               <i className="mdi mdi-twitter" />
                             </Link>
-                          </li>{" "}
+                          </li> 
                           <li className="list-inline-item">
                             <Link
                               to="#"
@@ -191,7 +191,7 @@ const Register = () => {
 
                       <div className="mt-4 text-center">
                         <p className="mb-0">
-                          By registering you agree to the Skote{" "}
+                          By registering you agree to the Skote 
                           <Link to="#" className="text-primary">
                             Terms of Use
                           </Link>
@@ -203,17 +203,17 @@ const Register = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Already have an account ?{" "}
+                  Already have an account ? 
                   <Link
                     to="/pages-login"
                     className="fw-medium text-primary"
                   >
-                    {" "}
+                     
                     Login
-                  </Link>{" "}
+                  </Link> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
+                  © {new Date().getFullYear()} Skote. Crafted with 
                   <i className="mdi mdi-heart text-danger" /> by Themesbrand
                 </p>
               </div>

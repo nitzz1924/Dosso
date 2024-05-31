@@ -183,10 +183,10 @@ const ForgetPasswordPage = (props) => {
                     className="font-weight-medium text-black fw-bold"
                   >
                     Login
-                  </Link>{" "}
+                  </Link> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dosso21. Developed with{" "}
+                  © {new Date().getFullYear()} Dosso21. Developed with 
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>

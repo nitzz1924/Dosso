@@ -24,8 +24,8 @@ const CardPricing = props => {
               <h2>
                 <sup>
                   <small>$</small>
-                </sup>{" "}
-                {props.pricing.price}/{" "}
+                </sup> 
+                {props.pricing.price}/ 
                 <span className="font-size-13">{props.pricing.duration}</span>
               </h2>
             </div>
@@ -41,7 +41,7 @@ const CardPricing = props => {
             <div className="plan-features mt-5">
               {props.pricing.features.map((feature, key) => (
                 <p key={"_feature_" + key}>
-                  <i className="bx bx-checkbox-square text-primary me-2" />{" "}
+                  <i className="bx bx-checkbox-square text-primary me-2" /> 
                   {feature.title}
                 </p>
               ))}

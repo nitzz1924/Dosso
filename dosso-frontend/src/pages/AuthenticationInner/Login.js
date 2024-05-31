@@ -167,7 +167,7 @@ const Login = () => {
                             >
                               <i className="mdi mdi-facebook" />
                             </Link>
-                          </li>{" "}
+                          </li> 
                           <li className="list-inline-item">
                             <Link
                               to="#"
@@ -175,7 +175,7 @@ const Login = () => {
                             >
                               <i className="mdi mdi-twitter" />
                             </Link>
-                          </li>{" "}
+                          </li> 
                           <li className="list-inline-item">
                             <Link
                               to="#"
@@ -199,17 +199,17 @@ const Login = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don&apos;t have an account ?{" "}
+                  Don&apos;t have an account ? 
                   <Link
                     to="pages-register"
                     className="fw-medium text-primary"
                   >
-                    {" "}
-                    Signup now{" "}
-                  </Link>{" "}
+                     
+                    Signup now 
+                  </Link> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dosso21. Developed with{" "}
+                  © {new Date().getFullYear()} Dosso21. Developed with 
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>

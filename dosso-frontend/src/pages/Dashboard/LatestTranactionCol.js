@@ -56,7 +56,7 @@ const PaymentMethod = (cell) => {
           cell.value === "Mastercard" ? "fab fa-cc-mastercard me-1" : "" ||
           cell.value === "Visa" ? "fab fa-cc-visa me-1" : ""
           )}
-          />{" "}
+          /> 
             {cell.value}
         </span>
     )

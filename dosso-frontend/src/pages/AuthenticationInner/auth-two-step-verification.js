@@ -60,7 +60,7 @@ const TwostepVerification = () => {
                       <div className="p-2 mt-4">
                         <h4>Verify your email</h4>
                         <p className="mb-5">
-                          Please enter the 4 digit code sent to{" "}
+                          Please enter the 4 digit code sent to 
                           <span className="fw-semibold">
                             example@abc.com
                           </span>
@@ -129,14 +129,14 @@ const TwostepVerification = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Did&apos;t receive a code ?{" "}
+                  Did&apos;t receive a code ? 
                   <a href="#" className="fw-medium text-primary">
-                    {" "}
-                    Resend{" "}
-                  </a>{" "}
+                     
+                    Resend 
+                  </a> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
+                  © {new Date().getFullYear()} Skote. Crafted with 
                   <i className="mdi mdi-heart text-danger"></i> by Themesbrand
                 </p>
               </div>

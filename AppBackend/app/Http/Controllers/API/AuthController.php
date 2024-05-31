@@ -340,6 +340,7 @@ class AuthController extends Controller
         $playerspindata->studentid = $request->input('studentid');
         $playerspindata->contestid = $request->input('contestid');
         $playerspindata->point = $request->input('point');
+        $playerspindata->spins = $request->input('spins');
         $playerspindata->save();
         $response = [
             'success' => true,
@@ -465,7 +466,7 @@ class AuthController extends Controller
     {
         // Fetch the contest with the play contests count
         $contest = AddContest::where('id', $id)->withCount('ContestPoints')->first();
-
+        // dd(intval($contest->joinmembers));
         // Check if the contest exists
         if (!$contest) {
             return response()->json([
@@ -478,7 +479,7 @@ class AuthController extends Controller
         $winzones = Winzone::orderBy('start', 'asc')->get();
 
         // Check if the number of play contests is greater than or equal to the join members
-        if ($contest->play_contests_count >= intval($contest->joinmembers)) {
+        if (intval($contest->play_contests_count) >= intval($contest->joinmembers)) {
             // Fetch play contests and order them by points descending
             $playcontests = Point::where('contestId', $id)->orderBy('point', 'desc')->get();
 
@@ -489,23 +490,32 @@ class AuthController extends Controller
                         $playcontest = PlayContest::where('studentid', $data->studentId)
                             ->where('contestid', $id)
                             ->first();
+                            
                         if ($playcontest) {
-                            $playcontest->update([
-                                'rank' => $index + 1,
-                                'winningprice' => $value->price,
-                            ]);
+                            if($value->price != 0) {
+                                $playcontest->update([
+                                    'rank' => $index + 1,
+                                    'winningprice' => $value->price,
+                                ]);
+                            } else {
+                                $playcontest->update([
+                                    'rank' => $index + 1,
+                                    'winningprice' => mt_rand(0, count($value->Vouchers) - 1),
+                                ]); 
+                            }
+                            
                         }
                     }
                 }
             }
 
             $response = [
-                'message' => 'Contest has reached the required number of join members.',
+                'message' => 'Contest has reached the required number of join members.' + intval($contest->play_contests_count) + '/' + intval($contest->joinmembers),
                 'success' => true,
             ];
         } else {
             $response = [
-                'message' => 'Contest has not yet reached the required number of join members.',
+                'message' => 'Contest has not yet reached the required number of join members. ' + intval($contest->play_contests_count) + '/' + intval($contest->joinmembers),
                 'success' => false,
             ];
         }

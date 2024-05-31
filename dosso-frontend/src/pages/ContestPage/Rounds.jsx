@@ -179,8 +179,8 @@ const Rounds = props => {
                 <CardBody>
                   <CardTitle className="mt-0 ">
                     <div>
-                      <div>Prize Pool</div>
-                      <div className="text-black fs-3">₹ {data.totalprice}</div>
+                      <div className=" text-center">Prize Pool</div>
+                      <div className="text-success fs-3 text-center">₹ {data.totalprice}</div>
                       <div className="">
                         <Progress
                           animated
@@ -194,29 +194,40 @@ const Rounds = props => {
                         ></Progress>
                         <div className="float-start text-danger progress-text fw-bold">
                           {Number(data.joinmembers) -
-                            Number(data.play_contests_count)}{" "}
-                          Spots left
+                            Number(data.play_contests_count)}
+                          <span className="ms-1">Seats left</span>
                         </div>
                         <div className="float-end text-muted progress-text">
-                          {Number(data.joinmembers)} Spots
+                          {Number(data.joinmembers)} Total Seats
                         </div>
                       </div>
                     </div>
                   </CardTitle>
 
-                  <Button
-                    onClick={handlejoin}
-                    className="btn btn-light w-100 fs-4 rounded-3 mt-3"
-                  >
-                    Join ₹ {data.registrationfees}
-                  </Button>
+                  {data.joinmembers - data.play_contests_count != 0 ?
+                    <Button
+                      onClick={handlejoin}
+                      className="btn btn-light w-100 fs-4 rounded-3 mt-3"
+                    >
+                      Join ₹ {data.registrationfees}
+                    </Button>
+                    :
+                    <Button
+                      disabled
+                      className="btn btn-light border-dark w-100 fs-5 rounded-3 mt-3"
+                    >
+                      All seats are full
+                    </Button>
+
+                  }
+
                 </CardBody>
                 <CardFooter className=" border-top text-center">
-                  End Time:{" "}
-                  <span className="text-danger">
+                  End Time:
+                  <span className="text-danger mx-1">
                     <Countdown date={data.enddate} />
-                  </span>{" "}
-                  left
+                  </span>
+                  remaining
                 </CardFooter>
               </Card>
             </Col>
@@ -267,7 +278,7 @@ const Rounds = props => {
                             <thead>
                               <tr>
                                 <th>Rank</th>
-                                <th className="text-end">WINNINGS</th>
+                                <th className="text-end">Rewards</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -277,12 +288,12 @@ const Rounds = props => {
                                     {item.start == 1
                                       ? "🥇"
                                       : item.start == 2
-                                      ? "🥈"
-                                      : item.start == 3
-                                      ? "🥉"
-                                      : item.start == item.end
-                                      ? item.start
-                                      : item.start + "-" + item.end}
+                                        ? "🥈"
+                                        : item.start == 3
+                                          ? "🥉"
+                                          : item.start == item.end
+                                            ? item.start
+                                            : item.start + "-" + item.end}
                                   </th>
                                   <td>
                                     {item.price == 0
@@ -313,7 +324,7 @@ const Rounds = props => {
                                   onClick={() =>
                                     navigate("/leaderbaord", { state: data })
                                   }
-                                  className="btn btn-soft-secondary waves-effect waves-light btn-danger fw-bold "
+                                  className="btn btn-soft-dark waves-effect waves-light btn-danger fw-bold "
                                 >
                                   View All
                                 </Button>
@@ -330,10 +341,10 @@ const Rounds = props => {
                                           {index == 0
                                             ? "🥇"
                                             : index == 1
-                                            ? "🥈"
-                                            : index == 2
-                                            ? "🥉"
-                                            : index}
+                                              ? "🥈"
+                                              : index == 2
+                                                ? "🥉"
+                                                : index}
                                         </div>
                                         <div className="me-2 border border-1 border-secondary rounded-3">
                                           <img
@@ -342,17 +353,16 @@ const Rounds = props => {
                                                 ? wheelImg
                                                 : item.studentprofile
                                             }
-                                            alt=""
+                                            alt="wheelImg"
                                             className="img-fluid "
                                             width={35}
                                           />
                                         </div>
                                         <div className="me-2 fw-bold fs-5">
-                                          {item.studentname}{" "}
+                                          {item.studentname}
                                         </div>
                                       </div>
                                       <div className="fw-bold fs-5">
-                                        {" "}
                                         {item.point} pts
                                       </div>
                                     </CardBody>
@@ -385,7 +395,7 @@ const Rounds = props => {
               />
             </FormGroup>
             <div className="text-muted text-center mb-2">
-              Your Current Wallet Amount:{" "}
+              Your Current Wallet Amount:
               <span className="text-success fw-bold">
                 ₹ {wallet <= 0 ? 0 : wallet}
               </span>
