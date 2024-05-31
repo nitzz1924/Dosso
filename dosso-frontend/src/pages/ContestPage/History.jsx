@@ -14,7 +14,7 @@ import {
   NavItem,
   TabContent,
   TabPane,
-  NavLink,
+  NavLink, Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -28,13 +28,23 @@ import Countdown from "react-countdown"
 const History = () => {
   const [loading, setLoading] = useState(true)
   const [contestData, setContestData] = useState([])
+  const [getPoints, setGetPoints] = useState([])
   const [disabledContests, setDisabledContests] = useState(false)
   const navigate = useNavigate()
   const axiosInstance = axios.create()
   const mockAdapter = new MockAdapter(axiosInstance)
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
+  const [modal, setModal] = useState(false);
 
+
+  const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
+
+
+  const toggle = (id) => {
+    getpoints(id)
+    setModal(!modal);
+  }
   const [activeTab, setActiveTab] = useState("1")
 
   const toggleTab = tab => {
@@ -61,8 +71,33 @@ const History = () => {
       setLoading(false)
     }
   }
-  
-  
+  const getpoints = async (contestId) => {
+    try {
+      const response = await axios.get(
+        config.apiUrl + "getpoints/" + contestId,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        }
+      );
+      console.log("My getpoints Data : ", response.data);
+      // setGetPoints(response.data);
+      // Parse the spins from string to array
+      const parsedData = response.data.map(item => ({
+        ...item,
+        spins: item.spins.split(',').map(Number),
+      }));
+
+      setGetPoints(parsedData);
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
 
   const handleClick = contest => {
     console.log(contest)
@@ -113,7 +148,10 @@ const History = () => {
 
   useEffect(() => {
     mycontests()
+
   }, [])
+
+
 
   if (loading) {
     return <div>Loading......</div>
@@ -269,8 +307,8 @@ const History = () => {
                                       (item.playconteststatus === "1"
                                         ? " btn-success w-lg rewardCard "
                                         : item.playconteststatus === "2"
-                                        ? " btn-info "
-                                        : " btn-light ") +
+                                          ? " btn-info "
+                                          : " btn-light ") +
                                       "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
                                     }
                                   >
@@ -346,16 +384,16 @@ const History = () => {
                                     </span>
                                   </div>
                                   <div className=" w-100 p-2 d-flex justify-content-around ">
-                                  {item.contestrank == '0' ? 
-                                    <div className="text-info">
-                                      Others are still playing
+                                    {item.contestrank == '0' ?
+                                      <div className="text-info">
+                                        Others are still playing
                                       </div>
-                                    :  <div className="mb-0 me-1">
-                                      Your Rank:
-                                      <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
-                                        # {item.contestrank}
+                                      : <div className="mb-0 me-1">
+                                        Your Rank:
+                                        <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                          # {item.contestrank}
+                                        </div>
                                       </div>
-                                    </div>
                                     }
                                     {item.status === "3" && (
                                       <div className="mb-0 me-1 text-center">
@@ -371,15 +409,23 @@ const History = () => {
                               {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
                                   {item.playconteststatus === "2" && (
-                                    <button
+                                    (<button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
                                       }
                                       className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
                                     >
                                       Claim Reward
-                                    </button>
+                                    </button>)
+
                                   )}
+                                  <Button
+
+                                    onClick={() => toggle(item.id)}
+                                    className="btn btn-info waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                                  >
+                                    Marksheet
+                                  </Button>
                                 </CardFooter>
                               )}
                             </Card>
@@ -471,16 +517,17 @@ const History = () => {
                               {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
                                   {item.playconteststatus === "2" && (
-                                    <button
+                                    (<button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
                                       }
                                       className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
                                     >
                                       Claim Reward
-                                    </button>
+                                    </button>)
+
                                   )}
-                                  
+
                                 </CardFooter>
                               )}
                             </Card>
@@ -495,6 +542,34 @@ const History = () => {
             </Row>
           </TabPane>
         </TabContent>
+
+        {/* <!-- Modal --> */}
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>
+            Marksheet
+          </ModalHeader>
+          <ModalBody>
+            {(getPoints || []).map((result, index) => (
+              <div key={index}>
+                <div className="fs-4 fw-bold text-center w-100 pt-1">
+                  {result.studentname}'s Spins
+                </div>
+                {result.spins.map((spin, i) => (
+                  <div className="resultTab fs-4 mt-2 shadow px-2 d-flex justify-content-between" key={i}>
+                    <span className="text-dark fw-bold">{`${subjects[index] || `Round ${i + 1}`} :`}</span>
+                    <span className="fw-bolder text-success">{spin}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={toggle}>
+              Close
+            </Button>
+          </ModalFooter>
+        </Modal>
+
       </div>
     </div>
   )

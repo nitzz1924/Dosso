@@ -340,7 +340,7 @@ const Playslots = ({ data }) => {
                 <div key={index}>
                   {index === 0 && result === "" ? (
                     <div className="fs-4 fw-bold text-center w-100  pt-1">
-                      Spin Results
+                      Marksheet
                     </div>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
