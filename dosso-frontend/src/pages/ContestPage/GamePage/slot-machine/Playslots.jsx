@@ -16,6 +16,8 @@ let gameOver = "/Assets/images/flag.png"
 import "https://cdn.lordicon.com/lordicon.js"
 
 const Playslots = ({ data }) => {
+
+  const [spinvalue, setspinvalue] = useState([])
   const [spincount, setSpincount] = useState(7)
   const [slots, setSlots] = useState(null)
   const [spinDisabled, setSpinDisabled] = useState(false)
@@ -29,6 +31,7 @@ const Playslots = ({ data }) => {
   const instantWinAudio = useRef(new Audio(instantWin));
   const axiosInstance = axios.create()
   const [isExploding, setIsExploding] = useState(false);
+  const [countplayContests, setCountplayContests] = useState([])
 
   const mockAdapter = new MockAdapter(axiosInstance)
 
@@ -45,6 +48,25 @@ const Playslots = ({ data }) => {
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ]
+
+  const countplaycontests = async () => {
+    try {
+      const response = await axios.get(
+        config.apiUrl + "countplaycontests/" +  data.id,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      console.log("setCountplayContests Data : ", response.data)
+      setCountplayContests(response.data)
+    } catch (error) {
+      console.log("error", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   function createSymbolElement(symbol) {
     const div = document.createElement("div")
@@ -123,6 +145,7 @@ const Playslots = ({ data }) => {
         studentid: getLocalData("userId"),
         contestid: data.id,
         point: newTotalSum,
+        spins: spinvalue.toString(),
         playcontestid: data.playcontestid,
         status: 1,
       })
@@ -171,6 +194,9 @@ const Playslots = ({ data }) => {
     setSpincount(newSpincount)
 
     const newSpinResult = parseInt(displayedSymbols.join(""))
+
+    spinvalue.push(newSpinResult)
+
     setSpinResults(prevSpinResults => {
       const updatedResults = [...prevSpinResults]
       updatedResults[7 - newSpincount] = newSpinResult
@@ -192,11 +218,13 @@ const Playslots = ({ data }) => {
       newTotalSum
     )
 
+
+    console.log("spin array",spinvalue)
     if (newSpincount <= 0) {
       setGameComplete(true)
       setSpinDisabled(true)
       InsertLastSpin(newTotalSum)
-
+      countplaycontests()
       setIsExploding(true);
 
       Swal.fire({

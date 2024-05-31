@@ -61,6 +61,8 @@ const History = () => {
       setLoading(false)
     }
   }
+  
+  
 
   const handleClick = contest => {
     console.log(contest)
