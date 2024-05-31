@@ -381,7 +381,7 @@ const Rounds = props => {
           </Row>
         </Container>
 
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={modal} toggle={toggle} centered={true}>
           <ModalHeader toggle={toggle}>Contest Participation</ModalHeader>
           <ModalBody>
             <FormGroup>

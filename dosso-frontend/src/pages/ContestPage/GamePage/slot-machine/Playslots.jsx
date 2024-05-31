@@ -31,7 +31,7 @@ const Playslots = ({ data }) => {
   const axiosInstance = axios.create()
   const [isExploding, setIsExploding] = useState(false)
   const [countplayContests, setCountplayContests] = useState([])
-
+  const [loading, setLoading] = useState(false)
   const mockAdapter = new MockAdapter(axiosInstance)
 
   let newTotalSum = 0
@@ -265,6 +265,10 @@ const Playslots = ({ data }) => {
   const handlechange = () => {
     spin()
     spinAudio.current.play()
+  }
+
+  if (loading) {
+    return <div>Loading......</div>
   }
 
   return (

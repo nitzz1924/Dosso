@@ -14,7 +14,7 @@ import {
   NavItem,
   TabContent,
   TabPane,
-  NavLink, Modal, ModalHeader, ModalBody, ModalFooter
+  NavLink, 
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -28,23 +28,16 @@ import Countdown from "react-countdown"
 const History = () => {
   const [loading, setLoading] = useState(true)
   const [contestData, setContestData] = useState([])
-  const [getPoints, setGetPoints] = useState([])
   const [disabledContests, setDisabledContests] = useState(false)
   const navigate = useNavigate()
   const axiosInstance = axios.create()
   const mockAdapter = new MockAdapter(axiosInstance)
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
-  const [modal, setModal] = useState(false);
 
 
-  const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
 
-
-  const toggle = (id) => {
-    getpoints(id)
-    setModal(!modal);
-  }
+  
   const [activeTab, setActiveTab] = useState("1")
 
   const toggleTab = tab => {
@@ -71,31 +64,7 @@ const History = () => {
       setLoading(false)
     }
   }
-  const getpoints = async (contestId) => {
-    try {
-      const response = await axios.get(
-        config.apiUrl + "getpoints/" + contestId,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          }
-        }
-      );
-      console.log("My getpoints Data : ", response.data);
-      // setGetPoints(response.data);
-      // Parse the spins from string to array
-      const parsedData = response.data.map(item => ({
-        ...item,
-        spins: item.spins.split(',').map(Number),
-      }));
-
-      setGetPoints(parsedData);
-    } catch (error) {
-      console.log("error", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
 
 
@@ -148,7 +117,6 @@ const History = () => {
 
   useEffect(() => {
     mycontests()
-
   }, [])
 
 
@@ -419,13 +387,7 @@ const History = () => {
                                     </button>)
 
                                   )}
-                                  <Button
-
-                                    onClick={() => toggle(item.id)}
-                                    className="btn btn-info waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
-                                  >
-                                    Marksheet
-                                  </Button>
+                                  
                                 </CardFooter>
                               )}
                             </Card>
@@ -543,32 +505,7 @@ const History = () => {
           </TabPane>
         </TabContent>
 
-        {/* <!-- Modal --> */}
-        <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>
-            Marksheet
-          </ModalHeader>
-          <ModalBody>
-            {(getPoints || []).map((result, index) => (
-              <div key={index}>
-                <div className="fs-4 fw-bold text-center w-100 pt-1">
-                  {result.studentname}'s Spins
-                </div>
-                {result.spins.map((spin, i) => (
-                  <div className="resultTab fs-4 mt-2 shadow px-2 d-flex justify-content-between" key={i}>
-                    <span className="text-dark fw-bold">{`${subjects[index] || `Round ${i + 1}`} :`}</span>
-                    <span className="fw-bolder text-success">{spin}</span>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={toggle}>
-              Close
-            </Button>
-          </ModalFooter>
-        </Modal>
+        
 
       </div>
     </div>
