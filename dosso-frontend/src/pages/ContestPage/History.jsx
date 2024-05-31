@@ -473,7 +473,6 @@ const History = () => {
                                       Claim Reward
                                     </button>
                                   )}
-                                  
                                 </CardFooter>
                               )}
                             </Card>

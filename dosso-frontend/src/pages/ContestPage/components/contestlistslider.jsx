@@ -14,7 +14,7 @@ import {
   Progress,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
-import Countdown from "react-countdown";
+import Countdown from "react-countdown"
 
 const Contestlistslider = ({ title }) => {
   const navigate = useNavigate()
@@ -100,7 +100,6 @@ const Contestlistslider = ({ title }) => {
                 <CardBody className="p-3">
                   <div className="text-start">
                     <div className="d-flex justify-content-between align-items-center">
-
                       <div className="fw-bolder fs-3 text-black">
                         {item.title}
                       </div>
@@ -137,7 +136,9 @@ const Contestlistslider = ({ title }) => {
                         onClick={() => handleClick(item)}
                         className={
                           "btn" +
-                          (item.status === "2" ? " btn-outline-dark " : " btn-light ") +
+                          (item.status === "2"
+                            ? " btn-outline-dark "
+                            : " btn-light ") +
                           "shadow-sm w-100 fw-bold fs-5 text-uppercase rounded-5"
                         }
                         disabled={item.status === "2" ? false : true}

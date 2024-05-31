@@ -8,6 +8,7 @@ use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
 use App\Models\ContestSpin;
 use App\Models\Kyc;
+use App\Models\AddShow;
 use App\Models\PlayContest;
 use App\Models\PlayerSpin;
 use App\Models\PaymentRequest;
@@ -102,8 +103,6 @@ class AuthController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Credentials validated successfully']);
     }
-
-
 
     public function studentlogin(Request $request)
     {
@@ -635,5 +634,17 @@ class AuthController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Failed to insert wallet data.'], 500);
         }
+    }
+
+    public function getimagesadd()
+    {
+        $imagesdata = AddShow::where('displayshow','=','home')->get();
+        return response()->json($imagesdata);
+    }
+
+    public function forgetpassword(Request $request)
+    {
+        $phonenumber = $request->input('phonenumber');
+        dd($phonenumber);
     }
 }

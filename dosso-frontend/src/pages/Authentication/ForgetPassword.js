@@ -1,49 +1,80 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { Row, Col, Alert, Card, CardBody, Container, FormFeedback, Input, Label, Form } from "reactstrap";
-
-//redux
+import React, { useState } from "react";
+import axios from "axios";
+import config from "constants/config";
+import {
+  Row,
+  Col,
+  Alert,
+  Card,
+  CardBody,
+  Container,
+  Input,
+  Label,
+  Form,
+} from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
-
-// Formik Validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
-// action
 import { userForgetPassword } from "../../store/actions";
-
-// import images
-
-let logo = "../../Assets/images/Dosso21-logo-new.webp";
-
-const ForgetPasswordPage = props => {
-
-  //meta title
+let logo = "../../Assets/images/Dosso21-logo-new.webp"
+const ForgetPasswordPage = (props) => {
+  const navigate = useNavigate();
   document.title = "Forget Password";
-
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-
     initialValues: {
-      email: '',
+      email: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
     }),
     onSubmit: (values) => {
       dispatch(userForgetPassword(values, props.history));
-    }
+    },
   });
 
-  const { forgetError, forgetSuccessMsg } = useSelector(state => ({
+  const { forgetError, forgetSuccessMsg } = useSelector((state) => ({
     forgetError: state.ForgetPassword.forgetError,
     forgetSuccessMsg: state.ForgetPassword.forgetSuccessMsg,
   }));
+
+  // const handleInputChange = (e) => {
+  //   setPhoneNumber(e.target.value);
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Phone number submitted:", phoneNumber);
+  //   setLoading(true);
+
+  //   const dataList = {
+  //     phonenumber: phoneNumber,
+  //   };
+  //   console.log("Data List:", dataList);
+  //   axios
+  //     .post(config.apiUrl + "
+      
+  //     ", dataList)
+  //     .then((response) => {
+  //       console.log(JSON.stringify(response.data));
+  //       navigate(-1);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error!", error);
+  //       setLoading(false); // Stop loading in case of error
+  //     });
+  // };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <React.Fragment>
@@ -52,17 +83,20 @@ const ForgetPasswordPage = props => {
           <i className="bx bx-home h2" />
         </Link>
       </div>
-      <div className="account-pages d-grid align-items-center" style={{height: "100vh", backgroundColor: "rgb(236, 236, 236)"}}>
+      <div
+        className="account-pages d-grid align-items-center"
+        style={{ height: "100vh", backgroundColor: "rgb(236, 236, 236)" }}
+      >
         <Container>
-          <Row className="justify-content-center align-items-center ">
+          <Row className="justify-content-center align-items-center">
             <Col md={8} lg={6} xl={5}>
               <Card className="overflow-hidden">
-                <div className="border-bottom" >
+                <div className="border-bottom">
                   <Row>
-                    <Col xs={7} >
+                    <Col xs={7}>
                       <div className="text-secondary p-4">
                         <h5 className="text-black">Forgot Password?</h5>
-                        <p>Enter email to recover.</p>
+                        <p>Enter Phone Number to recover.</p>
                       </div>
                     </Col>
                     <Col className="col-5 text-center align-self-end">
@@ -70,21 +104,7 @@ const ForgetPasswordPage = props => {
                     </Col>
                   </Row>
                 </div>
-                <CardBody className="" >
-                  {/* <div>
-                    <Link to="/#">
-                      <div className="avatar-md profile-user-wid mb-4">
-                        <span className="avatar-title rounded-circle bg-light">
-                          <img
-                            src={logo}
-                            alt=""
-                            className="rounded-circle"
-                            height="110"
-                          />
-                        </span>
-                      </div>
-                    </Link>
-                  </div> */}
+                <CardBody className="">
                   <div className="p-2">
                     {forgetError && forgetError ? (
                       <Alert color="danger" style={{ marginTop: "13px" }}>
@@ -97,31 +117,19 @@ const ForgetPasswordPage = props => {
                       </Alert>
                     ) : null}
 
-                    <Form
-                      className="form-horizontal"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        validation.handleSubmit();
-                        return false;
-                      }}
-                    >
+                    <Form className="form-horizontal">
                       <div className="mb-3">
-                        <Label className="form-label text-black">Enter Registred Email</Label>
+                        <Label className="form-label text-black">
+                          Enter Phone Number
+                        </Label>
                         <Input
-                          name="email"
+                          name="phonenumber"
                           className="form-control"
-                          placeholder="Enter email"
-                          type="email"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.email || ""}
-                          invalid={
-                            validation.touched.email && validation.errors.email ? true : false
-                          }
+                          placeholder="enter your phone number"
+                          type="text"
+                          // value={phoneNumber}
+                          // onChange={handleInputChange}
                         />
-                        {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
-                        ) : null}
                       </div>
                       <Row className="mb-3">
                         <Col className="text-center">
@@ -129,7 +137,37 @@ const ForgetPasswordPage = props => {
                             className="btn btn-light w-md text-black"
                             type="submit"
                           >
-                            Send Request
+                            Proceed
+                          </button>
+                        </Col>
+                      </Row>
+                    </Form>
+                    <Form className="">
+                      <Label className="form-label text-black mt-3">
+                        Enter New Password
+                      </Label>
+                      <Input
+                        name="newpassword"
+                        className="form-control"
+                        placeholder="enter your new password"
+                        type="password"
+                      />
+                      <Label className="form-label text-black mt-3">
+                        Confirm Password
+                      </Label>
+                      <Input
+                        name="confirmpassword"
+                        className="form-control"
+                        placeholder="confirm password"
+                        type="password"
+                      />
+                      <Row className="mt-3 mb-3">
+                        <Col className="text-center">
+                          <button
+                            className="btn btn-light w-md text-black"
+                            type="submit"
+                          >
+                            Update Password
                           </button>
                         </Col>
                       </Row>
@@ -140,7 +178,10 @@ const ForgetPasswordPage = props => {
               <div className="mt-5 text-center text-secondary">
                 <p>
                   Go back to{" "}
-                  <Link to="/login" className="font-weight-medium text-black fw-bold">
+                  <Link
+                    to="/login"
+                    className="font-weight-medium text-black fw-bold"
+                  >
                     Login
                   </Link>{" "}
                 </p>

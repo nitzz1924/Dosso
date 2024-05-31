@@ -86,12 +86,12 @@ const Rounds = props => {
         .then(response => {
           console.log(JSON.stringify(response.data))
           Swal.fire({
-            title: "Great!", 
-            text: "Course has been prebooked!", 
+            title: "Great!",
+            text: "Course has been prebooked!",
             icon: "success",
-            footer: 'We will notify shortly'
+            footer: "We will notify shortly",
           }).then(() => {
-            navigate('/history') // Redirect to '/other-page'
+            navigate("/history") // Redirect to '/other-page'
           })
         })
     } catch (error) {
