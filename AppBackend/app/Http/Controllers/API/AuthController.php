@@ -491,10 +491,18 @@ class AuthController extends Controller
                             ->where('contestid', $id)
                             ->first();
                         if ($playcontest) {
-                            $playcontest->update([
-                                'rank' => $index + 1,
-                                'winningprice' => $value->price,
-                            ]);
+                            if($value->price != 0) {
+                                $playcontest->update([
+                                    'rank' => $index + 1,
+                                    'winningprice' => $value->price,
+                                ]);
+                            } else {
+                                $playcontest->update([
+                                    'rank' => $index + 1,
+                                    'winningprice' => mt_rand(0, count($value->Vouchers) - 1),
+                                ]); 
+                            }
+                            
                         }
                     }
                 }

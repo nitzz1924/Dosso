@@ -9,7 +9,7 @@ import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import Swal from "sweetalert2"
 import ConfettiExplosion from 'react-confetti-explosion';
-const instantWin = "/Assets/images/instantWin.wav"
+const instantWin = "/Assets/images/instantWin.mp3"
 const playSound2 = "/Assets/images/metalcraking.mp3"
 let gameOver = "/Assets/images/flag.png"
 
@@ -34,7 +34,7 @@ const Playslots = ({ data }) => {
 
   let newTotalSum = 0
 
-  const subjects = ["Sanskrit", "English", "Maths", "Biology", "Science", "Social Science", "General Knowledge", "Hindi"];
+  const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science",  "Sanskrit","Social Science" ,"General Knowledge"];
 
   const slotSymbols = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -204,7 +204,7 @@ const Playslots = ({ data }) => {
         html: "<img src='/Assets/images/confetti.gif' style='width:100px;'>",
         buttons: {
           confirm: {
-            text: "View Leaderboard",
+            text: "Marksheet Generated",
             closeModal: true,
           },
         },

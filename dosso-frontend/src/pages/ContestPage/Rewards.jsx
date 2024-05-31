@@ -68,7 +68,7 @@ const Rewards = () => {
                                     <div className="text-muted my-2">You have claimed this reward</div>
                                     <div className="text-black rewardCard fw-bold scratchCard p-4 shadow-lg ">
                                         <div className='mb-2 '><img src={reward} alt="reward" width={75} /></div>
-                                        <div className='fs-4'>Congratulations! <br />You WON!</div>
+                                        <div className='fs-4'>WOW</div>
                                         <div className='fs-1 text-warning text-bold'>
                                             {data.contestwinprice || 'N/A'}
                                         </div>
@@ -95,7 +95,7 @@ const Rewards = () => {
                                             <div className='w-100 h-100 text-center align-content-center '>
                                                 <div className="text-black fw-bold scratchCard p-4 shadow-lg ">
                                                     <div className='mb-2'><img src={reward} alt="reward" width={75} /></div>
-                                                    <div className='fs-4'>Congratulations! <br />You WON!</div>
+                                                    <div className='fs-4'>WOW!</div>
                                                     <div className='fs-1 text-warning text-bold'>
                                                         {data.contestwinprice || 'N/A'}
                                                     </div>

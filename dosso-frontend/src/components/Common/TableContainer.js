@@ -249,7 +249,7 @@ const TableContainer = ({
           </div>
         </Col>
         <Col className="col-md-auto d-none d-md-block">
-          Page{" "}
+          Page 
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>

@@ -139,17 +139,17 @@ const Recoverpw = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Remember It ?{" "}
+                  Remember It ? 
                   <Link
                     to="pages-login"
                     className="fw-medium text-primary"
                   >
-                    {" "}
+                     
                     Sign In here
-                  </Link>{" "}
+                  </Link> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
+                  © {new Date().getFullYear()} Skote. Crafted with 
                   <i className="mdi mdi-heart text-danger"></i> by Themesbrand
                 </p>
               </div>

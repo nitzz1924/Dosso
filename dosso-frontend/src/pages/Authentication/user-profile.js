@@ -36,6 +36,7 @@ const UserProfile = () => {
 
   const [email, setemail] = useState("")
   const [name, setname] = useState("")
+  const [user, setuser] = useState("")
   const [idx, setidx] = useState(1)
 
   const { error, success } = useSelector(state => ({
@@ -46,9 +47,10 @@ const UserProfile = () => {
   useEffect(() => {
     if (getLocalData('authUser')) {
       const obj = JSON.parse(getLocalData('authUser'))
-      console.log("data",obj);
+      console.log("data", obj);
       setname(obj.studentname)
       setemail(obj.emailaddress)
+      setuser(obj.username)
       setidx(obj.id)
       setTimeout(() => {
         dispatch(resetProfileFlag())
@@ -67,19 +69,20 @@ const UserProfile = () => {
 
               <Card>
                 <CardBody>
-                  <div className="d-flex">
-                    <div className="ms-3">
+                  <div className="d-flex align-items-center">
+                    <div className="me-3">
                       <img
                         src={avatar}
-                        alt=""
+                        alt="avatar"
                         className="avatar-md rounded-circle img-thumbnail"
                       />
                     </div>
                     <div className="flex-grow-1 align-self-center">
-                      <div className="text-muted">
-                        <h5>{name}</h5>
+                      <div className="text-dark">
+                        <h5 className="text-capitalize fw-bold">{name}</h5>
+                        <p className="mb-1">User ID: {user}</p>
                         <p className="mb-1">{email}</p>
-                        <p className="mb-0">Id no: #{idx}</p>
+                        <p className="mb-0">Player ID: #{idx}</p>
                       </div>
                     </div>
                   </div>

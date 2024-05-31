@@ -109,16 +109,16 @@ const ForgetPasswordPage = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Go back to{" "}
+                  Go back to 
                   <Link
                     to="pages-login"
                     className="font-weight-medium text-primary"
                   >
                     Login
-                  </Link>{" "}
+                  </Link> 
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
+                  © {new Date().getFullYear()} Skote. Crafted with 
                   <i className="mdi mdi-heart text-danger" /> by Themesbrand
                 </p>
               </div>

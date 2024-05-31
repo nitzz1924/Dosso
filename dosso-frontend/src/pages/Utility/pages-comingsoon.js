@@ -20,13 +20,13 @@ const PagesComingsoon = () => {
         <>
           <div className="coming-box">
             {days} <span>Days</span>
-          </div>{" "}
+          </div> 
           <div className="coming-box">
             {hours} <span>Hours</span>
-          </div>{" "}
+          </div> 
           <div className="coming-box">
             {minutes} <span>Minutes</span>
-          </div>{" "}
+          </div> 
           <div className="coming-box">
             {seconds} <span>Seconds</span>
           </div>

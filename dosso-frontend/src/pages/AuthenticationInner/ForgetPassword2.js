@@ -106,14 +106,14 @@ const ForgetPassword2 = () => {
                         </Form>
                         <div className="mt-5 text-center">
                           <p>
-                            Remember It ?{" "}
+                            Remember It ? 
                             <Link
                               to="pages-login-2"
                               className="fw-medium text-primary"
                             >
-                              {" "}
-                              Sign In here{" "}
-                            </Link>{" "}
+                               
+                              Sign In here 
+                            </Link> 
                           </p>
                         </div>
                       </div>
@@ -121,7 +121,7 @@ const ForgetPassword2 = () => {
 
                     <div className="mt-4 mt-md-5 text-center">
                       <p className="mb-0">
-                        © {new Date().getFullYear()} Skote. Crafted with{" "}
+                        © {new Date().getFullYear()} Skote. Crafted with 
                         <i className="mdi mdi-heart text-danger"></i> by
                         Themesbrand
                       </p>

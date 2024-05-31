@@ -115,14 +115,14 @@ const LockScreen2 = (props) => {
                         </Form>
                         <div className="mt-5 text-center">
                           <p>
-                            Not you ? return{" "}
+                            Not you ? return 
                             <Link
                               to="pages-register-2"
                               className="fw-medium text-primary"
                             >
-                              {" "}
-                              Sign In{" "}
-                            </Link>{" "}
+                               
+                              Sign In 
+                            </Link> 
                           </p>
                         </div>
                       </div>
@@ -130,9 +130,9 @@ const LockScreen2 = (props) => {
 
                     <div className="mt-4 mt-md-5 text-center">
                       <p className="mb-0">
-                        ©{" "}
-                        {new Date().getFullYear()}{" "}
-                        Skote. Crafted with{" "}
+                        © 
+                        {new Date().getFullYear()} 
+                        Skote. Crafted with 
                         <i className="mdi mdi-heart text-danger"></i> by
                         Themesbrand
                       </p>

@@ -39,7 +39,7 @@ const SocialSource = () => {
             <p className="font-16 text-muted mb-2"></p>
             <h5>
               <Link to="#" className="text-dark">
-                Facebook - <span className="text-muted font-16">125 sales</span>{" "}
+                Facebook - <span className="text-muted font-16">125 sales</span> 
               </Link>
             </h5>
             <p className="text-muted">
