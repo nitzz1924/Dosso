@@ -8,6 +8,7 @@ use App\Models\AdminVendors;
 use App\Models\BalanceSheet;
 use App\Models\ContestSpin;
 use App\Models\Kyc;
+use App\Models\AddShow;
 use App\Models\PlayContest;
 use App\Models\PlayerSpin;
 use App\Models\PaymentRequest;
@@ -93,8 +94,8 @@ class AuthController extends Controller
         }
 
         $user = Students::where('contactnumber', $request->username)
-                        ->where('password', bcrypt($request->password))
-                        ->first();
+            ->where('password', bcrypt($request->password))
+            ->first();
 
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Invalid mobile number or password'], 401);
@@ -102,8 +103,6 @@ class AuthController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Credentials validated successfully']);
     }
-
-
 
     public function studentlogin(Request $request)
     {
@@ -342,6 +341,7 @@ class AuthController extends Controller
         $playerspindata->contestid = $request->input('contestid');
         $playerspindata->point = $request->input('point');
         $playerspindata->spins = $request->input('spins');
+        $playerspindata->playcontestid = $request->input('playcontestid');
         $playerspindata->save();
         $response = [
             'success' => true,
@@ -467,7 +467,7 @@ class AuthController extends Controller
     {
         // Fetch the contest with the play contests count
         $contest = AddContest::where('id', $id)->withCount('ContestPoints')->first();
-        // dd(intval($contest->joinmembers));
+
         // Check if the contest exists
         if (!$contest) {
             return response()->json([
@@ -480,7 +480,7 @@ class AuthController extends Controller
         $winzones = Winzone::orderBy('start', 'asc')->get();
 
         // Check if the number of play contests is greater than or equal to the join members
-        if (intval($contest->play_contests_count) >= intval($contest->joinmembers)) {
+        if (intval($contest->contest_points_count) >= intval($contest->joinmembers)) {
             // Fetch play contests and order them by points descending
             $playcontests = Point::where('contestId', $id)->orderBy('point', 'desc')->get();
 
@@ -488,41 +488,45 @@ class AuthController extends Controller
             foreach ($playcontests as $index => $data) {
                 foreach ($winzones as $value) {
                     if ($index + 1 >= $value->start && $index + 1 <= $value->end) {
-                        $playcontest = PlayContest::where('studentid', $data->studentId)
+                        $playcontest = PlayContest::where('id', $data->playcontestid)
                             ->where('contestid', $id)
-                            ->first();
-                            
-                        if ($playcontest) {
-                            if($value->price != 0) {
-                                $playcontest->update([
-                                    'rank' => $index + 1,
-                                    'winningprice' => $value->price,
-                                ]);
-                            } else {
-                                $playcontest->update([
-                                    'rank' => $index + 1,
-                                    'winningprice' => mt_rand(0, count($value->Vouchers) - 1),
-                                ]); 
+                            ->get();
+                        foreach ($playcontest as $item) {
+                            if ($item) {
+                                if ($value->price != 0) {
+                                    $item->update([
+                                        'rank' => $index + 1,
+                                        'winningprice' => $value->price,
+                                    ]);
+                                } else {
+                                    $item->update([
+                                        'rank' => $index + 1,
+                                        'winningprice' => mt_rand(0, count($value->Vouchers) - 1),
+                                    ]);
+                                }
                             }
-                            
                         }
                     }
                 }
             }
 
             $response = [
-                'message' => 'Contest has reached the required number of join members.' + intval($contest->play_contests_count) + '/' + intval($contest->joinmembers),
+                'message' => 'Contest has reached the required number of join members. ' . intval($contest->contest_points_count) . '/' . intval($contest->joinmembers),
                 'success' => true,
+                'data' => $contest,
             ];
+
         } else {
             $response = [
-                'message' => 'Contest has not yet reached the required number of join members. ' + intval($contest->play_contests_count) + '/' + intval($contest->joinmembers),
+                'message' => 'Contest has not reached the required number of join members. ' . intval($contest->contest_points_count) . '/' . intval($contest->joinmembers),
                 'success' => false,
+                'data' => $contest,
             ];
         }
 
         return response()->json($response);
     }
+
 
     public function handlePayment(Request $request)
     {
@@ -645,5 +649,17 @@ class AuthController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Failed to insert wallet data.'], 500);
         }
+    }
+
+    public function getimagesadd()
+    {
+        $imagesdata = AddShow::where('displayshow', '=', 'home')->get();
+        return response()->json($imagesdata);
+    }
+
+    public function forgetpassword(Request $request)
+    {
+        $phonenumber = $request->input('phonenumber');
+        dd($phonenumber);
     }
 }

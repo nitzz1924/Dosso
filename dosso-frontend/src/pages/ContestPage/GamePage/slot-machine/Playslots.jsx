@@ -8,7 +8,7 @@ import MockAdapter from "axios-mock-adapter"
 import config from "constants/config"
 import { getLocalData } from "services/global-storage"
 import Swal from "sweetalert2"
-import ConfettiExplosion from 'react-confetti-explosion';
+import ConfettiExplosion from "react-confetti-explosion"
 const instantWin = "/Assets/images/instantWin.mp3"
 const playSound2 = "/Assets/images/metalcraking.mp3"
 let gameOver = "/Assets/images/flag.png"
@@ -16,7 +16,6 @@ let gameOver = "/Assets/images/flag.png"
 import "https://cdn.lordicon.com/lordicon.js"
 
 const Playslots = ({ data }) => {
-
   const [spinvalue, setspinvalue] = useState([])
   const [spincount, setSpincount] = useState(7)
   const [slots, setSlots] = useState(null)
@@ -27,17 +26,26 @@ const Playslots = ({ data }) => {
   const [spinResults, setSpinResults] = useState(
     Array.from({ length: 8 }, () => "")
   )
-  const spinAudio = useRef(new Audio(playSound2));
-  const instantWinAudio = useRef(new Audio(instantWin));
+  const spinAudio = useRef(new Audio(playSound2))
+  const instantWinAudio = useRef(new Audio(instantWin))
   const axiosInstance = axios.create()
-  const [isExploding, setIsExploding] = useState(false);
+  const [isExploding, setIsExploding] = useState(false)
   const [countplayContests, setCountplayContests] = useState([])
 
   const mockAdapter = new MockAdapter(axiosInstance)
 
   let newTotalSum = 0
 
-  const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science",  "Sanskrit","Social Science" ,"General Knowledge"];
+  const subjects = [
+    "Sanskrit",
+    "English",
+    "Maths",
+    "Hindi",
+    "Science",
+    "Sanskrit",
+    "Social Science",
+    "General Knowledge",
+  ]
 
   const slotSymbols = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -52,7 +60,7 @@ const Playslots = ({ data }) => {
   const countplaycontests = async () => {
     try {
       const response = await axios.get(
-        config.apiUrl + "countplaycontests/" +  data.id,
+        config.apiUrl + "countplaycontests/" + data.id,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -120,7 +128,7 @@ const Playslots = ({ data }) => {
       //   { once: true }
       // )
     })
-    setTimeout(logDisplayedSymbols, 6000);
+    setTimeout(logDisplayedSymbols, 6000)
     spinCompleted = true
     spun = true
     setSpinDisabled(true)
@@ -206,7 +214,7 @@ const Playslots = ({ data }) => {
     newTotalSum = totalSum + newSpinResult // Calculate the new total sum
     setTotalSum(newTotalSum)
 
-    instantWinAudio.current.play();
+    instantWinAudio.current.play()
 
     console.log(
       displayedSymbols,
@@ -218,14 +226,13 @@ const Playslots = ({ data }) => {
       newTotalSum
     )
 
-
-    console.log("spin array",spinvalue)
+    console.log("spin array", spinvalue)
     if (newSpincount <= 0) {
       setGameComplete(true)
       setSpinDisabled(true)
       InsertLastSpin(newTotalSum)
       countplaycontests()
-      setIsExploding(true);
+      setIsExploding(true)
 
       Swal.fire({
         title: "Marksheet Generated",
@@ -236,12 +243,12 @@ const Playslots = ({ data }) => {
             closeModal: true,
           },
         },
-      }).then((result) => {
+      }).then(result => {
         if (result.isConfirmed) {
           navigate("/leaderbaord", { state: data })
-          Swal.fire('Thanks For Participation');
+          Swal.fire("Thanks For Participation")
         }
-      });
+      })
     }
   }
 
@@ -256,20 +263,21 @@ const Playslots = ({ data }) => {
   }, [slots])
 
   const handlechange = () => {
-    spin();
+    spin()
     spinAudio.current.play()
   }
 
   return (
     <>
       <div className="mb-3 ">
-        {isExploding &&
+        {isExploding && (
           <ConfettiExplosion
             force={1}
             duration={10000}
             particleCount={250}
             width={1500}
-          />}
+          />
+        )}
         <Container fluid>
           <Row className="justify-content-center">
             <div className="button-ring button-ring-sq">
@@ -299,7 +307,6 @@ const Playslots = ({ data }) => {
                   </div>
 
                   <div className="d-flex justify-content-around ">
-
                     {gameComplete ? (
                       <div className="d-flex flex-column ">
                         <div className="fw-bold fs-1 text-white text-center">
@@ -316,11 +323,14 @@ const Playslots = ({ data }) => {
                       </div>
                     ) : (
                       <button
-                        className={(spinDisabled == false ? " playbtn text-warning  " : " ") + "btn btn-dark btn-lg w-75 "}
+                        className={
+                          (spinDisabled == false
+                            ? " playbtn text-warning  "
+                            : " ") + "btn btn-dark btn-lg w-75 "
+                        }
                         disabled={spinDisabled}
                         onClick={handlechange}
                       >
-
                         {spinDisabled == false ? "Play Round " : "Wait..."}
                         <span>({spincount}/7)</span>
                       </button>
@@ -344,7 +354,9 @@ const Playslots = ({ data }) => {
                     </div>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
-                      <span className="text-dark fw-bold">{`${subjects[index] || `Round ${index + 1}`} :`}</span>
+                      <span className="text-dark fw-bold">{`${
+                        subjects[index] || `Round ${index + 1}`
+                      } :`}</span>
                       <span className="fw-bolder text-success">{`${result}`}</span>
                     </div>
                   )}
@@ -353,9 +365,9 @@ const Playslots = ({ data }) => {
             </Col>
           </Row>
         </Container>
-      </div >
+      </div>
     </>
   )
 }
 
-export default Playslots;
+export default Playslots

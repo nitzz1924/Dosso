@@ -84,6 +84,39 @@ const logout = () => {
       })
   })
 }
+// const forgetPassword = (phonenumber) => {
+//   // Create a new instance of axios
+//   const axiosInstance = axios.create()
+//   // Create a new instance of the mock adapter
+//   const mockAdapter = new MockAdapter(axiosInstance)
+//   return new Promise((resolve, reject) => {
+//     // Mock the HTTP request\
+//     const data = { username: phonenumber}
+//     console.log("Data : ", data)
+//     mockAdapter
+//       .onPost(config.apiUrl + "forgetpassword")
+//       .reply(200, { success: true })
+//     axios
+//       .post(config.apiUrl + "forgetpassword", data, {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       })
+//       .then(response => {
+//         console.log(
+//           "Login New Data : ",
+//           JSON.stringify(response.data.data.data)
+//         )
+//         resolve(response.data.data.data)
+//         console.log("losssssss", response.data.data.data)
+//         console.log("login User", response.data)
+//       })
+//       .catch(error => {
+//         // Handle errors here
+//         console.log("error->", error)
+//       })
+//   })
+// }
 export const authenticationService = {
   login,
   signup,

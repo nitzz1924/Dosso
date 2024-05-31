@@ -37,6 +37,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('getallnortifications', 'getallnortifications');
     Route::post('createOrder', 'createOrder');
     Route::post('walletrecharge', 'walletrecharge');
+    Route::get('getimagesadd', 'getimagesadd');
+    Route::post('forgetpassword', 'forgetpassword');
 });
 
 Route::get('/api/showcontests', 'ViewController@addcontestview');
