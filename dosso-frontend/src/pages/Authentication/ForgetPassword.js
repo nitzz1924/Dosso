@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import axios from "axios";
-import config from "constants/config";
+import PropTypes from "prop-types"
+import React, { useState } from "react"
+import axios from "axios"
+import config from "constants/config"
+import OTPInput from "react-otp-input"
 import {
   Row,
   Col,
@@ -12,68 +13,159 @@ import {
   Input,
   Label,
   Form,
-} from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import withRouter from "components/Common/withRouter";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { userForgetPassword } from "../../store/actions";
+} from "reactstrap"
+import { useSelector, useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import withRouter from "components/Common/withRouter"
+import { useFormik } from "formik"
+import Swal from "sweetalert2"
 let logo = "../../Assets/images/Dosso21-logo-new.webp"
-const ForgetPasswordPage = (props) => {
-  const navigate = useNavigate();
-  document.title = "Forget Password";
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+
+const ForgetPasswordPage = props => {
+  const navigate = useNavigate()
+  document.title = "Forget Password"
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [showOTPInput, setShowOTPInput] = useState(false)
+  const [showMobileNumber, setShowMobileNumber] = useState(true)
+  const [showchangepassInput, setshowchangepassInput] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [otp, setOtp] = useState(0)
+  const [enteredOTP, setEnteredOTP] = useState("")
+  const dispatch = useDispatch()
 
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
       email: "",
+      password: "",
+      referral: "0001ADMIN",
+      mobilenumber: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-    }),
-    onSubmit: (values) => {
-      dispatch(userForgetPassword(values, props.history));
-    },
-  });
+    validate: values => {
+      const errors = {}
 
-  const { forgetError, forgetSuccessMsg } = useSelector((state) => ({
+      // Email validation
+      if (!values.email) {
+        errors.email = "Please Enter Valid Email"
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      ) {
+        errors.email = "Invalid email address"
+      }
+
+      // Password validation
+      if (!values.password) {
+        errors.password = "Required"
+      } else if (values.password.length < 5) {
+        errors.password = "Password must be at least 5 characters long"
+      }
+
+      // Mobile number validation (assuming it should be exactly 10 digits)
+      if (!values.mobilenumber) {
+        errors.mobilenumber = "Please Enter 10 Digit Number"
+      } else if (!/^\d{10}$/i.test(values.mobilenumber)) {
+        errors.mobilenumber = "Mobile number must be 10 digits"
+      }
+
+      return errors
+    },
+  })
+
+  const { isValid } = validation
+
+  const { forgetError, forgetSuccessMsg } = useSelector(state => ({
     forgetError: state.ForgetPassword.forgetError,
     forgetSuccessMsg: state.ForgetPassword.forgetSuccessMsg,
-  }));
+  }))
 
-  // const handleInputChange = (e) => {
-  //   setPhoneNumber(e.target.value);
-  // };
+  const handlePhoneNumberChange = e => {
+    setPhoneNumber(e.target.value)
+  }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("Phone number submitted:", phoneNumber);
-  //   setLoading(true);
+  const handleProceed = async e => {
+    e.preventDefault()
+    setLoading(true)
 
-  //   const dataList = {
-  //     phonenumber: phoneNumber,
-  //   };
-  //   console.log("Data List:", dataList);
-  //   axios
-  //     .post(config.apiUrl + "
+    try {
+      const response = await axios.post(
+        `${config.apiUrl}verifyotp`,
+        { number: phoneNumber }, // Ensure the field name matches what the backend expects
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+
+      const { success, OTP, message } = response.data
+
+      if (success) {
+        console.log("OTP:", OTP)
+        setOtp(OTP)
+        setShowOTPInput(true)
+        setShowMobileNumber(false)
+      } else {
+        console.error("Error:", message)
+      }
+    } catch (error) {
+      console.error("There was an error!", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleOTPChange = otp => {
+    setEnteredOTP(otp)
+  }
+  const updatePassword =  () => {
+   
+    const newPassword = document.querySelector(
+      'input[name="newpassword"]'
+    ).value
+    const confirmPassword = document.querySelector(
+      'input[name="confirmpassword"]'
+    ).value
+    console.log(
+      "New Pass : " + newPassword + "Confirm Pass : " + confirmPassword
+    )
+    if (newPassword !== confirmPassword) {
+      Swal.fire("Error", "Passwords do not match.", "error")
+      return
+    }
+    try {
+      const dataList = []
+      dataList.push({
+        newpassword: newPassword,
+        username: phoneNumber,
+      })
+      console.log("New Data : ", dataList)
+      axios.post(config.apiUrl + 'changepassword', dataList[0], {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then((response) => {
+        console.log("Response : ",response);
+        Swal.fire("Great!", "Password Updated..!!!!!", "success")
+        .then(() => {
+          navigate('/login');
+        });
+      })
+      .catch((error) => {
+        Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
+      });
       
-  //     ", dataList)
-  //     .then((response) => {
-  //       console.log(JSON.stringify(response.data));
-  //       navigate(-1);
-  //     })
-  //     .catch((error) => {
-  //       console.error("There was an error!", error);
-  //       setLoading(false); // Stop loading in case of error
-  //     });
-  // };
-
+    } catch (error) {
+      console.error("Error in changepassword:", error)
+      Swal.fire(
+        "Error",
+        "There was an error processing your request. Please try again.",
+        "error"
+      )
+    }
+  }
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -117,61 +209,131 @@ const ForgetPasswordPage = (props) => {
                       </Alert>
                     ) : null}
 
-                    <Form className="form-horizontal">
-                      <div className="mb-3">
-                        <Label className="form-label text-black">
-                          Enter Phone Number
+                    {showMobileNumber && (
+                      <Form
+                        className="form-horizontal"
+                        onSubmit={handleProceed}
+                      >
+                        <div className="mb-3">
+                          <Label className="form-label text-black">
+                            Enter Phone Number
+                          </Label>
+                          <Input
+                            name="phonenumber"
+                            className="form-control"
+                            placeholder="enter your phone number"
+                            type="text"
+                            value={phoneNumber}
+                            onChange={handlePhoneNumberChange}
+                          />
+                        </div>
+                        <Row className="mb-3">
+                          <Col className="text-center">
+                            <button
+                              className="btn btn-light w-md text-black"
+                              type="submit"
+                            >
+                              Proceed
+                            </button>
+                          </Col>
+                        </Row>
+                      </Form>
+                    )}
+
+                    {showOTPInput && (
+                      <Form>
+                        <div
+                          id="otpinput"
+                          className="mt-4 text-center d-grid justify-content-center "
+                        >
+                          <Label className="form-label text-black">
+                            Enter OTP
+                          </Label>
+                          <OTPInput
+                            value={enteredOTP}
+                            onChange={handleOTPChange}
+                            numInputs={6}
+                            separator={<span style={{ width: "8px" }}>-</span>}
+                            isInputNum={true}
+                            shouldAutoFocus={true}
+                            renderInput={props => <input {...props} />}
+                            inputStyle={{
+                              border: "1px solid #000",
+                              borderRadius: "5px",
+                              width: "40px",
+                              height: "40px",
+                              fontSize: "16px",
+                              color: "#000",
+                              fontWeight: "500",
+                              caretColor: "#000",
+                              margin: "2px",
+                              backgroundColor: "white",
+                            }}
+                            focusStyle={{
+                              border: "1px solid golden",
+                              outline: "none",
+                              color: "#D5A24A",
+                              backgroundColor: "#222",
+                            }}
+                          />
+                          <div className="mt-2 d-grid">
+                            <button
+                              className="btn btn-dark btn-block text-uppercase fw-bold"
+                              type="button"
+                              onClick={() => {
+                                if (isValid && showOTPInput) {
+                                  if (Number(otp) === Number(enteredOTP)) {
+                                    setshowchangepassInput(true)
+                                    setShowOTPInput(false)
+                                  }
+                                  console.log("OTP Verified:", enteredOTP)
+                                } else {
+                                  console.log(
+                                    "Please generate OTP and enter it to proceed"
+                                  )
+                                }
+                              }}
+                            >
+                              Verify OTP
+                            </button>
+                          </div>
+                        </div>
+                      </Form>
+                    )}
+
+                    {showchangepassInput && (
+                      <Form className="">
+                        <Label className="form-label text-black mt-3">
+                          Enter New Password
                         </Label>
                         <Input
-                          name="phonenumber"
+                          name="newpassword"
                           className="form-control"
-                          placeholder="enter your phone number"
-                          type="text"
-                          // value={phoneNumber}
-                          // onChange={handleInputChange}
+                          placeholder="enter your new password"
+                          type="password"
                         />
-                      </div>
-                      <Row className="mb-3">
-                        <Col className="text-center">
-                          <button
-                            className="btn btn-light w-md text-black"
-                            type="submit"
-                          >
-                            Proceed
-                          </button>
-                        </Col>
-                      </Row>
-                    </Form>
-                    <Form className="">
-                      <Label className="form-label text-black mt-3">
-                        Enter New Password
-                      </Label>
-                      <Input
-                        name="newpassword"
-                        className="form-control"
-                        placeholder="enter your new password"
-                        type="password"
-                      />
-                      <Label className="form-label text-black mt-3">
-                        Confirm Password
-                      </Label>
-                      <Input
-                        name="confirmpassword"
-                        className="form-control"
-                        placeholder="confirm password"
-                        type="password"
-                      />
-                      <Row className="mt-3 mb-3">
-                        <Col className="text-center">
-                          <button
-                            className="btn btn-light w-md text-black"
-                            type="submit"
-                          >
-                            Update Password
-                          </button>
-                        </Col>
-                      </Row>
-                    </Form>
+                        <Label className="form-label text-black mt-3">
+                          Confirm Password
+                        </Label>
+                        <Input
+                          name="confirmpassword"
+                          className="form-control"
+                          placeholder="confirm password"
+                          type="password"
+                        />
+                        <Row className="mt-3 mb-3">
+                          <Col className="text-center">
+                            <button
+                              className="btn btn-light w-md text-black"
+                              type="button"
+                              onClick={updatePassword}
+                            >
+                              Update Password
+                            </button>
+                          </Col>
+                        </Row>
+                      </Form>
+                    )}
                   </div>
                 </CardBody>
               </Card>
@@ -183,10 +345,10 @@ const ForgetPasswordPage = (props) => {
                     className="font-weight-medium text-black fw-bold"
                   >
                     Login
-                  </Link> 
+                  </Link>
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Dosso21. Developed with 
+                  © {new Date().getFullYear()} Dosso21. Developed with
                   <i className="mdi mdi-heart text-danger" /> by Yuvmedia.
                 </p>
               </div>
@@ -195,11 +357,11 @@ const ForgetPasswordPage = (props) => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
 ForgetPasswordPage.propTypes = {
   history: PropTypes.object,
-};
+}
 
-export default withRouter(ForgetPasswordPage);
+export default withRouter(ForgetPasswordPage)

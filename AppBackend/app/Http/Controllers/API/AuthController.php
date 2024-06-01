@@ -27,7 +27,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use GuzzleHttp\Exception\RequestException;
-
+use Hash;
 class AuthController extends Controller
 {
     public function studentregister(Request $request)
@@ -657,9 +657,37 @@ class AuthController extends Controller
         return response()->json($imagesdata);
     }
 
-    public function forgetpassword(Request $request)
+    public function verifyotp(Request $request)
     {
-        $phonenumber = $request->input('phonenumber');
-        dd($phonenumber);
+        $data = Students::where('username',$request->number)->first();
+        if($data){
+            $randomNumber = rand(100000, 999999);
+            $response = [
+                'success' => true,
+                'OTP' => $randomNumber,
+                'message' => "Verified...!!!!!!!!!",
+            ];
+        }else{
+            $response = [
+                'success' => false,
+                'message' => "User not Find...!!!!!!!!!",
+            ];
+        }
+        return response()->json($response, 200);
+    }
+
+    public function changepassword(Request $request)
+    {
+        // dd($request->all());
+        $newpass = $request->input('newpassword');
+        $username = $request->input('username');
+        $studentdata = Students::where('username',$username)->update([
+            'password' => Hash::make($newpass),
+        ]);
+        $response = [
+            'success' => true,
+            'message' => "Password Updated..!!!!!!!!!",
+        ];
+        return response()->json($response, 200);
     }
 }
