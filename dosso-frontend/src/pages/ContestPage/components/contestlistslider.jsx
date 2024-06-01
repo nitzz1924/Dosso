@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardFooter,
   Progress,
+  Spinner,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import Countdown from "react-countdown"
@@ -53,7 +54,14 @@ const Contestlistslider = ({ title }) => {
   }, [])
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div>
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
 
   return (
@@ -124,8 +132,8 @@ const Contestlistslider = ({ title }) => {
                       ></Progress>
                       <div className="float-start text-danger progress-text fw-bold">
                         {Number(item.joinmembers) -
-                          Number(item.play_contests_count)} 
-                          <span className="ms-1">Seats left</span>
+                          Number(item.play_contests_count)}
+                        <span className="ms-1">Seats left</span>
                       </div>
                       <div className="float-end text-muted progress-text">
                         {Number(item.joinmembers)} Seats

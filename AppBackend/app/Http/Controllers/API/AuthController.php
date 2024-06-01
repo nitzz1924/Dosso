@@ -50,6 +50,9 @@ class AuthController extends Controller
         }
 
         $input = $request->all();
+        // Trim email till @ and store it in studentname
+        $emailParts = explode('@', $input['emailaddress']);
+        $input['studentname'] = $emailParts[0];
         $input['password'] = bcrypt($input['password']);
         $student = Students::create($input);
 
@@ -143,6 +146,46 @@ class AuthController extends Controller
             ], 404);
         }
     }
+    public function studentupdate(Request $request, $id)
+{
+    try {
+        $input = $request->all();
+        $studentdata = Students::find($id);
+
+        if ($studentdata) {
+            if ($request->hasFile('profileImage')) {
+                $file = $request->file('profileImage');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/profiles'), $filename);
+                $input['studentprofile'] = $filename;
+            }
+
+          $studentdata->update([
+                'studentname' => $input['studentname'],
+                'studentprofile' => $input['studentprofile'] ?? $studentdata->studentprofile,
+            ]);
+
+            return response()->json([
+                'success' => 200,
+                'data' => $studentdata,
+                'message' => 'Profile updated successfully!'
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => 404,
+                'message' => 'Student not found!'
+            ], 404);
+        }
+    } catch (\Exception $e) {
+        \Log::error('Profile update error: ' . $e->getMessage());
+        return response()->json([
+            'success' => 500,
+            'message' => 'Internal Server Error'
+        ], 500);
+    }
+}
+
+
 
     public function updatestudent(Request $request, $id)
     {
@@ -499,10 +542,18 @@ class AuthController extends Controller
                                         'winningprice' => $value->price,
                                     ]);
                                 } else {
+                                    $playreward = $contest->registrationfees * mt_rand(0, count($value->Vouchers) - 1) / 100;
                                     $item->update([
                                         'rank' => $index + 1,
-                                        'winningprice' => mt_rand(0, count($value->Vouchers) - 1),
+                                        'winningprice' => $playreward,
                                     ]);
+                                    $walletdata = new Wallet();
+                                    $walletdata->userid = $playcontests->studentId;
+                                    $walletdata->transactionid = $data->playcontestid;
+                                    $walletdata->paymenttype = "Credit";
+                                    $walletdata->amount = $playreward;
+                                    $walletdata->transactiontype = "Voucher reward";
+                                    $walletdata->save();
                                 }
                             }
                         }
