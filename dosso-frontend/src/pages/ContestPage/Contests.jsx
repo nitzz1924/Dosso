@@ -4,7 +4,7 @@ import Contestlistslider from './components/contestlistslider';
 import BannerSlider from 'pages/Homepage/BannerSlider';
 
 const Contests = () => {
-    document.title = "Home";
+    document.title = "DOSSO21";
     return (
         <div>
             <div className="page-content">

@@ -39,7 +39,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('createOrder', 'createOrder');
     Route::post('walletrecharge', 'walletrecharge');
     Route::get('getimagesadd', 'getimagesadd');
-    Route::post('forgetpassword', 'forgetpassword');
+    Route::post('verifyotp', 'verifyotp');
+    Route::post('changepassword', 'changepassword');
 });
-
 Route::get('/api/showcontests', 'ViewController@addcontestview');

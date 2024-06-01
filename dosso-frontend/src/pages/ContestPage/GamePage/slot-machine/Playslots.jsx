@@ -146,7 +146,7 @@ const Playslots = ({ data }) => {
     })
   }
   //Insert API
-  const InsertLastSpin = async newTotalSum => {
+  const InsertLastSpin = async newTotalSum => {   
     try {
       const dataList = []
       dataList.push({
