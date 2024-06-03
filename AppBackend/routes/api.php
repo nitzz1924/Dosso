@@ -42,5 +42,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('verifyotp', 'verifyotp');
     Route::post('changepassword', 'changepassword');
     Route::post('sendSms', 'sendSms');
+    Route::get('getuserProfile/{id}', 'getuserProfile');
 });
 Route::get('/api/showcontests', 'ViewController@addcontestview');

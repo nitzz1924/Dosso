@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Container,
   Row,
@@ -11,44 +11,45 @@ import {
   Input,
   FormFeedback,
   Form,
-} from "reactstrap";
+} from "reactstrap"
 import config from "constants/config"
 
 // Formik Validation
-import * as Yup from "yup";
-import { useFormik } from "formik";
+import * as Yup from "yup"
+import { useFormik } from "formik"
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
-import withRouter from "components/Common/withRouter";
-import axios from "axios"; // Assuming axios is used for API calls
-import Swal from "sweetalert2"; // Assuming Swal is used for alerts
+import { useSelector, useDispatch } from "react-redux"
+import withRouter from "components/Common/withRouter"
+import axios from "axios" // Assuming axios is used for API calls
+import Swal from "sweetalert2" // Assuming Swal is used for alerts
 
-let avatar = "../../Assets/images/Dosso21-logo-new.webp";
+let avatar = "../../Assets/images/Dosso21-logo-new.webp"
 // actions
-import { editProfile, resetProfileFlag, registerUser } from "store/actions";
-import { Link, useNavigate } from "react-router-dom";
-import { getLocalData, storeLocalData } from "services/global-storage";
-import Dropzone from "react-dropzone";
+import { editProfile, resetProfileFlag, registerUser } from "store/actions"
+import { Link, useNavigate } from "react-router-dom"
+import { getLocalData, storeLocalData } from "services/global-storage"
+import Dropzone from "react-dropzone"
 
 const UserProfile = () => {
   //meta title
-  document.title = "My Profile";
+  document.title = "My Profile"
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
+  const [email, setEmail] = useState("")
+  const [profile, setProfile] = useState([])
+  const [name, setName] = useState("")
+  const [profileImage, setProfileImage] = useState("")
+  const [user, setUser] = useState("")
+  const [idx, setIdx] = useState(1)
+  const [selectedFile, setSelectedFile] = useState(null)
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [user, setUser] = useState("");
-  const [idx, setIdx] = useState(1);
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const { error, success } = useSelector((state) => ({
+  const { error, success } = useSelector(state => ({
     error: state.Profile.error,
     success: state.Profile.success,
-  }));
+  }))
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -59,86 +60,101 @@ const UserProfile = () => {
     validationSchema: Yup.object({
       studentname: Yup.string().required("Please Enter Your UserName"),
     }),
-    onSubmit: (values) => {
-      updateProfile(values);
+    onSubmit: values => {
+      updateProfile(values)
     },
-  });
+  })
 
-  const handleAcceptedFile = (files) => {
-    const file = files[0];
+  const handleAcceptedFile = files => {
+    const file = files[0]
     if (file) {
       const formattedFile = Object.assign(file, {
         preview: URL.createObjectURL(file),
         formattedSize: formatBytes(file.size),
-      });
-      setSelectedFile(formattedFile);
+      })
+      setSelectedFile(formattedFile)
     }
-  };
+  }
 
   const formatBytes = (bytes, decimals = 2) => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = [
-      "Bytes",
-      "KB",
-      "MB",
-      "GB",
-      "TB",
-      "PB",
-      "EB",
-      "ZB",
-      "YB",
-    ];
+    if (bytes === 0) return "0 Bytes"
+    const k = 1024
+    const dm = decimals < 0 ? 0 : decimals
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
-  };
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
+  }
 
-  const updateProfile = async (values) => {
+  const updateProfile = async values => {
     try {
-      const formData = new FormData();
-      formData.append('studentname', values.studentname);
-      formData.append('idx', idx);
+      const formData = new FormData()
+      formData.append("studentname", values.studentname)
+      formData.append("idx", idx)
       if (selectedFile) {
-        formData.append('profileImage', selectedFile);
+        formData.append("profileImage", selectedFile)
       }
-  
-      const response = await axios.post(`${config.apiUrl}studentupdate/${idx}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+
+      const response = await axios.post(
+        `${config.apiUrl}studentupdate/${idx}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-  
-      Swal.fire("Great!", "Your Profile has been updated!", "success").then(() => {
-        console.log("returned data", response.data)
-        storeLocalData("authUser", JSON.stringify(response.data))
-        window.location.reload(); // Navigate to profile page or wherever needed
-      });
-  
+      )
+
+      Swal.fire("Great!", "Your Profile has been updated!", "success").then(
+        () => {
+          console.log("returned data", response.data)
+          fetchUserProfile(idx);
+        }
+      )
     } catch (error) {
-      Swal.fire("Oops!", "Something went wrong with the profile update. Please try again.", "error");
-      console.error('Profile update error:', error.response ? error.response.data : error.message); // Log the error
+      Swal.fire(
+        "Oops!",
+        "Something went wrong with the profile update. Please try again.",
+        "error"
+      )
+      console.error(
+        "Profile update error:",
+        error.response ? error.response.data : error.message
+      ) // Log the error
     }
-  };
-  
+  }
+  const fetchUserProfile = async (id) => {
+    try {
+      const response = await axios.get(
+        config.apiUrl + "getuserProfile/" + id,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      console.log("User Data : ", response.data)
+      setProfile(response.data)
+    } catch (error) {
+      console.error("Error fetching winzone data:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (getLocalData("authUser")) {
-      const obj = JSON.parse(getLocalData("authUser"));
-      console.log("profile data", obj);
-      setName(obj.studentname);
-      setEmail(obj.emailaddress);
-      setUser(obj.username);
+      const obj = JSON.parse(getLocalData("authUser"))
+      console.log("profile data", obj)
+      fetchUserProfile(obj.id);
       setIdx(obj.id);
-      setProfileImage(obj.studentprofile);
-
-      setTimeout(() => {
-        dispatch(resetProfileFlag());
-      }, 3000);
     }
-  }, [dispatch, success]);
+  }, [dispatch, success])
+  
 
+  if (loading) {
+    return <div>Loading......</div>
+  }
   return (
     <React.Fragment>
       <div className="page-content">
@@ -147,28 +163,27 @@ const UserProfile = () => {
             <Col lg="6">
               {error && <Alert color="danger">{error}</Alert>}
               {success && <Alert color="success">{success}</Alert>}
-
-              <Card>
-                <CardBody>
-                  <div className="d-flex align-items-center">
-                    <div className="me-3">
-                      <img
-                        src={config.publicurl + 'profiles/' + profileImage}
-                        alt="profileImage"
-                        className="avatar-md rounded-circle img-thumbnail"
-                      />
-                    </div>
-                    <div className="flex-grow-1 align-self-center">
-                      <div className="text-dark">
-                        <h5 className="text-capitalize fw-bold">{name}</h5>
-                        <p className="mb-1">User ID: {user}</p>
-                        <p className="mb-1">{email}</p>
-                        <p className="mb-0">Player ID: #{idx}</p>
+                <Card>
+                  <CardBody>
+                    <div className="d-flex align-items-center">
+                      <div className="me-3">
+                        <img
+                          src={`${config.publicurl + "profiles/" + (profile.studentprofile == null ? 'default.png' : profile.studentprofile)}`}
+                          alt="profileImage"
+                          className="avatar-md rounded-circle img-thumbnail"
+                        />
+                      </div>
+                      <div className="flex-grow-1 align-self-center">
+                        <div className="text-dark">
+                          <h5 className="text-capitalize fw-bold">{profile.studentname}</h5>
+                          <p className="mb-1">User ID: {profile.username}</p>
+                          <p className="mb-1">{profile.emailaddress}</p>
+                          <p className="mb-0">Player ID: #{profile.id}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardBody>
-              </Card>
+                  </CardBody>
+                </Card>
             </Col>
           </Row>
 
@@ -179,10 +194,10 @@ const UserProfile = () => {
                 <CardBody>
                   <Form
                     className="form-horizontal"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      validation.handleSubmit();
-                      return false;
+                    onSubmit={e => {
+                      e.preventDefault()
+                      validation.handleSubmit()
+                      return false
                     }}
                   >
                     <div className="form-group">
@@ -214,7 +229,9 @@ const UserProfile = () => {
                         Attached File
                       </Label>
                       <Dropzone
-                        onDrop={(acceptedFiles) => handleAcceptedFile(acceptedFiles)}
+                        onDrop={acceptedFiles =>
+                          handleAcceptedFile(acceptedFiles)
+                        }
                         multiple={false}
                       >
                         {({ getRootProps, getInputProps }) => (
@@ -234,11 +251,12 @@ const UserProfile = () => {
                           </div>
                         )}
                       </Dropzone>
-                      <div className="dropzone-previews mt-3" id="file-previews">
+                      <div
+                        className="dropzone-previews mt-3"
+                        id="file-previews"
+                      >
                         {selectedFile && (
-                          <Card
-                            className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                          >
+                          <Card className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete">
                             <div className="p-2">
                               <Row className="align-items-center">
                                 <Col className="col-auto">
@@ -258,7 +276,9 @@ const UserProfile = () => {
                                     {selectedFile.name}
                                   </Link>
                                   <p className="mb-0">
-                                    <strong>{selectedFile.formattedSize}</strong>
+                                    <strong>
+                                      {selectedFile.formattedSize}
+                                    </strong>
                                   </p>
                                 </Col>
                               </Row>
@@ -270,7 +290,7 @@ const UserProfile = () => {
 
                     <div className="text-center mt-4">
                       <Button type="submit" color="light">
-                        Update 
+                        Update
                       </Button>
                     </div>
                   </Form>
@@ -281,7 +301,7 @@ const UserProfile = () => {
         </Container>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default withRouter(UserProfile);
+export default withRouter(UserProfile)
