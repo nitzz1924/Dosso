@@ -15,6 +15,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('checkDuplicate', 'checkDuplicate');
     Route::post('validateCredentials', 'validateCredentials');
     Route::get('studentedit/{id}', 'studentedit');
+    Route::post('studentupdate/{id}', 'studentupdate');
     Route::put('updatestudent/{id}', 'updatestudent');
     Route::get('showcontests', 'showcontests');
     Route::post('insertwallet', 'insertwallet');

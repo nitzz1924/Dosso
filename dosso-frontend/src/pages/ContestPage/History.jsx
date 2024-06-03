@@ -14,7 +14,7 @@ import {
   NavItem,
   TabContent,
   TabPane,
-  NavLink,
+  NavLink, 
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -35,6 +35,9 @@ const History = () => {
   axiosRetry(axiosInstance, { retries: 3 })
   document.title = "Contests"
 
+
+
+  
   const [activeTab, setActiveTab] = useState("1")
 
   const toggleTab = tab => {
@@ -62,7 +65,8 @@ const History = () => {
     }
   }
   
-  
+
+
 
   const handleClick = contest => {
     console.log(contest)
@@ -114,6 +118,8 @@ const History = () => {
   useEffect(() => {
     mycontests()
   }, [])
+
+
 
   if (loading) {
     return <div>Loading......</div>
@@ -269,8 +275,8 @@ const History = () => {
                                       (item.playconteststatus === "1"
                                         ? " btn-success w-lg rewardCard "
                                         : item.playconteststatus === "2"
-                                        ? " btn-info "
-                                        : " btn-light ") +
+                                          ? " btn-info "
+                                          : " btn-light ") +
                                       "shadow-lg fw-bold fs-6 text-uppercase rounded-3"
                                     }
                                   >
@@ -346,16 +352,16 @@ const History = () => {
                                     </span>
                                   </div>
                                   <div className=" w-100 p-2 d-flex justify-content-around ">
-                                  {item.contestrank == '0' ? 
-                                    <div className="text-info">
-                                      Others are still playing
+                                    {item.contestrank == '0' ?
+                                      <div className="text-info">
+                                        Others are still playing
                                       </div>
-                                    :  <div className="mb-0 me-1">
-                                      Your Rank:
-                                      <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
-                                        # {item.contestrank}
+                                      : <div className="mb-0 me-1">
+                                        Your Rank:
+                                        <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
+                                          # {item.contestrank}
+                                        </div>
                                       </div>
-                                    </div>
                                     }
                                     {item.status === "3" && (
                                       <div className="mb-0 me-1 text-center">
@@ -371,15 +377,17 @@ const History = () => {
                               {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
                                   {item.playconteststatus === "2" && (
-                                    <button
+                                    (<button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
                                       }
                                       className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
                                     >
                                       Claim Reward
-                                    </button>
+                                    </button>)
+
                                   )}
+                                  
                                 </CardFooter>
                               )}
                             </Card>
@@ -471,15 +479,17 @@ const History = () => {
                               {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
                                   {item.playconteststatus === "2" && (
-                                    <button
+                                    (<button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
                                       }
                                       className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
                                     >
                                       Claim Reward
-                                    </button>
+                                    </button>)
+
                                   )}
+
                                 </CardFooter>
                               )}
                             </Card>
@@ -494,6 +504,9 @@ const History = () => {
             </Row>
           </TabPane>
         </TabContent>
+
+        
+
       </div>
     </div>
   )
