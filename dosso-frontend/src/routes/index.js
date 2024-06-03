@@ -44,6 +44,10 @@ import Rewards from "pages/ContestPage/Rewards";
 import Notifications from "pages/ContestPage/Notifications";
 import Verify from "pages/Authentication/Wallet/verify";
 import Withdraw from "pages/Authentication/Wallet/Withdraw";
+import Sms from "pages/Homepage/sms";
+
+
+
 const authProtectedRoutes = [
   { path: "/", component: <Contests /> },
   { path: "/contests", component: <Contests /> },
@@ -58,6 +62,7 @@ const authProtectedRoutes = [
   { path: "/notifications", component: <Notifications /> },
   { path: "/verify", component: <Verify /> },
   { path: "/withdraw", component: <Withdraw /> },
+  { path: "/sms", component: <Sms /> },
   
   //profile
   { path: "/profile", component: <UserProfile /> },

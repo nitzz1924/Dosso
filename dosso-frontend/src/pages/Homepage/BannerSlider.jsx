@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Flicking from "@egjs/react-flicking"
 import "@egjs/flicking-plugins/dist/flicking-plugins.css"
-import { Row, Col, Card, Button } from "reactstrap"
+import { Row, Col, Card, Button, Spinner } from "reactstrap"
 import { AutoPlay } from "@egjs/flicking-plugins"
 import axios from "axios"
 import axiosRetry from "axios-retry"
@@ -49,7 +49,14 @@ const BannerSlider = ({ title }) => {
   }, [])
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div>
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
   return (
     <div className="offer-slider-container">

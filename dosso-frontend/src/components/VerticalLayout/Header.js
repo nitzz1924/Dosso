@@ -70,7 +70,7 @@ const Header = props => {
             </button>
           </div>
           <div className="d-flex align-items-center justify-content-start">
-          <div className="mx-3 text-center">
+          <div className="ms-2 text-center">
                 <img
                   className="img-fluid"
                   src={user1}
@@ -78,7 +78,7 @@ const Header = props => {
                   width={50}
                 />
               </div>
-            <div className="fs-6 fw-bold text-uppercase">{pageTitle}</div>
+            <div className="fs-5 fw-bold text-uppercase text-white">{pageTitle}</div>
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">

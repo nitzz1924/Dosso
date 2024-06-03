@@ -12,6 +12,7 @@ import {
   FormFeedback,
   Button,
   FormText,
+  Spinner,
 } from "reactstrap"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 // Formik Validation
@@ -200,7 +201,14 @@ const AddFund = () => {
   }, [])
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div>
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
   return (
     <>
@@ -261,7 +269,7 @@ const AddFund = () => {
                               Min value: ₹10 & Max value: ₹10,000
                             </FormText>
                             {validation.touched.initialAmount &&
-                            validation.errors.initialAmount ? (
+                              validation.errors.initialAmount ? (
                               <FormFeedback type="invalid">
                                 {validation.errors.initialAmount}
                               </FormFeedback>

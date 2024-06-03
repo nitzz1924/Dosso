@@ -14,7 +14,8 @@ import {
   NavItem,
   TabContent,
   TabPane,
-  NavLink, 
+  NavLink,
+  Spinner,
 } from "reactstrap"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
@@ -37,7 +38,7 @@ const History = () => {
 
 
 
-  
+
   const [activeTab, setActiveTab] = useState("1")
 
   const toggleTab = tab => {
@@ -64,7 +65,7 @@ const History = () => {
       setLoading(false)
     }
   }
-  
+
 
 
 
@@ -122,7 +123,24 @@ const History = () => {
 
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div className="page-content">
+      <div className="card mt-5" aria-hidden="true">
+        
+        <div className="card-body">
+          <h5 className="card-title placeholder-glow">
+            <span className="placeholder col-6"></span>
+          </h5>
+          <p className="card-text placeholder-glow">
+            <span className="placeholder col-7"></span>
+            <span className="placeholder col-4"></span>
+            <span className="placeholder col-4"></span>
+            <span className="placeholder col-6"></span>
+            <span className="placeholder col-8"></span>
+          </p>
+          <a href="#" className="btn btn-secondary disabled placeholder col-6"></a>
+        </div>
+      </div>
+    </div>
   }
 
   return (
@@ -387,7 +405,7 @@ const History = () => {
                                     </button>)
 
                                   )}
-                                  
+
                                 </CardFooter>
                               )}
                             </Card>
@@ -505,7 +523,7 @@ const History = () => {
           </TabPane>
         </TabContent>
 
-        
+
 
       </div>
     </div>

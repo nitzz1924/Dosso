@@ -32,6 +32,7 @@ import {
   FormGroup,
   Label,
   Input,
+  Spinner,
 } from "reactstrap"
 
 let wheelImg = "Assets/images/fortune-wheel.png"
@@ -89,10 +90,10 @@ const Rounds = props => {
             title: "Great!",
             text: "Course has been prebooked!",
             icon: "success",
-            footer: "We will notify shortly",
+            footer: 'Visit our website to  <a href="http://www.dosso21.com">select course</a>',
           }).then(() => {
-            navigate("/history") // Redirect to '/other-page'
-          })
+            navigate("/history") // Redirect to '/history'
+          });          
         })
     } catch (error) {
       console.error("Error in insertwallet:", error)
@@ -163,7 +164,24 @@ const Rounds = props => {
   }, [])
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div className="page-content">
+      <div className="card mt-5" aria-hidden="true">
+        <img src="..." className="card-img-top" alt="" />
+        <div className="card-body">
+          <h5 className="card-title placeholder-glow">
+            <span className="placeholder col-6"></span>
+          </h5>
+          <p className="card-text placeholder-glow">
+            <span className="placeholder col-7"></span>
+            <span className="placeholder col-4"></span>
+            <span className="placeholder col-4"></span>
+            <span className="placeholder col-6"></span>
+            <span className="placeholder col-8"></span>
+          </p>
+          <a href="#" className="btn btn-secondary disabled placeholder col-6"></a>
+        </div>
+      </div>
+    </div>
   }
 
   return (
@@ -337,7 +355,7 @@ const Rounds = props => {
                                   >
                                     <CardBody className="d-flex p-2 justify-content-between align-items-center">
                                       <div className="d-flex align-items-center ">
-                                        <div className="me-2 fs-3 border-end">
+                                        <div className="me-2 fs-6 ">
                                           {index == 0
                                             ? "🥇"
                                             : index == 1
@@ -346,23 +364,19 @@ const Rounds = props => {
                                                 ? "🥉"
                                                 : index}
                                         </div>
-                                        <div className="me-2 border border-1 border-secondary rounded-3">
+                                        <div className="me-2 border border-1 border-warning rounded">
                                           <img
-                                            src={
-                                              item.studentprofile == null
-                                                ? wheelImg
-                                                : item.studentprofile
-                                            }
+                                            src={item.studentprofile !== null ? config.publicurl + 'profiles/' + item.studentprofile : wheelImg}
                                             alt="wheelImg"
-                                            className="img-fluid "
-                                            width={35}
+                                            className="img-fluid rounded"
+                                            width={25}
                                           />
                                         </div>
-                                        <div className="me-2 fw-bold fs-5">
+                                        <div className="me-2 fw-bold fs-6">
                                           {item.studentname}
                                         </div>
                                       </div>
-                                      <div className="fw-bold fs-5">
+                                      <div className="fw-bold fs-6">
                                         {item.point} pts
                                       </div>
                                     </CardBody>

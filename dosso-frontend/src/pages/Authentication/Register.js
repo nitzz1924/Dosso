@@ -93,6 +93,7 @@ const Register = props => {
           randomOTP += digits[Math.floor(Math.random() * 10)];
         }
         setGeneratedOTP(randomOTP);
+        sendSms(randomOTP);
         setShowOTPInput(true);
       } else {
         Swal.fire("Oops!", "An unexpected error occurred during duplicate check. Please try again later.", "error");
@@ -105,6 +106,31 @@ const Register = props => {
   const handleChange = otp => {
     setEnteredOTP(otp);
   };
+
+
+  function sendSms(generatedOTP) {
+    const url = 'https://sms.jaipursmshub.in/api_v2/message/send';
+    const data = {
+      sender_id: 'DOSSOS',
+      mobile_no: validation.values.mobilenumber,
+      dlt_template_id: '1207171714044829349',
+      message: 'Welcome to Dosso21! \n\nUse ' + generatedOTP + ' to complete your registration.\nThis code is valid for 10 minutes.\n\nDosso21 Services Private Limited'
+    };
+
+    axios.post(url, new URLSearchParams(data), {
+      headers: {
+        'Authorization': 'Bearer o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
 
   const verifyOTP = () => {
     if (enteredOTP === generatedOTP) {
@@ -123,15 +149,15 @@ const Register = props => {
             'Content-Type': 'multipart/form-data',
           }
         })
-        .then((response) => {
-          Swal.fire("Great!", "Your Account created!", "success")
-          .then(() => {
-            navigate('/login');
+          .then((response) => {
+            Swal.fire("Great!", "Your Account created!", "success")
+              .then(() => {
+                navigate('/login');
+              });
+          })
+          .catch((error) => {
+            Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
           });
-        })
-        .catch((error) => {
-          Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
-        });
 
       } catch (error) {
         Swal.fire("Oops!", "An unexpected error occurred. Please try again later.", "error");
@@ -259,7 +285,7 @@ const Register = props => {
                     <Form>
                       {isValid && showOTPInput && ( // Conditionally render OTP input section
                         <div id="otpinput" className="mt-4 text-center d-grid justify-content-center ">
-                          Enter OTP: {generatedOTP}
+                          Enter OTP sent to your mobile number: 
                           <OTPInput
                             value={enteredOTP}
                             onChange={handleChange}
@@ -309,7 +335,7 @@ const Register = props => {
                     </Form>
                     <div className="mt-4 text-center text-secondary ">
                       <p className="mb-0">
-                        By registering you agree to the Dosso21 
+                        By registering you agree to the Dosso21
                         <Link to="#" className="text-secondary">
                           Terms of Use
                         </Link>

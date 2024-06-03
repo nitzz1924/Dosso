@@ -12,6 +12,7 @@ import {
   FormFeedback,
   Button,
   FormText,
+  Spinner,
 } from "reactstrap"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 // Formik Validation
@@ -137,7 +138,14 @@ const Withdraw = () => {
     setLoading(false)
   }, [])
   if (loading) {
-    return <div>Loading......</div>
+    return <div>
+    <Spinner
+      color="secondary"
+      type="grow"
+    >
+      Loading...
+    </Spinner>
+  </div>
   }
   return (
     <>

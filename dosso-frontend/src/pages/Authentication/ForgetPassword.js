@@ -13,6 +13,7 @@ import {
   Input,
   Label,
   Form,
+  Spinner,
 } from "reactstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
@@ -117,8 +118,8 @@ const ForgetPasswordPage = props => {
   const handleOTPChange = otp => {
     setEnteredOTP(otp)
   }
-  const updatePassword =  () => {
-   
+  const updatePassword = () => {
+
     const newPassword = document.querySelector(
       'input[name="newpassword"]'
     ).value
@@ -144,17 +145,17 @@ const ForgetPasswordPage = props => {
           'Content-Type': 'multipart/form-data',
         }
       })
-      .then((response) => {
-        console.log("Response : ",response);
-        Swal.fire("Great!", "Password Updated..!!!!!", "success")
-        .then(() => {
-          navigate('/login');
+        .then((response) => {
+          console.log("Response : ", response);
+          Swal.fire("Great!", "Password Updated..!!!!!", "success")
+            .then(() => {
+              navigate('/login');
+            });
+        })
+        .catch((error) => {
+          Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
         });
-      })
-      .catch((error) => {
-        Swal.fire("Oops!", "Something went wrong with the registration. Please try again.", "error");
-      });
-      
+
     } catch (error) {
       console.error("Error in changepassword:", error)
       Swal.fire(
@@ -165,7 +166,14 @@ const ForgetPasswordPage = props => {
     }
   }
   if (loading) {
-    return <div>Loading...</div>
+    return <div>
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
 
   return (

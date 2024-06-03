@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Container, Row, Col } from "reactstrap"
+import { Container, Row, Col, Spinner } from "reactstrap"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 // let instantWin = "/Assets/images/instantWin.wav"
 // let playSound2 = "/Assets/images/metalcraking.mp3"
@@ -146,7 +146,7 @@ const Playslots = ({ data }) => {
     })
   }
   //Insert API
-  const InsertLastSpin = async newTotalSum => {   
+  const InsertLastSpin = async newTotalSum => {
     try {
       const dataList = []
       dataList.push({
@@ -268,7 +268,14 @@ const Playslots = ({ data }) => {
   }
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div className="mt-5">
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
 
   return (
@@ -358,9 +365,8 @@ const Playslots = ({ data }) => {
                     </div>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
-                      <span className="text-dark fw-bold">{`${
-                        subjects[index] || `Round ${index + 1}`
-                      } :`}</span>
+                      <span className="text-dark fw-bold">{`${subjects[index] || `Round ${index + 1}`
+                        } :`}</span>
                       <span className="fw-bolder text-success">{`${result}`}</span>
                     </div>
                   )}

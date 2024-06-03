@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { isEmpty } from "lodash"
-import { Card, CardBody, Col, Container, Row } from "reactstrap"
+import { Card, CardBody, Col, Container, Row, Spinner } from "reactstrap"
 import withRouter from "components/Common/withRouter"
 import "assets/scss/datatables.scss"
 import WalletActivities from "./walletActivities"
@@ -45,8 +45,8 @@ const MyFund = () => {
       setDebithis(response.data.debithistory)
       setAllhis(response.data.transaction)
       setWallet(response.data.walletamount)
-      setCurrentWin(response.data.creditWinTotal-response.data.debitWinTotal|0)
-      
+      setCurrentWin(response.data.creditWinTotal - response.data.debitWinTotal | 0)
+
     } catch (error) {
       console.log("error", error)
     } finally {
@@ -83,7 +83,14 @@ const MyFund = () => {
   }
 
   if (loading) {
-    return <div>Loading......</div>
+    return <div>
+      <Spinner
+        color="secondary"
+        type="grow"
+      >
+        Loading...
+      </Spinner>
+    </div>
   }
   return (
     <React.Fragment>
@@ -111,27 +118,27 @@ const MyFund = () => {
               </Col>
             </Row>
           ))}
-          
-            <Row className="justify-content-center ">
-              <Col xl="3" className="p-0">
-                <WalletStats
-                  wallet={wallet<=0?'0':wallet}
-                  isMenu={isMenu}
-                  currentWinPrice={currentWin}
-                  toggleMenu={toggleMenu}
-                />
-              </Col>
-            </Row>
-         
+
+          <Row className="justify-content-center ">
+            <Col xl="3" className="p-0">
+              <WalletStats
+                wallet={wallet <= 0 ? '0' : wallet}
+                isMenu={isMenu}
+                currentWinPrice={currentWin}
+                toggleMenu={toggleMenu}
+              />
+            </Col>
+          </Row>
+
           <Row className="justify-content-center ">
             <Col lg="3" className="p-0">
-              
-                <WalletActivities
-                  debit={debithis}
-                  credit={credithis}
-                  all={allhis}
-                />
-              
+
+              <WalletActivities
+                debit={debithis}
+                credit={credithis}
+                all={allhis}
+              />
+
             </Col>
           </Row>
         </Container>
