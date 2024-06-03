@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use GuzzleHttp\Exception\RequestException;
 use Hash;
+use Http;
+
 class AuthController extends Controller
 {
     public function studentregister(Request $request)
@@ -659,15 +661,37 @@ class AuthController extends Controller
 
     public function verifyotp(Request $request)
     {
-        $data = Students::where('username',$request->number)->first();
-        if($data){
+        $data = Students::where('username', $request->number)->first();
+        if ($data) {
             $randomNumber = rand(100000, 999999);
-            $response = [
-                'success' => true,
-                'OTP' => $randomNumber,
-                'message' => "Verified...!!!!!!!!!",
-            ];
-        }else{
+            $response = Http::withHeaders([
+                'authorization' => 'Bearer o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+                'cache-control' => 'no-cache',
+                'content-type' => 'application/x-www-form-urlencoded',
+            ])->asForm()->post('https://sms.jaipursmshub.in/api_v2/message/send', [
+                        'sender_id' => 'BLKSMS',
+                        'message' => 'Welcome to Dosso21! Use ' . $randomNumber . ' to complete your registration. This code is valid for 10 minutes.
+    Dosso21 Services Private Limited',
+                        'mobile_no' => $request->number,
+                    ]);
+            if ($response->successful()) {
+                return response()->json([
+                    'success' => true,
+                    'OTP' => $randomNumber,
+                    'message' => "Verified...!!!!!!!!!",
+                    'status' => 'success',
+                    'response' => $response->body()
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => "User not Find...!!!!!!!!!",
+                    'status' => 'error',
+                    'response' => $response->body()
+                ], $response->status());
+            }
+
+        } else {
             $response = [
                 'success' => false,
                 'message' => "User not Find...!!!!!!!!!",
@@ -681,7 +705,7 @@ class AuthController extends Controller
         // dd($request->all());
         $newpass = $request->input('newpassword');
         $username = $request->input('username');
-        $studentdata = Students::where('username',$username)->update([
+        $studentdata = Students::where('username', $username)->update([
             'password' => Hash::make($newpass),
         ]);
         $response = [
@@ -689,5 +713,31 @@ class AuthController extends Controller
             'message' => "Password Updated..!!!!!!!!!",
         ];
         return response()->json($response, 200);
+    }
+
+    public function sendSms(Request $request)
+    {
+        $response = Http::withHeaders([
+            'authorization' => 'Bearer  o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+            'cache-control' => 'no-cache',
+            'content-type' => 'application/x-www-form-urlencoded',
+        ])->asForm()->post('https://sms.jaipursmshub.in/api_v2/message/send', [
+                    'sender_id' => 'DOSSOS',
+                    'message' => 'Welcome to Dosso21! Use ' . $request->otp . ' to complete your registration. This code is valid for 10 minutes.
+Dosso21 Services Private Limited',
+                    'mobile_no' => $request->number,
+                ]);
+
+        if ($response->successful()) {
+            return response()->json([
+                'status' => 'success',
+                'response' => $response->body()
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'response' => $response->body()
+            ], $response->status());
+        }
     }
 }

@@ -40,5 +40,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('getimagesadd', 'getimagesadd');
     Route::post('verifyotp', 'verifyotp');
     Route::post('changepassword', 'changepassword');
+    Route::post('sendSms', 'sendSms');
 });
 Route::get('/api/showcontests', 'ViewController@addcontestview');
