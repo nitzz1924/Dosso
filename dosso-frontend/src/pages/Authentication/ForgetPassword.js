@@ -101,12 +101,12 @@ const ForgetPasswordPage = props => {
       const { success, OTP, message } = response.data
 
       if (success) {
-        console.log("OTP:", OTP)
+        console.log("OTP:", response)
         setOtp(OTP)
         setShowOTPInput(true)
         setShowMobileNumber(false)
       } else {
-        console.error("Error:", message)
+        console.error("Error:", response)
       }
     } catch (error) {
       console.error("There was an error!", error)

@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use GuzzleHttp\Exception\RequestException;
 use Hash;
+use Http;
+
 class AuthController extends Controller
 {
     public function studentregister(Request $request)
@@ -147,43 +149,43 @@ class AuthController extends Controller
         }
     }
     public function studentupdate(Request $request, $id)
-{
-    try {
-        $input = $request->all();
-        $studentdata = Students::find($id);
+    {
+        try {
+            $input = $request->all();
+            $studentdata = Students::find($id);
 
-        if ($studentdata) {
-            if ($request->hasFile('profileImage')) {
-                $file = $request->file('profileImage');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/profiles'), $filename);
-                $input['studentprofile'] = $filename;
+            if ($studentdata) {
+                if ($request->hasFile('profileImage')) {
+                    $file = $request->file('profileImage');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads/profiles'), $filename);
+                    $input['studentprofile'] = $filename;
+                }
+
+                $studentdata->update([
+                    'studentname' => $input['studentname'],
+                    'studentprofile' => $input['studentprofile'] ?? $studentdata->studentprofile,
+                ]);
+
+                return response()->json([
+                    'success' => 200,
+                    'data' => $studentdata,
+                    'message' => 'Profile updated successfully!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => 404,
+                    'message' => 'Student not found!'
+                ], 404);
             }
-
-          $studentdata->update([
-                'studentname' => $input['studentname'],
-                'studentprofile' => $input['studentprofile'] ?? $studentdata->studentprofile,
-            ]);
-
+        } catch (\Exception $e) {
+            \Log::error('Profile update error: ' . $e->getMessage());
             return response()->json([
-                'success' => 200,
-                'data' => $studentdata,
-                'message' => 'Profile updated successfully!'
-            ], 200);
-        } else {
-            return response()->json([
-                'success' => 404,
-                'message' => 'Student not found!'
-            ], 404);
+                'success' => 500,
+                'message' => 'Internal Server Error'
+            ], 500);
         }
-    } catch (\Exception $e) {
-        \Log::error('Profile update error: ' . $e->getMessage());
-        return response()->json([
-            'success' => 500,
-            'message' => 'Internal Server Error'
-        ], 500);
     }
-}
 
 
 
@@ -710,15 +712,38 @@ class AuthController extends Controller
 
     public function verifyotp(Request $request)
     {
-        $data = Students::where('username',$request->number)->first();
-        if($data){
+        $data = Students::where('username', $request->number)->first();
+        if ($data) {
             $randomNumber = rand(100000, 999999);
-            $response = [
-                'success' => true,
-                'OTP' => $randomNumber,
-                'message' => "Verified...!!!!!!!!!",
-            ];
-        }else{
+            $response = Http::withHeaders([
+                'authorization' => 'Bearer o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+                'cache-control' => 'no-cache',
+                'content-type' => 'application/x-www-form-urlencoded',
+            ])->asForm()->post('https://sms.jaipursmshub.in/api_v2/message/send', [
+                        'sender_id' => 'DOSSOS',
+                        'dlt_template_id' => '1207171714044829349',
+                        'message' => 'Welcome to Dosso21! Use ' . $randomNumber . ' to complete your registration. This code is valid for 10 minutes.
+    Dosso21 Services Private Limited',
+                        'mobile_no' => $request->number,
+                    ]);
+            if ($response->successful()) {
+                return response()->json([
+                    'success' => true,
+                    'OTP' => $randomNumber,
+                    'message' => "Verified...!!!!!!!!!",
+                    'status' => 'success',
+                    'response' => $response->body()
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => "User not Find...!!!!!!!!!",
+                    'status' => 'error',
+                    'response' => $response->body()
+                ], $response->status());
+            }
+
+        } else {
             $response = [
                 'success' => false,
                 'message' => "User not Find...!!!!!!!!!",
@@ -732,7 +757,7 @@ class AuthController extends Controller
         // dd($request->all());
         $newpass = $request->input('newpassword');
         $username = $request->input('username');
-        $studentdata = Students::where('username',$username)->update([
+        $studentdata = Students::where('username', $username)->update([
             'password' => Hash::make($newpass),
         ]);
         $response = [
@@ -740,5 +765,38 @@ class AuthController extends Controller
             'message' => "Password Updated..!!!!!!!!!",
         ];
         return response()->json($response, 200);
+    }
+
+    public function sendSms(Request $request)
+    {
+        $response = Http::withHeaders([
+            'authorization' => 'Bearer  o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+            'cache-control' => 'no-cache',
+            'content-type' => 'application/x-www-form-urlencoded',
+        ])->asForm()->post('https://sms.jaipursmshub.in/api_v2/message/send', [
+                    'sender_id' => 'DOSSOS',
+                    'dlt_template_id' => '1207171714044829349',
+                    'message' => 'Welcome to Dosso21! Use ' . $request->otp . ' to complete your registration. This code is valid for 10 minutes.
+                        Dosso21 Services Private Limited',
+                    'mobile_no' => $request->number,
+                ]);
+
+        if ($response->successful()) {
+            return response()->json([
+                'status' => 'success',
+                'response' => $response->body()
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'response' => $response->body()
+            ], $response->status());
+        }
+    }
+
+    public function getuserProfile($id)
+    {
+        $data = Students::find($id);
+        return response()->json($data);
     }
 }
