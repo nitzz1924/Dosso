@@ -90,7 +90,7 @@ const Rounds = props => {
             title: "Great!",
             text: "Course has been prebooked!",
             icon: "success",
-            footer: 'Visit our website to  <a href="http://www.dosso21.com">select course</a>',
+            footer: 'Visit our website to  <a href="http://www.dosso21.com" target="_blank">select course</a>',
           }).then(() => {
             navigate("/history") // Redirect to '/history'
           });          
