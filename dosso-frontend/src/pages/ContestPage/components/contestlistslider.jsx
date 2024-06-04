@@ -191,9 +191,10 @@ const Contestlistslider = ({ title }) => {
                             : " btn-light ") +
                           "shadow-sm w-100 fw-bold fs-5 text-uppercase rounded-5"
                         }
-                        disabled={item.status === "2" ? false : true}
+                        // disabled={item.status === "2" ? false : true}
                       >
-                        {item.status === "2" ? "Participate" : "Coming Soon!"}
+                        {/* {item.status === "2" ? "Participate" : "Coming Soon!"} */}
+                        {item.status === "2" ? "Participate" : item.status === "3" ? "Closed!" : "Coming Soon!"}
                       </button>
                     </div>
                   </div>
@@ -209,7 +210,7 @@ const Contestlistslider = ({ title }) => {
           </div>
         ))}
       </Flicking>
-      <p className="text-center text-muted">THE END</p>
+      <p className="text-center text-muted">The End</p>
     </div>
   )
 }

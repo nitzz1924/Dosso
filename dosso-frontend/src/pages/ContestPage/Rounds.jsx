@@ -139,7 +139,7 @@ const Rounds = props => {
     // alert("ID",getLocalData("userId"));
     try {
       const response = await axiosInstance.get(
-        config.apiUrl + "walletamount/" + getLocalData("userId"),
+      config.apiUrl + "walletamount/" + getLocalData("userId"),
         {
           headers: {
             "Content-Type": "application/json",
@@ -410,8 +410,8 @@ const Rounds = props => {
             </FormGroup>
             <div className="text-muted text-center mb-2">
               Your Current Wallet Amount:
-              <span className="text-success fw-bold">
-                ₹ {wallet <= 0 ? 0 : wallet}
+              <span className="text-success fw-bold me-1">
+                ₹ {wallet}
               </span>
               {data.registrationfees <= wallet ? null : (
                 <div className="text-danger mb-2">Recharge Your Wallet</div>

@@ -293,7 +293,7 @@ class AuthController extends Controller
             $response = [
                 'message' => 'transaction not Found',
                 'success' => true,
-                'data' => 0,
+                'walletamount' => 0,
             ];
         } else {
             $response = [
@@ -422,6 +422,7 @@ class AuthController extends Controller
                 'pr.id AS paymentrequestid'
             )
             ->where('play_contests.studentid', $id)
+            ->orderBy('play_contests.id','asc')
             ->get();
         return response()->json($historydata);
     }
@@ -562,6 +563,10 @@ class AuthController extends Controller
                     }
                 }
             }
+
+           $contestStatus = $contest->update([
+                "status" => 3,
+            ]);
 
             $response = [
                 'message' => 'Contest has reached the required number of join members. ' . intval($contest->contest_points_count) . '/' . intval($contest->joinmembers),

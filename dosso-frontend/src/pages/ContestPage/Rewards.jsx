@@ -88,7 +88,7 @@ const Rewards = () => {
                     <Row className="justify-content-center">
                         <div className="col-lg-3 d-flex justify-content-between align-content-center my-2">
                             <div className="fs-4 fw-bold text-dark">{data.title || 'N/A'}</div>
-                            <Button onClick={() => navigate(-1)} className="btn btn-soft-secondary waves-effect waves-light fw-bold">
+                            <Button onClick={() => navigate(-1)} className="btn btn-soft-dark waves-effect waves-light fw-bold">
                                 Back
                             </Button>
                         </div>
@@ -166,7 +166,8 @@ const Rewards = () => {
             {/* <!-- Modal --> */}
             <Modal isOpen={modal} toggle={toggle} centered={true}>
                 <ModalHeader toggle={toggle}>
-                    Marksheet
+                    <span className="text-black fw-bold fs-4 text-center">Marksheet</span>
+
                 </ModalHeader>
                 <ModalBody>
                     {(getPoints || []).map((result, index) => (
@@ -181,6 +182,8 @@ const Rewards = () => {
                                             <span className="fw-bolder text-success">{spin}</span>
                                         </div>
                                     ))}
+                                    <div className="text-center bg-dark text-warning mt-2 rounded fs-4 fw-bold">Total: {result.point} pts</div>
+
                                 </div>
                             )}
                         </div>

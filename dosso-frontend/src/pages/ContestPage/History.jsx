@@ -125,7 +125,7 @@ const History = () => {
   if (loading) {
     return <div className="page-content">
       <div className="card mt-5" aria-hidden="true">
-        
+
         <div className="card-body">
           <h5 className="card-title placeholder-glow">
             <span className="placeholder col-6"></span>
@@ -209,11 +209,14 @@ const History = () => {
               <Col lg="3" className="d-grid align-content-center p-0">
                 <Flicking
                   align="prev"
+                  defaultIndex="0"
                   horizontal={false}
                   circular={false}
                   className="flicking-wrapper"
                   resizeOnContentsReady={true}
                   renderOnlyVisible={true}
+                  needPanelThreshold="100"
+                  
                 >
                   {(contestData || []).map(
                     (item, key) =>
@@ -229,6 +232,7 @@ const History = () => {
                                   <i className="bx bx-time-five text-body me-1"></i>
                                   <Countdown date={item.enddate} />
                                 </div>
+                                <div className="badge text-bg-dark fs-6 rounded px-2">Game: {key + 1}</div>
 
                                 <div className="mb-0">
                                   <span className="badge text-bg-success fs-6">
@@ -270,7 +274,7 @@ const History = () => {
                               </CardBody>
                               {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
-                                  {item.playconteststatus === "2" && (
+                                  {/* {item.playconteststatus === "2" && (
                                     <button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
@@ -279,7 +283,7 @@ const History = () => {
                                     >
                                       Claim Reward
                                     </button>
-                                  )}
+                                  )} */}
 
                                   <button
                                     onClick={() => handleClick(item)}
@@ -321,16 +325,18 @@ const History = () => {
             <Row className="m-2 justify-content-center">
               <Col lg="3" className="d-grid align-content-center p-0">
                 <Flicking
-                  align="prev"
+                  align="next"
+                  defaultIndex="0"
                   horizontal={false}
                   circular={false}
                   className="flicking-wrapper"
                   resizeOnContentsReady={true}
                   renderOnlyVisible={true}
+                  needPanelThreshold="100"
                 >
                   {(contestData || []).map(
                     (item, key) =>
-                      item.playconteststatus === "2" && (
+                      item.playconteststatus === "2" && item.status !== "3" && (
                         <div
                           className="flicking-viewport vertical shadow"
                           key={key}
@@ -351,6 +357,7 @@ const History = () => {
                                   <i className="bx bx-time-five text-body me-1"></i>
                                   <Countdown date={item.enddate} />
                                 </div>
+                                <div className="badge text-bg-dark fs-6 rounded px-2">Game: {key + 1}</div>
 
                                 <div className="mb-0">
                                   <span className="badge text-bg-success fs-6">
@@ -371,8 +378,8 @@ const History = () => {
                                   </div>
                                   <div className=" w-100 p-2 d-flex justify-content-around ">
                                     {item.contestrank == '0' ?
-                                      <div className="text-info">
-                                        Others are still playing
+                                      <div className="badge text-bg-light ">
+                                        Wait for other to complete.
                                       </div>
                                       : <div className="mb-0 me-1">
                                         Your Rank:
@@ -392,9 +399,9 @@ const History = () => {
                                   </div>
                                 </div>
                               </CardBody>
-                              {item.status !== "3" && (
+                              {/* {item.status !== "3" && (
                                 <CardFooter className="d-flex justify-content-around">
-                                  {item.playconteststatus === "2" && (
+                                  {item.playconteststatus === "3" && (
                                     (<button
                                       onClick={() =>
                                         navigate("/rewards", { state: item })
@@ -407,7 +414,7 @@ const History = () => {
                                   )}
 
                                 </CardFooter>
-                              )}
+                              )} */}
                             </Card>
                           </div>
                         </div>
@@ -425,16 +432,18 @@ const History = () => {
             <Row className="m-2 justify-content-center">
               <Col lg="3" className="d-grid align-content-center p-0">
                 <Flicking
-                  align="prev"
+                  align="next"
+                  defaultIndex="0"
                   horizontal={false}
                   circular={false}
                   className="flicking-wrapper"
                   resizeOnContentsReady={true}
                   renderOnlyVisible={true}
+                  needPanelThreshold="100"
                 >
                   {(contestData || []).map(
                     (item, key) =>
-                      item.playconteststatus === "3" && (
+                      item.status === "3" && (
                         <div
                           className="flicking-viewport vertical shadow"
                           key={key}
@@ -455,6 +464,7 @@ const History = () => {
                                   <i className="bx bx-time-five text-body me-1"></i>
                                   <Countdown date={item.enddate} />
                                 </div>
+                                <div className="badge text-bg-dark fs-6 rounded px-2">Game: {key + 1}</div>
 
                                 <div className="mb-0">
                                   <span className="badge text-bg-success fs-6">
@@ -473,8 +483,8 @@ const History = () => {
                                       ₹ {item.totalprice}
                                     </span>
                                   </div>
-                                  <div className=" w-100 p-2 d-flex justify-content-around ">
-                                    {item.playconteststatus === "2" && (
+                                  {/* <div className=" w-100 p-2 d-flex justify-content-around ">
+                                    {item.status === "3" && (
                                       <div className="mb-0 me-1">
                                         Your Rank:
                                         <div className="text-warning fs-3 fw-bold ms-1 bg-dark text-center rounded">
@@ -491,25 +501,25 @@ const History = () => {
                                         </div>
                                       </div>
                                     )}
-                                  </div>
+                                  </div> */}
                                 </div>
                               </CardBody>
-                              {item.status !== "3" && (
-                                <CardFooter className="d-flex justify-content-around">
-                                  {item.playconteststatus === "2" && (
-                                    (<button
-                                      onClick={() =>
-                                        navigate("/rewards", { state: item })
-                                      }
-                                      className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
-                                    >
-                                      Claim Reward
-                                    </button>)
+                              {/* {item.status == "3" && ( */}
+                              <CardFooter className="d-flex justify-content-around">
+                                {item.playconteststatus && (
+                                  (<button
+                                    onClick={() =>
+                                      navigate("/rewards", { state: item })
+                                    }
+                                    className="btn btn-warning waves-effect waves-light fw-bold shadow-lg fs-6 text-uppercase rounded-3"
+                                  >
+                                    Claim Reward
+                                  </button>)
 
-                                  )}
+                                )}
 
-                                </CardFooter>
-                              )}
+                              </CardFooter>
+                              {/* )} */}
                             </Card>
                           </div>
                         </div>
@@ -517,7 +527,7 @@ const History = () => {
                   )}
                 </Flicking>
 
-                <p className="text-center text-muted">THE END</p>
+                <p className="text-center text-muted">The end</p>
               </Col>
             </Row>
           </TabPane>

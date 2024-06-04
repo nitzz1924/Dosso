@@ -86,7 +86,7 @@ const LeaderBoard = () => {
           <Row className="justify-content-center">
             <div className="col-lg-3 d-flex justify-content-between align-content-center my-2">
               <div className="fs-3 fw-bold text-center">Your Ranking</div>
-              <Link to={-1} className="">
+              <Link to="/history" className="">
                 <Button className="btn btn-soft-dark waves-effect waves-light fw-bold">
                   Back
                 </Button>
