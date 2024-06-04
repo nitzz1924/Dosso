@@ -17,45 +17,21 @@ const LeaderBoard = () => {
 
   const [rankingdata, setrankingdata] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [selectedPlayContestId, setSelectedPlayContestId] = useState(null);
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance, { retries: 4 });
 
   const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
 
-  const toggle = () => {
+  const toggle = (playcontestid) => {
+    setSelectedPlayContestId(playcontestid);
     setModal(!modal);
   }
 
-  // const getpoints = async (contestId) => {
-  //   try {
-  //     const response = await axios.get(
-  //       config.apiUrl + "getpoints/" + contestId,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         }
-  //       }
-  //     );
-  //     console.log("My getpoints Data : ", response.data);
-  //     // setGetPoints(response.data);
-  //     // Parse the spins from string to array
-  //     const parsedData = response.data.map(item => ({
-  //       ...item,
-  //       spins: item.spins.split(',').map(Number),
-  //     }));
 
-  //     setGetPoints(parsedData);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  const RankingList = async () => {
+  const RankingList = async (id) => {
     try {
-      const response = await axiosInstance.get(config.apiUrl + "getpoints/" + data.id, {
+      const response = await axiosInstance.get(config.apiUrl + "getpoints/" + id, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -65,7 +41,7 @@ const LeaderBoard = () => {
 
       const parsedData = response.data.map(item => ({
         ...item,
-        spins: item.spins.split(',').map(Number),
+        spins: item.spins ? item.spins.split(',').map(Number) : [],  // Handle null spins
       }));
       setGetPoints(parsedData);
       console.log("My getpoints Data : ", parsedData);
@@ -121,7 +97,7 @@ const LeaderBoard = () => {
             <Row className="justify-content-center my-3 p-0">
               <Col lg="3" className="p-0 border-bottom">
                 {userRanks.map((userRank, index) => (
-                  <Card className="bg-white shadow-sm mb-2 rounded-3" key={userRank.id}>
+                  <Card className="bg-white shadow-sm mb-2 rounded-3" key={index}>
                     <CardBody className="d-flex p-2 border border-success text-white text-capitalize bg-success rounded-3 justify-content-between align-items-center">
                       <div className="d-flex align-items-center justify-content-evenly ">
                         <div className="me-2 fs-6">
@@ -133,18 +109,20 @@ const LeaderBoard = () => {
                             alt="studentprofile"
                             className="img-fluid rounded"
                             width={25}
+                            height={25}
                           />
+
                         </div>
                         <div className="me-2 fw-bold fs-6">{userRank.studentname}</div>
                       </div>
-                      <div className="fw-bold fs-6">{userRank.point} pts</div>
+                      <div className="fw-bold fs-6 badge text-bg-light rounded-pill">{userRank.point} pts</div>
                       <Button
-                        onClick={() => toggle()}
-                        className="btn btn-outline-dark bg-success btn-sm rounded fs-6 waves-effect waves-light fw-bold"
+                        onClick={() => toggle(userRank.playcontestid)}
+                        className="btn btn-light btn-sm rounded-pill waves-effect waves-light fw-bold"
                       >
-                        <span className="mdi mdi-format-list-bulleted"></span>
+                        <i className='bx bx-down-arrow' ></i>
                       </Button>
-
+                      
                     </CardBody>
                   </Card>
                 ))}
@@ -178,7 +156,7 @@ const LeaderBoard = () => {
                       </div>
                       <div className="me-2 fw-bold fs-6">{item.studentname}</div>
                     </div>
-                    <div className="fw-bold fs-6">{item.point} pts</div>
+                    <div className="fw-bold fs-6 ">{item.point} pts</div>
                   </CardBody>
                 </Card>
               ))}
@@ -189,28 +167,25 @@ const LeaderBoard = () => {
 
         {/* <!-- Modal --> */}
         <Modal isOpen={modal} toggle={toggle} centered={true}>
-          <ModalHeader toggle={toggle}>
-            <span></span>Marksheet
+          <ModalHeader toggle={toggle} >
+            <span className="text-black fw-bold fs-4 text-center">Marksheet</span>
           </ModalHeader>
           <ModalBody>
-            {(getPoints || []).map((result, index) => (
-              <div key={index}>
-                {data.playcontestid === result.playcontestid && (
-                  <div>
-                    {result.spins.map((spin, i) => (
-                      <div className="resultTab fs-4 mt-2 shadow px-2 d-flex justify-content-between" key={i}>
-                        <span className="text-dark fw-bold">
-                          {subjects[i] ? subjects[i] : `Round ${i + 1}`} :
-                        </span>
-                        <span className="fw-bolder text-success">{spin}</span>
-                      </div>
-                    ))}
-                    <div className="text-center bg-dark text-warning mt-2 rounded fs-4 fw-bold">Total: {result.point} pts</div>
-                  </div>
-                )}
-              </div>
-            ))}
-
+            {getPoints
+              .filter(result => result.playcontestid === selectedPlayContestId)
+              .map((result, index) => (
+                <div key={index}>
+                  {result.spins.map((spin, i) => (
+                    <div className="resultTab fs-4 mt-2 shadow px-2 d-flex justify-content-between" key={i}>
+                      <span className="text-dark fw-bold">
+                        {subjects[i] ? subjects[i] : `Round ${i + 1}`} :
+                      </span>
+                      <span className="fw-bolder text-success">{spin}</span>
+                    </div>
+                  ))}
+                  <div className="text-center bg-dark text-warning mt-2 rounded fs-4 fw-bold">Total: {result.point} pts</div>
+                </div>
+              ))}
           </ModalBody>
         </Modal>
       </div>
