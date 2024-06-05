@@ -121,7 +121,7 @@ const LeaderBoard = () => {
                       >
                         <i className='bx bx-down-arrow' ></i>
                       </Button>
-                      
+
                     </CardBody>
                   </Card>
                 ))}
@@ -130,34 +130,37 @@ const LeaderBoard = () => {
           )}
           <Row className="justify-content-center my-3 p-0">
             <Col lg="3" className="p-0">
-              <div className="fs-3 fw-bold text-center">Top 20 Ranking</div>
 
-              {rankingdata.slice(0, 20).map((item, index) => (
-                <Card className="bg-white shadow-sm mb-2 rounded-3" key={item.id}>
-                  <CardBody className="d-flex p-2 justify-content-between align-items-center text-capitalize">
-                    <div className="d-flex align-items-center">
-                      <div className="me-2 fs-6 ">
-                        # {index === 0
-                          ? "🥇"
-                          : index === 1
-                            ? "🥈"
-                            : index === 2
-                              ? "🥉"
-                              : index + 1}
+
+              <div className="fs-3 fw-bold text-center">Top {rankingdata.length} Ranking</div>
+              {rankingdata.map((item, index) => (
+                <>
+                  <Card className="bg-white shadow-sm mb-2 rounded-3" key={item.id}>
+                    <CardBody className="d-flex p-2 justify-content-between align-items-center text-capitalize">
+                      <div className="d-flex align-items-center">
+                        <div className="me-2 fs-6 ">
+                          # {index === 0
+                            ? "🥇"
+                            : index === 1
+                              ? "🥈"
+                              : index === 2
+                                ? "🥉"
+                                : index + 1}
+                        </div>
+                        <div className="me-2 border border-1 border-warning rounded">
+                          <img
+                            src={item.studentprofile !== null ? config.publicurl + 'profiles/' + item.studentprofile : wheelImg}
+                            alt="studentprofile"
+                            className="img-fluid rounded leaderavatar"
+                            width={25}
+                          />
+                        </div>
+                        <div className="me-2 fw-bold fs-6">{item.studentname}</div>
                       </div>
-                      <div className="me-2 border border-1 border-warning rounded">
-                        <img
-                          src={item.studentprofile !== null ? config.publicurl + 'profiles/' + item.studentprofile : wheelImg}
-                          alt="studentprofile"
-                          className="img-fluid rounded leaderavatar"
-                          width={25}
-                        />
-                      </div>
-                      <div className="me-2 fw-bold fs-6">{item.studentname}</div>
-                    </div>
-                    <div className="fw-bold fs-6 ">{item.point} pts</div>
-                  </CardBody>
-                </Card>
+                      <div className="fw-bold fs-6 ">{item.point} pts</div>
+                    </CardBody>
+                  </Card>
+                </>
               ))}
             </Col>
           </Row>
