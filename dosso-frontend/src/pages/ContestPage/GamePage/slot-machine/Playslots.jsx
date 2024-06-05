@@ -206,10 +206,10 @@ const Playslots = ({ data }) => {
     spinvalue.push(newSpinResult)
 
     setSpinResults(prevSpinResults => {
-      const updatedResults = [...prevSpinResults]
-      updatedResults[7 - newSpincount] = newSpinResult
-      return updatedResults
-    })
+      const updatedResults = [...prevSpinResults];
+      updatedResults[7 - newSpincount] = newSpinResult;
+      return updatedResults;
+    });
 
     newTotalSum = totalSum + newSpinResult // Calculate the new total sum
     setTotalSum(newTotalSum)
@@ -224,9 +224,9 @@ const Playslots = ({ data }) => {
       totalSum,
       "newTotalSum",
       newTotalSum
-    )
+    );
+    console.log("spin array", spinvalue);
 
-    console.log("spin array", spinvalue)
     if (newSpincount <= 0) {
       setGameComplete(true)
       setSpinDisabled(true)

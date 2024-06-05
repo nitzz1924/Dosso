@@ -368,7 +368,7 @@ const Rounds = props => {
                                           <img
                                             src={item.studentprofile !== null ? config.publicurl + 'profiles/' + item.studentprofile : wheelImg}
                                             alt="wheelImg"
-                                            className="img-fluid rounded"
+                                            className="img-fluid rounded leaderavatar"
                                             width={25}
                                           />
                                         </div>

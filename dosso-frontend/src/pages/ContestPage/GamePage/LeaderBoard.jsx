@@ -21,7 +21,7 @@ const LeaderBoard = () => {
   const axiosInstance = axios.create();
   axiosRetry(axiosInstance, { retries: 4 });
 
-  const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
+  const subjects = ["English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
 
   const toggle = (playcontestid) => {
     setSelectedPlayContestId(playcontestid);
@@ -86,7 +86,7 @@ const LeaderBoard = () => {
           <Row className="justify-content-center">
             <div className="col-lg-3 d-flex justify-content-between align-content-center my-2">
               <div className="fs-3 fw-bold text-center">Your Ranking</div>
-              <Link to="/history" className="">
+              <Link to="/" className="">
                 <Button className="btn btn-soft-dark waves-effect waves-light fw-bold">
                   Back
                 </Button>
@@ -107,9 +107,8 @@ const LeaderBoard = () => {
                           <img
                             src={userRank.studentprofile !== null ? config.publicurl + 'profiles/' + userRank.studentprofile : wheelImg}
                             alt="studentprofile"
-                            className="img-fluid rounded"
+                            className="img-fluid rounded leaderavatar"
                             width={25}
-                            height={25}
                           />
 
                         </div>
@@ -150,7 +149,7 @@ const LeaderBoard = () => {
                         <img
                           src={item.studentprofile !== null ? config.publicurl + 'profiles/' + item.studentprofile : wheelImg}
                           alt="studentprofile"
-                          className="img-fluid rounded"
+                          className="img-fluid rounded leaderavatar"
                           width={25}
                         />
                       </div>

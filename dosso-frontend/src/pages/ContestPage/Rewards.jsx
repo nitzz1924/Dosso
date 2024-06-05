@@ -26,7 +26,7 @@ const Rewards = () => {
     });
     const [isExploding, setIsExploding] = useState(false);
 
-    const subjects = ["Sanskrit", "English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
+    const subjects = ["English", "Maths", "Hindi", "Science", "Sanskrit", "Social Science", "General Knowledge"];
 
 
     const getpoints = async (contestId) => {
