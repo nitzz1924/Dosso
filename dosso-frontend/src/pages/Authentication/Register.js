@@ -24,7 +24,7 @@ const Register = props => {
     enableReinitialize: true,
     initialValues: {
       email: '',
-      password: '',
+      password: '12345',
       referral: '0001ADMIN',
       mobilenumber: '',
     },
@@ -93,6 +93,7 @@ const Register = props => {
           randomOTP += digits[Math.floor(Math.random() * 10)];
         }
         setGeneratedOTP(randomOTP);
+        console.log('otp:',randomOTP)
         sendSms(randomOTP);
         setShowOTPInput(true);
       } else {
@@ -250,10 +251,10 @@ const Register = props => {
                         <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
                       </div>
                       <div className="mb-3">
-                        <Label className="form-label  ">Password <sup className="text-danger fw-light fs-6">*</sup></Label>
+                        <Label className="form-label d-none">Password <sup className="text-danger fw-light fs-6">*</sup></Label>
                         <Input
                           name="password"
-                          type="password"
+                          type="hidden"
                           placeholder="Enter Password"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}

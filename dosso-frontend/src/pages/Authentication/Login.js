@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios";
 import {
   Row,
   Col,
@@ -22,47 +23,94 @@ import { loginUser } from "../../store/actions"
 let profile = "../../Assets/images/Dosso21-logo-new.webp"
 import { getLocalData } from "services/global-storage"
 import { Link, useNavigate } from "react-router-dom"
+import OTPInput from 'react-otp-input';
+import Swal from 'sweetalert2';
+
 const Login = props => {
-  const navigate = useNavigate()
-  //meta title
   document.title = "Login"
+  const navigate = useNavigate()
+  const [generatedOTP, setGeneratedOTP] = useState('');
+  const [enteredOTP, setEnteredOTP] = useState('');
+  const [showOTPInput, setShowOTPInput] = useState(false);
   const dispatch = useDispatch()
+
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
-      username: "" || "",
-      password: "" || "",
+      username: "",
+      password: "12345",
     },
     validationSchema: Yup.object().shape({
       username: Yup.string()
-      .matches(/^\d{10}$/, 'Number must be a 10-digit number')
-      .required("Please Enter Your Mobile Number"),
+        .matches(/^\d{10}$/, 'Number must be a 10-digit number')
+        .required("Please Enter Your Mobile Number"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: values => {
-      console.log(values)
-      // dispatch(loginUser(values, props.router.navigate))
-      dispatch(loginUser(values, props.router.navigate))
-    },
+      if (showOTPInput && enteredOTP === generatedOTP) {
+        dispatch(loginUser({ username: values.username, password: values.password }, props.router.navigate))
+      } else if (showOTPInput && enteredOTP !== generatedOTP) {
+        Swal.fire("Incorrect OTP", "The OTP you entered is incorrect. Please try again.", "error");
+      } else {
+        Swal.fire("Please Generate OTP", "Generate and enter OTP to proceed.", "info");
+      }
+    }
   })
+
   const { error } = useSelector(state => ({
     error: state.Login.error,
   }))
 
-  const handleLogin = (success) => {
-    if (success) {
-      navigate("/contests")
+  const generateOTP = async (event) => {
+    event.preventDefault();
+    if (validation.isValid) {
+      const digits = '0123456789';
+      let randomOTP = '';
+      for (let i = 0; i < 6; i++) {
+        randomOTP += digits[Math.floor(Math.random() * 10)];
+      }
+      setGeneratedOTP(randomOTP);
+      console.log("OTP generated", randomOTP)
+      sendSms(randomOTP);
+      setShowOTPInput(true);
     } else {
-      Swal.fire("Invalid Credentials", "Please check your mobile number and password.", "error")
+      Swal.fire("Form Error", "Please correct the form errors before generating OTP.", "error");
     }
+  };
+
+  const handleChange = otp => {
+    setEnteredOTP(otp);
+  };
+
+  function sendSms(generatedOTP) {
+    const url = 'https://sms.jaipursmshub.in/api_v2/message/send';
+    const data = {
+      sender_id: 'DOSSOS',
+      mobile_no: validation.values.username,
+      dlt_template_id: '1207171714044829349',
+      message: 'Welcome to Dosso21! \n\nUse ' + generatedOTP + ' to complete your registration.\nThis code is valid for 10 minutes.\n\nDosso21 Services Private Limited'
+    };
+
+    axios.post(url, new URLSearchParams(data), {
+      headers: {
+        'Authorization': 'Bearer o9eYsyt3_musEsKcMTobrfvWl3Eies0LyieQfvKXW_iuRPtnCZEwC7nh3H3Rf7XC',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }
 
   useEffect(() => {
     if (getLocalData("userId")) {
       navigate("/contests")
     }
-  })
+  }, [navigate])
 
   return (
     <React.Fragment>
@@ -105,9 +153,9 @@ const Login = props => {
                       {error ? <Alert color="danger">{error}</Alert> : null}
 
                       <div className="mb-3">
-                        <Label className="form-label">Enter Unique ID</Label>
+                        <Label className="form-label">Enter Mobile Number</Label>
                         <Input
-                          name="username" 
+                          name="username"
                           className="form-control border"
                           placeholder="Enter Mobile Number"
                           maxLength={10}
@@ -133,12 +181,12 @@ const Login = props => {
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Password</Label>
+                        {/* <Label className="form-label">Password</Label> */}
                         <Input
                           name="password"
                           className="border form-control"
                           value={validation.values.password || ""}
-                          type="password"
+                          type="hidden"
                           placeholder="Enter Password"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
@@ -157,37 +205,66 @@ const Login = props => {
                         ) : null}
                       </div>
 
-                      <div className="form-check">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          id="customControlInline"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="customControlInline"
-                        >
-                          Remember me
-                        </label>
-                      </div>
-
-                      <div className="mt-3 d-grid">
+                      <div className="mt-4 text-center ">
                         <button
-                          className="btn btn-secondary fw-3"
-                          type="submit"
+                          type="button"
+                          className="btn btn-secondary px-5 text-white fw-bold btn-block"
+                          onClick={generateOTP}
+                          disabled={!validation.values.username || !validation.isValid}
                         >
-                          Log In
+                          Get OTP
                         </button>
                       </div>
 
-                      <div className="mt-4 text-center">
-                        <Link to="/forgot-password" className="text-muted text-decoration-underline">
-                          <i className="mdi mdi-lock me-1 " />
-                          Forgot your password?
-                        </Link>
-                      </div>
+                      {showOTPInput && ( // Conditionally render OTP input section
+                        <div id="otpinput" className="mt-4 text-center d-grid justify-content-center">
+                          Enter OTP sent to your mobile number:
+                          <OTPInput
+                            value={enteredOTP}
+                            onChange={handleChange}
+                            numInputs={6}
+                            separator={<span style={{ width: "8px" }}>-</span>}
+                            isInputNum={true}
+                            shouldAutoFocus={true}
+                            renderInput={(props) => <input {...props} />}
+                            inputStyle={{
+                              border: "1px solid #000",
+                              borderRadius: "5px",
+                              width: "40px",
+                              height: "40px",
+                              fontSize: "16px",
+                              color: "#000",
+                              fontWeight: "500",
+                              caretColor: "#000",
+                              margin: "2px",
+                              backgroundColor: "white",
+                            }}
+                            focusStyle={{
+                              border: "1px solid golden",
+                              outline: "none",
+                              color: "#D5A24A",
+                              backgroundColor: "#222",
+                            }}
+                          />
+                          <div className="mt-2 d-grid">
+                            <button
+                              className="btn btn-dark btn-block text-uppercase fw-bold"
+                              type="submit"
+                            >
+                              Log In Now
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </Form>
                   </div>
+
+                  {/* <div className="mt-4 text-center">
+                    <Link to="/forgot-password" className="text-muted text-decoration-underline">
+                      <i className="mdi mdi-lock me-1 " />
+                      Forgot your password?
+                    </Link>
+                  </div> */}
                 </CardBody>
               </Card>
               <div className="mt-5 text-center">
