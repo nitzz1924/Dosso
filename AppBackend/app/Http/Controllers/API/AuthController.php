@@ -804,4 +804,25 @@ class AuthController extends Controller
         $data = Students::find($id);
         return response()->json($data);
     }
+    public function spinValue(Request $request)
+    {
+        // Insert into the wallet table
+        $playspin = new PlayerSpin();
+        $playspin->studentid = $request->input('studentid');
+        $playspin->contestid = $request->input('contestid');
+        $playspin->spinnumber = $request->input('spinnumber');
+        $playspin->spinvalue = $request->input('spinvalue');
+        $playspin->playcontestid = $request->input('playcontestid');
+        $playspin->status = 1;
+        if ($playspin->save()) {
+            return response()->json(['success' => true, 'data' => $playspin]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to insert wallet data.'], 500);
+        }
+    }
+    public function getspinValue($id)
+    {
+        $data = PlayerSpin::where('playcontestid',$id)->get();
+        return response()->json($data);
+    }
 }
