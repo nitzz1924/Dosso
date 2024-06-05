@@ -43,5 +43,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('changepassword', 'changepassword');
     Route::post('sendSms', 'sendSms');
     Route::get('getuserProfile/{id}', 'getuserProfile');
+    Route::post('spinValue', 'spinValue');
+    Route::get('getspinValue/{id}', 'getspinValue');
 });
 Route::get('/api/showcontests', 'ViewController@addcontestview');

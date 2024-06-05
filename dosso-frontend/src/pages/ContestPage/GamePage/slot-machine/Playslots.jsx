@@ -24,7 +24,7 @@ const Playslots = ({ data }) => {
   const [totalSum, setTotalSum] = useState(0)
   const navigate = useNavigate()
   const [spinResults, setSpinResults] = useState(
-    Array.from({ length: 8 }, () => "")
+    Array.from({ length: 7 }, () => "")
   )
   const spinAudio = useRef(new Audio(playSound2))
   const instantWinAudio = useRef(new Audio(instantWin))
@@ -33,11 +33,8 @@ const Playslots = ({ data }) => {
   const [countplayContests, setCountplayContests] = useState([])
   const [loading, setLoading] = useState(false)
   const mockAdapter = new MockAdapter(axiosInstance)
-
   let newTotalSum = 0
-
   const subjects = [
-    "Sanskrit",
     "English",
     "Maths",
     "Hindi",
@@ -179,7 +176,37 @@ const Playslots = ({ data }) => {
       console.error(error)
     }
   }
-
+  const spintreger = async newTotalSum => {
+    try {
+      const dataList = []
+      dataList.push({
+        studentid: getLocalData("userId"),
+        contestid: data.id,
+        spinnumber: spincount,
+        spinvalue: newTotalSum,
+        playcontestid: data.playcontestid,
+        status: 1,
+      })
+      mockAdapter
+        .onPost(config.apiUrl + "spinValue")
+        .reply(200, { success: true })
+      axios
+        .post(config.apiUrl + "spinValue", dataList[0], {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(response => {
+          console.log(JSON.stringify(response.data))
+        })
+        .catch(error => {
+          // Handle errors here
+          console.log("error->", error)
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   function logDisplayedSymbols() {
     if (!slots) return
     const displayedSymbols = []
@@ -206,10 +233,10 @@ const Playslots = ({ data }) => {
     spinvalue.push(newSpinResult)
 
     setSpinResults(prevSpinResults => {
-      const updatedResults = [...prevSpinResults];
-      updatedResults[7 - newSpincount] = newSpinResult;
-      return updatedResults;
-    });
+      const updatedResults = [...prevSpinResults]
+      updatedResults[6 - newSpincount] = newSpinResult
+      return updatedResults
+    })
 
     newTotalSum = totalSum + newSpinResult // Calculate the new total sum
     setTotalSum(newTotalSum)
@@ -224,9 +251,9 @@ const Playslots = ({ data }) => {
       totalSum,
       "newTotalSum",
       newTotalSum
-    );
-    console.log("spin array", spinvalue);
-
+    )
+    console.log("spin array", spinvalue)
+    spintreger(newTotalSum)
     if (newSpincount <= 0) {
       setGameComplete(true)
       setSpinDisabled(true)
@@ -251,31 +278,46 @@ const Playslots = ({ data }) => {
       })
     }
   }
-
+  const getspindata = async id => {
+    try {
+      const response = await axios.get(config.apiUrl + "getspinValue/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      //console.log("Spin data", response.data)
+      const values = response.data.map(item => Number(item.spinvalue))
+      while (values.length < 7) {
+        values.push(0)
+      }
+      setSpinResults(values)
+    } catch (error) {
+      console.error("Error fetching winzone data:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
     if (!slots) {
-      // Select slots once when the component mounts
       const slots = document.querySelectorAll(".slot")
       setSlots(slots)
       spin()
       setSpinDisabled(false)
+      getspindata(data.playcontestid)
     }
   }, [slots])
-
   const handlechange = () => {
     spin()
     spinAudio.current.play()
   }
-
   if (loading) {
-    return <div className="mt-5">
-      <Spinner
-        color="secondary"
-        type="grow"
-      >
-        Loading...
-      </Spinner>
-    </div>
+    return (
+      <div className="mt-5">
+        <Spinner color="secondary" type="grow">
+          Loading...
+        </Spinner>
+      </div>
+    )
   }
 
   return (
@@ -357,16 +399,18 @@ const Playslots = ({ data }) => {
         <Container fluid>
           <Row className="justify-content-center mt-3">
             <Col className="d-flex flex-column shadow rounded p-3">
+              <div className="fs-4 fw-bold text-center w-100  pt-1">
+                Marksheet
+              </div>
               {spinResults.map((result, index) => (
                 <div key={index}>
                   {index === 0 && result === "" ? (
-                    <div className="fs-4 fw-bold text-center w-100  pt-1">
-                      Marksheet
-                    </div>
+                    <></>
                   ) : (
                     <div className="resultTab  fs-4 mt-2 shadow px-2 d-flex justify-content-between ">
-                      <span className="text-dark fw-bold">{`${subjects[index] || `Round ${index + 1}`
-                        } :`}</span>
+                      <span className="text-dark fw-bold">{`${
+                        subjects[index] || `Round ${index + 1}`
+                      } :`}</span>
                       <span className="fw-bolder text-success">{`${result}`}</span>
                     </div>
                   )}

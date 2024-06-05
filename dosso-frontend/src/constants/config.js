@@ -5,4 +5,6 @@ export default {
       key : "rzp_live_LinTgpZqrRLcPG",
       publicurl : "http://127.0.0.1:8000/uploads/",
       // publicurl : "https://admin.dosso21.com/uploads/"
+      publicurl : "http://127.0.0.1:8000/uploads/",
+      // publicurl : "https://admin.dosso21.com/uploads/"
   }

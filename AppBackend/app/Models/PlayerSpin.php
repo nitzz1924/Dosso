@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlayerSpin extends Model
 {
-    protected $fillable = ['id','studentid','contestid','spinnumber','spinvalue','status'];
+    protected $fillable = ['id','studentid','contestid','spinnumber','spinvalue','playcontestid','status'];
 }
