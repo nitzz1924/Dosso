@@ -287,9 +287,11 @@ const Playslots = ({ data }) => {
       })
       //console.log("Spin data", response.data)
       const values = response.data.map(item => Number(item.spinvalue))
+      setSpincount(7 - values.length);
       while (values.length < 7) {
         values.push(0)
       }
+     
       setSpinResults(values)
     } catch (error) {
       console.error("Error fetching winzone data:", error)
