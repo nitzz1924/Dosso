@@ -2,7 +2,7 @@
 <div class="app-menu navbar-menu">
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="{{ route('dashboard') }}" class="logo logo-dark">
+        <a href="{{ route('addcontestview') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="30" />
                 {{-- <h3 class=" fs-3 pt-3 pb-3">D</h3> --}}
@@ -13,7 +13,7 @@
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="{{ route('dashboard') }}" class="logo logo-light">
+        <a href="{{ route('addcontestview') }}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/dossologofinal.png') }}" alt="" height="30" />
                 {{-- <h3 class="fs-3 pt-3 pb-3">D</h3> --}}
@@ -35,12 +35,12 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Master</span></li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('dashboard') }}">
                         <i class="bx bxs-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('addcontestview') }}">
                         <i class="bx bxs-user-detail"></i>

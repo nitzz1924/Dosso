@@ -1,7 +1,17 @@
-{{-- -------------------------------------------------🔱HAR HAR MAHADEV🔱--------------------------------------------------------------- --}}
+{{-- -------------------------------------------------🔱HAR HAR
+MAHADEV🔱--------------------------------------------------------------- --}}
 <x-app-layout>
     <div class="container-fluid">
-        <!-- start page title -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css">
+        <style>
+            table.dataTable th.dt-type-numeric,
+            table.dataTable th.dt-type-date,
+            table.dataTable td.dt-type-numeric,
+            table.dataTable td.dt-type-date {
+                text-align: left !important;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.min.css">
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -20,7 +30,7 @@
             <div class="col-lg-12">
                 <div class="card tablecard">
                     <div class="card-body table-responsive">
-                        <table class="table table-nowrap">
+                        <table id="example" class="table table-nowrap table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -69,6 +79,20 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        // Initialize DataTables for each table
+        var dataTableCustomer = $('#example').DataTable({
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                }
+            }
+        });
+
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("sa-warningid").addEventListener("click", function() {

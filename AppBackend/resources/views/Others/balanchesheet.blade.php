@@ -1,7 +1,17 @@
-{{-- -------------------------------------------------🔱HAR HAR MAHADEV🔱--------------------------------------------------------------- --}}
+{{-- -------------------------------------------------🔱HAR HAR
+MAHADEV🔱--------------------------------------------------------------- --}}
 <x-app-layout>
     <div class="container-fluid">
-        <!-- start page title -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css">
+        <style>
+            table.dataTable th.dt-type-numeric,
+            table.dataTable th.dt-type-date,
+            table.dataTable td.dt-type-numeric,
+            table.dataTable td.dt-type-date {
+                text-align: left !important;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.min.css">
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -53,7 +63,7 @@
             <div class="col-lg-12">
                 <div class="card tablecard">
                     <div class="card-body table-responsive">
-                        <table class="table table-nowrap table-bordered table-hover">
+                        <table id="example" class="table table-nowrap table-bordered">
                             <thead>
                                 <tr class="text-center">
                                     <th scope="col">Contest ID</th>
@@ -76,35 +86,67 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).on('change', '#contestseleect', function() {
-            var id = $(this).val();
-            console.log(id);
-            $.ajax({
-                url: "/getcontestajax/" + id,
-                type: "GET",
-                success: function(data) {
-                    console.log(data);
-                    $('#totalamt').val(data.totalamount);
-                    $('#table-kii-laash').empty();
-                    var body = '';
-                    $.each(data.data, function(index, items) {
-                        body += `
-                        <tr class="text-center">
-                                <td>${items.contestid}</td>
-                                <td>${items.userid}</td>
-                                <td>${items.username}</td>
-                                <td>${items.date}</td>
-                                <td>${items.amount}</td>
-                                <td>${items.paymode}</td>
-                                <td>${items.paymentid}</td>
-                            </tr>
-                        `;
-                    });
-                    $('#table-kii-laash').append(body);
+        $(document).ready(function() {
+            // Initialize DataTables for each table
+            var dataTableCustomer = $('#example').DataTable({
+                // dom: 'Bfrtip',
+                layout: {
+                    topStart: {
+                        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                    }
                 }
+            });
+
+            // Event listener for contest selection change
+            $(document).on('change', '#contestseleect', function() {
+                var id = $(this).val();
+                console.log(id);
+
+                $.ajax({
+                    url: "/getcontestajax/" + id,
+                    type: "GET",
+                    success: function(data) {
+                        console.log(data);
+
+                        // Clear and destroy the existing DataTable instance
+                        dataTableCustomer.clear().destroy();
+
+                        // Update total amount
+                        $('#totalamt').val(data.totalamount);
+
+                        // Populate the table body with new data
+                        $('#table-kii-laash').empty();
+                        var body = '';
+                        $.each(data.data, function(index, items) {
+                            body += `
+                                <tr class="text-center">
+                                    <td>${items.contestid}</td>
+                                    <td>${items.userid}</td>
+                                    <td>${items.username}</td>
+                                    <td>${items.date}</td>
+                                    <td>${items.amount}</td>
+                                    <td>${items.paymode}</td>
+                                    <td>${items.paymentid}</td>
+                                </tr>
+                            `;
+                        });
+                        $('#table-kii-laash').append(body);
+
+                        // Reinitialize DataTable
+                        dataTableCustomer = $('#example').DataTable({
+                            // dom: 'Bfrtip',
+                            layout: {
+                                topStart: {
+                                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                                }
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("sa-warningid").addEventListener("click", function() {

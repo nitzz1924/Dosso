@@ -22,9 +22,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('Admin.dashboard');
-    })->name('dashboard');
+    Route::get('/addcontestview', function () {
+        return view('Others.addcontest');
+    })->name('addcontestview');
 });
 
 // Admin Panel View Routes
